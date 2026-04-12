@@ -649,26 +649,99 @@
             'gale': { title: "🦴 蓋氏骨折", questions: [{ section: "定義", q: "蓋氏骨折的定義是？", opts: ["尺上1/3+脫位", "橈骨下1/3骨折+下尺橈關節脫位", "橈遠端", "尺鷹嘴"], ans: 1, exp: "Galeazzi fracture" }] },
             'both': { title: "🦴 橈尺骨幹雙骨折", questions: [{ section: "目標", q: "最重要的是恢復什麼功能？", opts: ["手指屈伸", "肘屈伸", "前臂旋轉功能", "腕側偏"], ans: 2, exp: "防止交叉癒合喪失旋轉功能。" }] }
         };
-        };
 
         const quizStates = {};
-        for(let k in allQuizData) quizStates[k] = { currentQ: 0, score: 0, answered: new Array(allQuizData[k].questions.length).fill(null), started: false, showingResults: false };
+        for(let k in allQuizData) {
+            quizStates[k] = { currentQ: 0, score: 0, answered: new Array(allQuizData[k].questions.length).fill(null), started: false, showingResults: false };
+        }
 
         function renderQuizApp(id) {
-            const app = document.getElementById('quiz-' + id); if(!app) return;
-            const state = quizStates[id]; const data = allQuizData[id];
-            if(!state.started) { app.innerHTML = `<button class="home-btn" onclick="startQuiz('${id}')">開始測驗</button>`; return; }
-            if(state.showingResults) { app.innerHTML = `<h2>得分：${state.score}/${data.questions.length}</h2><button class="home-btn" onclick="restartQuiz('${id}')">重做</button>`; return; }
-            const q = data.questions[state.currentQ];
-            let opts = q.opts.map((opt, i) => `<button class="option-btn ${state.answered[state.currentQ]!==null?(i===q.ans?'correct':(i===state.answered[state.currentQ]?'wrong':'disabled')):''}" onclick="selectAnswer('${id}',${i})">${opt}</button>`).join('');
-            app.innerHTML = `<h3>${q.q}</h3>${opts}<br><button class="nav-btn next" onclick="nextQ('${id}')">下一題</button>`;
-        }
-        function startQuiz(id) { quizStates[id].started = true; renderQuizApp(id); }
-        function selectAnswer(id, idx) { if(quizStates[id].answered[quizStates[id].currentQ]!==null) return; quizStates[id].answered[quizStates[id].currentQ] = idx; if(idx===allQuizData[id].questions[quizStates[id].currentQ].ans) quizStates[id].score++; renderQuizApp(id); }
-        function nextQ(id) { if(quizStates[id].currentQ < allQuizData[id].questions.length-1) quizStates[id].currentQ++; else quizStates[id].showingResults = true; renderQuizApp(id); }
-        function restartQuiz(id) { quizStates[id] = { currentQ:0, score:0, answered:new Array(allQuizData[id].questions.length).fill(null), started:false, showingResults:false }; renderQuizApp(id); }
+            const app = document.getElementById('quiz-' + id); 
+            if(!app) return;
+            const state = quizStates[id]; 
+            const data = allQuizData[id];
+            
+            if(!state.started) { 
+                app.innerHTML = `<div style="text-align:center;"><h2 class="q-main-title">${data.title}</h2><button class="home-btn" style="width:auto; padding:10px 40px;" onclick="startQuiz('${id}')">開始測驗 💪</button></div>`; 
+                return; 
+            }
+            
+            if(state.showingResults) { 
+                const pct = Math.round((state.score / data.questions.length) * 100);
+                let reviewHtml = data.questions.map((q, i) => {
+                    const isCorrect = state.answered[i] === q.ans;
+                    const icon = isCorrect ? '✅' : '❌';
+                    return `<div style="padding:8px 0;border-bottom:1px dashed #ccc;font-size:0.85rem;line-height:1.6;text-align:left;">
+                        ${icon} <strong>Q${i+1}</strong> [${q.section}] ${q.q}
+                        ${!isCorrect && state.answered[i] !== null ? `<br><span style="color:#e74c3c;margin-left:20px;">你答: ${String.fromCharCode(65+state.answered[i])} → 正解: ${String.fromCharCode(65+q.ans)}</span>` : ''}
+                    </div>`;
+                }).join('');
 
-        window.onload = () => { loadProgress(); renderMistakes(); Object.keys(allQuizData).forEach(renderQuizApp); };
+                app.innerHTML = `
+                    <div style="text-align:center;">
+                        <h2 style="color:var(--primary-color);">Quiz 完成！得分：${state.score} / ${data.questions.length} (${pct}%)</h2>
+                        <button class="home-btn" style="width:auto; padding:10px 40px; background:#d48a6e; margin-bottom:15px;" onclick="restartQuiz('${id}')">重新開始 🔄</button>
+                        <div style="background:#fafafa; border-radius:15px; padding:15px; border:1px solid #eee; max-height: 400px; overflow-y: auto;">
+                            <h3 style="margin-top:0; color:var(--accent-color);">📋 詳細結果清單</h3>
+                            ${reviewHtml}
+                        </div>
+                    </div>`; 
+                return;
+            }
+            
+            const q = data.questions[state.currentQ];
+            let opts = q.opts.map((opt, i) => `<button class="option-btn ${state.answered[state.currentQ]!==null?(i===q.ans?'correct':(i===state.answered[state.currentQ]?'wrong':'disabled')):''}" onclick="selectAnswer('${id}',${i})">${String.fromCharCode(65+i)}. ${opt}</button>`).join('');
+            
+            app.innerHTML = `
+                <h2 class="q-main-title">${data.title}</h2>
+                <div class="progress-bar"><div class="progress-fill" style="width:${(state.currentQ/data.questions.length*100)}%"></div></div>
+                <p style="text-align:center; color:#777; font-size:0.9rem;">第 ${state.currentQ+1} / ${data.questions.length} 題</p>
+                <div style="background:#fafafa; border-radius:15px; padding:20px; border:1px solid #eee;">
+                    <span style="background:var(--primary-color); color:white; padding:3px 10px; border-radius:20px; font-size:0.7rem;">${q.section}</span>
+                    <h3 style="margin-top:10px;">${q.q}</h3>
+                    <div>${opts}</div>
+                    ${state.answered[state.currentQ]!==null?`<div class="explanation" style="display:block"><strong>${state.answered[state.currentQ]===q.ans?'✅ 正確':'❌ 答錯'}</strong><br>${q.exp}</div>`:''}
+                </div>
+                <button class="home-btn" style="margin-top:20px;" onclick="nextQ('${id}')">${state.currentQ === data.questions.length - 1 && state.answered[state.currentQ] !== null ? '查看結果 🎯' : '下一題 →'}</button>`;
+        }
+
+        function startQuiz(id) { quizStates[id].started = true; renderQuizApp(id); }
+        
+        function selectAnswer(id, idx) {
+            if(quizStates[id].answered[quizStates[id].currentQ] !== null) return;
+            quizStates[id].answered[quizStates[id].currentQ] = idx;
+            
+            const q = allQuizData[id].questions[quizStates[id].currentQ];
+            const mistakeId = `quiz-${id}-${quizStates[id].currentQ}`;
+            
+            if(idx === q.ans) {
+                quizStates[id].score++;
+                removeMistake(mistakeId); // 答啱自動從錯題庫移除
+            } else {
+                addMistake({id: mistakeId, type: 'quiz', section: q.section, question: q.q, userAns: q.opts[idx], correctAns: q.opts[q.ans], exp: q.exp});
+            }
+            renderQuizApp(id);
+        }
+        
+        function nextQ(id) {
+            if(quizStates[id].currentQ === allQuizData[id].questions.length-1 && quizStates[id].answered[quizStates[id].currentQ] !== null) {
+                quizStates[id].showingResults = true;
+            } else if(quizStates[id].currentQ < allQuizData[id].questions.length-1) {
+                quizStates[id].currentQ++;
+            }
+            renderQuizApp(id);
+        }
+        
+        function restartQuiz(id) { 
+            quizStates[id] = { currentQ: 0, score: 0, answered: new Array(allQuizData[id].questions.length).fill(null), started: false, showingResults: false };
+            renderQuizApp(id);
+        }
+
+        window.onload = () => { 
+            loadProgress(); 
+            renderMistakes(); 
+            Object.keys(allQuizData).forEach(renderQuizApp); 
+        };
     </script>
 </body>
 </html>
