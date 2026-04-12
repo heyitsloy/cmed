@@ -333,7 +333,13 @@
         <div id="ortho-u-clavicle" class="content-section">
             <h1 class="main-title">鎖骨骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="clavicle" onchange="updateProgress()"> ✅ 已溫習</label></h1>
             <div class="keypoint-box">
-                <p>鎖骨呈 <strong>S 形</strong>，多發生在 <strong>中 1/3</strong>，多見於 <strong>兒童</strong>。</p>
+                <h3>📝 考試與溫習重點：</h3>
+                <ul>
+                <li><strong>好發部位：</strong>多發生在中1/3，兒童多見（常為青枝骨折）。</li>
+                    <li><strong>移位機理：</strong>近端受胸鎖乳突肌牽拉向<strong>上後</strong>移位；遠端因肢體重量及胸大肌牽拉向<strong>前、下、內側</strong>移位。</li>
+                    <li><strong>特有體徵：</strong>肩部向內、下、前傾斜，頭向患側傾斜，下頜偏向健側（減輕胸鎖乳突肌牽拉）。</li>
+                    <li><strong>復位與固定：</strong>復位手法為「叉腰挺胸，膝頂扳肩」。固定多用「∞字繃帶固定」（成人4-6周，兒童1-3周）。</li>
+                </ul>
             </div>
             <div id="quiz-clavicle" class="poe-quiz-app"></div>
         </div>
@@ -357,6 +363,15 @@
                         <p><strong>復位：</strong>由<strong>外向內</strong>推</p>
                         <p><strong>固定：</strong>肩關節保持<strong>外展位</strong></p>
                     </div>
+                    <div class="keypoint-box">
+                <h3>📝 其他重點：</h3>
+                <ul>
+                    <li><strong>解剖弱點：</strong>位於解剖頸下2~3cm。內側有臂叢神經和腋動靜脈經過，極易合併神經血管損傷。</li>
+                    <li><strong>分型與復位：</strong><br>
+                        - <strong>外展型：</strong>斷端向內側成角。復位需由內向外側用力。固定時肩關節保持<strong>內收位</strong>。<br>
+                        - <strong>內收型：</strong>斷端向外側成角。復位需由外向內側用力。固定時肩關節保持<strong>外展位</strong>。</li>
+                </ul>
+            </div>
                 </div>
             </div>
             <div id="quiz-neck" class="poe-quiz-app"></div>
@@ -391,13 +406,37 @@
             <div class="scramble-container">
                 <h3 class="scramble-title">🧩 重點條文填充訓練</h3>
                 <p style="color:#777; font-size:0.9rem; margin-top:-5px;">💡 打中文會自動等選完字先跳格。填錯會標紅並加入「錯題庫」！</p>
-                <div class="scramble-item" id="scramble-1">
+ <div class="scramble-item" id="scramble-1">
                     <strong>1. 少陽病題綱：</strong><br>
                     「少陰之為病，脈 <input type="text" maxlength="1" data-ans="微" class="blank-input"><input type="text" maxlength="1" data-ans="細" class="blank-input">，<input type="text" maxlength="1" data-ans="但" class="blank-input"><input type="text" maxlength="1" data-ans="欲" class="blank-input"><input type="text" maxlength="1" data-ans="寐" class="blank-input">也。」（281）
+                    <button class="hint-btn" onclick="toggleHint('hint1')">🔔 提示</button>
+                    <div id="hint1" class="hint-box"><strong>引導：</strong>想想少陰病最核心的虛寒脈象特徵，以及病人精神極度疲倦、似睡非睡的狀態。</div>
+                </div>
+                <div class="scramble-item" id="scramble-2">
+                    <strong>2. 陽虛陰盛證：</strong><br>
+                    「少陰病，脈 <input type="text" maxlength="1" data-ans="沉" class="blank-input"> 者，<input type="text" maxlength="1" data-ans="急" class="blank-input"><input type="text" maxlength="1" data-ans="溫" class="blank-input"> 之，宜 <input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input">。」（323）
+                    <button class="hint-btn" onclick="toggleHint('hint2')">🔔 提示</button>
+                    <div id="hint2" class="hint-box"><strong>引導：</strong>脈象在深層，代表邪已入裏。治療需要把握時機（兩個字），並用最基礎的回陽救逆代表方劑。</div>
+                </div>
+                <div class="scramble-item" id="scramble-3">
+                    <strong>3. 陰盛格陽證：</strong><br>
+                    「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤... <input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="脈" class="blank-input"><input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」（317）
+                    <button class="hint-btn" onclick="toggleHint('hint3')">🔔 提示</button>
+                    <div id="hint3" class="hint-box"><strong>引導：</strong>出現了「格陽」面色赤症狀，病情更重，需要在原本的回陽基礎方之上，加強宣通上下陽氣的力度。</div>
                 </div>
                 <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
             </div>
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
+        </div>
+
+
+
+
+
+
+
+
+            
         </div>
         
         <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="shaft" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-shaft" class="poe-quiz-app"></div></div>
