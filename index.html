@@ -6,9 +6,9 @@
     <title>中醫專屬溫習平台</title>
     <style>
         :root {
-            --primary-color: #2F4F4F; /* 深海藻綠色 */
-            --secondary-color: #F5F5DC; /* 米黃色背景 */
-            --accent-color: #8B4513; /* 泥土啡色 */
+            --primary-color: #2F4F4F; 
+            --secondary-color: #F5F5DC; 
+            --accent-color: #8B4513; 
             --text-color: #333333;
         }
 
@@ -22,7 +22,7 @@
             line-height: 1.6;
         }
 
-        /* 左側導航欄設計 */
+        /* 左側導航欄 */
         .sidebar {
             width: 300px; 
             background-color: #ffffff;
@@ -40,87 +40,115 @@
             text-align: center;
         }
 
-        /* 摺疊選單設計 */
-        details { margin-bottom: 10px; }
-        
-        /* 第一層主目錄 (例如：傷寒論、骨傷科) */
-        details > summary.main-folder {
-            cursor: pointer;
-            font-weight: bold;
-            padding: 10px 0;
-            color: var(--accent-color);
+        .home-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
             font-size: 1.1rem;
-            list-style: none;
-            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: 0.3s;
+        }
+        .home-btn:hover { background-color: #1e3636; transform: translateY(-2px); }
+
+        details { margin-bottom: 10px; }
+        details > summary.main-folder {
+            cursor: pointer; font-weight: bold; padding: 10px 0; color: var(--accent-color);
+            font-size: 1.1rem; list-style: none; border-bottom: 1px solid #eee; transition: 0.3s;
         }
         details > summary.main-folder::-webkit-details-marker { display: none; }
         details > summary.main-folder::before { content: '📁 '; }
         details[open] > summary.main-folder::before { content: '📂 '; }
         details[open] > summary.main-folder { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
-
         .sub-menu { padding-left: 15px; margin-top: 5px; }
-        
         .menu-list { list-style-type: none; padding-left: 0; margin: 0; }
         .menu-list li { margin-bottom: 5px; }
 
-        /* 按鈕及次級摺疊選單設計 */
         .menu-btn {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            text-align: left;
-            width: 100%;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            border-radius: 5px;
-            transition: all 0.2s;
-            outline: none;
+            background: none; border: none; color: var(--text-color); text-align: left;
+            width: 100%; padding: 6px 10px; cursor: pointer; font-size: 0.95rem;
+            border-radius: 5px; transition: all 0.2s; outline: none;
         }
         .menu-btn:hover, .menu-btn.active {
-            background-color: #e8f4f1;
-            color: var(--primary-color);
-            font-weight: bold;
-            border-left: 4px solid var(--primary-color);
+            background-color: #e8f4f1; color: var(--primary-color); font-weight: bold; border-left: 4px solid var(--primary-color);
         }
-
-        /* 隱藏原生三角形 */
         summary.menu-btn::-webkit-details-marker { display: none; }
         summary.menu-btn { list-style: none; }
 
-        /* 右側內容區設計 */
+        /* 右側內容區 */
         .main-content {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-            background-color: #fafafa;
+            flex: 1; padding: 40px; overflow-y: auto; background-color: #fafafa;
         }
-
         .content-section {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            display: none; max-width: 850px; margin: 0 auto; background: white;
+            padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-
         .content-section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .main-title { color: var(--primary-color); border-bottom: 2px dashed #ccc; padding-bottom: 10px; }
 
-        /* 多重 Quiz 專屬淺色主題 CSS */
-        .poe-quiz-app {
-            background: #ffffff; color: var(--text-color); border-radius: 16px; padding: 20px; margin-top: 20px; 
-            font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;
+        /* 首頁 Dashboard 設計 */
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;
         }
+        .dash-card {
+            border-radius: 15px; padding: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: relative; overflow: hidden;
+        }
+        .dash-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .dash-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; display: flex; align-items: center; justify-content: space-between; }
+        
+        .card-pink { background-color: #fff0f5; color: #b03060; border: 2px solid #ffb6c1; }
+        .card-blue { background-color: #f0f8ff; color: #4682b4; border: 2px solid #add8e6; }
+        .card-green { background-color: #f5fffa; color: #2e8b57; border: 2px solid #8fbc8f; }
+
+        .dash-sub-menu { display: none; margin-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 15px; }
+        .dash-card.open .dash-sub-menu { display: block; animation: fadeIn 0.3s; }
+        .dash-card.open h2::after { content: '▴'; font-size: 1rem; }
+        .dash-card:not(.open) h2::after { content: '▾'; font-size: 1rem; }
+
+        .dash-btn {
+            display: inline-block; background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1);
+            padding: 8px 12px; margin: 5px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; transition: 0.2s; color: inherit; font-weight: bold;
+        }
+        .dash-btn:hover { background: white; transform: scale(1.05); }
+
+        /* 填充題 Scramble Game 設計 */
+        .scramble-container {
+            background: #fdfbf7; border: 2px solid #e3d5ca; border-radius: 12px; padding: 25px; margin-bottom: 30px;
+        }
+        .scramble-title { color: #8B4513; margin-top: 0; font-size: 1.2rem; border-bottom: 1px solid #e3d5ca; padding-bottom: 10px;}
+        .scramble-item { margin-bottom: 25px; font-size: 1.1rem; line-height: 2; position: relative;}
+        .blank-input {
+            width: 30px; height: 30px; text-align: center; font-size: 1.1rem; font-weight: bold;
+            border: 2px solid #ccc; border-radius: 6px; margin: 0 3px; background: white;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .blank-input.correct { border-color: #27ae60; background-color: #e8f8f5; color: #27ae60; }
+        .blank-input.wrong { border-color: #e74c3c; background-color: #fdedec; color: #e74c3c; }
+        
+        .hint-btn {
+            background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 4px 10px;
+            border-radius: 12px; font-size: 0.8rem; cursor: pointer; margin-left: 10px; transition: 0.2s;
+        }
+        .hint-btn:hover { background: #ffe8a1; }
+        .hint-box {
+            display: none; background: #fff8e1; border-left: 4px solid #ffc107; padding: 10px 15px;
+            margin-top: 10px; font-size: 0.9rem; color: #856404; border-radius: 0 8px 8px 0;
+        }
+        .check-scramble-btn {
+            background: var(--accent-color); color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;
+        }
+        .check-scramble-btn:hover { background: #6b340e; }
+
+        /* 多重 Quiz 專屬淺色主題 CSS */
+        .poe-quiz-app { background: #ffffff; color: var(--text-color); border-radius: 16px; padding: 20px; margin-top: 20px; font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
         .poe-quiz-app h1.q-main-title { text-align: center; font-size: 1.5rem; padding: 10px 0; color: var(--primary-color); border-bottom: 2px solid #eee; margin-bottom: 20px; }
         .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 12px; height: 14px; margin-bottom: 16px; overflow: hidden; position: relative; }
         .poe-quiz-app .progress-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 12px; transition: width 0.4s ease; }
@@ -158,13 +186,16 @@
         .poe-quiz-app .start-screen p { color: #666; line-height: 2; margin-bottom: 20px; font-size: 0.95rem; }
         .poe-quiz-app .start-btn { background: var(--primary-color); color: white; border: none; padding: 16px 50px; border-radius: 12px; font-size: 1.15rem; cursor: pointer; font-weight: 600; }
 
-        /* 基礎筆記區塊樣式 */
         .placeholder-box { background-color: #f8f9fa; border: 2px dashed #ced4da; padding: 30px; text-align: center; border-radius: 8px; color: #6c757d; margin-top: 20px; }
+        .copy-btn { background: #3498db; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; float: right; }
+        .copy-btn:hover { background: #2980b9; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
+        <button class="home-btn" onclick="showHome()">🏠 返回主頁大堂</button>
+        
         <h2>📚 醫學筆記庫</h2>
         
         <details>
@@ -177,9 +208,6 @@
                             <ul class="menu-list sub-menu">
                                 <li><button class="menu-btn" onclick="showSection('sh-taiyang-cold', '太陽傷寒')">太陽傷寒</button></li>
                                 <li><button class="menu-btn" onclick="showSection('sh-taiyang-wind', '太陽中風')">太陽中風</button></li>
-                                <li><button class="menu-btn" onclick="showSection('sh-taiyang-mild', '表鬱輕證')">表鬱輕證</button></li>
-                                <li><button class="menu-btn" onclick="showSection('sh-taiyang-water', '太陽蓄水')">太陽蓄水</button></li>
-                                <li><button class="menu-btn" onclick="showSection('sh-taiyang-blood', '太陽蓄血')">太陽蓄血</button></li>
                                 <li><button class="menu-btn" onclick="showSection('sh-taiyang-variant', '太陽病變證')">太陽病變證</button></li>
                             </ul>
                         </details>
@@ -187,74 +215,28 @@
                     <li><button class="menu-btn" onclick="showSection('sh-yangming', '陽明病')">🔹 陽明病</button></li>
                     <li><button class="menu-btn" onclick="showSection('sh-shaoyang', '少陽病')">🔹 少陽病</button></li>
                     <li><button class="menu-btn" onclick="showSection('sh-taiyin', '太陰病')">🔹 太陰病</button></li>
-                    <li><button class="menu-btn active" onclick="showSection('sh-shaoyin', '少陰病')">🔹 少陰病</button></li>
+                    <li><button class="menu-btn" onclick="showSection('sh-shaoyin', '少陰病')">🔹 少陰病</button></li>
                     <li><button class="menu-btn" onclick="showSection('sh-jueyin', '厥陰病')">🔹 厥陰病</button></li>
                 </ul>
             </div>
         </details>
 
-        <details open>
+        <details>
             <summary class="main-folder">🦴 骨傷科</summary>
             <div class="sub-menu">
                 <ul class="menu-list">
                     <li><button class="menu-btn" onclick="showSection('ortho-general', '骨傷總論')">總論</button></li>
-                    
-                    <li><button class="menu-btn" onclick="showSection('ortho-fracture-upper', '上肢骨折')">上肢骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-fracture-lower', '下肢骨折')">下肢骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-fracture-trunk', '軀幹骨折')">軀幹骨折</button></li>
-                    
-                    <li>
-                        <details>
-                            <summary class="menu-btn">脫位 ▾</summary>
-                            <ul class="menu-list sub-menu">
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-general', '脫位總論')">脫位總論</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-jaw', '顳頜關節脫位')">顳頜關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-shoulder', '肩關節脫位')">肩關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-elbow', '肘關節後脫位')">肘關節後脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-radius', '小兒橈骨頭半脫位')">小兒橈骨頭半脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-lunate', '月骨脫位')">月骨脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-mcp', '掌指關節脫位')">掌指關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-hip', '髖關節脫位')">髖關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-knee', '膝關節脫位')">膝關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-patella', '髕骨脫位')">髕骨脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-tmt', '跖跗關節脫位')">跖跗關節脫位</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-mtp', '跖趾及趾間關節脫位')">跖趾及趾間關節脫位</button></li>
-                            </ul>
-                        </details>
-                    </li>
-
-                    <li>
-                        <details>
-                            <summary class="menu-btn">筋傷 ▾</summary>
-                            <ul class="menu-list sub-menu">
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-general', '筋傷總論')">筋傷總論</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-neck', '頸部筋傷')">頸部筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-shoulder', '肩部筋傷')">肩部筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-elbow', '肘部扭挫傷')">肘部扭挫傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-epicondylitis', '肱骨外上髁炎')">肱骨外上髁炎</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-dequervain', '橈骨莖突狹窄性腱鞘炎')">橈骨莖突狹窄性腱鞘炎</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-wrist', '腕部筋傷')">腕部筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-finger', '手指筋傷')">手指筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-hip', '髖部筋傷')">髖部筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-knee', '膝部筋傷')">膝部筋傷</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-soft-ankle', '踝部筋傷')">踝部筋傷</button></li>
-                            </ul>
-                        </details>
-                    </li>
-
                     <li>
                         <details>
                             <summary class="menu-btn">特殊檢查 ▾</summary>
                             <ul class="menu-list sub-menu">
                                 <li><button class="menu-btn" onclick="showSection('ortho-exam-neck', '特殊檢查：頸部')">頸部</button></li>
                                 <li><button class="menu-btn" onclick="showSection('ortho-exam-chest', '特殊檢查：胸腹部及骨盆')">胸腹部及骨盆</button></li>
-                                <li><button class="menu-btn" onclick="showSection('ortho-exam-quiz', '特殊檢查：複習測驗')">複習測驗</button></li>
                             </ul>
                         </details>
                     </li>
-
                     <li>
-                        <details open>
+                        <details>
                             <summary class="menu-btn" style="color:var(--accent-color); font-weight:bold;">🎯 OSCE訓練 ▾</summary>
                             <ul class="menu-list sub-menu">
                                 <li><button class="menu-btn" onclick="showSection('osce-exam', 'OSCE訓練：特殊檢查')">特殊檢查</button></li>
@@ -266,74 +248,126 @@
                 </ul>
             </div>
         </details>
-
-        <details>
-            <summary class="main-folder">👐 推拿學</summary>
-            <div class="sub-menu">
-                <ul class="menu-list">
-                    <li><button class="menu-btn" onclick="showSection('tuina-peds', '小兒推拿')">小兒推拿</button></li>
-                    <li><button class="menu-btn" onclick="showSection('tuina-neck', '頸部常見病')">頸部常見病</button></li>
-                    <li><button class="menu-btn" onclick="showSection('tuina-back', '腰部常見病')">腰部常見病</button></li>
-                    <li><button class="menu-btn" onclick="showSection('tuina-skills', '手法')">手法</button></li>
-                </ul>
-            </div>
-        </details>
-
-        <ul class="menu-list" style="margin-top: 10px;">
-            <li><button class="menu-btn" onclick="showSection('ebp-main', 'EBP (循證實踐)')" style="font-weight: bold; color: var(--accent-color);">📊 EBP</button></li>
-            <li><button class="menu-btn" onclick="showSection('funda-main', 'Funda (護理/醫學基礎)')" style="font-weight: bold; color: var(--accent-color);">🩺 Funda</button></li>
-        </ul>
-
     </div>
 
     <div class="main-content" id="main-content-area">
         
-        <div id="sh-shaoyin" class="content-section active">
+        <div id="home-dashboard" class="content-section active" style="max-width: 1000px; background: transparent; box-shadow: none; padding: 0;">
+            <h1 style="color: var(--primary-color); font-size: 2rem; margin-bottom: 5px;">👋 歡迎返嚟溫習！</h1>
+            <p style="color: #666; font-size: 1.1rem; margin-bottom: 30px;">請選擇你想進入嘅科目板塊，點擊卡片展開細項。</p>
+            
+            <div class="dashboard-grid">
+                <div class="dash-card card-pink" onclick="toggleDashCard(this)">
+                    <h2>📖 傷寒論</h2>
+                    <p style="margin:0; font-size:0.9rem; opacity:0.8;">包含六經辨證、重點原文及方劑。</p>
+                    <div class="dash-sub-menu">
+                        <button class="dash-btn" onclick="navTo('sh-taiyang-cold', '太陽病', event)">太陽病</button>
+                        <button class="dash-btn" onclick="navTo('sh-yangming', '陽明病', event)">陽明病</button>
+                        <button class="dash-btn" onclick="navTo('sh-shaoyang', '少陽病', event)">少陽病</button>
+                        <button class="dash-btn" onclick="navTo('sh-taiyin', '太陰病', event)">太陰病</button>
+                        <button class="dash-btn" style="border-color:#b03060; color:#b03060;" onclick="navTo('sh-shaoyin', '少陰病', event)">少陰病 (含 Quiz & 條文)</button>
+                        <button class="dash-btn" onclick="navTo('sh-jueyin', '厥陰病', event)">厥陰病</button>
+                    </div>
+                </div>
+
+                <div class="dash-card card-blue" onclick="toggleDashCard(this)">
+                    <h2>🦴 骨傷科</h2>
+                    <p style="margin:0; font-size:0.9rem; opacity:0.8;">骨折、脫位、筋傷及 OSCE 訓練。</p>
+                    <div class="dash-sub-menu">
+                        <button class="dash-btn" onclick="navTo('ortho-general', '骨傷總論', event)">總論</button>
+                        <button class="dash-btn" onclick="navTo('ortho-exam-neck', '特殊檢查：頸部', event)">特殊檢查：頸部</button>
+                        <button class="dash-btn" onclick="navTo('ortho-exam-chest', '特殊檢查：胸腰', event)">特殊檢查：胸腰骨盆</button>
+                        <button class="dash-btn" style="border-color:#4682b4; color:#4682b4;" onclick="navTo('osce-ai', 'OSCE訓練：AI問診', event)">🎯 OSCE AI 問診</button>
+                    </div>
+                </div>
+
+                <div class="dash-card card-green" onclick="toggleDashCard(this)">
+                    <h2>👐 推拿學</h2>
+                    <p style="margin:0; font-size:0.9rem; opacity:0.8;">小兒推拿、常見病及基本手法。</p>
+                    <div class="dash-sub-menu">
+                        <button class="dash-btn" onclick="navTo('tuina-peds', '小兒推拿', event)">小兒推拿</button>
+                        <button class="dash-btn" onclick="navTo('tuina-skills', '基本手法', event)">基本手法</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sh-shaoyin" class="content-section">
             <h1 class="main-title">傷寒論：少陰病</h1>
-            <p><strong>提綱：</strong>「少陰之為病，脈微細，但欲寐也。」</p>
-            <p>病理特點係心腎虛衰，全身性虛寒（或虛熱）。</p>
+            
+            <div class="scramble-container">
+                <h3 class="scramble-title">🧩 重點條文填充訓練 (Scramble)</h3>
+                <p style="color:#666; font-size:0.9rem; margin-top:-5px;">請喺格仔入面輸入正確嘅中文字，溫習少陰病核心條文。</p>
+                
+                <div class="scramble-item">
+                    <strong>1. 少陽病題綱：</strong><br>
+                    「少陰之為病，脈 <input type="text" maxlength="1" data-ans="微" class="blank-input"> <input type="text" maxlength="1" data-ans="細" class="blank-input">，<input type="text" maxlength="1" data-ans="但" class="blank-input"> <input type="text" maxlength="1" data-ans="欲" class="blank-input"> <input type="text" maxlength="1" data-ans="寐" class="blank-input">也。」（281）
+                    <button class="hint-btn" onclick="toggleHint('hint1')">🔔 提示</button>
+                    <div id="hint1" class="hint-box"><strong>引導：</strong>想想少陰病最核心的虛寒脈象特徵（極度微弱），以及病人精神極度疲倦、似睡非睡的狀態。</div>
+                </div>
+
+                <div class="scramble-item">
+                    <strong>2. 陽虛陰盛證：</strong><br>
+                    「少陰病，脈 <input type="text" maxlength="1" data-ans="沉" class="blank-input"> 者，<input type="text" maxlength="1" data-ans="急" class="blank-input"> <input type="text" maxlength="1" data-ans="溫" class="blank-input"> 之，宜 <input type="text" maxlength="1" data-ans="四" class="blank-input"> <input type="text" maxlength="1" data-ans="逆" class="blank-input"> <input type="text" maxlength="1" data-ans="湯" class="blank-input">。」（323）
+                    <button class="hint-btn" onclick="toggleHint('hint2')">🔔 提示</button>
+                    <div id="hint2" class="hint-box"><strong>引導：</strong>脈象在深層，代表邪已入裏。治療態度需要把握時機（兩個字），並且用最基礎的回陽救逆代表方劑。</div>
+                </div>
+
+                <div class="scramble-item">
+                    <strong>3. 陰盛格陽證：</strong><br>
+                    「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤... <input type="text" maxlength="1" data-ans="通" class="blank-input"> <input type="text" maxlength="1" data-ans="脈" class="blank-input"> <input type="text" maxlength="1" data-ans="四" class="blank-input"> <input type="text" maxlength="1" data-ans="逆" class="blank-input"> <input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」（317）
+                    <button class="hint-btn" onclick="toggleHint('hint3')">🔔 提示</button>
+                    <div id="hint3" class="hint-box"><strong>引導：</strong>出現了「格陽」面色赤症狀，病情比一般陽虛更重，需要在原本的回陽基礎方之上，加強宣通上下陽氣的力度（在方名前面加兩個字）。</div>
+                </div>
+
+                <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
+            </div>
+
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         </div>
 
-        <div id="ortho-exam-neck" class="content-section">
-            <h1 class="main-title">骨傷科特殊檢查：頸部</h1>
-            <p>本章節涵蓋：分離試驗、椎間孔擠壓試驗 (Spurling's test)、臂叢神經牽拉試驗 (Eaten's test)。</p>
-            <div id="quiz-ortho-neck" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-exam-chest" class="content-section">
-            <h1 class="main-title">骨傷科特殊檢查：胸腰背部及骨盆</h1>
-            <p>本章節涵蓋：壓胸試驗、直腿抬高試驗及加強試驗、骨盆擠壓與分離試驗、梨狀肌緊張試驗、4字試驗等。</p>
-            <div id="quiz-ortho-chest" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="osce-exam" class="content-section">
-            <h1 class="main-title">OSCE訓練：特殊檢查</h1>
-            <p>呢度可以擺放 OSCE 特殊檢查嘅標準流程、評分表 (Rubrics) 同埋考生常犯錯誤。</p>
-            <div class="placeholder-box">
-                <h3>📝 Checklist 準備區</h3>
-                <p>準備好各項特殊檢查 (例如：Spurling's test, Lasegue's sign) 嘅口訣同步驟後，就可以貼入嚟方便背誦！</p>
-            </div>
-        </div>
-
-        <div id="osce-xray" class="content-section">
-            <h1 class="main-title">OSCE訓練：X-ray</h1>
-            <p>呢度可以擺放常見骨折、脫位嘅 X 光片 (讀片訓練)。</p>
-            <div class="placeholder-box">
-                <h3>🦴 讀片訓練室</h3>
-                <p>日後可以將 X 光圖片同埋「閱片報告範本 (ABCS 原則等)」加落呢度。</p>
-            </div>
-        </div>
-
         <div id="osce-ai" class="content-section">
-            <h1 class="main-title">OSCE訓練：AI問診</h1>
-            <p>模擬 SP (標準病人) 問診訓練區。</p>
-            <div class="placeholder-box" style="border-color: var(--primary-color);">
-                <h3>🤖 準備與 AI 進行模擬問診</h3>
-                <p>你可以將 AI 嘅 Prompt 記錄喺度，方便溫習時直接 Copy 去 Poe 或者 ChatGPT 進行實戰！</p>
-                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: left; margin-top: 15px;">
-                    <strong>💡 Prompt 範例：</strong><br>
-                    「你依家扮演一個 65 歲跌倒嘅婆婆，主訴係『右邊大髀骨好痛，行唔到路』。我會扮演中醫實習生向你問診。請你根據 Colles' Fracture 嘅症狀，每次只回答我一條問題，唔好主動提供太多資訊。如果我問得唔清楚，你可以表示唔明白。Are you ready?」
+            <h1 class="main-title">🎯 OSCE訓練：AI 模擬問診與病案書寫</h1>
+            <p style="color:#555;">呢度係模擬 PBL 模式嘅實戰訓練區。你可以複製指令畀 AI 扮演標準病人 (SP)，完成問診後再提交病案畀 AI 評分。</p>
+
+            <div class="placeholder-box" style="border-color: #3498db; background: #f0f8ff; text-align: left; padding: 20px;">
+                <h3 style="color:#2980b9; margin-top:0;">📝 第一步：設定 AI 標準病人 (SP)</h3>
+                <p>請將以下 Prompt 複製並貼上到 ChatGPT 或 Poe，啟動模擬考試：</p>
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #add8e6; font-family: monospace; font-size:0.95rem; line-height: 1.6; color: #333; position: relative;">
+                    <button class="copy-btn" onclick="copyText('prompt1')">複製</button>
+                    <div id="prompt1">
+你現在扮演一位標準病人（SP），用於中醫骨傷科 OSCE 臨床問診訓練。<br><br>
+【病人設定】<br>
+姓名：陳婆婆，68歲<br>
+主訴：尋日行路跌親，右手腕撐地，依家好痛同腫咗。<br>
+隱藏病史（僅在醫生問及時才回答）：有骨質疏鬆，冇高血壓/糖尿病。右手腕呈「餐叉樣」變形，手指活動痺痛。<br><br>
+【遊戲規則】<br>
+1. 我係主診中醫師，我會逐條問題向你問診（望、聞、問、切）。<br>
+2. 請你代入香港阿婆嘅語氣回答，每次**只回答我問及嘅部分**，絕對**唔好**主動一次過講晒所有病史或中醫專有名詞。<br>
+3. 如果我要求「檢查/觸診」某個部位，請你用文字描述該部位嘅客觀體徵（例如：有壓痛、摸到骨擦音等）。<br>
+4. 當我講「問診結束，提交病案」並附上病案時，請你轉換身份成為「考官」，根據骨傷科標準，對我嘅問診過程、辨病辨證及處方作出嚴格評分（滿分100分）及詳細點評。<br><br>
+明白請回覆：「醫師你好，我隻手好痛呀...」
+                    </div>
+                </div>
+            </div>
+
+            <div class="placeholder-box" style="border-color: #2ecc71; background: #f0fbf4; text-align: left; margin-top: 20px; padding: 20px;">
+                <h3 style="color:#27ae60; margin-top:0;">✍️ 第二步：書寫病案 (Case Record)</h3>
+                <p>完成問診後，請複製以下格式，填寫好之後交畀 AI 考官批改：</p>
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #a3e4d7; font-family: monospace; font-size:0.95rem; line-height: 1.6; color: #333; position: relative;">
+                    <button class="copy-btn" style="background:#27ae60;" onclick="copyText('prompt2')">複製</button>
+                    <div id="prompt2">
+問診結束，提交病案：<br><br>
+【一般資料】姓名： / 性別： / 年齡：<br>
+【主訴】<br>
+【現病史】<br>
+【既往史】<br>
+【中醫四診】(望聞問切客觀發現)<br>
+【專科檢查】(骨傷科特殊檢查及體徵)<br>
+【中醫辨病辨證】病名： / 證型：<br>
+【治法】<br>
+【處方/治療方案】(方劑/骨傷手法/固定法)
+                    </div>
                 </div>
             </div>
         </div>
@@ -341,72 +375,106 @@
     </div>
 
     <script>
-        // 切換左側選單同右側內容 (加入自動生成空白頁功能)
+        // ================= UI 及導航邏輯 =================
+        function showHome() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById('home-dashboard').classList.add('active');
+        }
+
+        function toggleDashCard(card) {
+            const isOpen = card.classList.contains('open');
+            document.querySelectorAll('.dash-card').forEach(c => c.classList.remove('open'));
+            if (!isOpen) { card.classList.add('open'); }
+        }
+
+        function navTo(sectionId, sectionTitle, event) {
+            event.stopPropagation();
+            showSection(sectionId, sectionTitle);
+        }
+
         function showSection(sectionId, sectionTitle) {
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(sec => sec.classList.remove('active'));
 
-            const btns = document.querySelectorAll('.menu-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
-
             let targetDiv = document.getElementById(sectionId);
-            
-            // 如果未有呢一科嘅筆記，自動生成一個「建設中」嘅版面
             if (!targetDiv) {
                 targetDiv = document.createElement('div');
                 targetDiv.id = sectionId;
                 targetDiv.className = 'content-section';
-                targetDiv.innerHTML = `
-                    <h1 class="main-title">${sectionTitle}</h1>
-                    <div class="placeholder-box">
-                        <h3>🚧 筆記建設中...</h3>
-                        <p>你仲未為「${sectionTitle}」輸入內容。</p>
-                    </div>
-                `;
+                targetDiv.innerHTML = `<h1 class="main-title">${sectionTitle}</h1><div class="placeholder-box"><h3>🚧 筆記建設中...</h3><p>你仲未為「${sectionTitle}」輸入內容。</p></div>`;
                 document.getElementById('main-content-area').appendChild(targetDiv);
             }
-
             targetDiv.classList.add('active');
-
-            if (event && event.target && event.target.classList) {
-                event.target.classList.add('active');
-            }
         }
 
-        /* =========================================
-           多重測驗 (Multi-Quiz) 系統邏輯
-           ========================================= */
+        // ================= 實用功能：複製文字 =================
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("✅ 內容已經複製！可以去貼上啦！");
+            }).catch(err => {
+                console.error('複製失敗: ', err);
+            });
+        }
+
+        // ================= 填充題 Scramble 邏輯 =================
+        function toggleHint(hintId) {
+            const hintBox = document.getElementById(hintId);
+            hintBox.style.display = (hintBox.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function checkAllScramble() {
+            const inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach(input => {
+                const correctAns = input.getAttribute('data-ans');
+                const userAns = input.value.trim();
+                input.classList.remove('correct', 'wrong');
+                if (userAns === correctAns) { input.classList.add('correct'); } 
+                else if (userAns !== "") { input.classList.add('wrong'); }
+            });
+        }
+
+        /* ================= 多重測驗系統 (完整保留 34 題少陰病) ================= */
         const allQuizData = {
             'shaoyin': {
-                title: "📚 少陰病溫習 Quiz",
-                sub: "BCHM4601 傷寒論",
+                title: "📚 少陰病溫習 Quiz (完整版)",
+                sub: "BCHM4601 傷寒論｜P1-22",
                 questions: [
                   { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」，是心腎陰陽氣血俱虛，以全身性虛寒、虛熱或陽鬱為主要特征。" },
+                  { section: "少陰病概說", q: "少陰病的病位與病性，下列何者最正確？", opts: ["病位在表，病性屬陽屬實屬熱", "病位在半表半裏，病性屬寒熱錯雜", "病位在里，病性多屬陰、屬虛、屬寒", "病位在表裏之間，病性屬虛屬熱"], ans: 2, exp: "少陰病病位在里，病性多屬陰、屬虛、屬寒。涉及手足少陰心、腎及手足少陰經。" },
+                  { section: "少陰病概說", q: "少陰是指哪兩個臟腑？", opts: ["肝與膽", "脾與胃", "心與腎", "肺與大腸"], ans: 2, exp: "少陰指足少陰腎與手少陰心。腎為先天之本，心為五臟六腑之大主。" },
+                  { section: "少陰病概說", q: "少陰與哪一經相表裡？", opts: ["陽明", "太陽", "少陽", "厥陰"], ans: 1, exp: "少陰與太陽相表裡。「實則太陽，虛則少陰」。" },
+                  { section: "少陰病概說", q: "關於心腎的臟腑生理，下列何者正確？", opts: ["腎屬火，主血脈，主神明", "心火下溫於腎，腎水上奉於心，水火既濟", "腎為後天之本，主藏精", "心腎相交的意義在於促進氣血運行至四肢"], ans: 1, exp: "心火在上，腎水在下。心火下溫於腎，使腎水不寒；腎水上奉於心，使心火不亢。心腎相交，水火既濟，維持陰陽動態平衡。" },
+                  { section: "少陰病概說", q: "腎在少陰病理中的核心地位是什麼？", opts: ["主血脈，主神明", "為後天之本，主運化", "為先天之本，內寓元陰元陽，為人體五臟六腑陰陽之根本", "主疏泄，主藏血"], ans: 2, exp: "腎為先天之本，腎主水，主藏精，內寓元陰元陽，先天真氣之所系，爲人體五臟六腑陰陽之根本。" },
+                  { section: "少陰病成因", q: "少陰病的成因不包括以下哪項？", opts: ["外邪直中少陰", "三陽病或太陰失治誤治傳入", "年高體弱，腎陽素衰", "情志內傷，肝氣鬱結"], ans: 3, exp: "少陰病成因有二：①外邪直中（年高體弱或腎陽素衰，外寒直中少陰）；②邪由它經傳來（多由三陽病或太陰失治誤治，心腎受損而邪傳少陰）。" },
+                  { section: "少陰病分類", q: "少陰寒化證的病機核心是什麼？", opts: ["陰虛陽亢", "陽氣虛衰，陰寒內盛", "痰飲內停", "氣滯血瘀"], ans: 1, exp: "寒化證：素體少陰陽虛陰盛，邪從寒化，以致陽氣虛衰，陰寒內盛。" },
+                  { section: "少陰病分類", q: "少陰熱化證的病機核心是什麼？", opts: ["陽氣虛衰，陰寒內盛", "陰虛陽亢", "寒熱錯雜", "氣血兩虛"], ans: 1, exp: "熱化證：素體少陰陰虛陽盛，邪從熱化，以致陰虛陽亢。有心腎不交證、陰虛水熱互結證等。" },
+                  { section: "少陰病治療", q: "少陰寒化證的代表方劑是什麼？", opts: ["黃連阿膠湯", "四逆湯", "麻黃細辛附子湯", "大承氣湯"], ans: 1, exp: "寒化證宜溫補陽氣，以四逆湯爲代表方劑。" },
+                  { section: "少陰病治療", q: "少陰熱化證的代表方劑是什麼？", opts: ["四逆湯", "通脈四逆湯", "白通湯", "黃連阿膠湯"], ans: 3, exp: "熱化證宜育陰清熱，以黃連阿膠湯爲代表方劑。" },
+                  { section: "少陰病治禁", q: "少陰病的治療禁忌包括以下哪些治法？", opts: ["禁用發汗、攻下及火攻", "禁用溫補、活血及消導", "禁用和解、清熱及利水", "禁用補氣、養血及安神"], ans: 0, exp: "少陰病禁用發汗、攻下以及火攻等治法。誤汗則亡陽，誤下則竭陰。" },
+                  { section: "少陰病預後", q: "少陰病的預後取決於什麼？", opts: ["氣血的盛衰", "陽氣的存亡", "津液的多少", "邪氣的強弱"], ans: 1, exp: "少陰病的預後，取決於陽氣的存亡，一般是陽回陰續者生，陽亡陰竭者死。" },
+                  { section: "少陰病提綱", q: "【281條】少陰之爲病的提綱脈證是什麼？", opts: ["脈浮緊，惡寒發熱", "脈微細，但欲寐", "脈弦細，往來寒熱", "脈沉遲，腹滿而吐"], ans: 1, exp: "「少陰之爲病，脈微細，但欲寐也」(281)。脈微主心腎陽衰，脈細主氣血虛少，但欲寐主精神失養。" },
                   { section: "少陰病提綱", q: "「脈微」在少陰病提綱中反映的病機是什麼？", opts: ["陰血不足，脈道不充", "心腎陽衰，鼓動無力", "痰飲阻滯，脈道不暢", "氣機鬱滯，血行不利"], ans: 1, exp: "脈微，指脈來微弱無力，似有似無，心腎陽衰，鼓動無力所致。" },
-                  { section: "寒化證辨證", q: "辨少陰寒化證與少陰熱化證，應比較哪組症狀？", opts: ["欲吐不吐 vs 腹滿而吐", "自利而渴 vs 自利不渴", "心煩但欲寐 vs 心煩不得臥", "小便白 vs 小便赤"], ans: 2, exp: "以「心煩但欲寐」與「心煩不得臥」相較，辨少陰寒化證與少陰熱化證。寒化證為虛陽上擾故煩而欲寐，熱化證為陰虛火旺故煩而不得臥。" },
+                  { section: "少陰病提綱", q: "「但欲寐」的臨床表現與病機是什麼？", opts: ["嗜睡多眠——痰濕困脾", "精神萎靡不振，似睡非睡——心腎陽衰，精神失養", "失眠不寐——心腎不交", "日間嗜睡——氣虛下陷"], ans: 1, exp: "但欲寐——精神萎靡不振，神志恍惚昏沈，似睡非睡，乃心腎陽衰，氣血虛弱，精神失養。" },
+                  { section: "寒化證辨證", q: "【282條】少陰寒化證中「欲吐不吐」的病機是什麼？", opts: ["食積停滯，胃氣上逆", "腎陽虛衰，濁陰上逆；胃腑空虛，故無物吐出", "肝氣犯胃，橫逆嘔吐", "痰飲犯胃，胃失和降"], ans: 1, exp: "欲吐不吐——腎陽虛衰，濁陰上逆則欲吐，胃腑空虛，故又無物吐出。" },
+                  { section: "寒化證辨證", q: "少陰寒化證「自利而渴」的病機是什麼？", opts: ["濕熱下注，傷津耗液", "腎陽虛衰，火不暖土，腐熟無權則下利；陽虛不能蒸化津液則口渴", "脾虛濕困，清陽不升", "陰虛火旺，迫津外出"], ans: 1, exp: "自利而渴——腎陽虛衰，火不暖土，腐熟無權，則下利；陽虛不能蒸化津液，津不布達則口渴，即「虛故引水自救」。" },
+                  { section: "寒化證辨證", q: "少陰寒化證辨證中，「小便色白」說明什麼？", opts: ["濕熱下注膀胱", "下焦虛有寒，不能制水", "腎陰不足，虛火灼津", "脾虛不能運化水濕"], ans: 1, exp: "小便白者，以下焦虛有寒，不能制水，故令色白也。小便色白指小便清而不黃，是少陰寒化的重要辨證依據。" },
+                  { section: "寒化證鑒別", q: "辨少陰虛寒下利與太陰虛寒下利，應比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐、自利而渴 vs 腹滿而吐、自利不渴", "脈微細 vs 脈浮緊"], ans: 2, exp: "以「欲吐不吐」與「腹滿而吐」，「自利而渴」與「自利不渴」相較，辨少陰虛寒下利與太陰虛寒下利。" },
+                  { section: "寒化證鑒別", q: "辨少陰寒化證與少陰熱化證，應比較哪組症狀？", opts: ["欲吐不吐 vs 腹滿而吐", "自利而渴 vs 自利不渴", "心煩但欲寐 vs 心煩不得臥", "小便白 vs 小便赤"], ans: 2, exp: "以「心煩但欲寐」與「心煩不得臥」相較，辨少陰寒化證與少陰熱化證。寒化證為虛陽上擾故煩而欲寐，熱化證為陰虛火旺故煩而不得臥。" },
+                  { section: "寒化證鑒別", q: "辨少陰寒利與厥陰熱利，應比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐 vs 腹滿而吐", "脈微細 vs 脈弦數"], ans: 1, exp: "以「自利而渴小便白」與「自利而渴小便赤」相較，辨少陰寒利與厥陰熱利。小便白為下焦虛寒，小便赤為有熱。" },
+                  { section: "少陰寒盛傷陽", q: "【283條】「病人脈陰陽俱緊，反汗出者」，其病機為何？", opts: ["太陽傷寒，營衛不和", "寒盛於內，陰寒傷陽，陽不攝陰", "陽明裡熱蒸騰，迫汗外出", "少陽樞機不利，營衛失和"], ans: 1, exp: "脈陰陽俱緊為寒盛於內之象（其脈當沉而陰陽俱緊，非太陽之浮緊）。反汗出——陰寒傷陽，陽不攝陰。此屬少陰。" },
+                  { section: "少陰寒盛傷陽", q: "283條中為何「法當咽痛」？", opts: ["風熱上犯咽喉", "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉", "陽明經熱上蒸咽喉", "少陽經氣鬱結咽喉"], ans: 1, exp: "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉，故咽痛。" },
+                  { section: "少陰病治禁", q: "【285條】少陰病脈細沉數，為何不可發汗？", opts: ["陽虛發汗則亡陽", "沉主在裏，細主陰虛，數主有熱，誤汗可傷陰動血，致下厥上竭", "脈沉主表邪已解", "細數主血虛，汗出則氣脫"], ans: 1, exp: "脈細沉數，病爲在裏——沉主在裏，細主陰虛，數主有熱，誤發其汗，即可能傷陰動血，導致下厥上竭之變證。" },
+                  { section: "少陰病治禁", q: "【286條】少陰病脈微，不可發汗的原因是什麼？進一步尺脈弱澀說明什麼？", opts: ["脈微主陽虛，汗出亡陽；尺脈弱澀主陰血不足，屬陰陽俱虛，汗下皆禁", "脈微主氣虛；尺脈弱澀主氣滯血瘀", "脈微主邪輕；尺脈弱澀主食積", "脈微主陰虛；尺脈弱澀主痰飲"], ans: 0, exp: "微脈——心腎陽衰，發汗則亡陽。脈微更兼尺脈弱澀——尺以候裏候腎，弱澀乃陰血不足之征，屬陰陽俱虛，汗、下法均在禁例。" },
+                  { section: "陽虛陰盛證", q: "【323條】「少陰病，脈沉者，急溫之」中「急溫」的含義是什麼？", opts: ["用大劑量熱藥猛攻", "及早治療，消患於無形", "急用灸法溫經", "立即用火攻法"], ans: 1, exp: "聯繫提綱證「脈微細」及後面的陰盛格陽證、戴陽證的輕重來看，「急溫」指的是「及早治療，消患於無形」。" },
                   { section: "陽虛陰盛證", q: "四逆湯的藥物組成是什麼？", opts: ["附子、乾薑、人參", "附子、乾薑、甘草", "附子、蔥白、乾薑", "附子、肉桂、甘草"], ans: 1, exp: "四逆湯：甘草二兩(炙)、乾薑一兩半、附子一枚(生用，去皮，破八片)。" },
-                  { section: "陰盛格陽證", q: "通脈四逆湯隨證加減中，面色赤者加什麼？為什麼？", opts: ["加人參，取其益氣生津", "加芍藥，取其活血和絡", "加蔥，取其通格上之陽", "加桔梗，取其利咽開結"], ans: 2, exp: "面色赤者加蔥，取其通格上之陽。蔥白辛溫走竄，能宣通上下，使格拒之勢得解。" }
-                ]
-            },
-            'ortho-neck': {
-                title: "🦴 頸部特殊檢查 Quiz",
-                sub: "骨傷科檢查法",
-                questions: [
-                    { section: "分離試驗", q: "進行分離試驗 (Cervical separation test) 時，若出現陽性結果，患者會有什麼感覺？", opts: ["頸部和上肢的疼痛加重", "頸部和上肢的疼痛減輕", "出現頭暈、噁心", "下肢出現放射性疼痛"], ans: 1, exp: "陽性結果為患者感到頸部和上肢的疼痛減輕。機理是向上牽引可以拉開狹窄的椎間孔，減少神經根的擠壓和刺激。" },
-                    { section: "椎間孔擠壓", q: "椎間孔擠壓試驗 (Spurling's test) 的陽性結果主要提示什麼疾病？", opts: ["頸肌勞損", "脊髓型頸椎病", "神經根型頸椎病或頸椎間盤突出症", "頸椎結核"], ans: 2, exp: "陽性結果（頸部或上肢放射痛加重）提示神經根型頸椎病或頸椎間盤突出症。因為按壓頭部會使椎間孔變窄，擠壓神經根。" },
-                    { section: "臂叢神經牽拉", q: "臂叢神經牽拉試驗 (Eaten's test) 的操作方法中，檢查者應如何配合動作？", opts: ["一手托住下頜，一手托住枕部向上牽引", "雙手壓於患者頭頂向下按壓", "一手推頭部向對側，另一手握患側腕部作相對牽引", "雙手分別置於兩側髂前上棘向外下方推壓"], ans: 2, exp: "操作方法為：一手推頭部向對側，同時另一手握該側腕部作相對牽引，使臂叢神經受牽拉。" },
-                    { section: "椎間孔擠壓", q: "關於椎間孔擠壓試驗的機理，下列何者最準確？", opts: ["拉開狹窄的椎間孔，緩解神經根擠壓", "使神經根受到牽拉，誘發症狀", "側屈並按壓頭部使椎間孔變小，進一步擠壓神經根", "檢查椎動脈是否受壓"], ans: 2, exp: "側屈時使椎間孔變小，按壓頭部使椎間孔更窄，若有突出則神經根受擠壓，症狀更加明顯。" }
-                ]
-            },
-            'ortho-chest': {
-                title: "🦴 胸腰部及骨盆檢查 Quiz",
-                sub: "骨傷科檢查法",
-                questions: [
-                    { section: "直腿抬高試驗", q: "直腿抬高試驗 (Lasegue's sign) 正常人可以抬高多少度而無不適？", opts: ["30° - 50°", "50° - 70°", "70° - 90°", "90° - 120°"], ans: 2, exp: "正常者可以抬高70°-90°而無任何不適感覺。若小於此角度即感傳導性疼痛，多見於坐骨神經痛和腰突。" },
-                    { section: "直腿抬高加強", q: "進行直腿抬高背屈踝試驗 (Bragard test) 的主要目的是什麼？", opts: ["檢查膝關節副韌帶損傷", "區別由於肌筋膜緊張造成的抬高受限與神經根性痛", "診斷上腰部椎間盤突出", "檢查骶髂關節病變"], ans: 1, exp: "背屈只加劇坐骨神經及小腿腓腸肌的緊張，對小腿以上的肌筋膜無影響。藉此可區別因髂脛束等緊張造成的受限。" },
-                    { section: "股神經牽拉", q: "股神經牽拉試驗 (Ely test) 陽性，患者會出現大腿前方疼痛，這主要提示什麼病變？", opts: ["上腰部椎間盤突出", "下腰椎 (L4-S1) 椎間盤突出", "梨狀肌綜合徵", "骨盆骨折"], ans: 0, exp: "患者俯臥位屈膝後伸髖，股神經受牽拉。大腿前方疼痛提示「上腰部」椎間盤突出。" },
-                    { section: "梨狀肌緊張", q: "關於梨狀肌緊張試驗，下列描述何者為陽性表現？", opts: ["患肢內收內旋時疼痛減輕", "患肢伸直時疼痛，屈膝時緩解", "患肢內收內旋時引發放射痛，迅速外展外旋時疼痛立刻緩解", "下壓患側肩部並深呼吸時橈動脈減弱"], ans: 2, exp: "作內收內旋動作引發坐骨神經放射痛，再迅速外展外旋，若放射痛「立刻緩解」即為陽性，提示梨狀肌綜合徵。" },
-                    { section: "骨盆擠壓分離", q: "檢查者用雙手分別置於兩側髂前上棘前面，同時向外下方推壓，這屬於什麼試驗？", opts: ["骨盆擠壓試驗", "骨盆分離試驗", "骨盆縱向擠壓試驗", "4字試驗"], ans: 1, exp: "這是骨盆分離試驗 (Pelvic separation test)，向外下方推壓。若出現疼痛提示骨盆骨折或骶髂關節病變。" }
+                  { section: "陽虛陰盛證", q: "少陰陽衰陰盛證的主要症狀不包括以下哪項？", opts: ["冷汗自出，手足厥冷，身蜷惡寒", "吐利", "大熱大渴，面赤如妝", "脈沉→微細→微欲絕"], ans: 2, exp: "陽衰陰盛證主要症狀包括：全身症状（冷汗自出，手足厥冷，身蜷惡寒）、吐利、小便不利或清長、脈沉/微細/微欲絕、但欲寐。大熱大渴面赤非此證特徵。" },
+                  { section: "陰盛格陽證", q: "【317條】陰盛格陽證的核心特徵「裏寒外熱」，具體表現為何？", opts: ["發熱惡寒，頭痛身疼", "身反不惡寒，其人面色赤——內真寒，外假熱", "壯熱不惡寒，大汗出", "往來寒熱，胸脅苦滿"], ans: 1, exp: "在陽衰陰盛證前提下，出現身反不惡寒，其人面色赤——陰寒盛結於內，虛陽被格於外，即「裏寒外熱」，內真寒，外假熱。" },
+                  { section: "陰盛格陽證", q: "通脈四逆湯與四逆湯的關係是什麼？", opts: ["完全不同的藥物組成", "四逆湯加大附子、乾薑劑量", "四逆湯減去甘草", "四逆湯加人參、蔥白"], ans: 1, exp: "通脈四逆湯即四逆湯加大附子、乾薑劑量而成。附子用大者一枚，乾薑用三兩（四逆湯為一兩半）。" },
+                  { section: "陰盛戴陽證", q: "戴陽證的特徵是什麼？", opts: ["全身發熱，面色蒼白", "面部獨赤，周身寒象，陰盛於下，格陽於上", "面色蒼白，四肢溫暖", "面部潮紅，口渴引飲"], ans: 1, exp: "戴陽證：面部獨赤，周身寒象，為陰盛於下，格陽於上。" },
+                  { section: "陰盛戴陽證", q: "白通湯的藥物組成是什麼？", opts: ["附子、乾薑、甘草", "蔥白、乾薑、附子", "蔥白、附子、甘草", "蔥白、乾薑、人參"], ans: 1, exp: "白通湯：蔥白四莖、乾薑一兩、附子一枚(生，去皮，破八片)。" },
+                  { section: "綜合", q: "「實則太陽，虛則少陰」這句話說明了什麼？", opts: ["太陽病與少陰病的治法相同", "太陽與少陰相表裡，正氣實則病在太陽（表），正氣虛則病入少陰（裏）", "太陽病比少陰病嚴重", "少陰病可以直接轉為太陽病"], ans: 1, exp: "太陽與少陰相表裡。正氣實，邪在表則為太陽病；正氣虛，邪入裏則為少陰病。說明兩經表裏相關，正氣盛衰決定疾病傳變方向。" }
                 ]
             }
         };
@@ -423,13 +491,9 @@
             const app = document.getElementById('quiz-' + quizId);
             if (!app) return;
             const state = quizStates[quizId];
-            if (!state.started) {
-                app.innerHTML = renderStart(quizId);
-            } else if (state.showingResults) {
-                app.innerHTML = renderResults(quizId);
-            } else {
-                app.innerHTML = renderQuiz(quizId);
-            }
+            if (!state.started) { app.innerHTML = renderStart(quizId); } 
+            else if (state.showingResults) { app.innerHTML = renderResults(quizId); } 
+            else { app.innerHTML = renderQuiz(quizId); }
         }
 
         function renderStart(quizId) {
@@ -438,7 +502,7 @@
                 <div class="start-screen">
                     <h1 class="q-main-title">${data.title}</h1>
                     <h2 class="start-sub">${data.sub}</h2>
-                    <p>共 ${data.questions.length} 題選擇題<br>用嚟測試你對知識點嘅掌握程度！</p>
+                    <p>共 ${data.questions.length} 題選擇題<br>準備好接受挑戰未？</p>
                     <button class="start-btn" onclick="startQuiz('${quizId}')">開始測驗 💪</button>
                 </div>
             `;
@@ -493,9 +557,7 @@
             const state = quizStates[quizId];
             const pct = Math.round(state.score / data.questions.length * 100);
             let cls = pct >= 80 ? 'high' : pct >= 60 ? 'mid' : 'low';
-            let msg = pct >= 80 ? '🎉 非常出色！知識點掌握得好紮實！'
-              : pct >= 60 ? '👍 唔錯！大部分知識點都掌握咗，重溫下錯題就完美！'
-              : '💪 需要多花啲時間溫習，加油！';
+            let msg = pct >= 80 ? '🎉 非常出色！知識點掌握得好紮實！' : pct >= 60 ? '👍 唔錯！大部分知識點都掌握咗，重溫下錯題就完美！' : '💪 需要多花啲時間溫習，加油！';
 
             let reviewHtml = data.questions.map((q, i) => {
                 const isCorrect = state.answered[i] === q.ans;
@@ -524,11 +586,7 @@
             `;
         }
 
-        function startQuiz(quizId) {
-            quizStates[quizId].started = true;
-            renderQuizApp(quizId);
-        }
-
+        function startQuiz(quizId) { quizStates[quizId].started = true; renderQuizApp(quizId); }
         function selectAnswer(quizId, idx) {
             const state = quizStates[quizId];
             if (state.answered[state.currentQ] !== null) return;
@@ -536,42 +594,21 @@
             if (idx === allQuizData[quizId].questions[state.currentQ].ans) state.score++;
             renderQuizApp(quizId);
         }
-
         function nextQ(quizId) {
             const state = quizStates[quizId];
-            const data = allQuizData[quizId];
-            if (state.currentQ === data.questions.length - 1 && state.answered[state.currentQ] !== null) {
-                state.showingResults = true;
-                renderQuizApp(quizId);
-                return;
-            }
-            if (state.currentQ < data.questions.length - 1) {
-                state.currentQ++;
-                renderQuizApp(quizId);
-            }
+            if (state.currentQ === allQuizData[quizId].questions.length - 1 && state.answered[state.currentQ] !== null) { state.showingResults = true; renderQuizApp(quizId); return; }
+            if (state.currentQ < allQuizData[quizId].questions.length - 1) { state.currentQ++; renderQuizApp(quizId); }
         }
-
         function prevQ(quizId) {
             const state = quizStates[quizId];
-            if (state.currentQ > 0) {
-                state.currentQ--;
-                renderQuizApp(quizId);
-            }
+            if (state.currentQ > 0) { state.currentQ--; renderQuizApp(quizId); }
         }
-
         function restartQuiz(quizId) {
-            const data = allQuizData[quizId];
-            quizStates[quizId] = {
-                currentQ: 0, score: 0, answered: new Array(data.questions.length).fill(null),
-                started: false, showingResults: false
-            };
+            quizStates[quizId] = { currentQ: 0, score: 0, answered: new Array(allQuizData[quizId].questions.length).fill(null), started: false, showingResults: false };
             renderQuizApp(quizId);
         }
 
-        // 初始化所有 Quiz
         renderQuizApp('shaoyin');
-        renderQuizApp('ortho-neck');
-        renderQuizApp('ortho-chest');
     </script>
 </body>
 </html>
