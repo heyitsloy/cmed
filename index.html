@@ -16,63 +16,114 @@
         .sidebar h2 { font-size: 1.4rem; color: var(--primary-color); border-bottom: 2px dashed #bfe0d8; padding-bottom: 12px; text-align: center; }
         
         .home-btn { background: linear-gradient(135deg, #78c2ad, #5aa493); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(90,164,147,0.2); }
+        .home-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(90,164,147,0.3); }
+        
         .mistake-btn { background: linear-gradient(135deg, #f6d365, #fda085); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: 0.3s; box-shadow: 0 4px 10px rgba(253,160,133,0.2); }
+        .mistake-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(253,160,133,0.3); }
 
+        /* 摺疊選單 */
         details { margin-bottom: 8px; }
-        details > summary.main-folder { cursor: pointer; font-weight: bold; padding: 10px; color: var(--accent-color); font-size: 1.1rem; list-style: none; border-radius: 12px; transition: 0.3s; }
+        details > summary.main-folder { cursor: pointer; font-weight: bold; padding: 10px 10px; color: var(--accent-color); font-size: 1.1rem; list-style: none; border-radius: 12px; transition: 0.3s; }
+        details > summary.main-folder::-webkit-details-marker { display: none; }
         details > summary.main-folder::before { content: '📁 '; margin-right: 5px;}
         details[open] > summary.main-folder::before { content: '📂 '; }
+        details[open] > summary.main-folder { background-color: #fff0ea; color: var(--accent-color); }
         
         .sub-menu { padding-left: 5px; margin-top: 5px; border-left: 2px dashed #eee; margin-left: 15px; }
         .menu-list { list-style-type: none; padding-left: 0; margin: 0; }
+        
         .menu-btn { background: none; border: none; color: var(--text-color); text-align: left; width: 100%; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; border-radius: 8px; transition: 0.2s; outline: none; margin-bottom: 4px;}
-        .menu-btn:hover { background-color: #ebf5f2; color: var(--primary-color); font-weight: bold; border-left: 4px solid var(--primary-color);}
+        .menu-btn:hover, .menu-btn.active { background-color: #ebf5f2; color: var(--primary-color); font-weight: bold; border-left: 4px solid var(--primary-color);}
+        summary.menu-btn::-webkit-details-marker { display: none; } summary.menu-btn { list-style: none; font-weight: bold; color: var(--primary-color);}
 
         /* 右側內容區 */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; background-color: transparent; position: relative; }
-        .content-section { display: none; max-width: 880px; margin: 0 auto 40px auto; background: white; padding: 35px; border-radius: var(--cute-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.04); }
+        .content-section { display: none; max-width: 880px; margin: 0 auto; background: white; padding: 35px; border-radius: var(--cute-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.04); margin-bottom: 40px;}
         .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .main-title { color: var(--primary-color); border-bottom: 3px solid #ebf5f2; padding-bottom: 15px; margin-top: 0; display: flex; justify-content: space-between; align-items: center;}
         
-        /* 溫習進度條與卡片 */
-        #progress-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; max-width: 880px; margin-left: auto; margin-right: auto;}
+        /* 進度條與卡片 */
+        .global-progress-wrapper { max-width: 880px; margin: 0 auto 20px auto; background: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent;} 
+        .global-progress-wrapper:hover { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90, 164, 147, 0.15); }
+        .global-progress-bar { flex: 1; background: #e0e0e0; height: 16px; border-radius: 10px; overflow: hidden; }
+        .global-progress-fill { height: 100%; background: linear-gradient(90deg, #f6d365, #fda085); width: 0%; transition: width 0.5s ease; }
+        .global-progress-text { font-weight: bold; color: var(--accent-color); display: flex; flex-direction: column; align-items: center; font-size: 0.9rem;}
+        .global-progress-text span { font-size: 1.1rem; }
         
+        #progress-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; max-width: 880px; margin-left: auto; margin-right: auto;}
         .study-checkbox { font-size: 1rem; font-weight: bold; color: #27ae60; background: #e8f8f5; padding: 8px 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; border: 2px solid transparent;}
-        
+        .study-checkbox:hover { border-color: #27ae60; }
+
         /* Modal 視窗 */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; animation: fadeIn 0.2s; }
-        .modal-content { background: white; padding: 30px; border-radius: var(--cute-radius); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .modal-content { background: white; padding: 30px; border-radius: var(--cute-radius); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #999; }
         .summary-item { background: #fafafa; border: 1px solid #eee; padding: 15px; border-radius: 12px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
-        .summary-remark { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 0.95rem; }
+        .summary-remark { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: inherit; font-size: 0.95rem; }
         
         /* 填充題 Scramble Game */
         .scramble-container { background: #fdfbf7; border: 2px solid #f2e3d5; border-radius: var(--cute-radius); padding: 30px; margin-bottom: 35px; }
+        .scramble-title { color: var(--accent-color); margin-top: 0; font-size: 1.3rem; border-bottom: 2px dashed #f2e3d5; padding-bottom: 10px;}
         .scramble-item { margin-bottom: 25px; font-size: 1.1rem; line-height: 2.2; position: relative;}
-        .blank-input { width: 32px; height: 32px; text-align: center; font-size: 1.1rem; font-weight: bold; border: 2px solid #dcdcdc; border-radius: 8px; margin: 0 3px; }
-        .blank-input.correct { border-color: #27ae60; background-color: #e8f8f5; color: #27ae60; }
-        .blank-input.wrong { border-color: #e74c3c; background-color: #fdedec; color: #e74c3c; }
-        .hint-btn { background: #fff4d2; border: 1px solid #ffeeba; color: #b8860b; padding: 5px 12px; border-radius: 12px; font-size: 0.85rem; cursor: pointer; margin-left: 10px; font-weight: bold; }
-        .hint-box { display: none; background: #fffdf5; border-left: 4px solid #ffc107; padding: 12px; margin-top: 10px; color: #a67c00; }
-        .check-scramble-btn { background: linear-gradient(135deg, #e09f86, #d48a6e); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; }
+        .blank-input { width: 32px; height: 32px; text-align: center; font-size: 1.1rem; font-weight: bold; border: 2px solid #dcdcdc; border-radius: 8px; margin: 0 3px; background: white; transition: 0.2s; outline: none; color: var(--text-color); }
+        .blank-input:focus { border-color: var(--primary-color); box-shadow: 0 0 8px rgba(90, 164, 147, 0.3); }
+        .blank-input.correct { border-color: #27ae60; background: #e8f8f5; color: #27ae60; }
+        .blank-input.wrong { border-color: #e74c3c; background: #fdedec; color: #e74c3c; }
+        .ans-label { color: #e74c3c; font-size: 0.9rem; font-weight: bold; margin-left: 2px; animation: fadeIn 0.3s; }
+        .hint-btn { background: #fff4d2; border: 1px solid #ffeeba; color: #b8860b; padding: 5px 12px; border-radius: 12px; font-size: 0.85rem; cursor: pointer; margin-left: 10px; transition: 0.2s; font-weight: bold; }
+        .hint-btn:hover { background: #ffe8a1; }
+        .hint-box { display: none; background: #fffdf5; border-left: 4px solid #ffc107; padding: 12px 18px; margin-top: 10px; font-size: 0.95rem; color: #a67c00; border-radius: 0 12px 12px 0; line-height: 1.6; }
+        .check-scramble-btn { background: linear-gradient(135deg, #e09f86, #d48a6e); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 4px 10px rgba(212, 138, 110, 0.2); }
+        .check-scramble-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 138, 110, 0.4); }
 
-        /* Quiz */
+        /* 多重 Quiz CSS */
         .poe-quiz-app { background: #ffffff; border-radius: var(--cute-radius); padding: 25px; margin-top: 30px; border: 2px solid #f0f0f0; }
-        .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin-bottom: 15px; }
+        .poe-quiz-app h1.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-top:0; }
+        .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin-bottom: 15px; overflow: hidden; }
         .poe-quiz-app .progress-fill { height: 100%; background: linear-gradient(90deg, #5aa493, #78c2ad); border-radius: 10px; transition: width 0.4s; }
-        .poe-quiz-app .option-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 10px; width: 100%; text-align: left; font-size: 1rem; cursor: pointer; }
+        .poe-quiz-app .option-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 10px; width: 100%; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        .poe-quiz-app .option-btn:hover:not(.disabled) { border-color: var(--primary-color); background: #f4fbf9; }
         .poe-quiz-app .option-btn.correct { border-color: #27ae60; background: #e8f8f5; font-weight: bold; color: #1e8449; }
         .poe-quiz-app .option-btn.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
+        .poe-quiz-app .option-btn.disabled { cursor: default; }
+        .poe-quiz-app .explanation { padding: 15px; background: #fff8e1; border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; margin-top: 15px; display: none; color:#856404;}
+        .poe-quiz-app .nav-btns { display: flex; gap: 10px; margin-top: 20px; }
+        .poe-quiz-app .nav-btn { flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; background: #eee; }
+        .poe-quiz-app .nav-btn.next { background: var(--primary-color); color: white; }
+
+        /* 首頁及 Preview 卡片 */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 25px; }
+        .dash-card { border-radius: var(--cute-radius); padding: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.03); border: 2px solid transparent; background: white;}
+        .dash-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
+        .dash-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; display:flex; justify-content:space-between;}
         
-        .dash-card { border-radius: var(--cute-radius); padding: 25px; cursor: pointer; transition: 0.3s; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
-        .dash-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-pink { background: linear-gradient(135deg, #fff0f5, #ffe4e1); color: #c44d79; border-color: #ffb6c1; }
+        .card-blue { background: linear-gradient(135deg, #f0f8ff, #e0ffff); color: #4682b4; border-color: #add8e6; }
+        .card-green { background: linear-gradient(135deg, #f5fffa, #e0f8e8); color: #2e8b57; border-color: #98d8ad; }
+        
+        /* 重點與表格 */
         .keypoint-box { background: #fdfbf7; border-left: 5px solid var(--accent-color); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9em; background: white; }
+        .compare-table th { background: var(--primary-color); color: white; padding: 10px; }
+        .compare-table td { padding: 10px; border: 1px solid #eee; text-align: center; }
         .vs-box { display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
         .vs-card { flex: 1; min-width: 250px; padding: 20px; border-radius: 12px; border: 2px solid; background: white;}
+        .vs-card.abd { border-color: #1565c0; box-shadow: 0 4px 10px rgba(21,101,192,0.1);}
+        .vs-card.add { border-color: #e65100; box-shadow: 0 4px 10px rgba(230,81,0,0.1);}
         
-        .mistake-card { background: #fffcfc; border-left: 6px solid #e74c3c; padding: 20px; border-radius: 12px; margin-bottom: 15px; position: relative;}
-        .got-it-btn { background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer;}
+        /* 錯題卡 */
+        .mistake-card { background: #fffcfc; border: 1px solid #ffcccc; border-left: 6px solid #e74c3c; border-radius: 12px; padding: 20px; margin-bottom: 15px; position: relative; transition:0.3s;}
+        .mistake-card:hover { box-shadow: 0 4px 10px rgba(231,76,60,0.1); }
+        .mistake-tag { display: inline-block; background: #e74c3c; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; margin-bottom: 10px; font-weight:bold;}
+        .mistake-q { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color:#333;}
+        .mistake-ans-box { background:#f9f9f9; padding:10px; border-radius:8px; font-size:0.95rem;}
+        .mistake-wrong { color: #e74c3c; text-decoration: line-through; margin-right: 10px;}
+        .mistake-correct { color: #27ae60; font-weight: bold;}
+        .mistake-exp { margin-top:10px; font-size:0.9rem; color:#856404; background:#fff8e1; padding:8px; border-radius:5px;}
+        .got-it-btn { position: absolute; right: 20px; top: 20px; background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s;}
+        .got-it-btn:hover { background: #219653; transform: scale(1.05);}
+        .empty-mistake { text-align:center; padding:40px; color:#aaa; font-size:1.2rem;}
     </style>
 </head>
 <body>
@@ -80,7 +131,7 @@
     <div id="summary-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="closeSummaryModal()">&times;</span>
-            <h2 style="color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 10px;">📊 溫習進度與備註總覽</h2>
+            <h2 style="color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 10px; margin-top: 0;">📊 溫習進度與備註總覽</h2>
             <div id="summary-list"></div>
         </div>
     </div>
@@ -88,22 +139,53 @@
     <div class="sidebar">
         <button class="home-btn" onclick="showHome()">🏠 溫習大堂</button>
         <button class="mistake-btn" onclick="showMistakes()">📓 我的錯題庫</button>
-        <button class="save-btn" style="background: var(--accent-color); margin-top: 10px;" onclick="saveSubjectCategory()">💾 儲存分類進度</button>
+        <button class="home-btn" style="background: var(--accent-color); margin-top: 10px;" onclick="saveSubjectCategory()">💾 儲存分類與進度</button>
 
-        <h2>📚 溫書目錄</h2>
+        <h2>📚 溫書目錄 </h2>
         
         <details open>
             <summary class="main-folder">🦴 骨傷科</summary>
             <div class="sub-menu">
                 <ul class="menu-list">
-                    <li><button class="menu-btn" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">上肢骨折 ▾</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-clavicle', '鎖骨骨折')">鎖骨骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-neck', '肱骨外科頸骨折')">肱骨外科頸</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-shaft', '肱骨幹骨折')">肱骨幹骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-supra', '肱骨髁上骨折')">肱骨髁上</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-mont', '孟氏骨折')">孟氏骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-gale', '蓋氏骨折')">蓋氏骨折</button></li>
-                    <li><button class="menu-btn" onclick="showSection('ortho-u-both', '橈尺骨幹雙骨折')">橈尺骨幹</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ortho-general', '骨傷總論')">總論</button></li>
+                    <li>
+                        <details open>
+                            <summary class="menu-btn" style="color:var(--primary-color);" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">上肢骨折 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-clavicle', '鎖骨骨折')">鎖骨骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-neck', '肱骨外科頸骨折')">肱骨外科頸骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-shaft', '肱骨幹骨折')">肱骨幹骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-supra', '肱骨髁上骨折')">肱骨髁上骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-lat', '肱骨外髁骨折')">肱骨外髁骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-med', '肱骨內上髁骨折')">肱骨內上髁骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-radhead', '橈骨頭骨折')">橈骨頭骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-mont', '孟氏骨折')">孟氏骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-gale', '蓋氏骨折')">蓋氏骨折</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-u-both', '橈尺骨幹骨折')">橈尺骨幹骨折</button></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li><button class="menu-btn" onclick="showSection('ortho-lower', '下肢骨折')">下肢骨折</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ortho-trunk', '軀幹骨折')">軀幹骨折</button></li>
+                    <li>
+                        <details>
+                            <summary class="menu-btn">脫位 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-general', '脫位總論')">脫位總論</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-shoulder', '肩關節脫位')">肩關節脫位</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-disloc-elbow', '肘關節後脫位')">肘關節後脫位</button></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class="menu-btn">特殊檢查 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('ortho-exam-neck', '特殊檢查：頸部')">頸部</button></li>
+                                <li><button class="menu-btn" onclick="showSection('ortho-exam-chest', '特殊檢查：胸腹部')">胸腹部</button></li>
+                            </ul>
+                        </details>
+                    </li>
                 </ul>
             </div>
         </details>
@@ -112,33 +194,93 @@
             <summary class="main-folder">📖 傷寒論</summary>
             <div class="sub-menu">
                 <ul class="menu-list">
+                    <li>
+                        <details>
+                            <summary class="menu-btn">🔹 太陽病 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('sh-taiyang-cold', '太陽傷寒')">太陽傷寒</button></li>
+                                <li><button class="menu-btn" onclick="showSection('sh-taiyang-wind', '太陽中風')">太陽中風</button></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li><button class="menu-btn" onclick="showSection('sh-yangming', '陽明病')">🔹 陽明病</button></li>
+                    <li><button class="menu-btn" onclick="showSection('sh-shaoyang', '少陽病')">🔹 少陽病</button></li>
+                    <li><button class="menu-btn" onclick="showSection('sh-taiyin', '太陰病')">🔹 太陰病</button></li>
                     <li><button class="menu-btn" onclick="showSection('sh-shaoyin', '少陰病')">🔹 少陰病</button></li>
+                    <li><button class="menu-btn" onclick="showSection('sh-jueyin', '厥陰病')">🔹 厥陰病</button></li>
                 </ul>
             </div>
         </details>
+
+        <details>
+            <summary class="main-folder">👐 推拿學</summary>
+            <div class="sub-menu">
+                <ul class="menu-list">
+                    <li><button class="menu-btn" onclick="showSection('tuina-peds', '小兒推拿')">小兒推拿</button></li>
+                    <li><button class="menu-btn" onclick="showSection('tuina-neck', '頸部常見病')">頸部常見病</button></li>
+                    <li><button class="menu-btn" onclick="showSection('tuina-skills', '手法')">手法</button></li>
+                </ul>
+            </div>
+        </details>
+
+        <ul class="menu-list" style="margin-top: 15px;">
+            <li><button class="menu-btn" onclick="showSection('ebp-main', 'EBP')" style="font-weight: bold; color: #7b68ee;">📊 EBP (循證實踐)</button></li>
+            <li><button class="menu-btn" onclick="showSection('funda-main', 'Funda')" style="font-weight: bold; color: #d2691e;">🩺 Funda (基礎護理)</button></li>
+        </ul>
     </div>
 
     <div class="main-content" id="main-content-area">
         
         <div id="progress-container"></div>
 
+        <div class="global-progress-wrapper" onclick="openSummaryModal()">
+            <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <span style="font-weight:bold; color:#555;">溫習詳細總覽 (點擊查看備註)</span>
+                    <span class="global-progress-text" id="global-progress-text">0 / 0</span>
+                </div>
+                <div class="global-progress-bar"><div class="global-progress-fill" id="global-progress-fill"></div></div>
+            </div>
+        </div>
+
         <div id="mistake-dashboard" class="content-section">
             <h1 class="main-title" style="color:#d48a6e; border-bottom-color:#f2e3d5;">📓 我的錯題庫</h1>
+            <p style="color:#777;">呢度自動收集咗你喺「填充題」同「測驗Quiz」答錯過嘅題目。溫熟咗就可以撳「依家識喇」清除佢！</p>
             <div id="mistake-list"></div>
         </div>
 
-        <div id="home-dashboard" class="content-section active" style="background:transparent; box-shadow:none;">
-            <h1 style="color:var(--primary-color); font-size:2.2rem;">🌸 歡迎返嚟溫書！</h1>
+        <div id="home-dashboard" class="content-section active" style="max-width: 880px; background: transparent; box-shadow: none; padding: 0;">
+            <h1 style="color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px;">🌸 歡迎返嚟溫書！勁過！ </h1>
+            <div class="dashboard-grid">
+                <div class="dash-card card-blue" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">
+                    <h2 style="margin-top:0;">🦴 上肢骨折專區</h2>
+                    <p>包含鎖骨、外科頸、肱骨幹、髁上等 10 個核心章節。</p>
+                </div>
+                <div class="dash-card card-pink" onclick="showSection('sh-shaoyin', '少陰病')">
+                    <h2 style="margin-top:0;">📖 少陰病專區</h2>
+                    <p>傷寒論重點條文填充及 50 題計分測驗。</p>
+                </div>
+                <div class="dash-card card-green" onclick="showSection('tuina-skills', '推拿手法')">
+                    <h2 style="margin-top:0;">👐 推拿學</h2>
+                    <p>小兒推拿、常見病及基本手法。</p>
+                </div>
+            </div>
         </div>
 
         <div id="ortho-upper-preview" class="content-section">
             <h1 class="main-title">🦴 上肢骨折總覽
-                <label class="study-checkbox">
-                    <input type="checkbox" class="section-cb" value="upper-preview" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習
-                </label>
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="upper-preview" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
             <div class="keypoint-box">
-                <p>上肢功能要求：<strong>靈活性高於穩定性</strong>（與下肢相反）。</p>
+                <p>上肢功能要求：<strong>靈活性高於穩定性</strong>（與下肢相反）。治療上必須重視手部早期練功活動，固定時間一般較下肢為短。</p>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-clavicle', '鎖骨骨折')"><h3>鎖骨骨折</h3><p>中1/3好發</p></div>
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-neck', '肱骨外科頸骨折')"><h3>肱骨外科頸</h3><p>外展/內收型</p></div>
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-shaft', '肱骨幹骨折')"><h3>肱骨幹骨折</h3><p>易傷橈神經</p></div>
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-supra', '肱骨髁上骨折')"><h3>肱骨髁上</h3><p>兒童多發</p></div>
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-mont', '孟氏骨折')"><h3>孟氏骨折</h3><p>尺上+橈頭脫位</p></div>
+                <div class="dash-card card-blue" onclick="showSection('ortho-u-gale', '蓋氏骨折')"><h3>蓋氏骨折</h3><p>橈下+下尺橈脫位</p></div>
             </div>
         </div>
 
@@ -147,10 +289,12 @@
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="鎖骨骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
             <div class="keypoint-box">
-                <h3>📝 重點：</h3>
+                <h3>📝 考試與溫習重點：</h3>
                 <ul>
-                    <li>多發生在中1/3，兒童多見。</li>
-                    <li>固定多用「∞字繃帶固定」。</li>
+                    <li><strong>好發部位：</strong>多發生在中1/3，兒童多見（常為青枝骨折）。</li>
+                    <li><strong>移位機理：</strong>近端受胸鎖乳突肌牽拉向<strong>上後</strong>移位；遠端因肢體重量及胸大肌牽拉向<strong>前、下、內側</strong>移位。</li>
+                    <li><strong>特有體徵：</strong>肩部向內、下、前傾斜，頭向患側傾斜，下頜偏向健側。</li>
+                    <li><strong>復位與固定：</strong>復位手法為「叉腰挺胸，膝頂扳肩」。固定多用「∞字繃帶固定」。</li>
                 </ul>
             </div>
             <div id="quiz-clavicle" class="poe-quiz-app"></div>
@@ -158,17 +302,30 @@
 
         <div id="ortho-u-neck" class="content-section">
             <h1 class="main-title">肱骨外科頸骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨外科頸" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨外科頸骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
-            <div class="vs-box">
-                <div class="vs-card" style="border-color:#1565c0;">
-                    <h4 style="color:#1565c0; margin-top:0;">外展型骨折</h4>
-                    <p>向<strong>內</strong>成角，<strong>內收位</strong>固定</p>
+            <div class="keypoint-box" style="border-left-color:#6a1b9a;">
+                <h3 style="color:#6a1b9a; margin-top:0;">⚖️ 核心考點：臨床分型對比</h3>
+                <div class="vs-box">
+                    <div class="vs-card abd">
+                        <h4 style="margin-top:0;">外展型骨折</h4>
+                        <p><strong>成角：</strong>向<strong>內</strong>成角</p>
+                        <p><strong>復位：</strong>由<strong>內向外</strong>推</p>
+                        <p><strong>固定：</strong>肩關節保持<strong>內收位</strong></p>
+                    </div>
+                    <div class="vs-card add">
+                        <h4 style="margin-top:0;">內收型骨折</h4>
+                        <p><strong>成角：</strong>向<strong>外</strong>成角</p>
+                        <p><strong>復位：</strong>由<strong>外向內</strong>推</p>
+                        <p><strong>固定：</strong>肩關節保持<strong>外展位</strong></p>
+                    </div>
                 </div>
-                <div class="vs-card" style="border-color:#e65100;">
-                    <h4 style="color:#e65100; margin-top:0;">內收型骨折</h4>
-                    <p>向<strong>外</strong>成角，<strong>外展位</strong>固定</p>
-                </div>
+            </div>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 其他重點：</h3>
+                <ul>
+                    <li><strong>解剖弱點：</strong>位於解剖頸下2~3cm。內側有臂叢神經和腋動靜脈經過，極易合併神經血管損傷。</li>
+                </ul>
             </div>
             <div id="quiz-neck" class="poe-quiz-app"></div>
         </div>
@@ -178,7 +335,11 @@
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="孟氏骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
             <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 定義與口訣</h3>
                 <p>尺骨上1/3骨折 合併 橈骨頭脫位。</p>
+                <div style="background: #fff3e0; padding: 10px; border-radius: 8px; text-align: center; color: #e65100; font-weight: bold;">
+                    💡 記憶聯想：孟氏（猛撞） -> 傷在上面（尺骨上1/3）＋ 傷及大頭（橈骨頭）。
+                </div>
             </div>
             <div id="quiz-mont" class="poe-quiz-app"></div>
         </div>
@@ -188,73 +349,93 @@
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="蓋氏骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
             <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 定義與口訣</h3>
                 <p>橈骨下1/3骨折 合併 下尺橈關節脫位。</p>
+                <div style="background: #fff3e0; padding: 10px; border-radius: 8px; text-align: center; color: #e65100; font-weight: bold;">
+                    💡 記憶聯想：蓋氏（蓋地） -> 傷在下面（橈骨下1/3）＋ 傷及下尺橈。
+                </div>
             </div>
             <div id="quiz-gale" class="poe-quiz-app"></div>
         </div>
 
         <div id="sh-shaoyin" class="content-section">
-            <h1 class="main-title">傷寒論：少陰病 
+            <h1 class="main-title">傷寒論：少陰病
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="少陰病" data-subject="傷寒論" onchange="updateProgress()"> ✅ 已溫習</label>
             </h1>
             <div class="scramble-container">
                 <h3 class="scramble-title">🧩 重點條文填充訓練</h3>
+                <p style="color:#777; font-size:0.9rem; margin-top:-5px;">💡 打中文會自動等選完字先跳格。填錯會標紅並加入「錯題庫」！</p>
+                
                 <div class="scramble-item" id="scramble-1">
                     <strong>1. 少陰病提綱：</strong><br>
                     「少陰之為病，脈 <input type="text" maxlength="1" data-ans="微" class="blank-input"><input type="text" maxlength="1" data-ans="細" class="blank-input">，<input type="text" maxlength="1" data-ans="但" class="blank-input"><input type="text" maxlength="1" data-ans="欲" class="blank-input"><input type="text" maxlength="1" data-ans="寐" class="blank-input">也。」（281）
                     <button class="hint-btn" onclick="toggleHint('hint1')">🔔 提示</button>
-                    <div id="hint1" class="hint-box">想想少陰病最核心的虛寒脈象。</div>
+                    <div id="hint1" class="hint-box"><strong>引導：</strong>想想少陰病最核心的虛寒脈象特徵，以及病人精神極度疲倦、似睡非睡的狀態。</div>
                 </div>
+                
                 <div class="scramble-item" id="scramble-2">
                     <strong>2. 陽虛陰盛證：</strong><br>
                     「少陰病，脈 <input type="text" maxlength="1" data-ans="沉" class="blank-input"> 者，<input type="text" maxlength="1" data-ans="急" class="blank-input"><input type="text" maxlength="1" data-ans="溫" class="blank-input"> 之，宜 <input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input">。」（323）
+                    <button class="hint-btn" onclick="toggleHint('hint2')">🔔 提示</button>
+                    <div id="hint2" class="hint-box"><strong>引導：</strong>脈象在深層，代表邪已入裏。治療需要把握時機（兩個字），並用最基礎的回陽救逆代表方劑。</div>
                 </div>
+                
                 <div class="scramble-item" id="scramble-3">
                     <strong>3. 陰盛格陽證：</strong><br>
-                    「少陰病，下利清穀... <input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="脈" class="blank-input"><input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」（317）
+                    「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤... <input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="脈" class="blank-input"><input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」（317）
+                    <button class="hint-btn" onclick="toggleHint('hint3')">🔔 提示</button>
+                    <div id="hint3" class="hint-box"><strong>引導：</strong>出現了「格陽」面色赤症狀，病情更重，需要在原本的回陽基礎方之上，加強宣通上下陽氣的力度。</div>
                 </div>
+                
                 <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
             </div>
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         </div>
 
-        <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨幹" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫</label></h1><div id="quiz-shaft" class="poe-quiz-app"></div></div>
-        <div id="ortho-u-supra" class="content-section"><h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨髁上" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫</label></h1><div id="quiz-supra" class="poe-quiz-app"></div></div>
-        <div id="ortho-u-both" class="content-section"><h1 class="main-title">橈尺幹雙骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="雙骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫</label></h1><div id="quiz-both" class="poe-quiz-app"></div></div>
+        <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨幹骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-shaft" class="poe-quiz-app"></div></div>
+        <div id="ortho-u-supra" class="content-section"><h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨髁上骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-supra" class="poe-quiz-app"></div></div>
+        <div id="ortho-u-both" class="content-section"><h1 class="main-title">橈尺骨幹雙骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="橈尺雙骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-both" class="poe-quiz-app"></div></div>
 
-    </div>
-
-    <script>
-        // 1. 初始化變數
-        let progressData = JSON.parse(localStorage.getItem('tcmProgressData')) || {};
+    </div> <script>
+        // 1. 初始化資料庫
         let mistakeBank = JSON.parse(localStorage.getItem('tcmMistakes')) || [];
+        let progressData = JSON.parse(localStorage.getItem('tcmProgressData')) || {};
 
-        // 2. 顯示頁面邏輯
-        function showSection(id, title) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) {
-                target.classList.add('active');
-            } else {
-                // 如果 HTML 未寫好，自動補一個防止報錯
-                const newDiv = document.createElement('div');
-                newDiv.id = id;
-                newDiv.className = 'content-section active';
-                newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${title}" data-subject="其他" onchange="updateProgress()"> ✅ 已溫習</label></h1><p>🚧 建設中...</p>`;
-                document.getElementById('main-content-area').appendChild(newDiv);
-            }
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
+        // 2. UI 互動函數
         function showHome() { 
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); 
             document.getElementById('home-dashboard').classList.add('active'); 
+            window.scrollTo(0,0);
         }
 
         function showMistakes() { 
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); 
             document.getElementById('mistake-dashboard').classList.add('active'); 
             renderMistakes(); 
+            window.scrollTo(0,0);
+        }
+
+        function showSection(id, title) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) {
+                target.classList.add('active');
+            } else {
+                // 如果 HTML 冇寫，自動生成一個佔位頁面
+                const newDiv = document.createElement('div');
+                newDiv.id = id;
+                newDiv.className = 'content-section active';
+                newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${title}" data-subject="其他" onchange="updateProgress()"> ✅ 已溫習</label></h1><div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px; margin-top:20px;"><h3>🚧 筆記內容建設中...</h3></div>`;
+                document.getElementById('main-content-area').appendChild(newDiv);
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleHint(hintId) {
+            const box = document.getElementById(hintId);
+            if (box) {
+                box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+            }
         }
 
         // 3. 進度與儲存系統
@@ -267,6 +448,8 @@
         function updateProgress() {
             const cbs = document.querySelectorAll('.section-cb');
             let stats = {};
+            let globalTotal = cbs.length;
+            let globalChecked = 0;
             
             cbs.forEach(cb => {
                 const val = cb.value;
@@ -275,15 +458,27 @@
                 
                 if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
                 stats[subject].total++;
-                if(isChecked) stats[subject].checked++;
+                if(isChecked) {
+                    stats[subject].checked++;
+                    globalChecked++;
+                }
                 
                 if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
                 progressData[val].checked = isChecked;
             });
             
             localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
+            
+            // 更新頂部卡片
             renderSubjectCards(stats);
 
+            // 更新總計條
+            const fill = document.getElementById('global-progress-fill');
+            const text = document.getElementById('global-progress-text');
+            if(fill) fill.style.width = (globalChecked / Math.max(1, globalTotal) * 100) + '%';
+            if(text) text.innerText = `${globalChecked} / ${globalTotal}`;
+
+            // 同步 Modal
             if (document.getElementById('summary-modal').style.display === 'flex') {
                 renderSummaryList();
             }
@@ -298,13 +493,13 @@
                 const pct = Math.round((s.checked / s.total) * 100) || 0;
                 const color = getSubjectColor(sub);
                 html += `
-                <div class="dash-card" style="border-left: 6px solid ${color};" onclick="openSummaryModal()">
-                    <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                <div class="dash-card" style="border-left: 6px solid ${color}; background:white; padding:15px; border-radius:15px; cursor:pointer; margin-bottom:10px;" onclick="openSummaryModal()">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9rem;">
                         <span>${sub}</span>
                         <span style="color:${color}">${s.checked}/${s.total} (${pct}%)</span>
                     </div>
-                    <div style="background:#eee; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
-                        <div style="background:${color}; width:${pct}%; height:100%; transition:0.3s;"></div>
+                    <div style="background:#eee; height:8px; border-radius:4px; margin-top:8px; overflow:hidden;">
+                        <div style="background:${color}; width:${pct}%; height:100%; transition:0.4s;"></div>
                     </div>
                 </div>`;
             }
@@ -313,7 +508,7 @@
 
         function saveSubjectCategory() {
             updateProgress();
-            alert("✅ 進度及分類已成功儲存至瀏覽器！");
+            alert("✅ 進度及分類已成功儲存至瀏覽器！下次開 Tab 依然生效。");
         }
 
         // 4. Modal 總覽系統
@@ -334,21 +529,21 @@
             let html = '';
             for(let sub in groups) {
                 const color = getSubjectColor(sub);
-                html += `<h3 style="color:${color}; border-bottom:2px solid ${color}; padding:5px 0;">${sub}</h3>`;
+                html += `<h3 style="color:${color}; border-bottom:2px solid ${color}; padding:5px 0; margin-top:20px;">${sub}</h3>`;
                 groups[sub].forEach(cb => {
                     const val = cb.value;
                     const isChecked = cb.checked;
                     const remark = progressData[val]?.remark || '';
                     html += `
-                    <div class="summary-item">
+                    <div class="summary-item" style="margin-bottom:10px; padding:12px; background:#f9f9f9; border-radius:8px; border-left:4px solid ${isChecked? '#27ae60' : '#ccc'};">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <b>${val}</b>
-                            <label style="cursor:pointer; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'}; padding:4px 10px; border-radius:8px; font-size:0.8rem;">
+                            <b style="font-size:1.05rem;">${val}</b>
+                            <label style="cursor:pointer; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'}; padding:4px 10px; border-radius:8px; font-size:0.85rem;">
                                 <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val}', this.checked)">
                                 ${isChecked ? '✅ 已溫' : '⬜ 未溫'}
                             </label>
                         </div>
-                        <input type="text" class="summary-remark" placeholder="加上備註..." value="${remark}" onchange="saveRem('${val}', this.value)" style="border:none; border-bottom:1px solid #ddd; background:transparent;">
+                        <input type="text" class="summary-remark" placeholder="加上備註 (例如：已背口訣)..." value="${remark}" onchange="saveRem('${val}', this.value)" style="border:none; border-bottom:1px solid #ddd; width:100%; background:transparent; outline:none; margin-top:8px; padding-bottom:5px;">
                     </div>`;
                 });
             }
@@ -366,18 +561,32 @@
             input.addEventListener('input', () => { if(!isComposing && input.value.length >= 1 && index + 1 < inputs.length) inputs[index+1].focus(); });
         });
 
-        function toggleHint(id) { const e = document.getElementById(id); if(e) e.style.display = (e.style.display === 'block' ? 'none' : 'block'); }
-
         function checkAllScramble() {
             document.querySelectorAll('.scramble-item').forEach((item, idx) => {
                 let err = false;
                 item.querySelectorAll('.blank-input').forEach(input => {
                     const ans = input.getAttribute('data-ans');
                     input.classList.remove('correct', 'wrong');
-                    if(input.value === ans) input.classList.add('correct');
-                    else { input.classList.add('wrong'); err = true; }
+                    if(input.value === ans) {
+                        input.classList.add('correct');
+                    } else { 
+                        input.classList.add('wrong'); 
+                        err = true; 
+                    }
                 });
-                if(err) addMistake({id:`scram-${idx}`, section:"條文填充", question:item.innerText.substring(0,15)+"...", userAns:"填錯", correctAns:"見條文", exp:""});
+                
+                // 如果錯咗，自動加入錯題庫
+                if(err) {
+                    const questionText = item.querySelector('strong').innerText || "條文填充";
+                    addMistake({
+                        id:`scram-${idx}`, 
+                        section: "傷寒論填充題", 
+                        question: questionText, 
+                        userAns: "有字填錯咗", 
+                        correctAns: "請參考原文", 
+                        exp: "這是一條需要死記硬背的重點條文，加油！"
+                    });
+                }
             });
         }
 
@@ -388,16 +597,16 @@
         
         function renderMistakes() {
             const c = document.getElementById('mistake-list');
-            if(mistakeBank.length === 0) { c.innerHTML = '<p>🎉 暫無錯題！</p>'; return; }
+            if(mistakeBank.length === 0) { c.innerHTML = '<div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px;">🎉 暫無錯題！你已經全部識晒喇！</div>'; return; }
             c.innerHTML = mistakeBank.map(m => `
                 <div class="mistake-card">
                     <button class="got-it-btn" style="position:absolute; right:15px; top:15px;" onclick="removeMistake('${m.id}')">✅ 識喇</button>
-                    <b style="color:#e74c3c;">[${m.section}]</b>
-                    <p><b>${m.question}</b></p>
-                    <div style="background:#f9f9f9; padding:10px; border-radius:8px; font-size:0.9rem;">
-                        <span style="color:#e74c3c; text-decoration:line-through;">你答: ${m.userAns}</span><br>
-                        <span style="color:#27ae60; font-weight:bold;">正解: ${m.correctAns}</span><br>
-                        <span style="color:#856404; display:block; margin-top:5px;">${m.exp}</span>
+                    <b style="color:#e74c3c; display:inline-block; margin-bottom:8px; background:#fdedec; padding:4px 10px; border-radius:15px; font-size:0.85rem;">[${m.section}]</b>
+                    <p style="font-size:1.1rem; margin-top:0; font-weight:bold; color:#333;">${m.question}</p>
+                    <div style="background:#f9f9f9; padding:15px; border-radius:8px; font-size:0.95rem;">
+                        <span style="color:#e74c3c; text-decoration:line-through; display:block; margin-bottom:5px;">你答: ${m.userAns}</span>
+                        <span style="color:#27ae60; font-weight:bold; display:block;">正解: ${m.correctAns}</span>
+                        ${m.exp ? `<span style="color:#856404; display:block; margin-top:10px; background:#fff8e1; padding:8px; border-radius:5px;">💡 ${m.exp}</span>` : ''}
                     </div>
                 </div>`).join('');
         }
@@ -408,20 +617,49 @@
                 title: "🦴 鎖骨骨折 測驗",
                 questions: [
                     { section: "好發部位", q: "鎖骨骨折最好發的部位是？", opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"], ans: 1, exp: "鎖骨骨折多發生在中1/3，因為此處是鎖骨最薄弱的位置，也是S形的交界處。" },
-                    { section: "手法整復", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉", "叉腰挺胸，膝頂扳肩", "屈肘旋前", "過伸牽引"], ans: 1, exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」。" }
+                    { section: "好發人群", q: "鎖骨骨折最常見於哪一個人群？", opts: ["老年人", "中年女性", "兒童", "青年男性"], ans: 2, exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。" },
+                    { section: "應用解剖", q: "鎖骨的形狀是？", opts: ["直棒形", "S 形", "L 形", "C 形"], ans: 1, exp: "鎖骨呈S形狀，內側與胸骨柄相連，外側與肩胛骨肩峰相連。" },
+                    { section: "移位機理", q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？", opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "中段骨折時，內側端受胸鎖乳突肌牽拉向後上方移位。" },
+                    { section: "移位機理", q: "鎖骨中段骨折時，外側端向哪個方向移位？", opts: ["向後上方", "向前上方", "向前下方", "向後下方"], ans: 2, exp: "外側端因上肢重力及胸大肌牽拉向前下方移位。" },
+                    { section: "骨折類型", q: "間接暴力造成的鎖骨骨折，骨折類型多為？", opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"], ans: 1, exp: "間接暴力造成的骨折多為短斜形骨折，部位多為中段。直接暴力則多為粉碎性或橫行骨折。" },
+                    { section: "特有體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "鎖骨骨折時，頭向患側傾斜，下頜偏向健側，常以健手托住患側肘部以減輕上肢重量牽拉。" },
+                    { section: "手法整復", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」，患者坐位，術者膝頂背部正中，雙手握兩肩外側向背側牽引。" },
+                    { section: "固定方法", q: "兒童鎖骨青枝骨折的固定時間為？", opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"], ans: 0, exp: "兒童的青枝骨折用三角巾懸吊或8字繃帶固定1～3周即可。" },
+                    { section: "固定方法", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "有移位骨折手法整復後∞字繃帶固定，固定時間為4～6周。" },
+                    { section: "手術治療", q: "以下哪項不是鎖骨骨折手術治療的適應症？", opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"], ans: 1, exp: "無移位的兒童青枝骨折用三角巾懸吊或8字繃帶固定即可，不需手術。手術適應症包括合併神經血管損傷、開放性骨折、多發性骨折、畸形明顯及骨折不癒合。" },
+                    { section: "辨證用藥", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期治則為活血化淤、消腫止痛，內服活血止痛湯或肢傷一方，外用接骨止痛膏或雙柏散。" },
+                    { section: "辨證用藥", q: "鎖骨骨折後期的內服方藥可選用？", opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"], ans: 2, exp: "後期治則為養氣血、補肝腎、壯筋骨，內服六味地黃丸或肢傷三方。" },
+                    { section: "預防調護", q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "鎖骨骨折患者睡眠時應平臥免枕，肩胛間墊高，以維持雙肩後伸的姿勢。" },
+                    { section: "應用解剖", q: "鎖骨內側端附著的肌肉包括？", opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"], ans: 1, exp: "鎖骨內側與胸骨柄相連，有胸大肌與胸鎖乳突肌附著。外側與肩胛骨肩峰相連，有三角肌和斜方肌附著。" }
                 ]
             },
             'neck': {
-                title: "🦴 肱骨外科頸骨折 測驗",
+                title: "🦴 肱骨外科頸骨折 專項測驗",
                 questions: [
-                    { section: "應用解剖", q: "肱骨外科頸位於解剖頸下方多少距離？", opts: ["0.5～1 cm", "2～3 cm", "4～5 cm", "6～7 cm"], ans: 1, exp: "外科頸位於解剖頸下2～3cm。" },
-                    { section: "臨床分型", q: "外展型骨折的成角方向是？", opts: ["向外成角", "向內成角", "向前成角", "向後成角"], ans: 1, exp: "外展型骨折向內成角。記憶：受傷位置與成角方向相反。" }
+                    { section: "應用解剖", q: "肱骨外科頸位於解剖頸下方多少距離？", opts: ["0.5～1 cm", "2～3 cm", "4～5 cm", "6～7 cm"], ans: 1, exp: "外科頸位於解剖頸下2～3cm，大小結節下與肱骨幹的交界處。" },
+                    { section: "應用解剖", q: "肱骨外科頸是哪兩種骨質的交界處？", opts: ["皮質骨與軟骨", "鬆質骨與密質骨", "骨膜與骨皮質", "骨髓與骨松質"], ans: 1, exp: "外科頸為鬆質骨與密質骨的交界處，是結構薄弱點，常易發生骨折。" },
+                    { section: "應用解剖", q: "肱骨外科頸內側有哪些重要結構經過？", opts: ["橈神經和橈動脈", "臂叢神經和腋動靜脈", "尺神經和肱動脈", "正中神經和肱深動脈"], ans: 1, exp: "外科頸內側有臂叢神經和腋動靜脈經過，骨折時容易發生神經血管損傷。" },
+                    { section: "病因病機", q: "肱骨外科頸骨折多由什麼原因引起？", opts: ["直接暴力打擊肩部", "跌倒時手掌或肘部著地，傳達暴力", "長期勞損", "肌肉劇烈收縮"], ans: 1, exp: "多因跌倒時手掌或肘部著地，傳達暴力引起（間接暴力為主）。" },
+                    { section: "臨床分型", q: "上臂在外展位跌倒會造成哪種類型的骨折？", opts: ["內收型骨折", "外展型骨折", "粉碎型骨折", "螺旋形骨折"], ans: 1, exp: "若上臂在外展位則為外展型骨折，若上臂在內收位則為內收型骨折。" },
+                    { section: "臨床分型", q: "外展型骨折的成角方向是？", opts: ["向外成角", "向內成角", "向前成角", "向後成角"], ans: 1, exp: "外展型骨折兩骨折端形成向內的成角。記憶口訣：受傷位置與成角方向相反 —「外展→內角」。" },
+                    { section: "臨床分型", q: "內收型骨折的成角方向是？", opts: ["向內成角", "向外成角", "向前成角", "無明顯成角"], ans: 1, exp: "內收型骨折兩骨折端形成向外的成角。記憶：「內收→外角」。" },
+                    { section: "臨床分型", q: "肱骨外科頸骨折的臨床分型不包括以下哪項？", opts: ["外展型骨折", "內收型骨折", "旋轉型骨折", "骨折合併肩關節脫位"], ans: 2, exp: "臨床分型包括：①外展型骨折 ②內收型骨折 ③骨折合併肩關節脫位。沒有「旋轉型」分類。" },
+                    { section: "診斷要點", q: "肱骨外科頸骨折的特有體徵包括以下哪些？", opts: ["壓痛和縱軸叩擊痛", "彈性固定", "方肩畸形", "肘後三角異常"], ans: 0, exp: "特有體徵包括壓痛、縱軸叩擊痛、骨擦音和異常活動。彈性固定見於脫位，方肩畸形見於肩關節脫位。" },
+                    { section: "診斷要點", q: "確定肱骨外科頸骨折類型（外展 / 內收），需要拍攝什麼X線片？", opts: ["只需正位片", "正側位片", "只需軸位片", "斜位片"], ans: 1, exp: "X線拍片正側位可以確定骨折類型。" },
+                    { section: "治療", q: "無移位的裂縫骨折和嵌插性骨折的固定時間為？", opts: ["1～2 周", "3～4 周", "6～8 周", "8～10 周"], ans: 1, exp: "無移位的裂縫骨折和嵌插性骨折可用三角巾懸吊固定3～4周。" },
+                    { section: "整復", q: "外展型骨折的復位方向是？", opts: ["由外向內側用力", "由內向外側用力", "由前向後用力", "向上牽引"], ans: 1, exp: "外展型骨折復位由內向外側用力。記憶：復位方向與骨折類型相反。" },
+                    { section: "整復", q: "內收型骨折的復位方向是？", opts: ["由內向外側用力", "由外向內側用力", "由後向前用力", "向下牽引"], ans: 1, exp: "內收型骨折復位由外向內側用力。" },
+                    { section: "固定", q: "外展型骨折固定時，內側大頭墊應放在哪裡？", opts: ["肱骨外上髁", "腋窩", "肱骨內上髁", "肩峰下"], ans: 1, exp: "外展型骨折固定時，內側的大頭墊應頂住腋窩，起到外展力臂的支點作用。" },
+                    { section: "固定", q: "內收型骨折固定時，內側大頭墊應放在哪裡？", opts: ["腋窩", "肩峰", "肱骨內上髁", "肱骨大結節"], ans: 2, exp: "內收型骨折固定時，內側的大頭墊應放在肱骨內上髁。" },
+                    { section: "固定", q: "外展型骨折固定時，肩關節應保持什麼體位？", opts: ["外展位", "內收位", "中立位", "外旋位"], ans: 1, exp: "外展型骨折肩關節保持內收位，內收型骨折肩關節保持外展位。固定體位與骨折類型相反。" },
+                    { section: "辨證用藥", q: "肱骨外科頸骨折初期的中醫治則是？", opts: ["養氣血、壯筋骨", "接骨續筋", "活血化淤，消腫止痛", "舒筋活絡"], ans: 2, exp: "初期治則為活血化淤、消腫止痛，內服和營止痛湯或活血止痛湯或肢傷一方。" },
+                    { section: "練功活動", q: "肱骨外科頸骨折練功活動，中期（三周後）主要練習哪個關節？", opts: ["手指關節", "腕關節", "肘關節", "肩關節"], ans: 3, exp: "初期練肘、腕、手指關節；中期（三周後）開始練肩關節活動，防止肩關節僵硬。" }
                 ]
             },
             'shaoyin': {
-                title: "📚 少陰病溫習 Quiz (50題完整版)",
+                title: "📚 少陰病溫習 Quiz (完整 50 題)",
                 questions: [
-                    { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」，是心腎陰陽氣血俱虛。" },
+                    { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」，是心腎陰陽氣血俱虛，以全身性虛寒、虛熱或陽鬱為主要特征。" },
                     { section: "少陰病概說", q: "少陰病的病位與病性，下列何者最正確？", opts: ["病位在表，病性屬陽屬實屬熱", "病位在半表半裏，病性屬寒熱錯雜", "病位在里，病性多屬陰、屬虛、屬寒", "病位在表裏之間，病性屬虛屬熱"], ans: 2, exp: "少陰病病位在里，病性多屬陰、屬虛、屬寒。涉及手足少陰心、腎及手足少陰經。" },
                     { section: "少陰病概說", q: "少陰是指哪兩個臟腑？", opts: ["肝與膽", "脾與胃", "心與腎", "肺與大腸"], ans: 2, exp: "少陰指足少陰腎與手少陰心。腎為先天之本，心為五臟六腑之大主。" },
                     { section: "少陰病概說", q: "少陰與哪一經相表裡？", opts: ["陽明", "太陽", "少陽", "厥陰"], ans: 1, exp: "少陰與太陽相表裡。「實則太陽，虛則少陰」。" },
