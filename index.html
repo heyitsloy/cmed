@@ -44,7 +44,7 @@
         .main-title { color: var(--primary-color); border-bottom: 3px solid #ebf5f2; padding-bottom: 15px; margin-top: 0; display: flex; justify-content: space-between; align-items: center;}
         
         /* 溫習進度條 */
-        .global-progress-wrapper { max-width: 880px; margin: 0 auto 20px auto; background: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent;}
+        .global-progress-wrapper { max-width: 880px; margin: 0 auto 20px auto; background: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent;} <button class="home-btn" style="background: var(--accent-color); margin-top: 10px;" onclick="saveSubjectCategory()">💾 儲存分類與進度</button>
         .global-progress-wrapper:hover { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90, 164, 147, 0.15); }
         .global-progress-bar { flex: 1; background: #e0e0e0; height: 16px; border-radius: 10px; overflow: hidden; }
         .global-progress-fill { height: 100%; background: linear-gradient(90deg, #f6d365, #fda085); width: 0%; transition: width 0.5s ease; }
@@ -450,9 +450,45 @@
     </div>
 
     <script>
+        // 定義科目與章節的關係
+        const subjectStructure = {
+            "骨傷科": ["ortho-u-clavicle", "ortho-u-neck", "ortho-u-shaft", "ortho-u-supra", "ortho-u-lat", "ortho-u-med", "ortho-u-radhead", "ortho-u-mont", "ortho-u-gale", "ortho-u-both"],
+            "傷寒論": ["sh-shaoyin", "sh-taiyang-cold", "sh-taiyang-wind", "sh-taiyang-mild", "sh-taiyang-water", "sh-taiyang-blood", "sh-taiyang-variant"],
+            "推拿學": ["tuina-peds", "tuina-neck", "tuina-back", "tuina-skills"],
+            "其他": ["ebp-main", "funda-main"]
+        };
         let mistakeBank = JSON.parse(localStorage.getItem('tcmMistakes')) || [];
         let progressData = JSON.parse(localStorage.getItem('tcmProgressData')) || {};
 
+        // 儲存當前選中的分類狀態到 localStorage
+function saveSubjectCategory() {
+    const activeSubjects = {};
+    document.querySelectorAll('.section-cb').forEach(cb => {
+        activeSubjects[cb.value] = cb.checked;
+    });
+    localStorage.setItem('userTcmProgress', JSON.stringify(activeSubjects));
+    alert("進度與分類已成功儲存！下次開啟時會自動載入。");
+    updateProgress();
+}
+
+// 修改原本的 updateProgress，使其支援分科計算
+function updateProgress() {
+    let html = '';
+    for (const [subject, sectionIds] of Object.entries(subjectStructure)) {
+        const totalInSub = sectionIds.length;
+        let completedInSub = 0;
+
+        sectionIds.forEach(id => {
+            const cb = document.querySelector(`.section-cb[value="${id}"]`);
+            if (cb && cb.checked) completedInSub++;
+        });
+
+        const pct = Math.round((completedInSub / totalInSub) * 100) || 0;
+        // 這裡可以根據 pct 生成不同的顏色或顯示
+        console.log(`${subject} 進度: ${pct}%`);
+    }
+}
+        
         function saveMistakes() { localStorage.setItem('tcmMistakes', JSON.stringify(mistakeBank)); renderMistakes(); }
         function addMistake(m) { if(!mistakeBank.find(x => x.id === m.id)) { mistakeBank.push(m); saveMistakes(); } }
         function removeMistake(id) { mistakeBank = mistakeBank.filter(m => m.id !== id); saveMistakes(); }
@@ -845,11 +881,17 @@ function renderSummaryList() {
             renderQuizApp(id);
         }
 
-        window.onload = () => { 
-            loadProgress(); 
-            renderMistakes(); 
-            Object.keys(allQuizData).forEach(renderQuizApp); 
-        };
+        window.onload = () => {
+    const savedData = JSON.parse(localStorage.getItem('userTcmProgress'));
+    if (savedData) {
+        for (const [id, isChecked] of Object.entries(savedData)) {
+            const cb = document.querySelector(`.section-cb[value="${id}"]`);
+            if (cb) cb.checked = isChecked;
+        }
+    }
+    updateProgress();
+};
+        
     </script>
 </body>
 </html>
