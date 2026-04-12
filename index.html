@@ -148,11 +148,14 @@
         </div>
     </div>
 
-    <div class="sidebar">
-        <button class="home-btn" onclick="showHome()">🏠 溫習大堂</button>
-        <button class="mistake-btn" onclick="showMistakes()">📓 我的錯題庫</button>
+<div class="sidebar">
+    <button class="home-btn" onclick="showHome()">🏠 溫習大堂</button>
+    <button class="mistake-btn" onclick="showMistakes()">📓 我的錯題庫</button>
+    
+    <button class="home-btn" style="background: var(--accent-color); margin-top: 10px;" onclick="saveProgress()">💾 儲存分類進度</button>
 
-        <h2>📚 溫書溫書 </h2>
+    <h2>📚 溫書溫書 </h2>
+    ...
         
         <details open>
             <summary class="main-folder">🦴 骨傷科</summary>
@@ -488,7 +491,14 @@ function updateProgress() {
         console.log(`${subject} 進度: ${pct}%`);
     }
 }
-        
+        function saveProgress() {
+    // 1. 先執行一次更新邏輯，確保所有最新勾選同備註都入咗 progressData 變量
+    updateProgress(); 
+    
+    // 2. 其實 updateProgress 入面已經寫咗 localStorage.setItem，
+    // 呢度加個彈窗係為咗話俾你知「搞掂咗」，增加安心感
+    alert("✅ 進度及備註已成功儲存！下次開 Tab 都會喺度。");
+}
         function saveMistakes() { localStorage.setItem('tcmMistakes', JSON.stringify(mistakeBank)); renderMistakes(); }
         function addMistake(m) { if(!mistakeBank.find(x => x.id === m.id)) { mistakeBank.push(m); saveMistakes(); } }
         function removeMistake(id) { mistakeBank = mistakeBank.filter(m => m.id !== id); saveMistakes(); }
@@ -503,17 +513,23 @@ function updateProgress() {
         function showMistakes() { document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); document.getElementById('mistake-dashboard').classList.add('active'); renderMistakes(); }
         function navTo(id, title, e) { e.stopPropagation(); showSection(id, title); }
         
-        function showSection(id, title) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) { target.classList.add('active'); }
-            else {
-                const newDiv = document.createElement('div'); newDiv.id = id; newDiv.className = 'content-section active';
-                newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${id}" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="placeholder-box"><h3>🚧 建設中...</h3></div>`;
-                document.getElementById('main-content-area').appendChild(newDiv);
-            }
-            updateProgress();
-        }
+       function showSection(id, title) {
+    // 1. 隱藏所有頁面
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    // 2. 顯示目標頁面
+    const target = document.getElementById(id);
+    if(target) { 
+        target.classList.add('active'); 
+    } else {
+        // 如果頁面唔存在，就動態幫你建一個（防止 med/shaft 撳唔入去）
+        const newDiv = document.createElement('div');
+        newDiv.id = id;
+        newDiv.className = 'content-section active';
+        newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${id}" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="placeholder-box"><h3>🚧 建設中...</h3></div>`;
+        document.getElementById('main-content-area').appendChild(newDiv);
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'}); // 自動拉返上去頂部
+}
 
         function loadProgress() { document.querySelectorAll('.section-cb').forEach(cb => { if(progressData[cb.value]?.checked) cb.checked = true; }); updateProgress(); }
         // ================= 智能分科進度系統 =================
@@ -891,6 +907,11 @@ function renderSummaryList() {
     }
     updateProgress();
 };
+
+        function saveProgress() {
+    updateProgress(); // 先計一次數
+    alert("進度已儲存！下次開 Tab 都會喺度。");
+}
         
     </script>
 </body>
