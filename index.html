@@ -273,9 +273,10 @@
         </ul>
     </div>
 
-    <div class="main-content" id="main-content-area">
+   <div class="main-content" id="main-content-area">
         
-        <div class="global-progress-wrapper" id="progress-wrapper" onclick="openSummaryModal()">
+        <div id="progress-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            </div>
             <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <span style="font-weight:bold; color:#555;">溫習進度 (點擊查看總覽)</span>
@@ -479,47 +480,112 @@
         }
 
         function loadProgress() { document.querySelectorAll('.section-cb').forEach(cb => { if(progressData[cb.value]?.checked) cb.checked = true; }); updateProgress(); }
+        // ================= 智能分科進度系統 =================
+        // 自動判斷科目名稱
+        function getSubjectName(val) {
+            if (val.includes('clavicle') || val.includes('neck') || val.includes('shaft') || val.includes('supra') || val.includes('lat') || val.includes('med') || val.includes('radhead') || val.includes('mont') || val.includes('gale') || val.includes('both') || val.includes('ortho') || val.includes('preview')) return '🦴 骨傷科';
+            if (val.includes('shaoyin') || val.includes('taiyang') || val.includes('yangming') || val.includes('sh-')) return '📖 傷寒論';
+            if (val.includes('tuina')) return '👐 推拿學';
+            if (val.includes('ebp')) return '📊 EBP';
+            if (val.includes('funda')) return '🩺 Funda';
+            return '📚 其他科目';
+        }
+
+        // 自動分配科目顏色
+        function getSubjectColor(subject) {
+            if (subject.includes('骨傷')) return '#4682b4'; // 藍色
+            if (subject.includes('傷寒')) return '#c44d79'; // 粉色
+            if (subject.includes('推拿')) return '#2e8b57'; // 綠色
+            if (subject.includes('EBP')) return '#7b68ee';  // 紫色
+            if (subject.includes('Funda')) return '#d2691e';// 橙色
+            return '#5aa493';
+        }
+
+        // 更新頂部各科進度條
         function updateProgress() {
             const cbs = document.querySelectorAll('.section-cb');
-            let count = 0;
+            let stats = {};
+            
             cbs.forEach(cb => {
-                if(cb.checked) count++;
-                if(!progressData[cb.value]) progressData[cb.value] = { checked: false, remark: "" };
-                progressData[cb.value].checked = cb.checked;
+                const val = cb.value;
+                const isChecked = cb.checked;
+                const subject = getSubjectName(val);
+                
+                if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
+                stats[subject].total++;
+                if(isChecked) stats[subject].checked++;
+                
+                if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
+                progressData[val].checked = isChecked;
             });
             localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
-            const total = cbs.length || 1;
-            document.getElementById('global-progress-fill').style.width = (count/total*100) + '%';
-            document.getElementById('global-progress-text').innerText = `${count} / ${total}`;
-        }
-        
-        function openSummaryModal() { document.getElementById('summary-modal').style.display='flex'; renderSummaryList(); }
-        function closeSummaryModal() { document.getElementById('summary-modal').style.display='none'; }
-        function renderSummaryList() {
-            document.getElementById('summary-list').innerHTML = Array.from(document.querySelectorAll('.section-cb')).map(cb => {
-                const val = cb.value; 
-                const isChecked = cb.checked;
+            
+            // 畫出各科獨立進度卡片
+            let html = '';
+            for(let sub in stats) {
+                const s = stats[sub];
+                const pct = Math.round((s.checked / s.total) * 100) || 0;
+                const color = getSubjectColor(sub);
                 
-                // 智能提取中文大標題，自動飛走「✅ 已溫習」
-                let title = val;
-                const section = cb.closest('.content-section');
-                if (section) {
-                    const titleEl = section.querySelector('.main-title');
-                    if (titleEl) title = titleEl.firstChild.textContent.trim();
-                }
-
-                return `
-                <div class="summary-item">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <b style="color:var(--primary-color); font-size:1.05rem;">${title}</b>
-                        <label style="cursor:pointer; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'}; padding:5px 10px; border-radius:8px;">
-                            <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val}', this.checked)">
-                            ${isChecked ? '✅ 已溫習' : '⬜ 未溫習'}
-                        </label>
+                html += `
+                <div onclick="openSummaryModal()" style="background:white; padding:15px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.03); cursor:pointer; border-left:6px solid ${color}; transition:0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 15px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.03)';">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                        <strong style="color:#333;">${sub}</strong>
+                        <span style="color:${color}; font-weight:bold;">${s.checked} / ${s.total} (${pct}%)</span>
                     </div>
-                    <input type="text" class="summary-remark" placeholder="備註 (例如：已背口訣)..." value="${progressData[val]?.remark || ''}" onchange="saveRem('${val}', this.value)">
+                    <div style="background:#f0f0f0; height:8px; border-radius:4px; overflow:hidden;">
+                        <div style="background:${color}; height:100%; width:${pct}%; transition:0.4s ease-out;"></div>
+                    </div>
                 </div>`;
-            }).join('');
+            }
+            const container = document.getElementById('progress-container');
+            if(container) container.innerHTML = html;
+        }
+
+        // 更新 Modal 總覽清單
+        function renderSummaryList() {
+            const groups = {};
+            document.querySelectorAll('.section-cb').forEach(cb => {
+                const sub = getSubjectName(cb.value);
+                if(!groups[sub]) groups[sub] = [];
+                groups[sub].push(cb);
+            });
+
+            let html = '';
+            for(let sub in groups) {
+                const color = getSubjectColor(sub);
+                const total = groups[sub].length;
+                const checked = groups[sub].filter(c => c.checked).length;
+                const pct = Math.round((checked / total) * 100) || 0;
+
+                // 畫出大科目標題
+                html += `<h3 style="border-bottom:2px solid ${color}; padding-bottom:8px; color:${color}; margin-top:25px; display:flex; justify-content:space-between;">
+                            <span>${sub}</span>
+                            <span style="font-size:0.9rem;">進度: ${pct}%</span>
+                         </h3>`;
+                
+                // 畫出該科目下嘅細項
+                groups[sub].forEach(cb => {
+                    const val = cb.value;
+                    const isChecked = cb.checked;
+                    let title = val;
+                    const titleEl = cb.closest('.content-section')?.querySelector('.main-title');
+                    if(titleEl) title = titleEl.firstChild.textContent.trim();
+                    
+                    html += `
+                    <div class="summary-item">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <b style="color:#333; font-size:1.05rem;">${title}</b>
+                            <label style="cursor:pointer; font-weight:bold; font-size:0.85rem; padding:5px 12px; border-radius:8px; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'};">
+                                <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val}', this.checked)">
+                                ${isChecked ? '✅ 已溫習' : '⬜ 未溫習'}
+                            </label>
+                        </div>
+                        <input type="text" class="summary-remark" placeholder="加入專屬備註 (例如：已背口訣...)" value="${progressData[val]?.remark || ''}" onchange="saveRem('${val}', this.value)">
+                    </div>`;
+                });
+            }
+            document.getElementById('summary-list').innerHTML = html;
         }
         function syncCb(v, c) { document.querySelector(`.section-cb[value="${v}"]`).checked = c; updateProgress(); renderSummaryList(); }
         function saveRem(v, r) { progressData[v].remark = r; localStorage.setItem('tcmProgressData', JSON.stringify(progressData)); }
