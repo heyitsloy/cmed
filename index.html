@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 溫書喇🌸</title>
+    <title>溫書喇🌸</title>
     <style>
         :root {
             --primary-color: #5aa493; --secondary-color: #fff9f0; --accent-color: #d48a6e;
@@ -68,7 +68,7 @@
 
         /* 多重 Quiz CSS */
         .poe-quiz-app { background: #ffffff; border-radius: var(--cute-radius); padding: 25px; margin-top: 30px; border: 2px solid #f0f0f0; }
-        .poe-quiz-app h1.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; }
+        .poe-quiz-app h1.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-top:0; }
         .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin-bottom: 15px; overflow: hidden; }
         .poe-quiz-app .progress-fill { height: 100%; background: linear-gradient(90deg, #5aa493, #78c2ad); border-radius: 10px; transition: width 0.4s; }
         .poe-quiz-app .option-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 10px; width: 100%; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s; }
@@ -351,176 +351,8 @@
         </ul>
     </div>
 
-    <div id="quiz-clavicle" class="poe-quiz-app">
-        </div>
+    <div id="quiz-clavicle" class="poe-quiz-app"></div>
 </div>
-            <div id="quiz-clavicle" class="poe-quiz-app"></div>
-                 <!-- ===== QUIZ ===== -->
-  <div id="quiz" class="tab-content">
-    <div class="score-bar">
-      得分：<span id="score">0</span> / <span id="total">15</span>
-      <button class="reset-btn" onclick="resetQuiz()">重置</button>
-    </div>
-    <div id="quiz-container"></div>
-  </div>
-</div>
-
-<script>
-function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tab).classList.add('active');
-  event.target.classList.add('active');
-}
-
-const quizData = [
-  {
-    q: "鎖骨骨折最好發的部位是？",
-    opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"],
-    ans: 1,
-    exp: "鎖骨骨折多發生在中1/3，因為此處是鎖骨最薄弱的位置，也是S形的交界處。"
-  },
-  {
-    q: "鎖骨骨折最常見於哪一個人群？",
-    opts: ["老年人", "中年女性", "兒童", "青年男性"],
-    ans: 2,
-    exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。"
-  },
-  {
-    q: "鎖骨的形狀是？",
-    opts: ["直棒形", "S 形", "L 形", "C 形"],
-    ans: 1,
-    exp: "鎖骨呈S形狀，內側與胸骨柄相連，外側與肩胛骨肩峰相連。"
-  },
-  {
-    q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？",
-    opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"],
-    ans: 2,
-    exp: "中段骨折時，內側端受胸鎖乳突肌牽拉向後上方移位。"
-  },
-  {
-    q: "鎖骨中段骨折時，外側端向哪個方向移位？",
-    opts: ["向後上方", "向前上方", "向前下方", "向後下方"],
-    ans: 2,
-    exp: "外側端因上肢重力及胸大肌牽拉向前下方移位。"
-  },
-  {
-    q: "間接暴力造成的鎖骨骨折，骨折類型多為？",
-    opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"],
-    ans: 1,
-    exp: "間接暴力造成的骨折多為短斜形骨折，部位多為中段。直接暴力則多為粉碎性或橫行骨折。"
-  },
-  {
-    q: "鎖骨骨折患者的典型姿態，以下何者正確？",
-    opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"],
-    ans: 1,
-    exp: "鎖骨骨折時，頭向患側傾斜，下頜偏向健側，常以健手托住患側肘部以減輕上肢重量牽拉。"
-  },
-  {
-    q: "鎖骨骨折的手法整復口訣是？",
-    opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"],
-    ans: 1,
-    exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」，患者坐位，術者膝頂背部正中，雙手握兩肩外側向背側牽引。"
-  },
-  {
-    q: "兒童鎖骨青枝骨折的固定時間為？",
-    opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"],
-    ans: 0,
-    exp: "兒童的青枝骨折用三角巾懸吊或8字繃帶固定1～3周即可。"
-  },
-  {
-    q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？",
-    opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"],
-    ans: 2,
-    exp: "有移位骨折手法整復後∞字繃帶固定，固定時間為4～6周。"
-  },
-  {
-    q: "以下哪項不是鎖骨骨折手術治療的適應症？",
-    opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"],
-    ans: 1,
-    exp: "無移位的兒童青枝骨折用三角巾懸吊或8字繃帶固定即可，不需手術。手術適應症包括合併神經血管損傷、開放性骨折、多發性骨折、畸形明顯及骨折不癒合。"
-  },
-  {
-    q: "鎖骨骨折初期的中醫治則是？",
-    opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"],
-    ans: 2,
-    exp: "初期治則為活血化淤、消腫止痛，內服活血止痛湯或肢傷一方，外用接骨止痛膏或雙柏散。"
-  },
-  {
-    q: "鎖骨骨折後期的內服方藥可選用？",
-    opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"],
-    ans: 2,
-    exp: "後期治則為養氣血、補肝腎、壯筋骨，內服六味地黃丸或肢傷三方。"
-  },
-  {
-    q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？",
-    opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"],
-    ans: 1,
-    exp: "鎖骨骨折患者睡眠時應平臥免枕，肩胛間墊高，以維持雙肩後伸的姿勢。"
-  },
-  {
-    q: "鎖骨內側端附著的肌肉包括？",
-    opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"],
-    ans: 1,
-    exp: "鎖骨內側與胸骨柄相連，有胸大肌與胸鎖乳突肌附著。外側與肩胛骨肩峰相連，有三角肌和斜方肌附著。"
-  }
-];
-
-let score = 0;
-let answered = 0;
-
-function buildQuiz() {
-  const container = document.getElementById('quiz-container');
-  container.innerHTML = '';
-  quizData.forEach((item, idx) => {
-    let optsHTML = '';
-    item.opts.forEach((opt, oi) => {
-      optsHTML += `<li onclick="checkAnswer(this, ${idx}, ${oi})">${String.fromCharCode(65+oi)}. ${opt}</li>`;
-    });
-    container.innerHTML += `
-      <div class="quiz-card" id="qcard-${idx}">
-        <div style="margin-bottom:10px">
-          <span class="q-number">${idx+1}</span>
-          <span class="q-text">${item.q}</span>
-        </div>
-        <ul class="options" id="opts-${idx}">${optsHTML}</ul>
-        <div class="explanation" id="exp-${idx}">💡 ${item.exp}</div>
-      </div>`;
-  });
-}
-
-function checkAnswer(el, qIdx, optIdx) {
-  const opts = document.querySelectorAll(`#opts-${qIdx} li`);
-  if (opts[0].classList.contains('disabled')) return;
-  
-  opts.forEach(o => o.classList.add('disabled'));
-  
-  if (optIdx === quizData[qIdx].ans) {
-    el.classList.add('correct');
-    score++;
-  } else {
-    el.classList.add('wrong');
-    opts[quizData[qIdx].ans].classList.add('correct');
-  }
-  
-  answered++;
-  document.getElementById('score').textContent = score;
-  document.getElementById('exp-' + qIdx).style.display = 'block';
-}
-
-function resetQuiz() {
-  score = 0;
-  answered = 0;
-  document.getElementById('score').textContent = '0';
-  buildQuiz();
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-buildQuiz();
-</script>
-</body>
-</html>
-        </div>
 
         <div id="ortho-u-neck" class="content-section">
             <h1 class="main-title">肱骨外科頸骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="neck" onchange="updateProgress()"> ✅ 已溫習</label></h1>
@@ -769,26 +601,27 @@ buildQuiz();
 
         // ================= Quiz 題庫及邏輯 =================
         const allQuizData = {
-            const allQuizData = {
     'clavicle': {
         title: "🦴 鎖骨骨折 專項測驗",
         sub: "骨傷科：上肢骨折系列",
         questions: [
-           'clavicle' { section: "解剖", q: "鎖骨骨折最好發的部位是？", opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"], ans: 1, exp: "鎖骨多發生在中1/3，因為此處是鎖骨最薄弱的位置。" },
-           'clavicle' { section: "群體", q: "鎖骨骨折最常見於哪一個人群？", opts: ["老年人", "中年女性", "兒童", "青年男性"], ans: 2, exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。" },
-           'clavicle' { section: "解剖", q: "鎖骨的形狀是？", opts: ["直棒形", "S 形", "L 形", "C 形"], ans: 1, exp: "鎖骨呈S形狀，內外分別連結胸骨與肩峰。" },
-           'clavicle' { section: "移位", q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？", opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "內側端受胸鎖乳突肌牽拉向後上方移位。" },
-           'clavicle' { section: "移位", q: "鎖骨中段骨折時，外側端向哪個方向移位？", opts: ["向後上方", "向前上方", "向前下方", "向後下方"], ans: 2, exp: "外側端因重力及胸大肌牽拉向前下方移位。" },
-           'clavicle' { section: "病因", q: "間接暴力造成的鎖骨骨折，骨折類型多為？", opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"], ans: 1, exp: "間接暴力多為短斜形骨折；直接暴力則多為粉碎性。" },
-           'clavicle' { section: "體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "頭向患側傾斜，下頜偏向健側可減輕胸鎖乳突肌的牽拉痛。" },
-           'clavicle' { section: "治療", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "口訣為「叉腰挺胸，膝頂扳肩」。" },
-           'clavicle' { section: "固定", q: "兒童鎖骨青枝骨折的固定時間為？", opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"], ans: 0, exp: "兒童癒合快，通常 1-3 周即可。" },
-           'clavicle' { section: "固定", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "成人通常需要 4-6 周。" },
-           'clavicle' { section: "手術", q: "以下哪項不是鎖骨骨折手術治療的適應症？", opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"], ans: 1, exp: "無移位的青枝骨折保守治療即可。" },
-           'clavicle' { section: "中醫", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期以消腫止痛、活血化瘀為主。" },
-           'clavicle' { section: "中醫", q: "鎖骨骨折後期的內服方藥可選用？", opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"], ans: 2, exp: "後期治宜補肝腎、壯筋骨，選用六味地黃丸。" },
-            'clavicle'{ section: "護理", q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "平臥免枕，肩胛間墊高有助於維持挺胸姿勢。" },
-           'clavicle' { section: "解剖", q: "鎖骨內側端附著的肌肉包括？", opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"], ans: 1, exp: "內側附著胸大肌與胸鎖乳突肌。" }
+            { section: "解剖", q: "鎖骨骨折最好發的部位是？", opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"], ans: 1, exp: "鎖骨多發生在中1/3，因為此處是鎖骨最薄弱的位置。" },
+            { section: "群體", q: "鎖骨骨折最常見於哪一個人群？", opts: ["老年人", "中年女性", "兒童", "青年男性"], ans: 2, exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。" },
+            { section: "解剖", q: "鎖骨的形狀是？", opts: ["直棒形", "S 形", "L 形", "C 形"], ans: 1, exp: "鎖骨呈S形狀，內外分別連結胸骨與肩峰。" },
+            { section: "移位", q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？", opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "內側端受胸鎖乳突肌牽拉向後上方移位。" },
+            { section: "移位", q: "鎖骨中段骨折時，外側端向哪個方向移位？", opts: ["向後上方", "向前上方", "向前下方", "向後下方"], ans: 2, exp: "外側端因重力及胸大肌牽拉向前下方移位。" },
+            { section: "病因", q: "間接暴力造成的鎖骨骨折，骨折類型多為？", opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"], ans: 1, exp: "間接暴力多為短斜形骨折；直接暴力則多為粉碎性。" },
+            { section: "體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "頭向患側傾斜，下頜偏向健側可減輕胸鎖乳突肌的牽拉痛。" },
+            { section: "治療", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "口訣為「叉腰挺胸，膝頂扳肩」。" },
+            { section: "固定", q: "兒童鎖骨青枝骨折的固定時間為？", opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"], ans: 0, exp: "兒童癒合快，通常 1-3 周即可。" },
+            { section: "固定", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "成人通常需要 4-6 周。" },
+            { section: "手術", q: "以下哪項不是鎖骨骨折手術治療的適應症？", opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"], ans: 1, exp: "無移位的青枝骨折保守治療即可。" },
+            { section: "中醫", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期以消腫止痛、活血化瘀為主。" },
+            { section: "中醫", q: "鎖骨骨折後期的內服方藥可選用？", opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"], ans: 2, exp: "後期治宜補肝腎、壯筋骨，選用六味地黃丸。" },
+            { section: "護理", q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "平臥免枕，肩胛間墊高有助於維持挺胸姿勢。" },
+            { section: "解剖", q: "鎖骨內側端附著的肌肉包括？", opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"], ans: 1, exp: "內側附著胸大肌與胸鎖乳突肌。" }
+        ]
+    },
             'neck': { title: "🦴 肱骨外科頸骨折", questions: [{ section: "併發症", q: "外科頸骨折容易合併哪組神經血管損傷？", opts: ["橈神經", "臂叢神經和腋動靜脈", "尺神經", "正中神經"], ans: 1, exp: "內側有臂叢神經和腋動靜脈經過。" }] },
             'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section: "併發症", q: "中下1/3骨折最容易合併哪條神經損傷？", opts: ["正中神經", "尺神經", "橈神經", "腋神經"], ans: 2, exp: "橈神經緊貼橈神經溝通過，損傷會導致垂腕。" }] },
             'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section: "鑒別", q: "與肘關節脫位的主要鑒別點？", opts: ["壓痛", "骨擦音", "肘三角關係是否改變", "腫脹"], ans: 2, exp: "骨折不改變肘三角關係，脫位會改變。" }] },
@@ -798,9 +631,6 @@ buildQuiz();
             'mont': { title: "🦴 孟氏骨折", questions: [{ section: "定義", q: "孟氏骨折的定義是？", opts: ["橈下1/3+脫位", "尺骨上1/3骨折+橈骨頭脫位", "雙骨折", "橈遠端"], ans: 1, exp: "Monteggia fracture" }] },
             'gale': { title: "🦴 蓋氏骨折", questions: [{ section: "定義", q: "蓋氏骨折的定義是？", opts: ["尺上1/3+脫位", "橈骨下1/3骨折+下尺橈關節脫位", "橈遠端", "尺鷹嘴"], ans: 1, exp: "Galeazzi fracture" }] },
             'both': { title: "🦴 橈尺骨幹雙骨折", questions: [{ section: "目標", q: "最重要的是恢復什麼功能？", opts: ["手指屈伸", "肘屈伸", "前臂旋轉功能", "腕側偏"], ans: 2, exp: "防止交叉癒合喪失旋轉功能。" }] },
-            const allQuizData = {
-            // ... (保留你前面的 clavicle, neck, shaft 等等) ...
-
             'shaoyin': {
                 title: "📚 少陰病溫習 Quiz (完整 50 題)",
                 sub: "BCHM4601 傷寒論｜P1-22",
@@ -858,755 +688,6 @@ buildQuiz();
                 ]
             }
         };
-                /<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>少陰病溫習Quiz (P1-22)</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-    min-height: 100vh;
-    padding: 16px;
-  }
-  .container { max-width: 750px; margin: 0 auto; }
-  h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    padding: 20px 0;
-    color: #38bdf8;
-    border-bottom: 2px solid #1e3a5f;
-    margin-bottom: 20px;
-  }
-  .progress-bar {
-    background: #1e293b;
-    border-radius: 12px;
-    height: 14px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    position: relative;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #3b82f6, #06b6d4);
-    border-radius: 12px;
-    transition: width 0.4s ease;
-  }
-  .progress-text {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #94a3b8;
-    margin-bottom: 20px;
-  }
-  .score-display {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #a5f3fc;
-    margin-bottom: 16px;
-  }
-  .question-card {
-    background: #1e293b;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-    border: 1px solid #334155;
-  }
-  .q-tag {
-    display: inline-block;
-    background: #3b82f6;
-    color: white;
-    font-size: 0.7rem;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-  .q-text {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 18px;
-    color: #f1f5f9;
-  }
-  .options { display: flex; flex-direction: column; gap: 10px; }
-  .option-btn {
-    background: #0f172a;
-    border: 2px solid #334155;
-    border-radius: 12px;
-    padding: 14px 18px;
-    color: #cbd5e1;
-    font-size: 0.95rem;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1.6;
-  }
-  .option-btn:hover:not(.disabled) {
-    border-color: #3b82f6;
-    background: #172554;
-  }
-  .option-btn.correct {
-    border-color: #22c55e;
-    background: #052e16;
-    color: #86efac;
-  }
-  .option-btn.wrong {
-    border-color: #ef4444;
-    background: #450a0a;
-    color: #fca5a5;
-  }
-  .option-btn.show-correct {
-    border-color: #22c55e;
-    background: #052e16;
-    color: #86efac;
-  }
-  .option-btn.disabled { cursor: default; }
-  .explanation {
-    margin-top: 16px;
-    padding: 16px;
-    background: #0c1a2e;
-    border-left: 4px solid #f59e0b;
-    border-radius: 0 8px 8px 0;
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: #fcd34d;
-    display: none;
-  }
-  .nav-btns {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 20px;
-  }
-  .nav-btn {
-    flex: 1;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-weight: 600;
-  }
-  .nav-btn.prev { background: #334155; color: #94a3b8; }
-  .nav-btn.prev:hover { background: #475569; }
-  .nav-btn.next { background: #3b82f6; color: white; }
-  .nav-btn.next:hover { background: #2563eb; }
-  .nav-btn:disabled { opacity: 0.4; cursor: default; }
-
-  .result-card {
-    background: #1e293b;
-    border-radius: 16px;
-    padding: 40px 24px;
-    text-align: center;
-    border: 1px solid #334155;
-  }
-  .result-card h2 { font-size: 1.8rem; color: #38bdf8; margin-bottom: 16px; }
-  .result-score { font-size: 3rem; font-weight: bold; margin: 20px 0; }
-  .result-score.high { color: #22c55e; }
-  .result-score.mid { color: #f59e0b; }
-  .result-score.low { color: #ef4444; }
-  .result-msg { font-size: 1.1rem; color: #94a3b8; margin-bottom: 30px; line-height: 1.8; }
-  .restart-btn {
-    background: #3b82f6;
-    color: white;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .restart-btn:hover { background: #2563eb; }
-  .review-btn {
-    background: #475569;
-    color: #e2e8f0;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 12px;
-  }
-
-  .section-tag {
-    display: inline-block;
-    background: #7c3aed;
-    color: white;
-    font-size: 0.65rem;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-left: 8px;
-  }
-
-  .start-screen {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .start-screen h2 { color: #38bdf8; font-size: 1.4rem; margin-bottom: 20px; }
-  .start-screen p { color: #94a3b8; line-height: 2; margin-bottom: 20px; font-size: 0.95rem; }
-  .start-btn {
-    background: linear-gradient(135deg, #3b82f6, #06b6d4);
-    color: white;
-    border: none;
-    padding: 16px 50px;
-    border-radius: 12px;
-    font-size: 1.15rem;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .topic-list {
-    text-align: left;
-    background: #0f172a;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 16px 0;
-  }
-  .topic-list div {
-    padding: 6px 0;
-    color: #cbd5e1;
-    font-size: 0.9rem;
-  }
-  .topic-list span { color: #38bdf8; margin-right: 8px; }
-</style>
-</head>
-<body>
-<div class="container" id="app"></div>
-
-<script>
-const questions = [
-  // === 少陰病概說 ===
-  {
-    section: "少陰病概說",
-    q: "少陰病屬於外感病發展過程中的哪一個階段？",
-    opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"],
-    ans: 1,
-    exp: "少陰病爲外感病發展過程中「陰證的危重階段」，是心腎陰陽氣血俱虛，以全身性虛寒、虛熱或陽鬱為主要特征。"
-  },
-  {
-    section: "少陰病概說",
-    q: "少陰病的病位與病性，下列何者最正確？",
-    opts: ["病位在表，病性屬陽屬實屬熱", "病位在半表半裏，病性屬寒熱錯雜", "病位在里，病性多屬陰、屬虛、屬寒", "病位在表裏之間，病性屬虛屬熱"],
-    ans: 2,
-    exp: "少陰病病位在里，病性多屬陰、屬虛、屬寒。涉及手足少陰心、腎及手足少陰經。"
-  },
-  {
-    section: "少陰病概說",
-    q: "少陰是指哪兩個臟腑？",
-    opts: ["肝與膽", "脾與胃", "心與腎", "肺與大腸"],
-    ans: 2,
-    exp: "少陰指足少陰腎與手少陰心。腎為先天之本，心為五臟六腑之大主。"
-  },
-  {
-    section: "少陰病概說",
-    q: "少陰與哪一經相表裡？",
-    opts: ["陽明", "太陽", "少陽", "厥陰"],
-    ans: 1,
-    exp: "少陰與太陽相表裡。「實則太陽，虛則少陰」。"
-  },
-  {
-    section: "少陰病概說",
-    q: "關於心腎的臟腑生理，下列何者正確？",
-    opts: ["腎屬火，主血脈，主神明", "心火下溫於腎，腎水上奉於心，水火既濟", "腎為後天之本，主藏精", "心腎相交的意義在於促進氣血運行至四肢"],
-    ans: 1,
-    exp: "心火在上，腎水在下。心火下溫於腎，使腎水不寒；腎水上奉於心，使心火不亢。心腎相交，水火既濟，維持陰陽動態平衡。"
-  },
-  {
-    section: "少陰病概說",
-    q: "腎在少陰病理中的核心地位是什麼？",
-    opts: ["主血脈，主神明", "為後天之本，主運化", "為先天之本，內寓元陰元陽，為人體五臟六腑陰陽之根本", "主疏泄，主藏血"],
-    ans: 2,
-    exp: "腎為先天之本，腎主水，主藏精，內寓元陰元陽，先天真氣之所系，爲人體五臟六腑陰陽之根本。"
-  },
-  // === 成因與分類 ===
-  {
-    section: "少陰病成因",
-    q: "少陰病的成因不包括以下哪項？",
-    opts: ["外邪直中少陰", "三陽病或太陰失治誤治傳入", "年高體弱，腎陽素衰", "情志內傷，肝氣鬱結"],
-    ans: 3,
-    exp: "少陰病成因有二：①外邪直中（年高體弱或腎陽素衰，外寒直中少陰）；②邪由它經傳來（多由三陽病或太陰失治誤治，心腎受損而邪傳少陰）。"
-  },
-  {
-    section: "少陰病分類",
-    q: "少陰寒化證的病機核心是什麼？",
-    opts: ["陰虛陽亢", "陽氣虛衰，陰寒內盛", "痰飲內停", "氣滯血瘀"],
-    ans: 1,
-    exp: "寒化證：素體少陰陽虛陰盛，邪從寒化，以致陽氣虛衰，陰寒內盛。"
-  },
-  {
-    section: "少陰病分類",
-    q: "少陰熱化證的病機核心是什麼？",
-    opts: ["陽氣虛衰，陰寒內盛", "陰虛陽亢", "寒熱錯雜", "氣血兩虛"],
-    ans: 1,
-    exp: "熱化證：素體少陰陰虛陽盛，邪從熱化，以致陰虛陽亢。有心腎不交證、陰虛水熱互結證等。"
-  },
-  {
-    section: "少陰病治療",
-    q: "少陰寒化證的代表方劑是什麼？",
-    opts: ["黃連阿膠湯", "四逆湯", "麻黃細辛附子湯", "大承氣湯"],
-    ans: 1,
-    exp: "寒化證宜溫補陽氣，以四逆湯爲代表方劑。"
-  },
-  {
-    section: "少陰病治療",
-    q: "少陰熱化證的代表方劑是什麼？",
-    opts: ["四逆湯", "通脈四逆湯", "白通湯", "黃連阿膠湯"],
-    ans: 3,
-    exp: "熱化證宜育陰清熱，以黃連阿膠湯爲代表方劑。"
-  },
-  // === 治療禁忌 ===
-  {
-    section: "少陰病治禁",
-    q: "少陰病的治療禁忌包括以下哪些治法？",
-    opts: ["禁用發汗、攻下及火攻", "禁用溫補、活血及消導", "禁用和解、清熱及利水", "禁用補氣、養血及安神"],
-    ans: 0,
-    exp: "少陰病禁用發汗、攻下以及火攻等治法。誤汗則亡陽，誤下則竭陰。"
-  },
-  {
-    section: "少陰病預後",
-    q: "少陰病的預後取決於什麼？",
-    opts: ["氣血的盛衰", "陽氣的存亡", "津液的多少", "邪氣的強弱"],
-    ans: 1,
-    exp: "少陰病的預後，取決於陽氣的存亡，一般是陽回陰續者生，陽亡陰竭者死。"
-  },
-  // === 提綱 ===
-  {
-    section: "少陰病提綱",
-    q: "【281條】少陰之爲病的提綱脈證是什麼？",
-    opts: ["脈浮緊，惡寒發熱", "脈微細，但欲寐", "脈弦細，往來寒熱", "脈沉遲，腹滿而吐"],
-    ans: 1,
-    exp: "「少陰之爲病，脈微細，但欲寐也」(281)。脈微主心腎陽衰，脈細主氣血虛少，但欲寐主精神失養。"
-  },
-  {
-    section: "少陰病提綱",
-    q: "「脈微」在少陰病提綱中反映的病機是什麼？",
-    opts: ["陰血不足，脈道不充", "心腎陽衰，鼓動無力", "痰飲阻滯，脈道不暢", "氣機鬱滯，血行不利"],
-    ans: 1,
-    exp: "脈微，指脈來微弱無力，似有似無，心腎陽衰，鼓動無力所致。"
-  },
-  {
-    section: "少陰病提綱",
-    q: "「但欲寐」的臨床表現與病機是什麼？",
-    opts: ["嗜睡多眠——痰濕困脾", "精神萎靡不振，似睡非睡——心腎陽衰，精神失養", "失眠不寐——心腎不交", "日間嗜睡——氣虛下陷"],
-    ans: 1,
-    exp: "但欲寐——精神萎靡不振，神志恍惚昏沈，似睡非睡，乃心腎陽衰，氣血虛弱，精神失養。"
-  },
-  // === 282條 寒化證辨證要點 ===
-  {
-    section: "寒化證辨證",
-    q: "【282條】少陰寒化證中「欲吐不吐」的病機是什麼？",
-    opts: ["食積停滯，胃氣上逆", "腎陽虛衰，濁陰上逆；胃腑空虛，故無物吐出", "肝氣犯胃，橫逆嘔吐", "痰飲犯胃，胃失和降"],
-    ans: 1,
-    exp: "欲吐不吐——腎陽虛衰，濁陰上逆則欲吐，胃腑空虛，故又無物吐出。"
-  },
-  {
-    section: "寒化證辨證",
-    q: "少陰寒化證「自利而渴」的病機是什麼？",
-    opts: ["濕熱下注，傷津耗液", "腎陽虛衰，火不暖土，腐熟無權則下利；陽虛不能蒸化津液則口渴", "脾虛濕困，清陽不升", "陰虛火旺，迫津外出"],
-    ans: 1,
-    exp: "自利而渴——腎陽虛衰，火不暖土，腐熟無權，則下利；陽虛不能蒸化津液，津不布達則口渴，即「虛故引水自救」。"
-  },
-  {
-    section: "寒化證辨證",
-    q: "少陰寒化證辨證中，「小便色白」說明什麼？",
-    opts: ["濕熱下注膀胱", "下焦虛有寒，不能制水", "腎陰不足，虛火灼津", "脾虛不能運化水濕"],
-    ans: 1,
-    exp: "小便白者，以下焦虛有寒，不能制水，故令色白也。小便色白指小便清而不黃，是少陰寒化的重要辨證依據。"
-  },
-  {
-    section: "寒化證鑒別",
-    q: "辨少陰虛寒下利與太陰虛寒下利，應比較哪組症狀？",
-    opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐、自利而渴 vs 腹滿而吐、自利不渴", "脈微細 vs 脈浮緊"],
-    ans: 2,
-    exp: "以「欲吐不吐」與「腹滿而吐」，「自利而渴」與「自利不渴」相較，辨少陰虛寒下利與太陰虛寒下利。"
-  },
-  {
-    section: "寒化證鑒別",
-    q: "辨少陰寒化證與少陰熱化證，應比較哪組症狀？",
-    opts: ["欲吐不吐 vs 腹滿而吐", "自利而渴 vs 自利不渴", "心煩但欲寐 vs 心煩不得臥", "小便白 vs 小便赤"],
-    ans: 2,
-    exp: "以「心煩但欲寐」與「心煩不得臥」相較，辨少陰寒化證與少陰熱化證。寒化證為虛陽上擾故煩而欲寐，熱化證為陰虛火旺故煩而不得臥。"
-  },
-  {
-    section: "寒化證鑒別",
-    q: "辨少陰寒利與厥陰熱利，應比較哪組症狀？",
-    opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐 vs 腹滿而吐", "脈微細 vs 脈弦數"],
-    ans: 1,
-    exp: "以「自利而渴小便白」與「自利而渴小便赤」相較，辨少陰寒利與厥陰熱利。小便白為下焦虛寒，小便赤為有熱。"
-  },
-  // === 283條 ===
-  {
-    section: "少陰寒盛傷陽",
-    q: "【283條】「病人脈陰陽俱緊，反汗出者」，其病機為何？",
-    opts: ["太陽傷寒，營衛不和", "寒盛於內，陰寒傷陽，陽不攝陰", "陽明裡熱蒸騰，迫汗外出", "少陽樞機不利，營衛失和"],
-    ans: 1,
-    exp: "脈陰陽俱緊為寒盛於內之象（其脈當沉而陰陽俱緊，非太陽之浮緊）。反汗出——陰寒傷陽，陽不攝陰。此屬少陰。"
-  },
-  {
-    section: "少陰寒盛傷陽",
-    q: "283條中為何「法當咽痛」？",
-    opts: ["風熱上犯咽喉", "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉", "陽明經熱上蒸咽喉", "少陽經氣鬱結咽喉"],
-    ans: 1,
-    exp: "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉，故咽痛。"
-  },
-  // === 治禁 ===
-  {
-    section: "少陰病治禁",
-    q: "【285條】少陰病脈細沉數，為何不可發汗？",
-    opts: ["陽虛發汗則亡陽", "沉主在裏，細主陰虛，數主有熱，誤汗可傷陰動血，致下厥上竭", "脈沉主表邪已解", "細數主血虛，汗出則氣脫"],
-    ans: 1,
-    exp: "脈細沉數，病爲在裏——沉主在裏，細主陰虛，數主有熱，誤發其汗，即可能傷陰動血，導致下厥上竭之變證。"
-  },
-  {
-    section: "少陰病治禁",
-    q: "【286條】少陰病脈微，不可發汗的原因是什麼？進一步尺脈弱澀說明什麼？",
-    opts: ["脈微主陽虛，汗出亡陽；尺脈弱澀主陰血不足，屬陰陽俱虛，汗下皆禁", "脈微主氣虛；尺脈弱澀主氣滯血瘀", "脈微主邪輕；尺脈弱澀主食積", "脈微主陰虛；尺脈弱澀主痰飲"],
-    ans: 0,
-    exp: "微脈——心腎陽衰，發汗則亡陽。脈微更兼尺脈弱澀——尺以候裏候腎，弱澀乃陰血不足之征，屬陰陽俱虛，汗、下法均在禁例。"
-  },
-  // === 陽虛陰盛證 四逆湯 ===
-  {
-    section: "陽虛陰盛證",
-    q: "【323條】「少陰病，脈沉者，急溫之」中「急溫」的含義是什麼？",
-    opts: ["用大劑量熱藥猛攻", "及早治療，消患於無形", "急用灸法溫經", "立即用火攻法"],
-    ans: 1,
-    exp: "聯繫提綱證「脈微細」及後面的陰盛格陽證、戴陽證的輕重來看，「急溫」指的是「及早治療，消患於無形」。"
-  },
-  {
-    section: "陽虛陰盛證",
-    q: "四逆湯的藥物組成是什麼？",
-    opts: ["附子、乾薑、人參", "附子、乾薑、甘草", "附子、蔥白、乾薑", "附子、肉桂、甘草"],
-    ans: 1,
-    exp: "四逆湯：甘草二兩(炙)、乾薑一兩半、附子一枚(生用，去皮，破八片)。"
-  },
-  {
-    section: "陽虛陰盛證",
-    q: "四逆湯中各藥的功效，下列何者正確？",
-    opts: ["附子——溫腎回陽；乾薑——溫脾散寒；甘草——調中補虛", "附子——溫中散寒；乾薑——溫腎回陽；甘草——清熱解毒", "附子——補氣升陽；乾薑——活血化瘀；甘草——利水消腫", "附子——養陰補腎；乾薑——化痰止咳；甘草——安神定志"],
-    ans: 0,
-    exp: "附子——溫腎回陽；乾薑——溫脾散寒；甘草——調中補虛。三藥合用，共奏溫補脾腎，回陽救逆之效。"
-  },
-  {
-    section: "陽虛陰盛證",
-    q: "少陰陽衰陰盛證的主要症狀不包括以下哪項？",
-    opts: ["冷汗自出，手足厥冷，身蜷惡寒", "吐利", "大熱大渴，面赤如妝", "脈沉→微細→微欲絕"],
-    ans: 2,
-    exp: "陽衰陰盛證主要症狀包括：全身症状（冷汗自出，手足厥冷，身蜷惡寒）、吐利、小便不利或清長、脈沉/微細/微欲絕、但欲寐。大熱大渴面赤非此證特徵。"
-  },
-  // === 陰盛格陽證 通脈四逆湯 ===
-  {
-    section: "陰盛格陽證",
-    q: "【317條】陰盛格陽證的核心特徵「裏寒外熱」，具體表現為何？",
-    opts: ["發熱惡寒，頭痛身疼", "身反不惡寒，其人面色赤——內真寒，外假熱", "壯熱不惡寒，大汗出", "往來寒熱，胸脅苦滿"],
-    ans: 1,
-    exp: "在陽衰陰盛證前提下，出現身反不惡寒，其人面色赤——陰寒盛結於內，虛陽被格於外，即「裏寒外熱」，內真寒，外假熱。"
-  },
-  {
-    section: "陰盛格陽證",
-    q: "通脈四逆湯與四逆湯的關係是什麼？",
-    opts: ["完全不同的藥物組成", "四逆湯加大附子、乾薑劑量", "四逆湯減去甘草", "四逆湯加人參、蔥白"],
-    ans: 1,
-    exp: "通脈四逆湯即四逆湯加大附子、乾薑劑量而成。附子用大者一枚，乾薑用三兩（四逆湯為一兩半）。"
-  },
-  {
-    section: "陰盛格陽證",
-    q: "通脈四逆湯隨證加減中，面色赤者加什麼？為什麼？",
-    opts: ["加人參，取其益氣生津", "加芍藥，取其活血和絡", "加蔥，取其通格上之陽", "加桔梗，取其利咽開結"],
-    ans: 2,
-    exp: "面色赤者加蔥，取其通格上之陽。蔥白辛溫走竄，能宣通上下，使格拒之勢得解。"
-  },
-  {
-    section: "陰盛格陽證",
-    q: "通脈四逆湯中，咽痛者如何加減？",
-    opts: ["加蔥九莖", "去芍藥，加桔梗一兩", "加生薑二兩", "加人參二兩"],
-    ans: 1,
-    exp: "咽痛者，去芍藥，加桔梗一兩，取其利咽開結。"
-  },
-  {
-    section: "陰盛格陽證",
-    q: "通脈四逆湯中，利止脈不出者如何加減？為什麼？",
-    opts: ["加蔥九莖，通上格之陽", "加生薑二兩，降逆止嘔", "去桔梗，加人參二兩，取其益氣生津，固脫而復脈", "加芍藥二兩，活血和絡"],
-    ans: 2,
-    exp: "利止脈不出者，去桔梗，加人參二兩。利止脈不出是利久傷陰耗液，陰液告竭，加人參取其益氣生津，固脫而復脈。"
-  },
-  {
-    section: "陰盛格陽鑒別",
-    q: "陰盛格陽證之「面色赤」與陽明病面赤有何不同？",
-    opts: ["兩者無區別", "格陽面赤為紅而嬌嫩、遊移不定，伴裏寒證候；陽明面赤為面部通紅不遊移，伴熱證", "格陽面赤更紅更持久", "陽明面赤為淡紅色"],
-    ans: 1,
-    exp: "陰盛格陽之面赤必紅而嬌嫩，遊移不定，伴裏寒證候，身熱久按則熱減，口和舌潤。陽明之面合色赤為面部通紅不遊移，身熱按之灼手久按益甚，口舌乾燥大渴引飲。"
-  },
-  // === 陰盛戴陽證 白通湯 ===
-  {
-    section: "陰盛戴陽證",
-    q: "戴陽證的特徵是什麼？",
-    opts: ["全身發熱，面色蒼白", "面部獨赤，周身寒象，陰盛於下，格陽於上", "面色蒼白，四肢溫暖", "面部潮紅，口渴引飲"],
-    ans: 1,
-    exp: "戴陽證：面部獨赤，周身寒象，為陰盛於下，格陽於上。"
-  },
-  {
-    section: "陰盛戴陽證",
-    q: "【314條】少陰病陰盛戴陽證用什麼方劑治療？",
-    opts: ["四逆湯", "通脈四逆湯", "白通湯", "真武湯"],
-    ans: 2,
-    exp: "少陰病，下利，白通湯主之。(314) 白通湯由蔥白、乾薑、附子組成。"
-  },
-  {
-    section: "陰盛戴陽證",
-    q: "白通湯的藥物組成是什麼？",
-    opts: ["附子、乾薑、甘草", "蔥白、乾薑、附子", "蔥白、附子、甘草", "蔥白、乾薑、人參"],
-    ans: 1,
-    exp: "白通湯：蔥白四莖、乾薑一兩、附子一枚(生，去皮，破八片)。"
-  },
-  {
-    section: "陰盛戴陽證",
-    q: "白通湯中蔥白的作用是什麼？",
-    opts: ["溫腎回陽", "溫脾散寒", "辛溫走竄，宣通上下，使格拒之勢得解，上浮之陽回歸本位", "調中補虛"],
-    ans: 2,
-    exp: "蔥白——辛溫走竄，宣通上下，使格拒之勢得解，上浮之陽回歸本位。附子補下焦之陽，乾薑溫中土之陽。"
-  },
-  // === 白通加豬膽汁湯 ===
-  {
-    section: "白通加豬膽汁湯",
-    q: "【315條】服白通湯後出現「利不止，厥逆無脈，乾嘔煩」，這是什麼原因？",
-    opts: ["藥物過敏反應", "陰寒太盛，對大熱之藥拒而不受，反激惹寒邪之勢", "方藥用錯，應改用寒涼藥", "藥力不足，需加大劑量"],
-    ans: 1,
-    exp: "這是陰盛戴陽證服白通湯後發生格拒的現象。陰寒太盛，對大熱之藥拒而不受，反激惹寒邪之勢，以致證情增劇。"
-  },
-  {
-    section: "白通加豬膽汁湯",
-    q: "白通加豬膽汁湯的治法是什麼？",
-    opts: ["溫中散寒，健脾和胃", "破陰回陽，宣通上下，兼鹹寒反佐", "育陰清熱，滋補腎水", "疏肝理氣，活血化瘀"],
-    ans: 1,
-    exp: "治法為破陰回陽，宣通上下，兼鹹寒反佐。加人尿、豬膽汁咸寒苦降，引陽藥入于陰中，使熱藥不爲寒邪阻格。"
-  },
-  {
-    section: "白通加豬膽汁湯",
-    q: "白通加豬膽汁湯中，人尿和豬膽汁的作用是什麼？",
-    opts: ["清熱解毒，消炎止痛", "咸寒苦降，引陽藥入于陰中；兼補津血，增陰液", "溫腎壯陽，補益精血", "化痰止咳，平喘降逆"],
-    ans: 1,
-    exp: "人尿、豬膽汁咸寒苦降，引陽藥入于陰中，使熱藥不爲寒邪阻格。皆屬血肉有情之品，尚有補津血，增陰液之效。"
-  },
-  {
-    section: "白通加豬膽汁湯",
-    q: "【315條】服白通加豬膽汁湯後，「脈暴出者死，微續者生」，為什麼？",
-    opts: ["暴出代表正氣恢復；微續代表仍然虛弱", "暴出為脈搏突然浮大躁動，非正氣恢復之象，故死；微續為脈搏由小到大漸漸浮起，陽氣漸回，故生", "暴出代表邪氣退去；微續代表邪氣未退", "兩者預後相同"],
-    ans: 1,
-    exp: "脈暴出者——脈搏突然出現浮大躁動之象，非陽氣真正恢復，而是殘陽外脫，故死。微續者——脈搏由小到大，漸漸浮起，說明陽氣漸漸恢復，故生。"
-  },
-  // === 綜合比較 ===
-  {
-    section: "方劑比較",
-    q: "四逆湯、通脈四逆湯、白通湯三方的共同藥物是什麼？",
-    opts: ["附子、乾薑", "附子、甘草", "乾薑、甘草", "附子、蔥白"],
-    ans: 0,
-    exp: "三方都含附子和乾薑。四逆湯=附子+乾薑+甘草；通脈四逆湯=附子(大)+乾薑(大量)+甘草；白通湯=附子+乾薑+蔥白。"
-  },
-  {
-    section: "方劑比較",
-    q: "陽虛陰盛證、陰盛格陽證、陰盛戴陽證三者的病情輕重排序（由輕到重）是？",
-    opts: ["陰盛格陽→陽虛陰盛→陰盛戴陽", "陽虛陰盛→陰盛戴陽→陰盛格陽", "陰盛戴陽→陰盛格陽→陽虛陰盛", "陰盛格陽→陰盛戴陽→陽虛陰盛"],
-    ans: 1,
-    exp: "由輕到重：陽虛陰盛（四逆湯）→ 陰盛戴陽（白通湯，面部獨赤）→ 陰盛格陽（通脈四逆湯，裏寒外熱，身反不惡寒）。"
-  },
-  {
-    section: "綜合",
-    q: "少陰病提綱中「脈細」反映的病機是什麼？",
-    opts: ["心腎陽衰，鼓動無力", "心腎陽衰，氣血虛少，脈道不充", "痰濕阻滯脈道", "肝氣鬱結，氣滯血瘀"],
-    ans: 1,
-    exp: "脈細，指脈形細小如絲，此乃心腎陽衰，氣血虛少，脈道不充之象。"
-  },
-  {
-    section: "綜合",
-    q: "少陰病282條中「心煩」的病機是什麼？",
-    opts: ["陰虛火旺", "陰盛於下，虛陽上擾", "肝火上炎", "痰熱擾心"],
-    ans: 1,
-    exp: "心煩——陰盛於下，虛陽上擾。此為少陰寒化證的心煩，與熱化證「心煩不得臥」的陰虛火旺不同。"
-  },
-  {
-    section: "臨床應用",
-    q: "四逆湯的現代臨床應用不包括以下哪項？",
-    opts: ["急慢性腸炎", "心肌梗塞伴發心源性休克", "肝硬化腹水", "冷性蕁麻疹"],
-    ans: 2,
-    exp: "四逆湯現代應用包括：急慢性腸炎、急慢性胃炎、心肌梗塞伴心源性休克（合生脈散）、慢性腎炎（合五苓散）、冷性蕁麻疹（加細辛防風）等。PDF中未提及肝硬化腹水。"
-  },
-  {
-    section: "綜合",
-    q: "「實則太陽，虛則少陰」這句話說明了什麼？",
-    opts: ["太陽病與少陰病的治法相同", "太陽與少陰相表裡，正氣實則病在太陽（表），正氣虛則病入少陰（裏）", "太陽病比少陰病嚴重", "少陰病可以直接轉為太陽病"],
-    ans: 1,
-    exp: "太陽與少陰相表裡。正氣實，邪在表則為太陽病；正氣虛，邪入裏則為少陰病。說明兩經表裏相關，正氣盛衰決定疾病傳變方向。"
-  }
-];
-
-let currentQ = 0;
-let score = 0;
-let answered = new Array(questions.length).fill(null);
-let started = false;
-let showingResults = false;
-
-function render() {
-  const app = document.getElementById('app');
-  if (!started) {
-    app.innerHTML = renderStart();
-    return;
-  }
-  if (showingResults) {
-    app.innerHTML = renderResults();
-    return;
-  }
-  app.innerHTML = renderQuiz();
-}
-
-function renderStart() {
-  return `
-    <div class="start-screen">
-      <h1>📚 少陰病溫習 Quiz</h1>
-      <h2>BCHM4601 傷寒論｜P1-22</h2>
-      <div class="topic-list">
-        <div><span>🔹</span>少陰病概說（性質、病位、生理、成因）</div>
-        <div><span>🔹</span>少陰病提綱（281條）</div>
-        <div><span>🔹</span>少陰寒化證辨證要點（282條）</div>
-        <div><span>🔹</span>少陰寒盛傷陽證（283條）</div>
-        <div><span>🔹</span>少陰病治禁（285、286條）</div>
-        <div><span>🔹</span>陽虛陰盛證——四逆湯（323條）</div>
-        <div><span>🔹</span>陰盛格陽證——通脈四逆湯（317條）</div>
-        <div><span>🔹</span>陰盛戴陽證——白通湯（314條）</div>
-        <div><span>🔹</span>白通加豬膽汁湯（315條）</div>
-      </div>
-      <p>共 ${questions.length} 題選擇題<br>涵蓋原文、病機、方劑、鑒別、臨床應用</p>
-      <button class="start-btn" onclick="startQuiz()">開始溫習 💪</button>
-    </div>
-  `;
-}
-
-function renderQuiz() {
-  const q = questions[currentQ];
-  const pct = ((currentQ + (answered[currentQ] !== null ? 1 : 0)) / questions.length * 100).toFixed(0);
-  const answeredCount = answered.filter(a => a !== null).length;
-
-  let optionsHtml = q.opts.map((opt, i) => {
-    let cls = 'option-btn';
-    if (answered[currentQ] !== null) {
-      cls += ' disabled';
-      if (i === q.ans) cls += ' correct';
-      else if (i === answered[currentQ] && answered[currentQ] !== q.ans) cls += ' wrong';
-    }
-    return `<button class="${cls}" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${opt}</button>`;
-  }).join('');
-
-  let expHtml = '';
-  if (answered[currentQ] !== null) {
-    expHtml = `<div class="explanation" style="display:block">
-      <strong>${answered[currentQ] === q.ans ? '✅ 正確！' : '❌ 答錯了！'}</strong><br>${q.exp}
-    </div>`;
-  }
-
-  return `
-    <h1>少陰病溫習 Quiz</h1>
-    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-    <div class="progress-text">第 ${currentQ + 1} / ${questions.length} 題</div>
-    <div class="score-display">已答: ${answeredCount} 題 ｜ 正確: ${score} 題</div>
-    <div class="question-card">
-      <span class="q-tag">${q.section}</span>
-      <div class="q-text">${q.q}</div>
-      <div class="options">${optionsHtml}</div>
-      ${expHtml}
-    </div>
-    <div class="nav-btns">
-      <button class="nav-btn prev" onclick="prevQ()" ${currentQ === 0 ? 'disabled' : ''}>← 上一題</button>
-      <button class="nav-btn next" onclick="nextQ()">
-        ${currentQ === questions.length - 1 && answered[currentQ] !== null ? '查看結果 🎯' : '下一題 →'}
-      </button>
-    </div>
-  `;
-}
-
-function renderResults() {
-  const pct = Math.round(score / questions.length * 100);
-  let cls = pct >= 80 ? 'high' : pct >= 60 ? 'mid' : 'low';
-  let msg = pct >= 90 ? '🎉 非常出色！你對少陰病嘅掌握已經好紮實！'
-    : pct >= 75 ? '👍 唔錯！大部分知識點都掌握咗，再溫下薄弱環節就完美！'
-    : pct >= 60 ? '📖 基礎唔錯，但仲有進步空間，建議重溫原文同方劑部分。'
-    : '💪 需要多花啲時間溫習，特別係病機分析同方劑鑒別。加油！';
-
-  let reviewHtml = questions.map((q, i) => {
-    const isCorrect = answered[i] === q.ans;
-    const icon = answered[i] === null ? '⬜' : isCorrect ? '✅' : '❌';
-    return `<div style="padding:8px 0;border-bottom:1px solid #1e293b;font-size:0.85rem;line-height:1.6">
-      ${icon} <strong>Q${i+1}</strong> [${q.section}] ${q.q.substring(0,30)}...
-      ${!isCorrect && answered[i] !== null ? '<br><span style="color:#fca5a5">你答: '+String.fromCharCode(65+answered[i])+' → 正確: '+String.fromCharCode(65+q.ans)+'</span>' : ''}
-    </div>`;
-  }).join('');
-
-  return `
-    <div class="result-card">
-      <h2>Quiz 完成！</h2>
-      <div class="result-score ${cls}">${score} / ${questions.length}</div>
-      <div style="font-size:1.2rem;color:#94a3b8;margin-bottom:8px">${pct}%</div>
-      <div class="result-msg">${msg}</div>
-      <button class="restart-btn" onclick="restart()">重新開始 🔄</button>
-      <br>
-      <button class="review-btn" onclick="document.getElementById('review').style.display=document.getElementById('review').style.display==='none'?'block':'none'">
-        查看詳細結果 📋
-      </button>
-      <div id="review" style="display:none;text-align:left;margin-top:20px;background:#0f172a;padding:16px;border-radius:12px">
-        ${reviewHtml}
-      </div>
-    </div>
-  `;
-}
-
-function startQuiz() {
-  started = true;
-  render();
-}
-
-function selectAnswer(idx) {
-  if (answered[currentQ] !== null) return;
-  answered[currentQ] = idx;
-  if (idx === questions[currentQ].ans) score++;
-  render();
-}
-
-function nextQ() {
-  if (currentQ === questions.length - 1 && answered[currentQ] !== null) {
-    showingResults = true;
-    render();
-    return;
-  }
-  if (currentQ < questions.length - 1) {
-    currentQ++;
-    render();
-    window.scrollTo(0, 0);
-  }
-}
-
-function prevQ() {
-  if (currentQ > 0) {
-    currentQ--;
-    render();
-    window.scrollTo(0, 0);
-  }
-}
-
-function restart() {
-  currentQ = 0;
-  score = 0;
-  answered = new Array(questions.length).fill(null);
-  showingResults = false;
-  render();
-  window.scrollTo(0, 0);
-}
-
-render();
-</script>
-</body>
-</html>/
-            ]}
-        };
 
         const quizStates = {};
         for (let key in allQuizData) { quizStates[key] = { currentQ: 0, score: 0, answered: new Array(allQuizData[key].questions.length).fill(null), started: false, showingResults: false }; }
@@ -1615,9 +696,29 @@ render();
             const app = document.getElementById('quiz-' + quizId);
             if (!app) return;
             const state = quizStates[quizId];
-            if (!state.started) { app.innerHTML = `<div class="start-screen"><h1 class="q-main-title">${allQuizData[quizId].title}</h1><button class="home-btn" style="width:auto; padding:10px 40px;" onclick="startQuiz('${quizId}')">開始測驗 💪</button></div>`; } 
-            else if (state.showingResults) { app.innerHTML = `<div style="text-align:center;"><h2 style="color:var(--primary-color);">Quiz 完成！得分：${state.score} / ${allQuizData[quizId].questions.length}</h2><button class="home-btn" style="width:auto; padding:10px 40px; background:#d48a6e;" onclick="restartQuiz('${quizId}')">重新開始 🔄</button></div>`; } 
-            else { 
+            if (!state.started) { 
+                app.innerHTML = `<div class="start-screen"><h1 class="q-main-title">${allQuizData[quizId].title}</h1><button class="home-btn" style="width:auto; padding:10px 40px;" onclick="startQuiz('${quizId}')">開始測驗 💪</button></div>`; 
+            } else if (state.showingResults) { 
+                const pct = Math.round((state.score / allQuizData[quizId].questions.length) * 100);
+                let reviewHtml = allQuizData[quizId].questions.map((q, i) => {
+                    const isCorrect = state.answered[i] === q.ans;
+                    const icon = isCorrect ? '✅' : '❌';
+                    return `<div style="padding:8px 0;border-bottom:1px dashed #ccc;font-size:0.85rem;line-height:1.6;text-align:left;">
+                        ${icon} <strong>Q${i+1}</strong> [${q.section}] ${q.q}
+                        ${!isCorrect && state.answered[i] !== null ? `<br><span style="color:#e74c3c;margin-left:20px;">你答: ${String.fromCharCode(65+state.answered[i])} → 正解: ${String.fromCharCode(65+q.ans)}</span>` : ''}
+                    </div>`;
+                }).join('');
+
+                app.innerHTML = `
+                    <div style="text-align:center;">
+                        <h2 style="color:var(--primary-color);">Quiz 完成！得分：${state.score} / ${allQuizData[quizId].questions.length} (${pct}%)</h2>
+                        <button class="home-btn" style="width:auto; padding:10px 40px; background:#d48a6e; margin-bottom:15px;" onclick="restartQuiz('${quizId}')">重新開始 🔄</button>
+                        <div style="background:#fafafa; border-radius:15px; padding:15px; border:1px solid #eee; max-height: 400px; overflow-y: auto;">
+                            <h3 style="margin-top:0; color:var(--accent-color);">📋 詳細結果清單</h3>
+                            ${reviewHtml}
+                        </div>
+                    </div>`; 
+            } else { 
                 const q = allQuizData[quizId].questions[state.currentQ];
                 let opts = q.opts.map((opt, i) => `<button class="option-btn ${state.answered[state.currentQ] !== null ? (i===q.ans?'correct':(i===state.answered[state.currentQ]?'wrong':'disabled')) : ''}" onclick="selectAnswer('${quizId}', ${i})">${String.fromCharCode(65+i)}. ${opt}</button>`).join('');
                 app.innerHTML = `<h1 class="q-main-title">${allQuizData[quizId].title}</h1><div class="progress-bar"><div class="progress-fill" style="width:${((state.currentQ+(state.answered[state.currentQ]!==null?1:0))/allQuizData[quizId].questions.length*100)}%"></div></div><p style="text-align:center; color:#777; font-size:0.9rem;">第 ${state.currentQ+1} / ${allQuizData[quizId].questions.length} 題</p><div style="background:#fafafa; border-radius:15px; padding:20px; border:1px solid #eee;"><span style="background:var(--primary-color); color:white; padding:3px 10px; border-radius:20px; font-size:0.7rem;">${q.section}</span><h3 style="margin-top:10px;">${q.q}</h3><div>${opts}</div>${state.answered[state.currentQ]!==null?`<div class="explanation" style="display:block"><strong>${state.answered[state.currentQ]===q.ans?'✅ 正確':'❌ 答錯'}</strong><br>${q.exp}</div>`:''}</div><button class="home-btn" onclick="nextQ('${quizId}')" style="margin-top:20px;">${state.currentQ === allQuizData[quizId].questions.length - 1 && state.answered[state.currentQ] !== null ? '查看結果 🎯' : '下一題 →'}</button>`;
@@ -1625,6 +726,7 @@ render();
         }
 
         function startQuiz(quizId) { quizStates[quizId].started = true; renderQuizApp(quizId); }
+        
         function selectAnswer(quizId, idx) { 
             if (quizStates[quizId].answered[quizStates[quizId].currentQ] !== null) return; 
             quizStates[quizId].answered[quizStates[quizId].currentQ] = idx; 
@@ -1634,12 +736,13 @@ render();
 
             if (idx === q.ans) { 
                 quizStates[quizId].score++; 
-                removeMistake(mistakeId); // 答啱自動移除
+                removeMistake(mistakeId); // 答啱自動由錯題庫移除
             } else {
                 addMistake({ id: mistakeId, type: 'quiz', section: q.section, question: q.q, userAns: q.opts[idx], correctAns: q.opts[q.ans], exp: q.exp });
             }
             renderQuizApp(quizId); 
         }
+
         function nextQ(quizId) { if (quizStates[quizId].currentQ === allQuizData[quizId].questions.length - 1 && quizStates[quizId].answered[quizStates[quizId].currentQ] !== null) { quizStates[quizId].showingResults = true; } else if (quizStates[quizId].currentQ < allQuizData[quizId].questions.length - 1) { quizStates[quizId].currentQ++; } renderQuizApp(quizId); }
         function restartQuiz(quizId) { quizStates[quizId] = { currentQ: 0, score: 0, answered: new Array(allQuizData[quizId].questions.length).fill(null), started: false, showingResults: false }; renderQuizApp(quizId); }
 
