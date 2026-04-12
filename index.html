@@ -334,18 +334,198 @@
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         </div>
 
-        <div id="ortho-u-clavicle" class="content-section">
-            <h1 class="main-title">鎖骨骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="clavicle" onchange="updateProgress()"> ✅ 已溫習</label></h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：鎖骨骨折解剖圖及 X-ray (如：分類圖)]</div>
-            <div class="keypoint-box">
-                <h3>📝 溫習重點：</h3>
+      <div id="ortho-u-clavicle" class="content-section">
+    <h1 class="main-title">鎖骨骨折 (Clavicle Fracture)
+        <label class="study-checkbox"><input type="checkbox" class="section-cb" value="clavicle" onchange="updateProgress()"> ✅ 已溫習</label>
+    </h1>
+
+    <div class="image-placeholder">🖼️ [建議放置：鎖骨 S 形解剖圖、中 1/3 骨折位移示意圖]</div>
+
+    <div class="keypoint-box">
+        <h3>📖 考試溫習重點</h3>
+        <ul>
+            <li><strong>解剖特性：</strong>鎖骨呈 <strong>S 形</strong>。內側與胸骨相連，外側與肩峰相連。</li>
+            <li><strong>好發部位：</strong>多發生在 <strong>中 1/3</strong> 處，此處骨質最薄弱且缺乏肌肉保護。</li>
+            <li><strong>移位規律：</strong>
                 <ul>
-                    <li><strong>好發部位：</strong>多發生在中1/3，兒童多見。</li>
-                    <li><strong>移位機理：</strong>近端向上後移位；遠端向前、下、內側移位。</li>
-                    <li><strong>復位與固定：</strong>「叉腰挺胸，膝頂扳肩」。固定多用「∞字繃帶固定」。</li>
+                    <li><strong>內側端（近端）：</strong>受胸鎖乳突肌牽拉，向<strong>後上方</strong>移位。</li>
+                    <li><strong>外側端（遠端）：</strong>受上肢重力及胸大肌牽拉，向<strong>向前下方</strong>移位。</li>
                 </ul>
-            </div>
+            </li>
+            <li><strong>特有體徵：</strong>患肩向內、下、前傾斜；<strong>頭向患側傾，下頜轉向健側</strong>。</li>
+            <li><strong>手法與固定：</strong>「叉腰挺胸，膝頂扳肩」；使用 <strong>∞ 字繃帶</strong> 固定（成人 4-6 周）。</li>
+        </ul>
+    </div>
+
+    <div id="quiz-clavicle" class="poe-quiz-app">
+        </div>
+</div>
             <div id="quiz-clavicle" class="poe-quiz-app"></div>
+                 <!-- ===== QUIZ ===== -->
+  <div id="quiz" class="tab-content">
+    <div class="score-bar">
+      得分：<span id="score">0</span> / <span id="total">15</span>
+      <button class="reset-btn" onclick="resetQuiz()">重置</button>
+    </div>
+    <div id="quiz-container"></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const quizData = [
+  {
+    q: "鎖骨骨折最好發的部位是？",
+    opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"],
+    ans: 1,
+    exp: "鎖骨骨折多發生在中1/3，因為此處是鎖骨最薄弱的位置，也是S形的交界處。"
+  },
+  {
+    q: "鎖骨骨折最常見於哪一個人群？",
+    opts: ["老年人", "中年女性", "兒童", "青年男性"],
+    ans: 2,
+    exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。"
+  },
+  {
+    q: "鎖骨的形狀是？",
+    opts: ["直棒形", "S 形", "L 形", "C 形"],
+    ans: 1,
+    exp: "鎖骨呈S形狀，內側與胸骨柄相連，外側與肩胛骨肩峰相連。"
+  },
+  {
+    q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？",
+    opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"],
+    ans: 2,
+    exp: "中段骨折時，內側端受胸鎖乳突肌牽拉向後上方移位。"
+  },
+  {
+    q: "鎖骨中段骨折時，外側端向哪個方向移位？",
+    opts: ["向後上方", "向前上方", "向前下方", "向後下方"],
+    ans: 2,
+    exp: "外側端因上肢重力及胸大肌牽拉向前下方移位。"
+  },
+  {
+    q: "間接暴力造成的鎖骨骨折，骨折類型多為？",
+    opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"],
+    ans: 1,
+    exp: "間接暴力造成的骨折多為短斜形骨折，部位多為中段。直接暴力則多為粉碎性或橫行骨折。"
+  },
+  {
+    q: "鎖骨骨折患者的典型姿態，以下何者正確？",
+    opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"],
+    ans: 1,
+    exp: "鎖骨骨折時，頭向患側傾斜，下頜偏向健側，常以健手托住患側肘部以減輕上肢重量牽拉。"
+  },
+  {
+    q: "鎖骨骨折的手法整復口訣是？",
+    opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"],
+    ans: 1,
+    exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」，患者坐位，術者膝頂背部正中，雙手握兩肩外側向背側牽引。"
+  },
+  {
+    q: "兒童鎖骨青枝骨折的固定時間為？",
+    opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"],
+    ans: 0,
+    exp: "兒童的青枝骨折用三角巾懸吊或8字繃帶固定1～3周即可。"
+  },
+  {
+    q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？",
+    opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"],
+    ans: 2,
+    exp: "有移位骨折手法整復後∞字繃帶固定，固定時間為4～6周。"
+  },
+  {
+    q: "以下哪項不是鎖骨骨折手術治療的適應症？",
+    opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"],
+    ans: 1,
+    exp: "無移位的兒童青枝骨折用三角巾懸吊或8字繃帶固定即可，不需手術。手術適應症包括合併神經血管損傷、開放性骨折、多發性骨折、畸形明顯及骨折不癒合。"
+  },
+  {
+    q: "鎖骨骨折初期的中醫治則是？",
+    opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"],
+    ans: 2,
+    exp: "初期治則為活血化淤、消腫止痛，內服活血止痛湯或肢傷一方，外用接骨止痛膏或雙柏散。"
+  },
+  {
+    q: "鎖骨骨折後期的內服方藥可選用？",
+    opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"],
+    ans: 2,
+    exp: "後期治則為養氣血、補肝腎、壯筋骨，內服六味地黃丸或肢傷三方。"
+  },
+  {
+    q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？",
+    opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"],
+    ans: 1,
+    exp: "鎖骨骨折患者睡眠時應平臥免枕，肩胛間墊高，以維持雙肩後伸的姿勢。"
+  },
+  {
+    q: "鎖骨內側端附著的肌肉包括？",
+    opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"],
+    ans: 1,
+    exp: "鎖骨內側與胸骨柄相連，有胸大肌與胸鎖乳突肌附著。外側與肩胛骨肩峰相連，有三角肌和斜方肌附著。"
+  }
+];
+
+let score = 0;
+let answered = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  quizData.forEach((item, idx) => {
+    let optsHTML = '';
+    item.opts.forEach((opt, oi) => {
+      optsHTML += `<li onclick="checkAnswer(this, ${idx}, ${oi})">${String.fromCharCode(65+oi)}. ${opt}</li>`;
+    });
+    container.innerHTML += `
+      <div class="quiz-card" id="qcard-${idx}">
+        <div style="margin-bottom:10px">
+          <span class="q-number">${idx+1}</span>
+          <span class="q-text">${item.q}</span>
+        </div>
+        <ul class="options" id="opts-${idx}">${optsHTML}</ul>
+        <div class="explanation" id="exp-${idx}">💡 ${item.exp}</div>
+      </div>`;
+  });
+}
+
+function checkAnswer(el, qIdx, optIdx) {
+  const opts = document.querySelectorAll(`#opts-${qIdx} li`);
+  if (opts[0].classList.contains('disabled')) return;
+  
+  opts.forEach(o => o.classList.add('disabled'));
+  
+  if (optIdx === quizData[qIdx].ans) {
+    el.classList.add('correct');
+    score++;
+  } else {
+    el.classList.add('wrong');
+    opts[quizData[qIdx].ans].classList.add('correct');
+  }
+  
+  answered++;
+  document.getElementById('score').textContent = score;
+  document.getElementById('exp-' + qIdx).style.display = 'block';
+}
+
+function resetQuiz() {
+  score = 0;
+  answered = 0;
+  document.getElementById('score').textContent = '0';
+  buildQuiz();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
         </div>
 
         <div id="ortho-u-neck" class="content-section">
@@ -595,7 +775,26 @@
 
         // ================= Quiz 題庫及邏輯 =================
         const allQuizData = {
-            'clavicle': { title: "🦴 鎖骨骨折", questions: [{ section: "特徵", q: "鎖骨骨折最常發生在哪個部位？", opts: ["內1/3", "中1/3", "外1/3", "肩峰端"], ans: 1, exp: "中1/3是交界處，最為薄弱。" }] },
+            const allQuizData = {
+    'clavicle': {
+        title: "🦴 鎖骨骨折 專項測驗",
+        sub: "骨傷科：上肢骨折系列",
+        questions: [
+           'clavicle' { section: "解剖", q: "鎖骨骨折最好發的部位是？", opts: ["內側 1/3", "中 1/3", "外側 1/3", "鎖骨全段均等"], ans: 1, exp: "鎖骨多發生在中1/3，因為此處是鎖骨最薄弱的位置。" },
+           'clavicle' { section: "群體", q: "鎖骨骨折最常見於哪一個人群？", opts: ["老年人", "中年女性", "兒童", "青年男性"], ans: 2, exp: "鎖骨骨折多見於兒童，因兒童活動量大且骨骼尚未完全發育。" },
+           'clavicle' { section: "解剖", q: "鎖骨的形狀是？", opts: ["直棒形", "S 形", "L 形", "C 形"], ans: 1, exp: "鎖骨呈S形狀，內外分別連結胸骨與肩峰。" },
+           'clavicle' { section: "移位", q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？", opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "內側端受胸鎖乳突肌牽拉向後上方移位。" },
+           'clavicle' { section: "移位", q: "鎖骨中段骨折時，外側端向哪個方向移位？", opts: ["向後上方", "向前上方", "向前下方", "向後下方"], ans: 2, exp: "外側端因重力及胸大肌牽拉向前下方移位。" },
+           'clavicle' { section: "病因", q: "間接暴力造成的鎖骨骨折，骨折類型多為？", opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"], ans: 1, exp: "間接暴力多為短斜形骨折；直接暴力則多為粉碎性。" },
+           'clavicle' { section: "體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "頭向患側傾斜，下頜偏向健側可減輕胸鎖乳突肌的牽拉痛。" },
+           'clavicle' { section: "治療", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "口訣為「叉腰挺胸，膝頂扳肩」。" },
+           'clavicle' { section: "固定", q: "兒童鎖骨青枝骨折的固定時間為？", opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"], ans: 0, exp: "兒童癒合快，通常 1-3 周即可。" },
+           'clavicle' { section: "固定", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "成人通常需要 4-6 周。" },
+           'clavicle' { section: "手術", q: "以下哪項不是鎖骨骨折手術治療的適應症？", opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"], ans: 1, exp: "無移位的青枝骨折保守治療即可。" },
+           'clavicle' { section: "中醫", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期以消腫止痛、活血化瘀為主。" },
+           'clavicle' { section: "中醫", q: "鎖骨骨折後期的內服方藥可選用？", opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"], ans: 2, exp: "後期治宜補肝腎、壯筋骨，選用六味地黃丸。" },
+            'clavicle'{ section: "護理", q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "平臥免枕，肩胛間墊高有助於維持挺胸姿勢。" },
+           'clavicle' { section: "解剖", q: "鎖骨內側端附著的肌肉包括？", opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"], ans: 1, exp: "內側附著胸大肌與胸鎖乳突肌。" }
             'neck': { title: "🦴 肱骨外科頸骨折", questions: [{ section: "併發症", q: "外科頸骨折容易合併哪組神經血管損傷？", opts: ["橈神經", "臂叢神經和腋動靜脈", "尺神經", "正中神經"], ans: 1, exp: "內側有臂叢神經和腋動靜脈經過。" }] },
             'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section: "併發症", q: "中下1/3骨折最容易合併哪條神經損傷？", opts: ["正中神經", "尺神經", "橈神經", "腋神經"], ans: 2, exp: "橈神經緊貼橈神經溝通過，損傷會導致垂腕。" }] },
             'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section: "鑒別", q: "與肘關節脫位的主要鑒別點？", opts: ["壓痛", "骨擦音", "肘三角關係是否改變", "腫脹"], ans: 2, exp: "骨折不改變肘三角關係，脫位會改變。" }] },
