@@ -455,14 +455,14 @@ function saveSubjectCategory() {
     updateProgress();
 }
 
-        // 顏色定義
+    // 1. 定義顏色
         function getSubjectColor(subject) {
             if (subject.includes('骨傷')) return '#4682b4';
             if (subject.includes('傷寒')) return '#c44d79';
             return '#5aa493';
         }
 
-        // 更新進度與卡片
+        // 2. 更新進度 (主引擎)
         function updateProgress() {
             const cbs = document.querySelectorAll('.section-cb');
             let stats = {};
@@ -476,13 +476,24 @@ function saveSubjectCategory() {
                 stats[subject].total++;
                 if(isChecked) stats[subject].checked++;
                 
+                // 儲存進度到記憶
                 if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
                 progressData[val].checked = isChecked;
             });
             
             localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
-            
-            // 繪製頂部卡片
+            renderSubjectCards(stats); // 畫頂部卡片
+
+            // 如果 Modal 開住，就一齊更新埋
+            if (document.getElementById('summary-modal').style.display === 'flex') {
+                renderSummaryList();
+            }
+        }
+
+        // 3. 畫出頂部嘅科目卡片
+        function renderSubjectCards(stats) {
+            const container = document.getElementById('progress-container');
+            if(!container) return;
             let html = '';
             for(let sub in stats) {
                 const s = stats[sub];
@@ -496,32 +507,6 @@ function saveSubjectCategory() {
                     </div>
                     <div style="background:#eee; height:6px; border-radius:3px; margin-top:8px; overflow:hidden;">
                         <div style="background:${color}; width:${pct}%; height:100%; transition:0.3s;"></div>
-                    </div>
-                </div>`;
-            }
-            document.getElementById('progress-container').innerHTML = html;
-
-            if (document.getElementById('summary-modal').style.display === 'flex') {
-                renderSummaryList();
-            }
-        }
-
-        function renderSubjectCards(stats) {
-            const container = document.getElementById('progress-container');
-            if(!container) return;
-            let html = '';
-            for(let sub in stats) {
-                const s = stats[sub];
-                const pct = Math.round((s.checked / s.total) * 100) || 0;
-                const color = getSubjectColor(sub);
-                html += `
-                <div onclick="openSummaryModal()" class="dash-card" style="padding:15px; border-left:6px solid ${color}; margin-bottom:10px; background:white;">
-                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9rem;">
-                        <span>${sub}</span>
-                        <span style="color:${color}">${s.checked} / ${s.total} (${pct}%)</span>
-                    </div>
-                    <div style="background:#eee; height:8px; border-radius:4px; margin-top:8px; overflow:hidden;">
-                        <div style="background:${color}; width:${pct}%; height:100%; transition:0.4s;"></div>
                     </div>
                 </div>`;
             }
@@ -556,24 +541,19 @@ function saveSubjectCategory() {
         function showMistakes() { document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); document.getElementById('mistake-dashboard').classList.add('active'); renderMistakes(); }
         function navTo(id, title, e) { e.stopPropagation(); showSection(id, title); }
         
-       function showSection(id, title) {
-    // 1. 隱藏所有頁面
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    // 2. 顯示目標頁面
-    const target = document.getElementById(id);
-    if(target) { 
-        target.classList.add('active'); 
-    } else {
-        // 如果頁面唔存在，就動態幫你建一個（防止 med/shaft 撳唔入去）
-        const newDiv = document.createElement('div');
-        newDiv.id = id;
-        newDiv.className = 'content-section active';
-        newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${id}" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="placeholder-box"><h3>🚧 建設中...</h3></div>`;
-        document.getElementById('main-content-area').appendChild(newDiv);
-    }
-    window.scrollTo({top: 0, behavior: 'smooth'}); // 自動拉返上去頂部
-}
-
+function showSection(id, title) {
+            // 隱藏所有 Section
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            // 顯示目標 Section
+            const target = document.getElementById(id);
+            if(target) {
+                target.classList.add('active');
+            } else {
+                console.error("搵唔到呢個頁面: " + id);
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
         function loadProgress() { document.querySelectorAll('.section-cb').forEach(cb => { if(progressData[cb.value]?.checked) cb.checked = true; }); updateProgress(); }
         // ================= 智能分科進度系統 =================
         // 自動判斷科目名稱
