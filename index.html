@@ -512,6 +512,13 @@
             input.addEventListener('input', () => { if(!isComposing && input.value.length >= 1 && index + 1 < inputs.length) inputs[index+1].focus(); });
         });
 
+        function toggleHint(hintId) {
+            const box = document.getElementById(hintId);
+            if (box) {
+                box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+            }
+        }
+        
         function checkAllScramble() {
             document.querySelectorAll('.scramble-item').forEach((item, idx) => {
                 let err = false;
