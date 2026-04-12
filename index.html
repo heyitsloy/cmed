@@ -313,10 +313,11 @@
             </div>
         </div>
 
-        <div id="ortho-upper-preview" class="content-section">
-            <h1 class="main-title">🦴 上肢骨折總覽
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="上肢骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
+       <h1 class="main-title">🦴 上肢骨折總覽
+    <label class="study-checkbox">
+        <input type="checkbox" class="section-cb" value="upper-preview" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習
+    </label>
+</h1>
             <div class="keypoint-box">
                 <p>上肢功能要求：<strong>靈活性高於穩定性</strong>（與下肢相反）。治療上必須重視手部早期練功活動，固定時間一般較下肢為短。</p>
             </div>
@@ -476,21 +477,60 @@ function saveSubjectCategory() {
 
 // 修改原本的 updateProgress，使其支援分科計算
 function updateProgress() {
+    const cbs = document.querySelectorAll('.section-cb');
+    let stats = {};
+    
+    // 1. 遍歷所有 Checkbox
+    cbs.forEach(cb => {
+        const isChecked = cb.checked;
+        const subject = cb.getAttribute('data-subject') || '其他'; // 讀取你寫嘅 data-subject="骨傷科"
+        const val = cb.value; // 例如 "鎖骨骨折"
+
+        // 初始化該科目嘅統計
+        if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
+        
+        stats[subject].total++;
+        if(isChecked) stats[subject].checked++;
+
+        // 儲存進度數據到全局變量
+        if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
+        progressData[val].checked = isChecked;
+    });
+
+    // 2. 儲存落 LocalStorage (確保 close tab 唔會冇咗)
+    localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
+
+    // 3. 即時更新畫面頂部嘅各科進度卡片 (如有)
+    renderSubjectCards(stats);
+    
+    function renderSubjectCards(stats) {
+    const container = document.getElementById('progress-container');
+    if(!container) return;
+
     let html = '';
-    for (const [subject, sectionIds] of Object.entries(subjectStructure)) {
-        const totalInSub = sectionIds.length;
-        let completedInSub = 0;
-
-        sectionIds.forEach(id => {
-            const cb = document.querySelector(`.section-cb[value="${id}"]`);
-            if (cb && cb.checked) completedInSub++;
-        });
-
-        const pct = Math.round((completedInSub / totalInSub) * 100) || 0;
-        // 這裡可以根據 pct 生成不同的顏色或顯示
-        console.log(`${subject} 進度: ${pct}%`);
+    for(let sub in stats) {
+        const s = stats[sub];
+        const pct = Math.round((s.checked / s.total) * 100) || 0;
+        
+        html += `
+        <div class="dash-card" style="padding:15px; border-left:5px solid var(--primary-color); margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                <span>${sub}</span>
+                <span>${s.checked} / ${s.total} (${pct}%)</span>
+            </div>
+            <div style="background:#eee; height:8px; border-radius:4px; margin-top:8px; overflow:hidden;">
+                <div style="background:var(--primary-color); width:${pct}%; height:100%; transition:0.3s;"></div>
+            </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+    // 4. 即時更新總覽 Modal
+    if (document.getElementById('summary-modal').style.display === 'flex') {
+        renderSummaryList();
     }
 }
+        
         function saveProgress() {
     // 1. 先執行一次更新邏輯，確保所有最新勾選同備註都入咗 progressData 變量
     updateProgress(); 
