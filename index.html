@@ -276,13 +276,18 @@
         </ul>
     </div>
 
-   <div class="main-content" id="main-content-area">
+  <div class="main-content" id="main-content-area">
         
-        <div id="progress-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
-            </div>
+        <div id="progress-container"></div>
+
+        <div style="max-width: 880px; margin: 0 auto 20px auto;">
+            <button class="save-btn" style="width: 100%;" onclick="saveSubjectCategory()">💾 儲存當前分類與進度</button>
+        </div>
+
+        <div class="global-progress-wrapper" onclick="openSummaryModal()">
             <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                    <span style="font-weight:bold; color:#555;">溫習進度 (點擊查看總覽)</span>
+                    <span style="font-weight:bold; color:#555;">溫習詳細總覽 (點擊查看備註)</span>
                     <span class="global-progress-text" id="global-progress-text">0 / 0</span>
                 </div>
                 <div class="global-progress-bar"><div class="global-progress-fill" id="global-progress-fill"></div></div>
@@ -433,16 +438,6 @@
             </div>
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         </div>
-
-
-
-
-
-
-
-
-            
-        </div>
         
         <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="shaft" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-shaft" class="poe-quiz-app"></div></div>
         <div id="ortho-u-supra" class="content-section"><h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="supra" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-supra" class="poe-quiz-app"></div></div>
@@ -475,56 +470,66 @@ function saveSubjectCategory() {
     updateProgress();
 }
 
-// 修改原本的 updateProgress，使其支援分科計算
-function updateProgress() {
-    const cbs = document.querySelectorAll('.section-cb');
-    let stats = {};
-    
-    // 1. 遍歷所有 Checkbox
-    cbs.forEach(cb => {
-        const isChecked = cb.checked;
-        const subject = cb.getAttribute('data-subject') || '其他'; // 讀取你寫嘅 data-subject="骨傷科"
-        const val = cb.value; // 例如 "鎖骨骨折"
+        function updateProgress() {
+            const cbs = document.querySelectorAll('.section-cb');
+            let stats = {};
+            let globalTotal = cbs.length;
+            let globalChecked = 0;
+            
+            cbs.forEach(cb => {
+                const isChecked = cb.checked;
+                const subject = cb.getAttribute('data-subject') || '其他';
+                const val = cb.value;
 
-        // 初始化該科目嘅統計
-        if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
+                if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
+                stats[subject].total++;
+                if(isChecked) {
+                    stats[subject].checked++;
+                    globalChecked++;
+                }
+
+                if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
+                progressData[val].checked = isChecked;
+            });
+
+            localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
+            
+            // 更新頂部卡片
+            renderSubjectCards(stats);
+            
+            // 更新舊有的進度條
+            const fill = document.getElementById('global-progress-fill');
+            const text = document.getElementById('global-progress-text');
+            if(fill) fill.style.width = (globalChecked / globalTotal * 100) + '%';
+            if(text) text.innerText = `${globalChecked} / ${globalTotal}`;
+
+            if (document.getElementById('summary-modal').style.display === 'flex') {
+                renderSummaryList();
+            }
+        }
+
+        function renderSubjectCards(stats) {
+            const container = document.getElementById('progress-container');
+            if(!container) return;
+            let html = '';
+            for(let sub in stats) {
+                const s = stats[sub];
+                const pct = Math.round((s.checked / s.total) * 100) || 0;
+                const color = getSubjectColor(sub);
+                html += `
+                <div onclick="openSummaryModal()" class="dash-card" style="padding:15px; border-left:6px solid ${color}; margin-bottom:10px; background:white;">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9rem;">
+                        <span>${sub}</span>
+                        <span style="color:${color}">${s.checked} / ${s.total} (${pct}%)</span>
+                    </div>
+                    <div style="background:#eee; height:8px; border-radius:4px; margin-top:8px; overflow:hidden;">
+                        <div style="background:${color}; width:${pct}%; height:100%; transition:0.4s;"></div>
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html;
+        }
         
-        stats[subject].total++;
-        if(isChecked) stats[subject].checked++;
-
-        // 儲存進度數據到全局變量
-        if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
-        progressData[val].checked = isChecked;
-    });
-
-    // 2. 儲存落 LocalStorage (確保 close tab 唔會冇咗)
-    localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
-
-    // 3. 即時更新畫面頂部嘅各科進度卡片 (如有)
-    renderSubjectCards(stats);
-    
-    function renderSubjectCards(stats) {
-    const container = document.getElementById('progress-container');
-    if(!container) return;
-
-    let html = '';
-    for(let sub in stats) {
-        const s = stats[sub];
-        const pct = Math.round((s.checked / s.total) * 100) || 0;
-        
-        html += `
-        <div class="dash-card" style="padding:15px; border-left:5px solid var(--primary-color); margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold;">
-                <span>${sub}</span>
-                <span>${s.checked} / ${s.total} (${pct}%)</span>
-            </div>
-            <div style="background:#eee; height:8px; border-radius:4px; margin-top:8px; overflow:hidden;">
-                <div style="background:var(--primary-color); width:${pct}%; height:100%; transition:0.3s;"></div>
-            </div>
-        </div>`;
-    }
-    container.innerHTML = html;
-}
     // 4. 即時更新總覽 Modal
     if (document.getElementById('summary-modal').style.display === 'flex') {
         renderSummaryList();
