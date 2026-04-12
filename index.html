@@ -11,8 +11,7 @@
         }
         body { font-family: "Microsoft JhengHei", "PingFang HK", sans-serif; margin: 0; display: flex; height: 100vh; background-color: var(--secondary-color); color: var(--text-color); line-height: 1.6; }
         
-        /* 導航欄 */
-        .sidebar { width: 320px; background-color: #ffffff; border-right: 3px solid #e8f0ed; padding: 20px; overflow-y: auto; box-shadow: 4px 0 15px rgba(90, 164, 147, 0.05); z-index: 10;}
+        .sidebar { width: 320px; background-color: #ffffff; border-right: 3px solid #e8f0ed; padding: 20px; overflow-y: auto; box-shadow: 4px 0 15px rgba(90, 164, 147, 0.05); z-index: 10; flex-shrink:0;}
         .sidebar h2 { font-size: 1.4rem; color: var(--primary-color); border-bottom: 2px dashed #bfe0d8; padding-bottom: 12px; text-align: center; }
         
         .home-btn { background: linear-gradient(135deg, #78c2ad, #5aa493); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(90,164,147,0.2); }
@@ -21,7 +20,6 @@
         .mistake-btn { background: linear-gradient(135deg, #f6d365, #fda085); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: 0.3s; box-shadow: 0 4px 10px rgba(253,160,133,0.2); }
         .mistake-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(253,160,133,0.3); }
 
-        /* 摺疊選單 */
         details { margin-bottom: 8px; }
         details > summary.main-folder { cursor: pointer; font-weight: bold; padding: 10px 10px; color: var(--accent-color); font-size: 1.1rem; list-style: none; border-radius: 12px; transition: 0.3s; }
         details > summary.main-folder::-webkit-details-marker { display: none; }
@@ -36,14 +34,18 @@
         .menu-btn:hover, .menu-btn.active { background-color: #ebf5f2; color: var(--primary-color); font-weight: bold; border-left: 4px solid var(--primary-color);}
         summary.menu-btn::-webkit-details-marker { display: none; } summary.menu-btn { list-style: none; font-weight: bold; color: var(--primary-color);}
 
-        /* 右側內容區 */
+        /* 側欄科目進度條 */
+        .sidebar-progress { margin: 3px 10px 8px 10px; }
+        .sidebar-progress-bar { background: #e8e8e8; height: 6px; border-radius: 3px; overflow: hidden; }
+        .sidebar-progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+        .sidebar-progress-text { font-size: 0.75rem; color: #999; text-align: right; margin-top: 2px; }
+
         .main-content { flex: 1; padding: 40px; overflow-y: auto; background-color: transparent; position: relative; }
         .content-section { display: none; max-width: 880px; margin: 0 auto; background: white; padding: 35px; border-radius: var(--cute-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.04); margin-bottom: 40px;}
         .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .main-title { color: var(--primary-color); border-bottom: 3px solid #ebf5f2; padding-bottom: 15px; margin-top: 0; display: flex; justify-content: space-between; align-items: center;}
+        .main-title { color: var(--primary-color); border-bottom: 3px solid #ebf5f2; padding-bottom: 15px; margin-top: 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
         
-        /* 進度條與卡片 */
         .global-progress-wrapper { max-width: 880px; margin: 0 auto 20px auto; background: white; padding: 15px 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent;} 
         .global-progress-wrapper:hover { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(90, 164, 147, 0.15); }
         .global-progress-bar { flex: 1; background: #e0e0e0; height: 16px; border-radius: 10px; overflow: hidden; }
@@ -52,17 +54,15 @@
         .global-progress-text span { font-size: 1.1rem; }
         
         #progress-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; max-width: 880px; margin-left: auto; margin-right: auto;}
-        .study-checkbox { font-size: 1rem; font-weight: bold; color: #27ae60; background: #e8f8f5; padding: 8px 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; border: 2px solid transparent;}
+        .study-checkbox { font-size: 1rem; font-weight: bold; color: #27ae60; background: #e8f8f5; padding: 8px 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; border: 2px solid transparent; white-space: nowrap;}
         .study-checkbox:hover { border-color: #27ae60; }
 
-        /* Modal 視窗 */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; animation: fadeIn 0.2s; }
         .modal-content { background: white; padding: 30px; border-radius: var(--cute-radius); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #999; }
         .summary-item { background: #fafafa; border: 1px solid #eee; padding: 15px; border-radius: 12px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
         .summary-remark { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: inherit; font-size: 0.95rem; }
         
-        /* 填充題 Scramble Game */
         .scramble-container { background: #fdfbf7; border: 2px solid #f2e3d5; border-radius: var(--cute-radius); padding: 30px; margin-bottom: 35px; }
         .scramble-title { color: var(--accent-color); margin-top: 0; font-size: 1.3rem; border-bottom: 2px dashed #f2e3d5; padding-bottom: 10px;}
         .scramble-item { margin-bottom: 25px; font-size: 1.1rem; line-height: 2.2; position: relative;}
@@ -77,9 +77,8 @@
         .check-scramble-btn { background: linear-gradient(135deg, #e09f86, #d48a6e); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 4px 10px rgba(212, 138, 110, 0.2); }
         .check-scramble-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 138, 110, 0.4); }
 
-        /* 多重 Quiz CSS */
         .poe-quiz-app { background: #ffffff; border-radius: var(--cute-radius); padding: 25px; margin-top: 30px; border: 2px solid #f0f0f0; }
-        .poe-quiz-app h1.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-top:0; }
+        .poe-quiz-app h1.q-main-title, .poe-quiz-app h2.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-top:0; }
         .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin-bottom: 15px; overflow: hidden; }
         .poe-quiz-app .progress-fill { height: 100%; background: linear-gradient(90deg, #5aa493, #78c2ad); border-radius: 10px; transition: width 0.4s; }
         .poe-quiz-app .option-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 10px; width: 100%; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s; }
@@ -92,7 +91,6 @@
         .poe-quiz-app .nav-btn { flex: 1; padding: 12px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; background: #eee; }
         .poe-quiz-app .nav-btn.next { background: var(--primary-color); color: white; }
 
-        /* 首頁及 Preview 卡片 */
         .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 25px; }
         .dash-card { border-radius: var(--cute-radius); padding: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.03); border: 2px solid transparent; background: white;}
         .dash-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
@@ -101,8 +99,9 @@
         .card-pink { background: linear-gradient(135deg, #fff0f5, #ffe4e1); color: #c44d79; border-color: #ffb6c1; }
         .card-blue { background: linear-gradient(135deg, #f0f8ff, #e0ffff); color: #4682b4; border-color: #add8e6; }
         .card-green { background: linear-gradient(135deg, #f5fffa, #e0f8e8); color: #2e8b57; border-color: #98d8ad; }
+        .card-purple { background: linear-gradient(135deg, #f5f0ff, #ede0ff); color: #7b68ee; border-color: #c4b5fd; }
+        .card-orange { background: linear-gradient(135deg, #fffaf0, #ffe8d6); color: #d2691e; border-color: #f4c89a; }
         
-        /* 重點與表格 */
         .keypoint-box { background: #fdfbf7; border-left: 5px solid var(--accent-color); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; }
         .compare-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9em; background: white; }
         .compare-table th { background: var(--primary-color); color: white; padding: 10px; }
@@ -112,21 +111,19 @@
         .vs-card.abd { border-color: #1565c0; box-shadow: 0 4px 10px rgba(21,101,192,0.1);}
         .vs-card.add { border-color: #e65100; box-shadow: 0 4px 10px rgba(230,81,0,0.1);}
         
-        /* 錯題卡 */
         .mistake-card { background: #fffcfc; border: 1px solid #ffcccc; border-left: 6px solid #e74c3c; border-radius: 12px; padding: 20px; margin-bottom: 15px; position: relative; transition:0.3s;}
         .mistake-card:hover { box-shadow: 0 4px 10px rgba(231,76,60,0.1); }
-        .mistake-tag { display: inline-block; background: #e74c3c; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; margin-bottom: 10px; font-weight:bold;}
-        .mistake-q { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color:#333;}
-        .mistake-ans-box { background:#f9f9f9; padding:10px; border-radius:8px; font-size:0.95rem;}
-        .mistake-wrong { color: #e74c3c; text-decoration: line-through; margin-right: 10px;}
-        .mistake-correct { color: #27ae60; font-weight: bold;}
-        .mistake-exp { margin-top:10px; font-size:0.9rem; color:#856404; background:#fff8e1; padding:8px; border-radius:5px;}
         .got-it-btn { position: absolute; right: 20px; top: 20px; background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s;}
         .got-it-btn:hover { background: #219653; transform: scale(1.05);}
-        .empty-mistake { text-align:center; padding:40px; color:#aaa; font-size:1.2rem;}
+
+        /* Toast 提示 */
+        .toast { position: fixed; bottom: 30px; right: 30px; background: #27ae60; color: white; padding: 12px 24px; border-radius: 12px; font-weight: bold; font-size: 0.95rem; z-index: 9999; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; pointer-events: none; box-shadow: 0 4px 15px rgba(39,174,96,0.3); }
+        .toast.show { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
+
+    <div id="toast" class="toast">✅ 進度已自動儲存！</div>
 
     <div id="summary-modal" class="modal-overlay">
         <div class="modal-content">
@@ -139,18 +136,22 @@
     <div class="sidebar">
         <button class="home-btn" onclick="showHome()">🏠 溫習大堂</button>
         <button class="mistake-btn" onclick="showMistakes()">📓 我的錯題庫</button>
-        <button class="home-btn" style="background: var(--accent-color); margin-top: 10px;" onclick="saveSubjectCategory()">💾 儲存分類與進度</button>
 
-        <h2>📚 溫書目錄 </h2>
+        <h2>📚 溫書目錄</h2>
         
+        <!-- 骨傷科 -->
         <details open>
             <summary class="main-folder">🦴 骨傷科</summary>
+            <div class="sidebar-progress" id="sp-骨傷科">
+                <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%; background:#4682b4;"></div></div>
+                <div class="sidebar-progress-text">0%</div>
+            </div>
             <div class="sub-menu">
                 <ul class="menu-list">
                     <li><button class="menu-btn" onclick="showSection('ortho-general', '骨傷總論')">總論</button></li>
                     <li>
                         <details open>
-                            <summary class="menu-btn" style="color:var(--primary-color);" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">上肢骨折 ▾</summary>
+                            <summary class="menu-btn" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">上肢骨折 ▾</summary>
                             <ul class="menu-list sub-menu">
                                 <li><button class="menu-btn" onclick="showSection('ortho-u-clavicle', '鎖骨骨折')">鎖骨骨折</button></li>
                                 <li><button class="menu-btn" onclick="showSection('ortho-u-neck', '肱骨外科頸骨折')">肱骨外科頸骨折</button></li>
@@ -190,8 +191,13 @@
             </div>
         </details>
 
+        <!-- 傷寒論 -->
         <details>
             <summary class="main-folder">📖 傷寒論</summary>
+            <div class="sidebar-progress" id="sp-傷寒論">
+                <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%; background:#c44d79;"></div></div>
+                <div class="sidebar-progress-text">0%</div>
+            </div>
             <div class="sub-menu">
                 <ul class="menu-list">
                     <li>
@@ -212,21 +218,99 @@
             </div>
         </details>
 
+        <!-- 推拿學 -->
         <details>
             <summary class="main-folder">👐 推拿學</summary>
+            <div class="sidebar-progress" id="sp-推拿學">
+                <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%; background:#2e8b57;"></div></div>
+                <div class="sidebar-progress-text">0%</div>
+            </div>
             <div class="sub-menu">
                 <ul class="menu-list">
-                    <li><button class="menu-btn" onclick="showSection('tuina-peds', '小兒推拿')">小兒推拿</button></li>
-                    <li><button class="menu-btn" onclick="showSection('tuina-neck', '頸部常見病')">頸部常見病</button></li>
-                    <li><button class="menu-btn" onclick="showSection('tuina-skills', '手法')">手法</button></li>
+                    <li>
+                        <details>
+                            <summary class="menu-btn">👶 小兒推拿 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('tuina-peds-overview', '小兒推拿概論')">概論</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-peds-points', '小兒特定穴')">小兒特定穴</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-peds-fever', '小兒發熱')">小兒發熱</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-peds-diarrhea', '小兒腹瀉')">小兒腹瀉</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-peds-cough', '小兒咳嗽')">小兒咳嗽</button></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class="menu-btn">🦴 常見病 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('tuina-neck', '落枕')">落枕</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-cervical', '頸椎病')">頸椎病</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-lumbar', '腰椎間盤突出')">腰椎間盤突出</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-shoulder', '肩周炎')">肩周炎</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-headache', '頭痛')">頭痛</button></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class="menu-btn">✋ 手法 ▾</summary>
+                            <ul class="menu-list sub-menu">
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-swing', '擺動類手法')">擺動類 (滾法/一指禪)</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-friction', '摩擦類手法')">摩擦類 (推/擦/摩)</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-vibrate', '振動類手法')">振動類 (抖/振)</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-squeeze', '擠壓類手法')">擠壓類 (按/拿/捏)</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-tap', '叩擊類手法')">叩擊類 (拍/擊)</button></li>
+                                <li><button class="menu-btn" onclick="showSection('tuina-sk-joint', '關節運動類手法')">關節運動類 (搖/扳/拔伸)</button></li>
+                            </ul>
+                        </details>
+                    </li>
                 </ul>
             </div>
         </details>
 
-        <ul class="menu-list" style="margin-top: 15px;">
-            <li><button class="menu-btn" onclick="showSection('ebp-main', 'EBP')" style="font-weight: bold; color: #7b68ee;">📊 EBP (循證實踐)</button></li>
-            <li><button class="menu-btn" onclick="showSection('funda-main', 'Funda')" style="font-weight: bold; color: #d2691e;">🩺 Funda (基礎護理)</button></li>
-        </ul>
+        <!-- EBP -->
+        <details>
+            <summary class="main-folder">📊 EBP (循證實踐)</summary>
+            <div class="sidebar-progress" id="sp-EBP">
+                <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%; background:#7b68ee;"></div></div>
+                <div class="sidebar-progress-text">0%</div>
+            </div>
+            <div class="sub-menu">
+                <ul class="menu-list">
+                    <li><button class="menu-btn" onclick="showSection('ebp-intro', 'EBP概論')">📊 EBP 概論</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-question', '提問PICO')">🔍 臨床提問 (PICO)</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-search', '文獻檢索')">📚 文獻檢索</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-evidence', '證據等級')">🏆 證據等級</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-rct', 'RCT評讀')">🧪 RCT 評讀</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-sr', '系統性回顧')">📑 系統性回顧/Meta</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-stats', '統計學概念')">📈 統計學概念</button></li>
+                    <li><button class="menu-btn" onclick="showSection('ebp-apply', '應用與評估')">✅ 應用與評估</button></li>
+                </ul>
+            </div>
+        </details>
+
+        <!-- Funda -->
+        <details>
+            <summary class="main-folder">🩺 Funda (基礎護理)</summary>
+            <div class="sidebar-progress" id="sp-Funda">
+                <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" style="width:0%; background:#d2691e;"></div></div>
+                <div class="sidebar-progress-text">0%</div>
+            </div>
+            <div class="sub-menu">
+                <ul class="menu-list">
+                    <li><button class="menu-btn" onclick="showSection('fd-vitals', '生命體徵')">🌡️ 生命體徵</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-assess', '健康評估')">📋 健康評估</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-meds', '給藥護理')">💊 給藥護理</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-iv', '靜脈輸液')">💉 靜脈輸液</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-wound', '傷口護理')">🩹 傷口護理</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-infection', '感染控制')">🦠 感染控制</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-oxygen', '氧療護理')">🫁 氧療護理</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-nutrition', '營養護理')">🍎 營養護理</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-elimination', '排泄護理')">🚿 排泄護理</button></li>
+                    <li><button class="menu-btn" onclick="showSection('fd-safety', '安全與體位')">🛡️ 安全與體位</button></li>
+                </ul>
+            </div>
+        </details>
     </div>
 
     <div class="main-content" id="main-content-area">
@@ -236,21 +320,24 @@
         <div class="global-progress-wrapper" onclick="openSummaryModal()">
             <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                    <span style="font-weight:bold; color:#555;">溫習詳細總覽 (點擊查看備註)</span>
+                    <span style="font-weight:bold; color:#555;">📊 溫習總進度 (點擊查看備註)</span>
                     <span class="global-progress-text" id="global-progress-text">0 / 0</span>
                 </div>
                 <div class="global-progress-bar"><div class="global-progress-fill" id="global-progress-fill"></div></div>
             </div>
         </div>
 
+        <!-- 錯題庫 -->
         <div id="mistake-dashboard" class="content-section">
             <h1 class="main-title" style="color:#d48a6e; border-bottom-color:#f2e3d5;">📓 我的錯題庫</h1>
             <p style="color:#777;">呢度自動收集咗你喺「填充題」同「測驗Quiz」答錯過嘅題目。溫熟咗就可以撳「依家識喇」清除佢！</p>
             <div id="mistake-list"></div>
         </div>
 
+        <!-- 首頁 -->
         <div id="home-dashboard" class="content-section active" style="max-width: 880px; background: transparent; box-shadow: none; padding: 0;">
-            <h1 style="color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px;">🌸 歡迎返嚟溫書！勁過！ </h1>
+            <h1 style="color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px;">🌸 歡迎返嚟溫書！加油！</h1>
+            <p style="color:#888; margin-top:0;">每次勾選「已溫習」都會自動儲存，放心用！📝</p>
             <div class="dashboard-grid">
                 <div class="dash-card card-blue" onclick="showSection('ortho-upper-preview', '上肢骨折總覽')">
                     <h2 style="margin-top:0;">🦴 上肢骨折專區</h2>
@@ -260,13 +347,22 @@
                     <h2 style="margin-top:0;">📖 少陰病專區</h2>
                     <p>傷寒論重點條文填充及 50 題計分測驗。</p>
                 </div>
-                <div class="dash-card card-green" onclick="showSection('tuina-skills', '推拿手法')">
+                <div class="dash-card card-green" onclick="showSection('tuina-sk-swing', '擺動類手法')">
                     <h2 style="margin-top:0;">👐 推拿學</h2>
                     <p>小兒推拿、常見病及基本手法。</p>
+                </div>
+                <div class="dash-card card-purple" onclick="showSection('ebp-intro', 'EBP概論')">
+                    <h2 style="margin-top:0;">📊 EBP</h2>
+                    <p>循證實踐：PICO、證據等級、RCT、統計學。</p>
+                </div>
+                <div class="dash-card card-orange" onclick="showSection('fd-vitals', '生命體徵')">
+                    <h2 style="margin-top:0;">🩺 Funda</h2>
+                    <p>基礎護理：生命體徵、給藥、傷口、感控。</p>
                 </div>
             </div>
         </div>
 
+        <!-- ========== 骨傷科 ========== -->
         <div id="ortho-upper-preview" class="content-section">
             <h1 class="main-title">🦴 上肢骨折總覽
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="upper-preview" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
@@ -358,6 +454,11 @@
             <div id="quiz-gale" class="poe-quiz-app"></div>
         </div>
 
+        <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨幹骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><p><strong>最重要：</strong>中下1/3骨折易損傷<strong>橈神經</strong>（垂腕）。</p></div><div id="quiz-shaft" class="poe-quiz-app"></div></div>
+        <div id="ortho-u-supra" class="content-section"><h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨髁上骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><p><strong>兒童最常見</strong>的肘部骨折。肘三角關係<strong>不變</strong>（與脫位鑒別）。</p></div><div id="quiz-supra" class="poe-quiz-app"></div></div>
+        <div id="ortho-u-both" class="content-section"><h1 class="main-title">橈尺骨幹雙骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="橈尺雙骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><p>最重要恢復<strong>前臂旋轉功能</strong>，防止交叉癒合。</p></div><div id="quiz-both" class="poe-quiz-app"></div></div>
+
+        <!-- ========== 傷寒論 ========== -->
         <div id="sh-shaoyin" class="content-section">
             <h1 class="main-title">傷寒論：少陰病
                 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="少陰病" data-subject="傷寒論" onchange="updateProgress()"> ✅ 已溫習</label>
@@ -392,16 +493,491 @@
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         </div>
 
-        <div id="ortho-u-shaft" class="content-section"><h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨幹骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-shaft" class="poe-quiz-app"></div></div>
-        <div id="ortho-u-supra" class="content-section"><h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肱骨髁上骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-supra" class="poe-quiz-app"></div></div>
-        <div id="ortho-u-both" class="content-section"><h1 class="main-title">橈尺骨幹雙骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="橈尺雙骨折" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label></h1><div id="quiz-both" class="poe-quiz-app"></div></div>
+        <!-- ========== 推拿學內容頁 ========== -->
+        <div id="tuina-peds-overview" class="content-section">
+            <h1 class="main-title">👶 小兒推拿概論
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒推拿概論" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>適用年齡：</strong>一般適用於 6 歲以下小兒，尤其 3 歲以下效果最佳。</li>
+                    <li><strong>操作特點：</strong>輕快柔和、平穩着實。小兒皮膚嬌嫩，操作時常用滑石粉或介質。</li>
+                    <li><strong>穴位特點：</strong>小兒推拿有其特定穴位（如三關、六腑、天河水等），多分佈在手部。</li>
+                    <li><strong>注意事項：</strong>皮膚破損、急性傳染病、嚴重心臟病等禁用。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-peds-points" class="content-section">
+            <h1 class="main-title">👶 小兒特定穴
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒特定穴" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 常考穴位</h3>
+                <ul>
+                    <li><strong>推三關：</strong>前臂橈側，腕橫紋至肘橫紋。性溫熱，能補氣行氣、溫陽散寒。</li>
+                    <li><strong>退六腑：</strong>前臂尺側，肘橫紋至腕橫紋。性寒涼，能清熱涼血、解毒。</li>
+                    <li><strong>天河水：</strong>前臂正中，腕橫紋至肘橫紋。性微涼，清熱而不傷陰。</li>
+                    <li><strong>脾經：</strong>拇指末節螺紋面。補脾經——旋推拇指螺紋面。</li>
+                    <li><strong>肺經：</strong>無名指末節螺紋面。補肺經——旋推無名指螺紋面。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-peds-fever" class="content-section">
+            <h1 class="main-title">👶 小兒發熱
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒發熱" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 辨證治療</h3>
+                <ul>
+                    <li><strong>外感發熱：</strong>開天門、推坎宮、揉太陽、清肺經、推天河水。</li>
+                    <li><strong>陰虛發熱：</strong>補腎經、揉二馬、推湧泉、清天河水。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-peds-diarrhea" class="content-section">
+            <h1 class="main-title">👶 小兒腹瀉
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒腹瀉" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 常用手法</h3>
+                <ul>
+                    <li><strong>寒濕瀉：</strong>補脾經、推三關、補大腸、揉臍、推上七節骨、揉龜尾。</li>
+                    <li><strong>濕熱瀉：</strong>清脾經、清大腸、清小腸、退六腑、推下七節骨。</li>
+                    <li><strong>脾虛瀉：</strong>補脾經、補大腸、推三關、摩腹、捏脊。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-peds-cough" class="content-section">
+            <h1 class="main-title">👶 小兒咳嗽
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒咳嗽" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 辨證手法</h3>
+                <ul>
+                    <li><strong>外感咳嗽：</strong>推坎宮、揉太陽、清肺經、推天河水、揉肺俞。</li>
+                    <li><strong>痰濕咳嗽：</strong>補脾經、清肺經、揉掌小橫紋、推揉膻中、揉豐隆。</li>
+                </ul>
+            </div>
+        </div>
 
-    </div> <script>
-        // 1. 初始化資料庫
+        <div id="tuina-neck" class="content-section">
+            <h1 class="main-title">落枕
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="落枕" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>定義：</strong>因睡眠姿勢不良或頸部感受風寒，致頸部一側肌肉痙攣疼痛，活動受限。</li>
+                    <li><strong>推拿治療：</strong>一指禪推頸項部→滾法→拿肩井→按揉風池、天柱、大椎→頸椎旋扳法。</li>
+                    <li><strong>注意：</strong>旋扳前必須先充分放鬆肌肉，動作要穩。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-cervical" class="content-section">
+            <h1 class="main-title">頸椎病
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="頸椎病" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 分型</h3>
+                <ul>
+                    <li><strong>頸型：</strong>頸項僵痛，活動受限。</li>
+                    <li><strong>神經根型：</strong>頸痛伴上肢放射痛、麻木（最常見）。</li>
+                    <li><strong>脊髓型：</strong>四肢無力、行走不穩（最嚴重，推拿慎用）。</li>
+                    <li><strong>椎動脈型：</strong>頭暈、視物模糊，與頭部轉動有關。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-lumbar" class="content-section">
+            <h1 class="main-title">腰椎間盤突出
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="腰椎間盤突出" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>好發部位：</strong>L4-5、L5-S1。</li>
+                    <li><strong>特殊檢查：</strong>直腿抬高試驗 (SLR) 陽性。</li>
+                    <li><strong>推拿治法：</strong>滾法放鬆腰臀→點按腎俞、腰陽關、環跳、委中→斜扳法→拔伸牽引。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-shoulder" class="content-section">
+            <h1 class="main-title">肩周炎
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肩周炎" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>別名：</strong>五十肩、凍結肩、漏肩風。好發50歲左右。</li>
+                    <li><strong>特徵：</strong>肩關節各方向活動均受限（外展、外旋尤甚）。</li>
+                    <li><strong>推拿治療：</strong>滾法肩部→拿肩井→按揉肩髃、肩貞、天宗→搖肩關節→上肢搖抖。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-headache" class="content-section">
+            <h1 class="main-title">頭痛
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="頭痛(推拿)" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 辨經治療</h3>
+                <ul>
+                    <li><strong>前頭痛（陽明）：</strong>按揉印堂、攢竹、陽白、合谷。</li>
+                    <li><strong>側頭痛（少陽）：</strong>按揉太陽、率谷、風池、外關。</li>
+                    <li><strong>後頭痛（太陽）：</strong>按揉風池、天柱、崑崙、後溪。</li>
+                    <li><strong>巔頂痛（厥陰）：</strong>按揉百會、四神聰、太衝。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tuina-sk-swing" class="content-section">
+            <h1 class="main-title">✋ 擺動類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擺動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>一指禪推法：</strong>拇指端著力，前臂擺動帶動拇指關節屈伸。頻率 120-160次/分。功力深透，適用全身穴位。</li>
+                    <li><strong>滾法：</strong>手背近小指側著力，前臂旋轉帶動腕關節屈伸。頻率 120-160次/分。接觸面積大，適用腰背四肢。</li>
+                    <li><strong>揉法：</strong>指或掌著力，做環形柔和揉動。分指揉、掌揉、前臂揉。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-sk-friction" class="content-section">
+            <h1 class="main-title">✋ 摩擦類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="摩擦類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>推法：</strong>直線推動。分指推、掌推。</li>
+                    <li><strong>擦法：</strong>掌面或大魚際直線往返摩擦，使局部產生熱感。不可擦破皮膚。</li>
+                    <li><strong>摩法：</strong>掌面在體表做環形摩動，不帶動皮下組織。常用於腹部（順時針瀉，逆時針補）。</li>
+                    <li><strong>搓法：</strong>雙掌夾住肢體做快速搓動，常用於上肢、脅肋。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-sk-vibrate" class="content-section">
+            <h1 class="main-title">✋ 振動類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="振動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>抖法：</strong>握住肢體遠端，做連續小幅度的上下抖動。常用於上肢放鬆。</li>
+                    <li><strong>振法：</strong>指端或掌面著力，做高頻振動。能鎮靜安神、調和氣血。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-sk-squeeze" class="content-section">
+            <h1 class="main-title">✋ 擠壓類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擠壓類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>按法：</strong>拇指或掌根垂直向下按壓。常與揉法結合（按揉）。</li>
+                    <li><strong>拿法：</strong>拇指與其餘四指對稱用力，捏拿肌肉。刺激較強。常用頸項、肩井。</li>
+                    <li><strong>捏法：</strong>拇指與食中指捏起皮膚。捏脊法是小兒推拿重要手法。</li>
+                    <li><strong>點法：</strong>指端或肘尖用力按壓穴位。刺激強烈，有類似針刺效果。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-sk-tap" class="content-section">
+            <h1 class="main-title">✋ 叩擊類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="叩擊類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>拍法：</strong>虛掌拍擊體表。力量輕柔有彈性。適用肩背、腰臀、下肢。</li>
+                    <li><strong>擊法：</strong>拳背、掌根或掌側擊打。力量較拍法重。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="tuina-sk-joint" class="content-section">
+            <h1 class="main-title">✋ 關節運動類手法
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="關節運動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心手法</h3>
+                <ul>
+                    <li><strong>搖法：</strong>使關節做被動環轉運動。常用頸、肩、腰、腕。幅度由小到大。</li>
+                    <li><strong>扳法：</strong>固定一端，另一端做被動旋轉扳動。常用頸椎扳法、腰椎斜扳法。動作要穩準快。</li>
+                    <li><strong>拔伸法：</strong>對關節或肢體做牽拉。用於頸椎牽引、骨折整復。力量持續均勻。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ========== EBP 內容頁 ========== -->
+        <div id="ebp-intro" class="content-section">
+            <h1 class="main-title">📊 EBP 概論
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="EBP概論" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心概念</h3>
+                <ul>
+                    <li><strong>定義：</strong>Evidence-Based Practice = 最佳研究證據 + 臨床專業經驗 + 患者價值觀與期望。</li>
+                    <li><strong>五個步驟：</strong>Ask → Acquire → Appraise → Apply → Assess (5A)。</li>
+                    <li><strong>意義：</strong>確保臨床決策有科學根據，提高診療質量和效果。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-question" class="content-section">
+            <h1 class="main-title">🔍 臨床提問 (PICO)
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="PICO提問" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 PICO 框架</h3>
+                <ul>
+                    <li><strong>P (Patient/Population)：</strong>患者/人群特徵。</li>
+                    <li><strong>I (Intervention)：</strong>介入措施/治療方法。</li>
+                    <li><strong>C (Comparison)：</strong>對照措施。</li>
+                    <li><strong>O (Outcome)：</strong>預期結果/療效指標。</li>
+                </ul>
+                <div style="background: #e8f5e9; padding: 12px; border-radius: 8px; margin-top: 10px;">
+                    <strong>例：</strong>對於慢性腰痛患者(P)，推拿治療(I)與藥物治療(C)比較，能否更好地減輕疼痛(O)？
+                </div>
+            </div>
+        </div>
+        <div id="ebp-search" class="content-section">
+            <h1 class="main-title">📚 文獻檢索
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="文獻檢索" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 常用數據庫</h3>
+                <ul>
+                    <li><strong>PubMed：</strong>最大醫學文獻庫，免費。</li>
+                    <li><strong>Cochrane Library：</strong>系統性回顧金標準。</li>
+                    <li><strong>CNKI/萬方：</strong>中文醫學文獻。</li>
+                    <li><strong>檢索技巧：</strong>布爾邏輯 (AND, OR, NOT)、MeSH 詞。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-evidence" class="content-section">
+            <h1 class="main-title">🏆 證據等級
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="證據等級" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 證據金字塔（由高到低）</h3>
+                <ul>
+                    <li><strong>Level I：</strong>系統性回顧 / Meta-analysis of RCTs</li>
+                    <li><strong>Level II：</strong>隨機對照試驗 (RCT)</li>
+                    <li><strong>Level III：</strong>非隨機對照試驗 / 世代研究</li>
+                    <li><strong>Level IV：</strong>病例對照研究 / 病例系列</li>
+                    <li><strong>Level V：</strong>專家意見 / 個案報告</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-rct" class="content-section">
+            <h1 class="main-title">🧪 RCT 評讀
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="RCT評讀" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 評讀重點</h3>
+                <ul>
+                    <li><strong>隨機化：</strong>是否正確隨機分配？分配隱藏 (Allocation concealment)？</li>
+                    <li><strong>盲法：</strong>單盲/雙盲/三盲？對結果評估的影響。</li>
+                    <li><strong>失訪率：</strong>Intention-to-treat (ITT) 分析 vs Per-protocol (PP) 分析。</li>
+                    <li><strong>偏倚風險：</strong>選擇偏倚、實施偏倚、測量偏倚、報告偏倚。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-sr" class="content-section">
+            <h1 class="main-title">📑 系統性回顧 / Meta-analysis
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="系統性回顧" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心概念</h3>
+                <ul>
+                    <li><strong>系統性回顧 (SR)：</strong>系統地檢索、評估和綜合所有相關研究的方法。</li>
+                    <li><strong>Meta-analysis：</strong>用統計學方法合併多個研究的結果。</li>
+                    <li><strong>Forest plot：</strong>圖示各研究效果量，合併效果量。</li>
+                    <li><strong>異質性：</strong>I² 統計量衡量研究間差異。I²>50% 提示高異質性。</li>
+                    <li><strong>Funnel plot：</strong>漏斗圖檢測發表偏倚。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-stats" class="content-section">
+            <h1 class="main-title">📈 統計學概念
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="統計學概念" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 常考指標</h3>
+                <ul>
+                    <li><strong>P 值：</strong>小於 0.05 通常認為具有統計學顯著性。</li>
+                    <li><strong>CI (信賴區間)：</strong>95% CI 不包含無效值（0或1）則有統計學意義。</li>
+                    <li><strong>RR (相對危險度)：</strong>暴露組與對照組事件發生率之比。</li>
+                    <li><strong>OR (比值比)：</strong>病例對照研究中的效果指標。</li>
+                    <li><strong>NNT (需治療人數)：</strong>需要治療多少人才能多產生1例好結果。NNT = 1/ARR。</li>
+                    <li><strong>靈敏度 vs 特異度：</strong>靈敏度=真陽性率；特異度=真陰性率。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="ebp-apply" class="content-section">
+            <h1 class="main-title">✅ 應用與評估
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="應用與評估" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>Apply：</strong>將證據結合臨床經驗和患者意願，應用於個別患者。</li>
+                    <li><strong>Assess：</strong>評估應用效果，是否改善了患者結局。</li>
+                    <li><strong>障礙因素：</strong>時間不足、文獻獲取困難、統計知識不足、臨床環境限制。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ========== Funda 內容頁 ========== -->
+        <div id="fd-vitals" class="content-section">
+            <h1 class="main-title">🌡️ 生命體徵
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="生命體徵" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 正常值</h3>
+                <ul>
+                    <li><strong>體溫：</strong>口溫 36.3-37.2°C；腋溫 36.0-37.0°C；肛溫 36.5-37.7°C。</li>
+                    <li><strong>脈搏：</strong>成人 60-100 次/分。</li>
+                    <li><strong>呼吸：</strong>成人 16-20 次/分。</li>
+                    <li><strong>血壓：</strong>正常 <120/80 mmHg；高血壓 ≥140/90 mmHg。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-assess" class="content-section">
+            <h1 class="main-title">📋 健康評估
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="健康評估" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>問診：</strong>主訴、現病史、既往史、家族史、個人史。</li>
+                    <li><strong>體格檢查：</strong>視診、觸診、叩診、聽診。</li>
+                    <li><strong>護理評估工具：</strong>GCS 昏迷指數、Braden 壓瘡風險、Barthel 日常活動指數。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-meds" class="content-section">
+            <h1 class="main-title">💊 給藥護理
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="給藥護理" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 給藥安全</h3>
+                <ul>
+                    <li><strong>三查七對：</strong>操作前、操作中、操作後核對。對床號、姓名、藥名、劑量、濃度、時間、用法。</li>
+                    <li><strong>給藥途徑：</strong>口服、肌注、皮下注射、靜脈注射、外用。</li>
+                    <li><strong>肌肉注射：</strong>十字法定位臀大肌注射點。進針角度 90°，深度 2.5-3cm。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-iv" class="content-section">
+            <h1 class="main-title">💉 靜脈輸液
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="靜脈輸液" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>滴速計算：</strong>每分鐘滴數 = 液體總量 × 點滴係數 / 輸液時間(分)。</li>
+                    <li><strong>常見併發症：</strong>靜脈炎、液體外滲、空氣栓塞、循環負荷過重。</li>
+                    <li><strong>空氣栓塞處理：</strong>左側臥位，頭低足高。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-wound" class="content-section">
+            <h1 class="main-title">🩹 傷口護理
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="傷口護理" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 傷口癒合分類</h3>
+                <ul>
+                    <li><strong>一期癒合：</strong>傷口整齊，組織損傷少，無感染。直接縫合。</li>
+                    <li><strong>二期癒合：</strong>傷口大，組織缺損多或有感染。肉芽組織填充。</li>
+                    <li><strong>換藥原則：</strong>無菌操作，由內向外消毒（清潔傷口），由外向內消毒（感染傷口）。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-infection" class="content-section">
+            <h1 class="main-title">🦠 感染控制
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="感染控制" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>無菌技術：</strong>無菌區、無菌物品、無菌操作原則。</li>
+                    <li><strong>手衛生：</strong>WHO 五個時刻（接觸前、無菌操作前、體液暴露後、接觸後、環境接觸後）。</li>
+                    <li><strong>隔離：</strong>接觸隔離、飛沫隔離、空氣隔離。</li>
+                    <li><strong>消毒滅菌：</strong>高壓蒸汽滅菌（121°C, 15-30分鐘）最可靠。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-oxygen" class="content-section">
+            <h1 class="main-title">🫁 氧療護理
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="氧療護理" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>低流量吸氧：</strong>鼻導管 1-4 L/min。COPD 患者用低流量 1-2 L/min。</li>
+                    <li><strong>吸氧濃度公式：</strong>吸氧濃度(%) = 21 + 4 × 氧流量(L/min)。</li>
+                    <li><strong>注意事項：</strong>四防——防震、防火、防油、防熱。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-nutrition" class="content-section">
+            <h1 class="main-title">🍎 營養護理
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="營養護理" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>鼻飼法：</strong>插管深度 45-55cm。灌食前先確認胃管在胃內。</li>
+                    <li><strong>確認方法：</strong>①注射器抽吸胃液 ②聽診胃區氣過水聲 ③將胃管末端置入水中無氣泡。</li>
+                    <li><strong>注意：</strong>每次灌食量 ≤200ml，間隔 ≥2 小時。溫度 38-40°C。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-elimination" class="content-section">
+            <h1 class="main-title">🚿 排泄護理
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="排泄護理" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 核心要點</h3>
+                <ul>
+                    <li><strong>導尿術：</strong>嚴格無菌操作。女性導尿管插入 4-6cm，男性 20-22cm。</li>
+                    <li><strong>灌腸：</strong>大量不保留灌腸液量 500-1000ml，液溫 39-41°C，壓力：液面距肛門 40-60cm。</li>
+                    <li><strong>留置導尿護理：</strong>每日清潔尿道口，保持引流通暢，定時夾管訓練膀胱功能。</li>
+                </ul>
+            </div>
+        </div>
+        <div id="fd-safety" class="content-section">
+            <h1 class="main-title">🛡️ 安全與體位
+                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="安全與體位" data-subject="Funda" onchange="updateProgress()"> ✅ 已溫習</label>
+            </h1>
+            <div class="keypoint-box">
+                <h3 style="margin-top:0;">📝 常見體位</h3>
+                <ul>
+                    <li><strong>半坐臥位：</strong>心肺疾患呼吸困難、腹部手術後。</li>
+                    <li><strong>端坐位：</strong>急性左心衰竭。</li>
+                    <li><strong>側臥位：</strong>灌腸、昏迷患者防誤吸。</li>
+                    <li><strong>頭低足高位：</strong>休克、下肢牽引。</li>
+                    <li><strong>頭高足低位：</strong>頸椎牽引、顱內壓增高。</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
         let mistakeBank = JSON.parse(localStorage.getItem('tcmMistakes')) || [];
         let progressData = JSON.parse(localStorage.getItem('tcmProgressData')) || {};
 
-        // 2. UI 互動函數
+        // Toast 提示
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg || '✅ 進度已自動儲存！';
+            t.classList.add('show');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+        }
+
         function showHome() { 
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); 
             document.getElementById('home-dashboard').classList.add('active'); 
@@ -421,27 +997,42 @@
             if(target) {
                 target.classList.add('active');
             } else {
-                // 如果 HTML 冇寫，自動生成一個佔位頁面
                 const newDiv = document.createElement('div');
                 newDiv.id = id;
                 newDiv.className = 'content-section active';
-                newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${title}" data-subject="其他" onchange="updateProgress()"> ✅ 已溫習</label></h1><div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px; margin-top:20px;"><h3>🚧 筆記內容建設中...</h3></div>`;
+                const safeTitle = title.replace(/'/g, "\\'");
+                const subject = guessSubject(id);
+                newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${safeTitle}" data-subject="${subject}" onchange="updateProgress()"> ✅ 已溫習</label></h1><div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px; margin-top:20px;"><h3>🚧 筆記內容建設中...</h3><p>你可以先勾選「已溫習」標記進度！</p></div>`;
                 document.getElementById('main-content-area').appendChild(newDiv);
+                // 恢復之前的勾選狀態
+                const cb = newDiv.querySelector('.section-cb');
+                if(cb && progressData[cb.value]?.checked) cb.checked = true;
+                updateProgress();
             }
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function toggleHint(hintId) {
-            const box = document.getElementById(hintId);
-            if (box) {
-                box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-            }
+        function guessSubject(id) {
+            if(id.startsWith('ortho')) return '骨傷科';
+            if(id.startsWith('sh-')) return '傷寒論';
+            if(id.startsWith('tuina')) return '推拿學';
+            if(id.startsWith('ebp')) return 'EBP';
+            if(id.startsWith('fd')) return 'Funda';
+            return '其他';
         }
 
-        // 3. 進度與儲存系統
+        function toggleHint(hintId) {
+            const box = document.getElementById(hintId);
+            if (box) box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // 進度系統
         function getSubjectColor(subject) {
             if (subject.includes('骨傷')) return '#4682b4';
             if (subject.includes('傷寒')) return '#c44d79';
+            if (subject.includes('推拿')) return '#2e8b57';
+            if (subject.includes('EBP')) return '#7b68ee';
+            if (subject.includes('Funda')) return '#d2691e';
             return '#5aa493';
         }
 
@@ -458,29 +1049,39 @@
                 
                 if(!stats[subject]) stats[subject] = { total: 0, checked: 0 };
                 stats[subject].total++;
-                if(isChecked) {
-                    stats[subject].checked++;
-                    globalChecked++;
-                }
+                if(isChecked) { stats[subject].checked++; globalChecked++; }
                 
                 if(!progressData[val]) progressData[val] = { checked: false, remark: "" };
                 progressData[val].checked = isChecked;
             });
             
+            // 自動儲存
             localStorage.setItem('tcmProgressData', JSON.stringify(progressData));
             
-            // 更新頂部卡片
             renderSubjectCards(stats);
+            updateSidebarProgress(stats);
 
-            // 更新總計條
             const fill = document.getElementById('global-progress-fill');
             const text = document.getElementById('global-progress-text');
             if(fill) fill.style.width = (globalChecked / Math.max(1, globalTotal) * 100) + '%';
             if(text) text.innerText = `${globalChecked} / ${globalTotal}`;
 
-            // 同步 Modal
-            if (document.getElementById('summary-modal').style.display === 'flex') {
-                renderSummaryList();
+            if (document.getElementById('summary-modal').style.display === 'flex') renderSummaryList();
+            
+            // 顯示 Toast
+            showToast();
+        }
+
+        function updateSidebarProgress(stats) {
+            for(let sub in stats) {
+                const el = document.getElementById('sp-' + sub);
+                if(!el) continue;
+                const s = stats[sub];
+                const pct = Math.round((s.checked / s.total) * 100) || 0;
+                const color = getSubjectColor(sub);
+                el.querySelector('.sidebar-progress-fill').style.width = pct + '%';
+                el.querySelector('.sidebar-progress-fill').style.background = color;
+                el.querySelector('.sidebar-progress-text').innerText = `${s.checked}/${s.total} (${pct}%)`;
             }
         }
 
@@ -506,12 +1107,7 @@
             container.innerHTML = html;
         }
 
-        function saveSubjectCategory() {
-            updateProgress();
-            alert("✅ 進度及分類已成功儲存至瀏覽器！下次開 Tab 依然生效。");
-        }
-
-        // 4. Modal 總覽系統
+        // Modal
         function openSummaryModal() {
             document.getElementById('summary-modal').style.display = 'flex';
             renderSummaryList();
@@ -529,7 +1125,9 @@
             let html = '';
             for(let sub in groups) {
                 const color = getSubjectColor(sub);
-                html += `<h3 style="color:${color}; border-bottom:2px solid ${color}; padding:5px 0; margin-top:20px;">${sub}</h3>`;
+                const checked = groups[sub].filter(cb => cb.checked).length;
+                const total = groups[sub].length;
+                html += `<h3 style="color:${color}; border-bottom:2px solid ${color}; padding:5px 0; margin-top:20px;">${sub} (${checked}/${total})</h3>`;
                 groups[sub].forEach(cb => {
                     const val = cb.value;
                     const isChecked = cb.checked;
@@ -539,21 +1137,29 @@
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <b style="font-size:1.05rem;">${val}</b>
                             <label style="cursor:pointer; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'}; padding:4px 10px; border-radius:8px; font-size:0.85rem;">
-                                <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val}', this.checked)">
+                                <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val.replace(/'/g,"\\'")}', this.checked)">
                                 ${isChecked ? '✅ 已溫' : '⬜ 未溫'}
                             </label>
                         </div>
-                        <input type="text" class="summary-remark" placeholder="加上備註 (例如：已背口訣)..." value="${remark}" onchange="saveRem('${val}', this.value)" style="border:none; border-bottom:1px solid #ddd; width:100%; background:transparent; outline:none; margin-top:8px; padding-bottom:5px;">
+                        <input type="text" class="summary-remark" placeholder="加上備註 (例如：已背口訣)..." value="${remark}" onchange="saveRem('${val.replace(/'/g,"\\'")}', this.value)" style="border:none; border-bottom:1px solid #ddd; width:100%; background:transparent; outline:none; margin-top:8px; padding-bottom:5px;">
                     </div>`;
                 });
             }
             document.getElementById('summary-list').innerHTML = html;
         }
 
-        function syncCb(v, c) { document.querySelector(`.section-cb[value="${v}"]`).checked = c; updateProgress(); }
-        function saveRem(v, r) { if(!progressData[v]) progressData[v] = {checked:false,remark:""}; progressData[v].remark = r; localStorage.setItem('tcmProgressData', JSON.stringify(progressData)); }
+        function syncCb(v, c) { 
+            const cb = document.querySelector(`.section-cb[value="${v}"]`);
+            if(cb) { cb.checked = c; updateProgress(); }
+        }
+        function saveRem(v, r) { 
+            if(!progressData[v]) progressData[v] = {checked:false,remark:""}; 
+            progressData[v].remark = r; 
+            localStorage.setItem('tcmProgressData', JSON.stringify(progressData)); 
+            showToast('📝 備註已儲存！');
+        }
 
-        // 5. Scramble 填充題系統
+        // Scramble 填充題
         document.querySelectorAll('.blank-input').forEach((input, index, inputs) => {
             let isComposing = false;
             input.addEventListener('compositionstart', () => isComposing = true);
@@ -567,40 +1173,28 @@
                 item.querySelectorAll('.blank-input').forEach(input => {
                     const ans = input.getAttribute('data-ans');
                     input.classList.remove('correct', 'wrong');
-                    if(input.value === ans) {
-                        input.classList.add('correct');
-                    } else { 
-                        input.classList.add('wrong'); 
-                        err = true; 
-                    }
+                    if(input.value === ans) { input.classList.add('correct'); }
+                    else { input.classList.add('wrong'); err = true; }
                 });
-                
-                // 如果錯咗，自動加入錯題庫
                 if(err) {
                     const questionText = item.querySelector('strong').innerText || "條文填充";
-                    addMistake({
-                        id:`scram-${idx}`, 
-                        section: "傷寒論填充題", 
-                        question: questionText, 
-                        userAns: "有字填錯咗", 
-                        correctAns: "請參考原文", 
-                        exp: "這是一條需要死記硬背的重點條文，加油！"
-                    });
+                    addMistake({ id:`scram-${idx}`, section: "傷寒論填充題", question: questionText, userAns: "有字填錯咗", correctAns: "請參考原文", exp: "這是一條需要死記硬背的重點條文，加油！" });
                 }
             });
         }
 
-        // 6. 錯題庫系統
+        // 錯題庫
         function saveMistakes() { localStorage.setItem('tcmMistakes', JSON.stringify(mistakeBank)); renderMistakes(); }
         function addMistake(m) { if(!mistakeBank.find(x => x.id === m.id)) { mistakeBank.push(m); saveMistakes(); } }
         function removeMistake(id) { mistakeBank = mistakeBank.filter(m => m.id !== id); saveMistakes(); }
         
         function renderMistakes() {
             const c = document.getElementById('mistake-list');
+            if(!c) return;
             if(mistakeBank.length === 0) { c.innerHTML = '<div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px;">🎉 暫無錯題！你已經全部識晒喇！</div>'; return; }
             c.innerHTML = mistakeBank.map(m => `
                 <div class="mistake-card">
-                    <button class="got-it-btn" style="position:absolute; right:15px; top:15px;" onclick="removeMistake('${m.id}')">✅ 識喇</button>
+                    <button class="got-it-btn" onclick="removeMistake('${m.id}')">✅ 識喇</button>
                     <b style="color:#e74c3c; display:inline-block; margin-bottom:8px; background:#fdedec; padding:4px 10px; border-radius:15px; font-size:0.85rem;">[${m.section}]</b>
                     <p style="font-size:1.1rem; margin-top:0; font-weight:bold; color:#333;">${m.question}</p>
                     <div style="background:#f9f9f9; padding:15px; border-radius:8px; font-size:0.95rem;">
@@ -611,7 +1205,7 @@
                 </div>`).join('');
         }
 
-        // 7. Quiz 測驗系統 (包含 50 題少陰病)
+        // Quiz 系統
         const allQuizData = {
             'clavicle': {
                 title: "🦴 鎖骨骨折 測驗",
@@ -621,94 +1215,77 @@
                     { section: "應用解剖", q: "鎖骨的形狀是？", opts: ["直棒形", "S 形", "L 形", "C 形"], ans: 1, exp: "鎖骨呈S形狀，內側與胸骨柄相連，外側與肩胛骨肩峰相連。" },
                     { section: "移位機理", q: "鎖骨中段骨折時，內側端受哪條肌肉牽拉向後上方移位？", opts: ["三角肌", "胸大肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "中段骨折時，內側端受胸鎖乳突肌牽拉向後上方移位。" },
                     { section: "移位機理", q: "鎖骨中段骨折時，外側端向哪個方向移位？", opts: ["向後上方", "向前上方", "向前下方", "向後下方"], ans: 2, exp: "外側端因上肢重力及胸大肌牽拉向前下方移位。" },
-                    { section: "骨折類型", q: "間接暴力造成的鎖骨骨折，骨折類型多為？", opts: ["橫行骨折", "短斜形骨折", "粉碎性骨折", "螺旋形骨折"], ans: 1, exp: "間接暴力造成的骨折多為短斜形骨折，部位多為中段。直接暴力則多為粉碎性或橫行骨折。" },
-                    { section: "特有體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "鎖骨骨折時，頭向患側傾斜，下頜偏向健側，常以健手托住患側肘部以減輕上肢重量牽拉。" },
-                    { section: "手法整復", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」，患者坐位，術者膝頂背部正中，雙手握兩肩外側向背側牽引。" },
+                    { section: "特有體徵", q: "鎖骨骨折患者的典型姿態，以下何者正確？", opts: ["頭向健側傾斜，下頜偏向患側", "頭向患側傾斜，下頜偏向健側", "頭保持正中位", "頭後仰"], ans: 1, exp: "鎖骨骨折時，頭向患側傾斜，下頜偏向健側，常以健手托住患側肘部。" },
+                    { section: "手法整復", q: "鎖骨骨折的手法整復口訣是？", opts: ["牽引旋轉，端提按壓", "叉腰挺胸，膝頂扳肩", "屈肘旋前，牽引推按", "過伸牽引，擠壓復位"], ans: 1, exp: "手法整復口訣為「叉腰挺胸，膝頂扳肩」。" },
                     { section: "固定方法", q: "兒童鎖骨青枝骨折的固定時間為？", opts: ["1～3 周", "4～6 周", "6～8 周", "8～10 周"], ans: 0, exp: "兒童的青枝骨折用三角巾懸吊或8字繃帶固定1～3周即可。" },
-                    { section: "固定方法", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "有移位骨折手法整復後∞字繃帶固定，固定時間為4～6周。" },
-                    { section: "手術治療", q: "以下哪項不是鎖骨骨折手術治療的適應症？", opts: ["合併鎖骨下神經血管損傷", "無移位的兒童青枝骨折", "開放性骨折", "骨折不癒合"], ans: 1, exp: "無移位的兒童青枝骨折用三角巾懸吊或8字繃帶固定即可，不需手術。手術適應症包括合併神經血管損傷、開放性骨折、多發性骨折、畸形明顯及骨折不癒合。" },
-                    { section: "辨證用藥", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期治則為活血化淤、消腫止痛，內服活血止痛湯或肢傷一方，外用接骨止痛膏或雙柏散。" },
-                    { section: "辨證用藥", q: "鎖骨骨折後期的內服方藥可選用？", opts: ["活血止痛湯", "新傷續斷湯", "六味地黃丸", "和營止痛湯"], ans: 2, exp: "後期治則為養氣血、補肝腎、壯筋骨，內服六味地黃丸或肢傷三方。" },
-                    { section: "預防調護", q: "鎖骨骨折患者睡眠時的注意事項，以下何者正確？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "鎖骨骨折患者睡眠時應平臥免枕，肩胛間墊高，以維持雙肩後伸的姿勢。" },
-                    { section: "應用解剖", q: "鎖骨內側端附著的肌肉包括？", opts: ["三角肌和斜方肌", "胸大肌和胸鎖乳突肌", "肱二頭肌和肱三頭肌", "胸小肌和前鋸肌"], ans: 1, exp: "鎖骨內側與胸骨柄相連，有胸大肌與胸鎖乳突肌附著。外側與肩胛骨肩峰相連，有三角肌和斜方肌附著。" }
+                    { section: "固定方法", q: "成人有移位的鎖骨骨折，∞字繃帶固定時間為？", opts: ["1～3 周", "2～4 周", "4～6 周", "6～8 周"], ans: 2, exp: "有移位骨折手法整復後∞字繃帶固定4～6周。" },
+                    { section: "辨證用藥", q: "鎖骨骨折初期的中醫治則是？", opts: ["接骨續筋", "養氣血、補肝腎", "活血化淤、消腫止痛", "舒筋通絡"], ans: 2, exp: "初期治則為活血化淤、消腫止痛。" },
+                    { section: "預防調護", q: "鎖骨骨折患者睡眠時的注意事項？", opts: ["側臥位，患側在上", "平臥免枕，肩胛間墊高", "俯臥位", "半坐臥位"], ans: 1, exp: "鎖骨骨折患者睡眠時應平臥免枕，肩胛間墊高。" }
                 ]
             },
             'neck': {
-                title: "🦴 肱骨外科頸骨折 專項測驗",
+                title: "🦴 肱骨外科頸骨折 測驗",
                 questions: [
-                    { section: "應用解剖", q: "肱骨外科頸位於解剖頸下方多少距離？", opts: ["0.5～1 cm", "2～3 cm", "4～5 cm", "6～7 cm"], ans: 1, exp: "外科頸位於解剖頸下2～3cm，大小結節下與肱骨幹的交界處。" },
-                    { section: "應用解剖", q: "肱骨外科頸是哪兩種骨質的交界處？", opts: ["皮質骨與軟骨", "鬆質骨與密質骨", "骨膜與骨皮質", "骨髓與骨松質"], ans: 1, exp: "外科頸為鬆質骨與密質骨的交界處，是結構薄弱點，常易發生骨折。" },
-                    { section: "應用解剖", q: "肱骨外科頸內側有哪些重要結構經過？", opts: ["橈神經和橈動脈", "臂叢神經和腋動靜脈", "尺神經和肱動脈", "正中神經和肱深動脈"], ans: 1, exp: "外科頸內側有臂叢神經和腋動靜脈經過，骨折時容易發生神經血管損傷。" },
-                    { section: "病因病機", q: "肱骨外科頸骨折多由什麼原因引起？", opts: ["直接暴力打擊肩部", "跌倒時手掌或肘部著地，傳達暴力", "長期勞損", "肌肉劇烈收縮"], ans: 1, exp: "多因跌倒時手掌或肘部著地，傳達暴力引起（間接暴力為主）。" },
-                    { section: "臨床分型", q: "上臂在外展位跌倒會造成哪種類型的骨折？", opts: ["內收型骨折", "外展型骨折", "粉碎型骨折", "螺旋形骨折"], ans: 1, exp: "若上臂在外展位則為外展型骨折，若上臂在內收位則為內收型骨折。" },
-                    { section: "臨床分型", q: "外展型骨折的成角方向是？", opts: ["向外成角", "向內成角", "向前成角", "向後成角"], ans: 1, exp: "外展型骨折兩骨折端形成向內的成角。記憶口訣：受傷位置與成角方向相反 —「外展→內角」。" },
-                    { section: "臨床分型", q: "內收型骨折的成角方向是？", opts: ["向內成角", "向外成角", "向前成角", "無明顯成角"], ans: 1, exp: "內收型骨折兩骨折端形成向外的成角。記憶：「內收→外角」。" },
-                    { section: "臨床分型", q: "肱骨外科頸骨折的臨床分型不包括以下哪項？", opts: ["外展型骨折", "內收型骨折", "旋轉型骨折", "骨折合併肩關節脫位"], ans: 2, exp: "臨床分型包括：①外展型骨折 ②內收型骨折 ③骨折合併肩關節脫位。沒有「旋轉型」分類。" },
-                    { section: "診斷要點", q: "肱骨外科頸骨折的特有體徵包括以下哪些？", opts: ["壓痛和縱軸叩擊痛", "彈性固定", "方肩畸形", "肘後三角異常"], ans: 0, exp: "特有體徵包括壓痛、縱軸叩擊痛、骨擦音和異常活動。彈性固定見於脫位，方肩畸形見於肩關節脫位。" },
-                    { section: "診斷要點", q: "確定肱骨外科頸骨折類型（外展 / 內收），需要拍攝什麼X線片？", opts: ["只需正位片", "正側位片", "只需軸位片", "斜位片"], ans: 1, exp: "X線拍片正側位可以確定骨折類型。" },
-                    { section: "治療", q: "無移位的裂縫骨折和嵌插性骨折的固定時間為？", opts: ["1～2 周", "3～4 周", "6～8 周", "8～10 周"], ans: 1, exp: "無移位的裂縫骨折和嵌插性骨折可用三角巾懸吊固定3～4周。" },
-                    { section: "整復", q: "外展型骨折的復位方向是？", opts: ["由外向內側用力", "由內向外側用力", "由前向後用力", "向上牽引"], ans: 1, exp: "外展型骨折復位由內向外側用力。記憶：復位方向與骨折類型相反。" },
-                    { section: "整復", q: "內收型骨折的復位方向是？", opts: ["由內向外側用力", "由外向內側用力", "由後向前用力", "向下牽引"], ans: 1, exp: "內收型骨折復位由外向內側用力。" },
-                    { section: "固定", q: "外展型骨折固定時，內側大頭墊應放在哪裡？", opts: ["肱骨外上髁", "腋窩", "肱骨內上髁", "肩峰下"], ans: 1, exp: "外展型骨折固定時，內側的大頭墊應頂住腋窩，起到外展力臂的支點作用。" },
-                    { section: "固定", q: "內收型骨折固定時，內側大頭墊應放在哪裡？", opts: ["腋窩", "肩峰", "肱骨內上髁", "肱骨大結節"], ans: 2, exp: "內收型骨折固定時，內側的大頭墊應放在肱骨內上髁。" },
-                    { section: "固定", q: "外展型骨折固定時，肩關節應保持什麼體位？", opts: ["外展位", "內收位", "中立位", "外旋位"], ans: 1, exp: "外展型骨折肩關節保持內收位，內收型骨折肩關節保持外展位。固定體位與骨折類型相反。" },
-                    { section: "辨證用藥", q: "肱骨外科頸骨折初期的中醫治則是？", opts: ["養氣血、壯筋骨", "接骨續筋", "活血化淤，消腫止痛", "舒筋活絡"], ans: 2, exp: "初期治則為活血化淤、消腫止痛，內服和營止痛湯或活血止痛湯或肢傷一方。" },
-                    { section: "練功活動", q: "肱骨外科頸骨折練功活動，中期（三周後）主要練習哪個關節？", opts: ["手指關節", "腕關節", "肘關節", "肩關節"], ans: 3, exp: "初期練肘、腕、手指關節；中期（三周後）開始練肩關節活動，防止肩關節僵硬。" }
+                    { section: "應用解剖", q: "肱骨外科頸位於解剖頸下方多少距離？", opts: ["0.5～1 cm", "2～3 cm", "4～5 cm", "6～7 cm"], ans: 1, exp: "外科頸位於解剖頸下2～3cm。" },
+                    { section: "應用解剖", q: "肱骨外科頸內側有哪些重要結構？", opts: ["橈神經和橈動脈", "臂叢神經和腋動靜脈", "尺神經和肱動脈", "正中神經和肱深動脈"], ans: 1, exp: "外科頸內側有臂叢神經和腋動靜脈經過。" },
+                    { section: "臨床分型", q: "外展型骨折的成角方向是？", opts: ["向外成角", "向內成角", "向前成角", "向後成角"], ans: 1, exp: "外展型骨折兩骨折端形成向內的成角。" },
+                    { section: "臨床分型", q: "內收型骨折的成角方向是？", opts: ["向內成角", "向外成角", "向前成角", "無明顯成角"], ans: 1, exp: "內收型骨折兩骨折端形成向外的成角。" },
+                    { section: "整復", q: "外展型骨折的復位方向是？", opts: ["由外向內側用力", "由內向外側用力", "由前向後用力", "向上牽引"], ans: 1, exp: "外展型骨折復位由內向外側用力。" },
+                    { section: "固定", q: "外展型骨折固定時，肩關節應保持什麼體位？", opts: ["外展位", "內收位", "中立位", "外旋位"], ans: 1, exp: "外展型骨折肩關節保持內收位。" }
                 ]
             },
             'shaoyin': {
-                title: "📚 少陰病溫習 Quiz (完整 50 題)",
+                title: "📚 少陰病 Quiz (完整 50 題)",
                 questions: [
-                    { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」，是心腎陰陽氣血俱虛，以全身性虛寒、虛熱或陽鬱為主要特征。" },
-                    { section: "少陰病概說", q: "少陰病的病位與病性，下列何者最正確？", opts: ["病位在表，病性屬陽屬實屬熱", "病位在半表半裏，病性屬寒熱錯雜", "病位在里，病性多屬陰、屬虛、屬寒", "病位在表裏之間，病性屬虛屬熱"], ans: 2, exp: "少陰病病位在里，病性多屬陰、屬虛、屬寒。涉及手足少陰心、腎及手足少陰經。" },
-                    { section: "少陰病概說", q: "少陰是指哪兩個臟腑？", opts: ["肝與膽", "脾與胃", "心與腎", "肺與大腸"], ans: 2, exp: "少陰指足少陰腎與手少陰心。腎為先天之本，心為五臟六腑之大主。" },
+                    { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」。" },
+                    { section: "少陰病概說", q: "少陰是指哪兩個臟腑？", opts: ["肝與膽", "脾與胃", "心與腎", "肺與大腸"], ans: 2, exp: "少陰指足少陰腎與手少陰心。" },
                     { section: "少陰病概說", q: "少陰與哪一經相表裡？", opts: ["陽明", "太陽", "少陽", "厥陰"], ans: 1, exp: "少陰與太陽相表裡。「實則太陽，虛則少陰」。" },
-                    { section: "少陰病概說", q: "關於心腎的臟腑生理，下列何者正確？", opts: ["腎屬火，主血脈，主神明", "心火下溫於腎，腎水上奉於心，水火既濟", "腎為後天之本，主藏精", "心腎相交的意義在於促進氣血運行至四肢"], ans: 1, exp: "心火在上，腎水在下。心火下溫於腎，使腎水不寒；腎水上奉於心，使心火不亢。心腎相交，水火既濟，維持陰陽動態平衡。" },
-                    { section: "少陰病概說", q: "腎在少陰病理中的核心地位是什麼？", opts: ["主血脈，主神明", "為後天之本，主運化", "為先天之本，內寓元陰元陽，為人體五臟六腑陰陽之根本", "主疏泄，主藏血"], ans: 2, exp: "腎為先天之本，腎主水，主藏精，內寓元陰元陽，先天真氣之所系，爲人體五臟六腑陰陽之根本。" },
-                    { section: "少陰病成因", q: "少陰病的成因不包括以下哪項？", opts: ["外邪直中少陰", "三陽病或太陰失治誤治傳入", "年高體弱，腎陽素衰", "情志內傷，肝氣鬱結"], ans: 3, exp: "少陰病成因有二：①外邪直中（年高體弱或腎陽素衰，外寒直中少陰）；②邪由它經傳來（多由三陽病或太陰失治誤治，心腎受損而邪傳少陰）。" },
-                    { section: "少陰病分類", q: "少陰寒化證的病機核心是什麼？", opts: ["陰虛陽亢", "陽氣虛衰，陰寒內盛", "痰飲內停", "氣滯血瘀"], ans: 1, exp: "寒化證：素體少陰陽虛陰盛，邪從寒化，以致陽氣虛衰，陰寒內盛。" },
-                    { section: "少陰病分類", q: "少陰熱化證的病機核心是什麼？", opts: ["陽氣虛衰，陰寒內盛", "陰虛陽亢", "寒熱錯雜", "氣血兩虛"], ans: 1, exp: "熱化證：素體少陰陰虛陽盛，邪從熱化，以致陰虛陽亢。有心腎不交證、陰虛水熱互結證等。" },
+                    { section: "少陰病概說", q: "心腎的水火既濟關係，下列何者正確？", opts: ["腎屬火，心屬水", "心火下溫於腎，腎水上奉於心", "腎為後天之本", "心腎相交靠肝來調節"], ans: 1, exp: "心火下溫於腎，腎水上奉於心，水火既濟。" },
+                    { section: "少陰病分類", q: "少陰寒化證的病機核心是什麼？", opts: ["陰虛陽亢", "陽氣虛衰，陰寒內盛", "痰飲內停", "氣滯血瘀"], ans: 1, exp: "寒化證：陽氣虛衰，陰寒內盛。" },
                     { section: "少陰病治療", q: "少陰寒化證的代表方劑是什麼？", opts: ["黃連阿膠湯", "四逆湯", "麻黃細辛附子湯", "大承氣湯"], ans: 1, exp: "寒化證宜溫補陽氣，以四逆湯爲代表方劑。" },
                     { section: "少陰病治療", q: "少陰熱化證的代表方劑是什麼？", opts: ["四逆湯", "通脈四逆湯", "白通湯", "黃連阿膠湯"], ans: 3, exp: "熱化證宜育陰清熱，以黃連阿膠湯爲代表方劑。" },
-                    { section: "少陰病治禁", q: "少陰病的治療禁忌包括以下哪些治法？", opts: ["禁用發汗、攻下及火攻", "禁用溫補、活血及消導", "禁用和解、清熱及利水", "禁用補氣、養血及安神"], ans: 0, exp: "少陰病禁用發汗、攻下以及火攻等治法。誤汗則亡陽，誤下則竭陰。" },
-                    { section: "少陰病預後", q: "少陰病的預後取決於什麼？", opts: ["氣血的盛衰", "陽氣的存亡", "津液的多少", "邪氣的強弱"], ans: 1, exp: "少陰病的預後，取決於陽氣的存亡，一般是陽回陰續者生，陽亡陰竭者死。" },
-                    { section: "少陰病提綱", q: "【281條】少陰之爲病的提綱脈證是什麼？", opts: ["脈浮緊，惡寒發熱", "脈微細，但欲寐", "脈弦細，往來寒熱", "脈沉遲，腹滿而吐"], ans: 1, exp: "「少陰之爲病，脈微細，但欲寐也」(281)。脈微主心腎陽衰，脈細主氣血虛少，但欲寐主精神失養。" },
-                    { section: "少陰病提綱", q: "「脈微」在少陰病提綱中反映的病機是什麼？", opts: ["陰血不足，脈道不充", "心腎陽衰，鼓動無力", "痰飲阻滯，脈道不暢", "氣機鬱滯，血行不利"], ans: 1, exp: "脈微，指脈來微弱無力，似有似無，心腎陽衰，鼓動無力所致。" },
-                    { section: "少陰病提綱", q: "「但欲寐」的臨床表現與病機是什麼？", opts: ["嗜睡多眠——痰濕困脾", "精神萎靡不振，似睡非睡——心腎陽衰，精神失養", "失眠不寐——心腎不交", "日間嗜睡——氣虛下陷"], ans: 1, exp: "但欲寐——精神萎靡不振，神志恍惚昏沈，似睡非睡，乃心腎陽衰，氣血虛弱，精神失養。" },
-                    { section: "寒化證辨證", q: "【282條】少陰寒化證中「欲吐不吐」的病機是什麼？", opts: ["食積停滯，胃氣上逆", "腎陽虛衰，濁陰上逆；胃腑空虛，故無物吐出", "肝氣犯胃，橫逆嘔吐", "痰飲犯胃，胃失和降"], ans: 1, exp: "欲吐不吐——腎陽虛衰，濁陰上逆則欲吐，胃腑空虛，故又無物吐出。" },
-                    { section: "寒化證辨證", q: "少陰寒化證「自利而渴」的病機是什麼？", opts: ["濕熱下注，傷津耗液", "腎陽虛衰，火不暖土，腐熟無權則下利；陽虛不能蒸化津液則口渴", "脾虛濕困，清陽不升", "陰虛火旺，迫津外出"], ans: 1, exp: "自利而渴——腎陽虛衰，火不暖土，腐熟無權，則下利；陽虛不能蒸化津液，津不布達則口渴，即「虛故引水自救」。" },
-                    { section: "寒化證辨證", q: "少陰寒化證辨證中，「小便色白」說明什麼？", opts: ["濕熱下注膀胱", "下焦虛有寒，不能制水", "腎陰不足，虛火灼津", "脾虛不能運化水濕"], ans: 1, exp: "小便白者，以下焦虛有寒，不能制水，故令色白也。小便色白指小便清而不黃，是少陰寒化的重要辨證依據。" },
-                    { section: "寒化證鑒別", q: "辨少陰虛寒下利與太陰虛寒下利，應比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐、自利而渴 vs 腹滿而吐、自利不渴", "脈微細 vs 脈浮緊"], ans: 2, exp: "以「欲吐不吐」與「腹滿而吐」，「自利而渴」與「自利不渴」相較，辨少陰虛寒下利與太陰虛寒下利。" },
-                    { section: "寒化證鑒別", q: "辨少陰寒化證與少陰熱化證，應比較哪組症狀？", opts: ["欲吐不吐 vs 腹滿而吐", "自利而渴 vs 自利不渴", "心煩但欲寐 vs 心煩不得臥", "小便白 vs 小便赤"], ans: 2, exp: "以「心煩但欲寐」與「心煩不得臥」相較，辨少陰寒化證與少陰熱化證。寒化證為虛陽上擾故煩而欲寐，熱化證為陰虛火旺故煩而不得臥。" },
-                    { section: "寒化證鑒別", q: "辨少陰寒利與厥陰熱利，應比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐 vs 腹滿而吐", "脈微細 vs 脈弦數"], ans: 1, exp: "以「自利而渴小便白」與「自利而渴小便赤」相較，辨少陰寒利與厥陰熱利。小便白為下焦虛寒，小便赤為有熱。" },
-                    { section: "少陰寒盛傷陽", q: "【283條】「病人脈陰陽俱緊，反汗出者」，其病機為何？", opts: ["太陽傷寒，營衛不和", "寒盛於內，陰寒傷陽，陽不攝陰", "陽明裡熱蒸騰，迫汗外出", "少陽樞機不利，營衛失和"], ans: 1, exp: "脈陰陽俱緊為寒盛於內之象（其脈當沉而陰陽俱緊，非太陽之浮緊）。反汗出——陰寒傷陽，陽不攝陰。此屬少陰。" },
-                    { section: "少陰寒盛傷陽", q: "283條中為何「法當咽痛」？", opts: ["風熱上犯咽喉", "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉", "陽明經熱上蒸咽喉", "少陽經氣鬱結咽喉"], ans: 1, exp: "少陰之脈循喉嚨，挾舌本，陰寒循經鬱結於咽喉，故咽痛。" },
-                    { section: "少陰病治禁", q: "【285條】少陰病脈細沉數，為何不可發汗？", opts: ["陽虛發汗則亡陽", "沉主在裏，細主陰虛，數主有熱，誤汗可傷陰動血，致下厥上竭", "脈沉主表邪已解", "細數主血虛，汗出則氣脫"], ans: 1, exp: "脈細沉數，病爲在裏——沉主在裏，細主陰虛，數主有熱，誤發其汗，即可能傷陰動血，導致下厥上竭之變證。" },
-                    { section: "少陰病治禁", q: "【286條】少陰病脈微，不可發汗的原因是什麼？進一步尺脈弱澀說明什麼？", opts: ["脈微主陽虛，汗出亡陽；尺脈弱澀主陰血不足，屬陰陽俱虛，汗下皆禁", "脈微主氣虛；尺脈弱澀主氣滯血瘀", "脈微主邪輕；尺脈弱澀主食積", "脈微主陰虛；尺脈弱澀主痰飲"], ans: 0, exp: "微脈——心腎陽衰，發汗則亡陽。脈微更兼尺脈弱澀——尺以候裏候腎，弱澀乃陰血不足之征，屬陰陽俱虛，汗、下法均在禁例。" },
-                    { section: "陽虛陰盛證", q: "【323條】「少陰病，脈沉者，急溫之」中「急溫」的含義是什麼？", opts: ["用大劑量熱藥猛攻", "及早治療，消患於無形", "急用灸法溫經", "立即用火攻法"], ans: 1, exp: "聯繫提綱證「脈微細」及後面的陰盛格陽證、戴陽證的輕重來看，「急溫」指的是「及早治療，消患於無形」。" },
-                    { section: "陽虛陰盛證", q: "四逆湯的藥物組成是什麼？", opts: ["附子、乾薑、人參", "附子、乾薑、甘草", "附子、蔥白、乾薑", "附子、肉桂、甘草"], ans: 1, exp: "四逆湯：甘草二兩(炙)、乾薑一兩半、附子一枚(生用，去皮，破八片)。" },
-                    { section: "陽虛陰盛證", q: "四逆湯中各藥的功效，下列何者正確？", opts: ["附子——溫腎回陽；乾薑——溫脾散寒；甘草——調中補虛", "附子——溫中散寒；乾薑——溫腎回陽；甘草——清熱解毒", "附子——補氣升陽；乾薑——活血化瘀；甘草——利水消腫", "附子——養陰補腎；乾薑——化痰止咳；甘草——安神定志"], ans: 0, exp: "附子——溫腎回陽；乾薑——溫脾散寒；甘草——調中補虛。三藥合用，共奏溫補脾腎，回陽救逆之效。" },
-                    { section: "陽虛陰盛證", q: "少陰陽衰陰盛證的主要症狀不包括以下哪項？", opts: ["冷汗自出，手足厥冷，身蜷惡寒", "吐利", "大熱大渴，面赤如妝", "脈沉→微細→微欲絕"], ans: 2, exp: "陽衰陰盛證主要症狀包括：全身症状（冷汗自出，手足厥冷，身蜷惡寒）、吐利、小便不利或清長、脈沉/微細/微欲絕、但欲寐。大熱大渴面赤非此證特徵。" },
-                    { section: "陰盛格陽證", q: "【317條】陰盛格陽證的核心特徵「裏寒外熱」，具體表現為何？", opts: ["發熱惡寒，頭痛身疼", "身反不惡寒，其人面色赤——內真寒，外假熱", "壯熱不惡寒，大汗出", "往來寒熱，胸脅苦滿"], ans: 1, exp: "在陽衰陰盛證前提下，出現身反不惡寒，其人面色赤——陰寒盛結於內，虛陽被格於外，即「裏寒外熱」，內真寒，外假熱。" },
-                    { section: "陰盛格陽證", q: "通脈四逆湯與四逆湯的關係是什麼？", opts: ["完全不同的藥物組成", "四逆湯加大附子、乾薑劑量", "四逆湯減去甘草", "四逆湯加人參、蔥白"], ans: 1, exp: "通脈四逆湯即四逆湯加大附子、乾薑劑量而成。附子用大者一枚，乾薑用三兩（四逆湯為一兩半）。" },
-                    { section: "陰盛格陽證", q: "通脈四逆湯隨證加減中，面色赤者加什麼？為什麼？", opts: ["加人參，取其益氣生津", "加芍藥，取其活血和絡", "加蔥，取其通格上之陽", "加桔梗，取其利咽開結"], ans: 2, exp: "面色赤者加蔥，取其通格上之陽。蔥白辛溫走竄，能宣通上下，使格拒之勢得解。" },
-                    { section: "陰盛格陽證", q: "通脈四逆湯中，咽痛者如何加減？", opts: ["加蔥九莖", "去芍藥，加桔梗一兩", "加生薑二兩", "加人參二兩"], ans: 1, exp: "咽痛者，去芍藥，加桔梗一兩，取其利咽開結。" },
-                    { section: "陰盛格陽證", q: "通脈四逆湯中，利止脈不出者如何加減？為什麼？", opts: ["加蔥九莖，通上格之陽", "加生薑二兩，降逆止嘔", "去桔梗，加人參二兩，取其益氣生津，固脫而復脈", "加芍藥二兩，活血和絡"], ans: 2, exp: "利止脈不出者，去桔梗，加人參二兩。利止脈不出是利久傷陰耗液，陰液告竭，加人參取其益氣生津，固脫而復脈。" },
-                    { section: "陰盛格陽鑒別", q: "陰盛格陽證之「面色赤」與陽明病面赤有何不同？", opts: ["兩者無區別", "格陽面赤為紅而嬌嫩、遊移不定，伴裏寒證候；陽明面赤為面部通紅不遊移，伴熱證", "格陽面赤更紅更持久", "陽明面赤為淡紅色"], ans: 1, exp: "陰盛格陽之面赤必紅而嬌嫩，遊移不定，伴裏寒證候，身熱久按則熱減，口和舌潤。陽明之面合色赤為面部通紅不遊移，身熱按之灼手久按益甚，口舌乾燥大渴引飲。" },
-                    { section: "陰盛戴陽證", q: "戴陽證的特徵是什麼？", opts: ["全身發熱，面色蒼白", "面部獨赤，周身寒象，陰盛於下，格陽於上", "面色蒼白，四肢溫暖", "面部潮紅，口渴引飲"], ans: 1, exp: "戴陽證：面部獨赤，周身寒象，為陰盛於下，格陽於上。" },
-                    { section: "陰盛戴陽證", q: "【314條】少陰病陰盛戴陽證用什麼方劑治療？", opts: ["四逆湯", "通脈四逆湯", "白通湯", "真武湯"], ans: 2, exp: "少陰病，下利，白通湯主之。(314) 白通湯由蔥白、乾薑、附子組成。" },
-                    { section: "陰盛戴陽證", q: "白通湯的藥物組成是什麼？", opts: ["附子、乾薑、甘草", "蔥白、乾薑、附子", "蔥白、附子、甘草", "蔥白、乾薑、人參"], ans: 1, exp: "白通湯：蔥白四莖、乾薑一兩、附子一枚(生，去皮，破八片)。" },
-                    { section: "陰盛戴陽證", q: "白通湯中蔥白的作用是什麼？", opts: ["溫腎回陽", "溫脾散寒", "辛溫走竄，宣通上下，使格拒之勢得解，上浮之陽回歸本位", "調中補虛"], ans: 2, exp: "蔥白——辛溫走竄，宣通上下，使格拒之勢得解，上浮之陽回歸本位。附子補下焦之陽，乾薑溫中土之陽。" },
-                    { section: "白通加豬膽汁湯", q: "【315條】服白通湯後出現「利不止，厥逆無脈，乾嘔煩」，這是什麼原因？", opts: ["藥物過敏反應", "陰寒太盛，對大熱之藥拒而不受，反激惹寒邪之勢", "方藥用錯，應改用寒涼藥", "藥力不足，需加大劑量"], ans: 1, exp: "這是陰盛戴陽證服白通湯後發生格拒的現象。陰寒太盛，對大熱之藥拒而不受，反激惹寒邪之勢，以致證情增劇。" },
-                    { section: "白通加豬膽汁湯", q: "白通加豬膽汁湯的治法是什麼？", opts: ["溫中散寒，健脾和胃", "破陰回陽，宣通上下，兼鹹寒反佐", "育陰清熱，滋補腎水", "疏肝理氣，活血化瘀"], ans: 1, exp: "治法為破陰回陽，宣通上下，兼鹹寒反佐。加人尿、豬膽汁咸寒苦降，引陽藥入于陰中，使熱藥不爲寒邪阻格。" },
-                    { section: "白通加豬膽汁湯", q: "白通加豬膽汁湯中，人尿和豬膽汁的作用是什麼？", opts: ["清熱解毒，消炎止痛", "咸寒苦降，引陽藥入于陰中；兼補津血，增陰液", "溫腎壯陽，補益精血", "化痰止咳，平喘降逆"], ans: 1, exp: "人尿、豬膽汁咸寒苦降，引陽藥入于陰中，使熱藥不爲寒邪阻格。皆屬血肉有情之品，尚有補津血，增陰液之效。" },
-                    { section: "白通加豬膽汁湯", q: "【315條】服白通加豬膽汁湯後，「脈暴出者死，微續者生」，為什麼？", opts: ["暴出代表正氣恢復；微續代表仍然虛弱", "暴出為脈搏突然浮大躁動，非正氣恢復之象，故死；微續為脈搏由小到大漸漸浮起，陽氣漸回，故生", "暴出代表邪氣退去；微續代表邪氣未退", "兩者預後相同"], ans: 1, exp: "脈暴出者——脈搏突然出現浮大躁動之象，非陽氣真正恢復，而是殘陽外脫，故死。微續者——脈搏由小到大，漸漸浮起，說明陽氣漸漸恢復，故生。" },
-                    { section: "方劑比較", q: "四逆湯、通脈四逆湯、白通湯三方的共同藥物是什麼？", opts: ["附子、乾薑", "附子、甘草", "乾薑、甘草", "附子、蔥白"], ans: 0, exp: "三方都含附子和乾薑。四逆湯=附子+乾薑+甘草；通脈四逆湯=附子(大)+乾薑(大量)+甘草；白通湯=附子+乾薑+蔥白。" },
-                    { section: "方劑比較", q: "陽虛陰盛證、陰盛格陽證、陰盛戴陽證三者的病情輕重排序（由輕到重）是？", opts: ["陰盛格陽→陽虛陰盛→陰盛戴陽", "陽虛陰盛→陰盛戴陽→陰盛格陽", "陰盛戴陽→陰盛格陽→陽虛陰盛", "陰盛格陽→陰盛戴陽→陽虛陰盛"], ans: 1, exp: "由輕到重：陽虛陰盛（四逆湯）→ 陰盛戴陽（白通湯，面部獨赤）→ 陰盛格陽（通脈四逆湯，裏寒外熱，身反不惡寒）。" },
-                    { section: "綜合", q: "少陰病提綱中「脈細」反映的病機是什麼？", opts: ["心腎陽衰，鼓動無力", "心腎陽衰，氣血虛少，脈道不充", "痰濕阻滯脈道", "肝氣鬱結，氣滯血瘀"], ans: 1, exp: "脈細，指脈形細小如絲，此乃心腎陽衰，氣血虛少，脈道不充之象。" },
-                    { section: "綜合", q: "少陰病282條中「心煩」的病機是什麼？", opts: ["陰虛火旺", "陰盛於下，虛陽上擾", "肝火上炎", "痰熱擾心"], ans: 1, exp: "心煩——陰盛於下，虛陽上擾。此為少陰寒化證的心煩，與熱化證「心煩不得臥」的陰虛火旺不同。" },
-                    { section: "臨床應用", q: "四逆湯的現代臨床應用不包括以下哪項？", opts: ["急慢性腸炎", "心肌梗塞伴發心源性休克", "肝硬化腹水", "冷性蕁麻疹"], ans: 2, exp: "四逆湯現代應用包括：急慢性腸炎、急慢性胃炎、心肌梗塞伴心源性休克（合生脈散）、慢性腎炎（合五苓散）、冷性蕁麻疹（加細辛防風）等。PDF中未提及肝硬化腹水。" },
-                    { section: "綜合", q: "「實則太陽，虛則少陰」這句話說明了什麼？", opts: ["太陽病與少陰病的治法相同", "太陽與少陰相表裡，正氣實則病在太陽（表），正氣虛則病入少陰（裏）", "太陽病比少陰病嚴重", "少陰病可以直接轉為太陽病"], ans: 1, exp: "太陽與少陰相表裡。正氣實，邪在表則為太陽病；正氣虛，邪入裏則為少陰病。說明兩經表裏相關，正氣盛衰決定疾病傳變方向。" }
+                    { section: "少陰病治禁", q: "少陰病的治療禁忌包括哪些治法？", opts: ["禁用發汗、攻下及火攻", "禁用溫補、活血及消導", "禁用和解、清熱及利水", "禁用補氣、養血及安神"], ans: 0, exp: "少陰病禁用發汗、攻下以及火攻。" },
+                    { section: "少陰病預後", q: "少陰病的預後取決於什麼？", opts: ["氣血的盛衰", "陽氣的存亡", "津液的多少", "邪氣的強弱"], ans: 1, exp: "少陰病預後取決於陽氣的存亡。" },
+                    { section: "少陰病提綱", q: "【281條】少陰之爲病的提綱脈證是什麼？", opts: ["脈浮緊，惡寒發熱", "脈微細，但欲寐", "脈弦細，往來寒熱", "脈沉遲，腹滿而吐"], ans: 1, exp: "「少陰之爲病，脈微細，但欲寐也」(281)。" },
+                    { section: "少陰病提綱", q: "「脈微」反映的病機是什麼？", opts: ["陰血不足", "心腎陽衰，鼓動無力", "痰飲阻滯", "氣機鬱滯"], ans: 1, exp: "脈微——心腎陽衰，鼓動無力。" },
+                    { section: "少陰病提綱", q: "「但欲寐」的臨床表現與病機是什麼？", opts: ["嗜睡多眠——痰濕困脾", "精神萎靡不振，似睡非睡——心腎陽衰，精神失養", "失眠不寐——心腎不交", "日間嗜睡——氣虛下陷"], ans: 1, exp: "但欲寐——精神萎靡不振，似睡非睡，心腎陽衰，精神失養。" },
+                    { section: "寒化證辨證", q: "少陰寒化證中「欲吐不吐」的病機是什麼？", opts: ["食積停滯", "腎陽虛衰，濁陰上逆；胃腑空虛，無物吐出", "肝氣犯胃", "痰飲犯胃"], ans: 1, exp: "腎陽虛衰，濁陰上逆則欲吐，胃腑空虛無物吐出。" },
+                    { section: "寒化證辨證", q: "「自利而渴」的病機是什麼？", opts: ["濕熱下注", "腎陽虛衰，火不暖土則下利；陽虛不能蒸化津液則口渴", "脾虛濕困", "陰虛火旺"], ans: 1, exp: "腎陽虛衰，火不暖土則下利；陽虛不能蒸化津液則口渴。" },
+                    { section: "寒化證辨證", q: "「小便色白」說明什麼？", opts: ["濕熱下注", "下焦虛有寒，不能制水", "腎陰不足", "脾虛不能運化"], ans: 1, exp: "下焦虛有寒，不能制水，故令色白。" },
+                    { section: "寒化證鑒別", q: "辨少陰虛寒下利與太陰虛寒下利，比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴 vs 自利不渴", "欲吐不吐 vs 腹滿而吐，自利而渴 vs 自利不渴", "脈微細 vs 脈浮緊"], ans: 2, exp: "「欲吐不吐」vs「腹滿而吐」，「自利而渴」vs「自利不渴」。" },
+                    { section: "寒化證鑒別", q: "辨少陰寒化證與少陰熱化證，比較哪組症狀？", opts: ["欲吐不吐 vs 腹滿而吐", "自利而渴 vs 自利不渴", "心煩但欲寐 vs 心煩不得臥", "小便白 vs 小便赤"], ans: 2, exp: "「心煩但欲寐」vs「心煩不得臥」。" },
+                    { section: "寒化證鑒別", q: "辨少陰寒利與厥陰熱利，比較哪組症狀？", opts: ["心煩但欲寐 vs 心煩不得臥", "自利而渴小便白 vs 自利而渴小便赤", "欲吐不吐 vs 腹滿而吐", "脈微細 vs 脈弦數"], ans: 1, exp: "「自利而渴小便白」vs「自利而渴小便赤」。" },
+                    { section: "陽虛陰盛證", q: "【323條】「急溫之」的含義是什麼？", opts: ["大劑量猛攻", "及早治療，消患於無形", "急用灸法", "立即火攻"], ans: 1, exp: "「急溫」指及早治療，消患於無形。" },
+                    { section: "陽虛陰盛證", q: "四逆湯的藥物組成是什麼？", opts: ["附子、乾薑、人參", "附子、乾薑、甘草", "附子、蔥白、乾薑", "附子、肉桂、甘草"], ans: 1, exp: "四逆湯：甘草(炙)、乾薑、附子(生用)。" },
+                    { section: "陽虛陰盛證", q: "四逆湯中各藥的功效？", opts: ["附子溫腎回陽；乾薑溫脾散寒；甘草調中補虛", "附子溫中散寒；乾薑溫腎回陽；甘草清熱", "附子補氣升陽；乾薑活血；甘草利水", "附子養陰；乾薑化痰；甘草安神"], ans: 0, exp: "附子溫腎回陽；乾薑溫脾散寒；甘草調中補虛。" },
+                    { section: "陰盛格陽證", q: "【317條】陰盛格陽證「裏寒外熱」的具體表現？", opts: ["發熱惡寒，頭痛身疼", "身反不惡寒，面色赤——內真寒，外假熱", "壯熱不惡寒，大汗出", "往來寒熱"], ans: 1, exp: "身反不惡寒，面色赤——裏寒外熱，內真寒，外假熱。" },
+                    { section: "陰盛格陽證", q: "通脈四逆湯與四逆湯的關係？", opts: ["完全不同藥物", "四逆湯加大附子、乾薑劑量", "四逆湯減甘草", "四逆湯加人參蔥白"], ans: 1, exp: "通脈四逆湯即四逆湯加大附子、乾薑劑量。" },
+                    { section: "陰盛格陽證", q: "通脈四逆湯中，面色赤者加什麼？", opts: ["人參", "芍藥", "蔥", "桔梗"], ans: 2, exp: "面色赤者加蔥，通格上之陽。" },
+                    { section: "陰盛格陽證", q: "陰盛格陽之「面色赤」與陽明病面赤有何不同？", opts: ["無區別", "格陽面赤紅而嬌嫩、遊移不定，伴裏寒；陽明面赤通紅不遊移，伴熱證", "格陽面赤更紅更持久", "陽明面赤淡紅"], ans: 1, exp: "格陽面赤紅而嬌嫩，遊移不定，口和舌潤。陽明面赤通紅不遊移，口舌乾燥大渴。" },
+                    { section: "陰盛戴陽證", q: "戴陽證的特徵是什麼？", opts: ["全身發熱面色蒼白", "面部獨赤，周身寒象", "面色蒼白四肢溫暖", "面部潮紅口渴引飲"], ans: 1, exp: "戴陽證：面部獨赤，周身寒象，陰盛於下，格陽於上。" },
+                    { section: "陰盛戴陽證", q: "【314條】白通湯的藥物組成？", opts: ["附子、乾薑、甘草", "蔥白、乾薑、附子", "蔥白、附子、甘草", "蔥白、乾薑、人參"], ans: 1, exp: "白通湯：蔥白、乾薑、附子。" },
+                    { section: "陰盛戴陽證", q: "白通湯中蔥白的作用？", opts: ["溫腎回陽", "溫脾散寒", "辛溫走竄，宣通上下，使格拒之勢得解", "調中補虛"], ans: 2, exp: "蔥白辛溫走竄，宣通上下，使上浮之陽回歸本位。" },
+                    { section: "白通加豬膽汁湯", q: "服白通湯後出現格拒的原因？", opts: ["藥物過敏", "陰寒太盛，對大熱之藥拒而不受", "方藥用錯", "藥力不足"], ans: 1, exp: "陰寒太盛，對大熱之藥拒而不受，反激惹寒邪之勢。" },
+                    { section: "白通加豬膽汁湯", q: "白通加豬膽汁湯的治法？", opts: ["溫中散寒，健脾和胃", "破陰回陽，宣通上下，兼鹹寒反佐", "育陰清熱", "疏肝理氣"], ans: 1, exp: "破陰回陽，宣通上下，兼鹹寒反佐。" },
+                    { section: "白通加豬膽汁湯", q: "人尿和豬膽汁的作用？", opts: ["清熱解毒", "咸寒苦降，引陽藥入于陰中；兼補津血", "溫腎壯陽", "化痰止咳"], ans: 1, exp: "咸寒苦降，引陽藥入于陰中，使熱藥不爲寒邪阻格。" },
+                    { section: "白通加豬膽汁湯", q: "「脈暴出者死，微續者生」為什麼？", opts: ["暴出代表正氣恢復", "暴出為殘陽外脫故死；微續為陽氣漸回故生", "暴出代表邪氣退去", "兩者預後相同"], ans: 1, exp: "脈暴出——殘陽外脫，故死。微續——陽氣漸回，故生。" },
+                    { section: "方劑比較", q: "四逆湯、通脈四逆湯、白通湯三方的共同藥物？", opts: ["附子、乾薑", "附子、甘草", "乾薑、甘草", "附子、蔥白"], ans: 0, exp: "三方都含附子和乾薑。" },
+                    { section: "方劑比較", q: "三證病情由輕到重排序？", opts: ["陰盛格陽→陽虛陰盛→陰盛戴陽", "陽虛陰盛→陰盛戴陽→陰盛格陽", "陰盛戴陽→陰盛格陽→陽虛陰盛", "陰盛格陽→陰盛戴陽→陽虛陰盛"], ans: 1, exp: "由輕到重：陽虛陰盛(四逆湯)→陰盛戴陽(白通湯)→陰盛格陽(通脈四逆湯)。" },
+                    { section: "綜合", q: "「脈細」反映的病機？", opts: ["心腎陽衰，鼓動無力", "心腎陽衰，氣血虛少，脈道不充", "痰濕阻滯", "肝氣鬱結"], ans: 1, exp: "脈細——氣血虛少，脈道不充。" },
+                    { section: "綜合", q: "282條「心煩」的病機？", opts: ["陰虛火旺", "陰盛於下，虛陽上擾", "肝火上炎", "痰熱擾心"], ans: 1, exp: "心煩——陰盛於下，虛陽上擾。" },
+                    { section: "綜合", q: "「實則太陽，虛則少陰」說明了什麼？", opts: ["治法相同", "太陽與少陰相表裡，正氣實病在太陽，正氣虛病入少陰", "太陽病比少陰嚴重", "少陰可直接轉太陽"], ans: 1, exp: "太陽與少陰相表裡，正氣盛衰決定傳變方向。" },
+                    { section: "少陰病成因", q: "少陰病的成因不包括？", opts: ["外邪直中", "三陽病失治傳入", "腎陽素衰", "情志內傷肝氣鬱結"], ans: 3, exp: "少陰病成因：①外邪直中 ②邪由它經傳來。不包括情志內傷。" },
+                    { section: "少陰病概說", q: "腎在少陰病理中的核心地位？", opts: ["主血脈主神明", "後天之本主運化", "先天之本，內寓元陰元陽", "主疏泄主藏血"], ans: 2, exp: "腎為先天之本，內寓元陰元陽，爲人體陰陽之根本。" },
+                    { section: "少陰病概說", q: "少陰病的病位與病性？", opts: ["病位在表，屬陽屬實", "病位在半表半裏", "病位在里，多屬陰、屬虛、屬寒", "病位在表裏之間"], ans: 2, exp: "少陰病病位在里，病性多屬陰、屬虛、屬寒。" },
+                    { section: "少陰寒盛傷陽", q: "【283條】「脈陰陽俱緊，反汗出」的病機？", opts: ["太陽傷寒營衛不和", "寒盛於內，陰寒傷陽，陽不攝陰", "陽明裡熱蒸汗", "少陽樞機不利"], ans: 1, exp: "寒盛於內，陰寒傷陽，陽不攝陰。" },
+                    { section: "少陰寒盛傷陽", q: "283條為何「法當咽痛」？", opts: ["風熱上犯", "少陰之脈循喉嚨，陰寒循經鬱結於咽喉", "陽明經熱上蒸", "少陽經氣鬱結"], ans: 1, exp: "少陰之脈循喉嚨，陰寒循經鬱結於咽喉。" },
+                    { section: "少陰病治禁", q: "【285條】脈細沉數，為何不可發汗？", opts: ["陽虛發汗亡陽", "沉主在裏，細主陰虛，數主有熱，誤汗傷陰動血", "脈沉主表邪已解", "細數主血虛汗出氣脫"], ans: 1, exp: "沉主在裏，細主陰虛，數主有熱，誤發汗可傷陰動血。" },
+                    { section: "少陰病治禁", q: "【286條】脈微不可發汗的原因？", opts: ["脈微主陽虛汗出亡陽；尺脈弱澀主陰血不足", "脈微主氣虛", "脈微主邪輕", "脈微主陰虛"], ans: 0, exp: "脈微主陽虛，發汗則亡陽。尺脈弱澀主陰血不足，陰陽俱虛。" },
+                    { section: "陰盛格陽證", q: "通脈四逆湯中，咽痛者如何加減？", opts: ["加蔥九莖", "去芍藥加桔梗一兩", "加生薑二兩", "加人參二兩"], ans: 1, exp: "咽痛者去芍藥加桔梗一兩，利咽開結。" },
+                    { section: "陰盛格陽證", q: "通脈四逆湯中，利止脈不出者如何加減？", opts: ["加蔥九莖", "加生薑二兩", "去桔梗加人參二兩", "加芍藥二兩"], ans: 2, exp: "利止脈不出者，去桔梗加人參二兩，益氣生津固脫復脈。" },
+                    { section: "少陰病熱化", q: "少陰熱化證的病機核心是什麼？", opts: ["陽氣虛衰", "陰虛陽亢", "寒熱錯雜", "氣血兩虛"], ans: 1, exp: "熱化證：陰虛陽亢。" },
+                    { section: "陽虛陰盛證", q: "少陰陽衰陰盛證的主要症狀不包括？", opts: ["冷汗自出，手足厥冷", "吐利", "大熱大渴面赤如妝", "脈沉微細"], ans: 2, exp: "大熱大渴面赤如妝非陽衰陰盛證特徵。" },
+                    { section: "臨床應用", q: "四逆湯的現代應用不包括？", opts: ["急慢性腸炎", "心肌梗塞伴心源性休克", "肝硬化腹水", "冷性蕁麻疹"], ans: 2, exp: "現代應用包括腸炎、胃炎、心梗休克、慢性腎炎、冷性蕁麻疹等。不包括肝硬化腹水。" }
                 ]
             },
             'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section: "併發症", q: "中下1/3骨折最容易合併哪條神經損傷？", opts: ["正中神經", "尺神經", "橈神經", "腋神經"], ans: 2, exp: "橈神經緊貼橈神經溝通過，損傷會導致垂腕。" }] },
@@ -728,15 +1305,17 @@
             const data = allQuizData[id];
             
             if(!state.started) { 
-                app.innerHTML = `<div style="text-align:center;"><h2 class="q-main-title">${data.title}</h2><button class="home-btn" style="width:auto; padding:10px 40px;" onclick="startQuiz('${id}')">開始測驗 💪</button></div>`; 
+                app.innerHTML = `<div style="text-align:center;"><h2 class="q-main-title">${data.title}</h2><p style="color:#888;">共 ${data.questions.length} 題</p><button class="home-btn" style="width:auto; padding:10px 40px;" onclick="startQuiz('${id}')">開始測驗 💪</button></div>`; 
                 return; 
             }
             
             if(state.showingResults) { 
                 const pct = Math.round((state.score / data.questions.length) * 100);
+                let emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪';
                 app.innerHTML = `
                     <div style="text-align:center;">
-                        <h2 style="color:var(--primary-color);">Quiz 完成！得分：${state.score} / ${data.questions.length} (${pct}%)</h2>
+                        <h2 style="color:var(--primary-color);">${emoji} Quiz 完成！得分：${state.score} / ${data.questions.length} (${pct}%)</h2>
+                        <p style="color:#888;">答錯嘅題目已加入錯題庫，記得溫返！</p>
                         <button class="home-btn" style="width:auto; padding:10px 40px; background:#d48a6e;" onclick="restartQuiz('${id}')">重新開始 🔄</button>
                     </div>`; 
                 return;
@@ -763,16 +1342,10 @@
         function selectAnswer(id, idx) {
             if(quizStates[id].answered[quizStates[id].currentQ] !== null) return;
             quizStates[id].answered[quizStates[id].currentQ] = idx;
-            
             const q = allQuizData[id].questions[quizStates[id].currentQ];
             const mistakeId = `quiz-${id}-${quizStates[id].currentQ}`;
-            
-            if(idx === q.ans) {
-                quizStates[id].score++;
-                removeMistake(mistakeId); 
-            } else {
-                addMistake({id: mistakeId, section: q.section, question: q.q, userAns: q.opts[idx], correctAns: q.opts[q.ans], exp: q.exp});
-            }
+            if(idx === q.ans) { quizStates[id].score++; removeMistake(mistakeId); }
+            else { addMistake({id: mistakeId, section: q.section, question: q.q, userAns: q.opts[idx], correctAns: q.opts[q.ans], exp: q.exp}); }
             renderQuizApp(id);
         }
         
@@ -790,16 +1363,14 @@
             renderQuizApp(id);
         }
 
-        // 8. 網頁載入時執行
+        // 網頁載入
         window.onload = () => {
-            // 自動勾選已溫習的項目
             document.querySelectorAll('.section-cb').forEach(cb => {
                 if(progressData[cb.value]?.checked) cb.checked = true;
             });
-            updateProgress(); // 計算初始進度
-            Object.keys(allQuizData).forEach(renderQuizApp); // 渲染所有測驗
+            updateProgress();
+            Object.keys(allQuizData).forEach(renderQuizApp);
         };
-
     </script>
 </body>
 </html>
