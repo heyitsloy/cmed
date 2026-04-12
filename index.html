@@ -496,56 +496,30 @@
         function openSummaryModal() { document.getElementById('summary-modal').style.display='flex'; renderSummaryList(); }
         function closeSummaryModal() { document.getElementById('summary-modal').style.display='none'; }
         function renderSummaryList() {
-            const container = document.getElementById('summary-list');
-            let html = '';
-            
-            // 1. 收集並按 data-subject 分組
-            const groups = {};
-            document.querySelectorAll('.section-cb').forEach(cb => {
-                const subject = cb.getAttribute('data-subject') || '其他未分類';
-                if (!groups[subject]) groups[subject] = [];
-                groups[subject].push(cb);
-            });
+            document.getElementById('summary-list').innerHTML = Array.from(document.querySelectorAll('.section-cb')).map(cb => {
+                const val = cb.value; 
+                const isChecked = cb.checked;
+                
+                // 智能提取中文大標題，自動飛走「✅ 已溫習」
+                let title = val;
+                const section = cb.closest('.content-section');
+                if (section) {
+                    const titleEl = section.querySelector('.main-title');
+                    if (titleEl) title = titleEl.firstChild.textContent.trim();
+                }
 
-            // 2. 按科目生成 HTML 總覽
-            for (let subject in groups) {
-                const total = groups[subject].length;
-                const checked = groups[subject].filter(cb => cb.checked).length;
-                const pct = Math.round((checked / total) * 100) || 0;
-
-                // 畫出大科目標題 + 該科進度
-                html += `
-                <div style="margin-top: 25px; border-bottom: 2px solid var(--primary-color); padding-bottom: 8px; margin-bottom: 15px;">
-                    <h3 style="color: var(--primary-color); margin: 0; display: flex; justify-content: space-between; align-items: flex-end;">
-                        <span>📚 ${subject}</span>
-                        <span style="font-size: 0.9rem; color: ${pct === 100 ? '#27ae60' : '#777'};">進度: ${checked} / ${total} (${pct}%)</span>
-                    </h3>
-                    <div style="background: #eee; height: 6px; border-radius: 5px; margin-top: 8px; overflow: hidden;">
-                        <div style="background: ${pct === 100 ? '#27ae60' : 'var(--accent-color)'}; width: ${pct}%; height: 100%; transition: 0.3s;"></div>
+                return `
+                <div class="summary-item">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <b style="color:var(--primary-color); font-size:1.05rem;">${title}</b>
+                        <label style="cursor:pointer; background:${isChecked?'#e8f8f5':'#eee'}; color:${isChecked?'#27ae60':'#888'}; padding:5px 10px; border-radius:8px;">
+                            <input type="checkbox" style="display:none;" ${isChecked?'checked':''} onchange="syncCb('${val}', this.checked)">
+                            ${isChecked ? '✅ 已溫習' : '⬜ 未溫習'}
+                        </label>
                     </div>
+                    <input type="text" class="summary-remark" placeholder="備註 (例如：已背口訣)..." value="${progressData[val]?.remark || ''}" onchange="saveRem('${val}', this.value)">
                 </div>`;
-
-                // 畫出該科目下嘅細項
-                groups[subject].forEach(cb => {
-                    const val = cb.value; 
-                    const isChecked = cb.checked;
-                    let title = cb.closest('.main-title') ? cb.closest('.main-title').innerText.replace('✅ 已溫習', '').trim() : val;
-                    const remark = progressData[val]?.remark || '';
-                    
-                    html += `
-                    <div class="summary-item">
-                        <div style="display:flex; justify-content:space-between; align-items: center;">
-                            <b style="font-size: 1.05rem; color: #333;">${title}</b>
-                            <label class="study-checkbox" style="background:${isChecked ? '#e8f8f5' : '#f5f5f5'}; color:${isChecked ? '#27ae60' : '#aaa'}; padding: 5px 12px; margin: 0;">
-                                <input type="checkbox" style="display:none;" ${isChecked ? 'checked' : ''} onchange="syncCb('${val}', this.checked)"> 
-                                ${isChecked ? '✅ 已溫習' : '⬜ 未溫習'}
-                            </label>
-                        </div>
-                        <input type="text" class="summary-remark" placeholder="加入專屬備註 (例如：要重點溫習、已背口訣...)" value="${remark}" onchange="saveRem('${val}', this.value)">
-                    </div>`;
-                });
-            }
-            container.innerHTML = html;
+            }).join('');
         }
         function syncCb(v, c) { document.querySelector(`.section-cb[value="${v}"]`).checked = c; updateProgress(); renderSummaryList(); }
         function saveRem(v, r) { progressData[v].remark = r; localStorage.setItem('tcmProgressData', JSON.stringify(progressData)); }
