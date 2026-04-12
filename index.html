@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中醫骨傷科專屬溫習平台 🌸</title>
+    <title>溫書喇🌸</title>
     <style>
         :root {
             --primary-color: #5aa493; --secondary-color: #fff9f0; --accent-color: #d48a6e;
@@ -14,20 +14,24 @@
         /* 導航欄 */
         .sidebar { width: 300px; background-color: #ffffff; border-right: 3px solid #e8f0ed; padding: 20px; overflow-y: auto; box-shadow: 4px 0 15px rgba(90, 164, 147, 0.05); }
         .sidebar h2 { font-size: 1.4rem; color: var(--primary-color); border-bottom: 2px dashed #bfe0d8; padding-bottom: 12px; text-align: center; }
-        .home-btn { background: linear-gradient(135deg, #78c2ad, #5aa493); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
-        .home-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(90, 164, 147, 0.3); }
         
+        .home-btn { background: linear-gradient(135deg, #78c2ad, #5aa493); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(90,164,147,0.2); }
+        .home-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(90,164,147,0.3); }
+        
+        .mistake-btn { background: linear-gradient(135deg, #f6d365, #fda085); color: white; width: 100%; padding: 12px; border: none; border-radius: var(--cute-radius); font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: 0.3s; box-shadow: 0 4px 10px rgba(253,160,133,0.2); }
+        .mistake-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(253,160,133,0.3); }
+
         /* 摺疊選單 */
         details { margin-bottom: 10px; }
         details > summary.main-folder { cursor: pointer; font-weight: bold; padding: 12px 10px; color: var(--accent-color); font-size: 1.1rem; list-style: none; border-radius: 12px; transition: 0.3s; }
         details > summary.main-folder::-webkit-details-marker { display: none; }
-        details > summary.main-folder::before { content: '📁 '; }
+        details > summary.main-folder::before { content: '📁 '; margin-right: 5px;}
         details[open] > summary.main-folder::before { content: '📂 '; }
         details[open] > summary.main-folder { background-color: #fff0ea; color: var(--accent-color); }
         .sub-menu { padding-left: 10px; margin-top: 8px; border-left: 2px dashed #eee; margin-left: 15px; }
         .menu-list { list-style-type: none; padding-left: 0; margin: 0; }
         .menu-btn { background: none; border: none; color: var(--text-color); text-align: left; width: 100%; padding: 8px 12px; cursor: pointer; font-size: 0.95rem; border-radius: 10px; transition: 0.2s; outline: none; margin-bottom: 5px;}
-        .menu-btn:hover, .menu-btn.active { background-color: #ebf5f2; color: var(--primary-color); font-weight: bold; }
+        .menu-btn:hover, .menu-btn.active { background-color: #ebf5f2; color: var(--primary-color); font-weight: bold; border-left: 4px solid var(--primary-color);}
         summary.menu-btn::-webkit-details-marker { display: none; } summary.menu-btn { list-style: none; }
 
         /* 右側內容區 */
@@ -45,13 +49,22 @@
         .study-checkbox { font-size: 1rem; font-weight: bold; color: #27ae60; background: #e8f8f5; padding: 8px 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; border: 2px solid transparent;}
         .study-checkbox:hover { border-color: #27ae60; }
 
-        /* 重點與圖片區 */
-        .keypoint-box { background: #fdfbf7; border-left: 5px solid var(--accent-color); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; }
-        .keypoint-box ul { padding-left: 20px; margin: 10px 0; }
-        .keypoint-box li { margin-bottom: 8px; }
-        .image-placeholder { background: #f0f4f8; border: 2px dashed #add8e6; border-radius: 12px; padding: 20px; text-align: center; color: #4682b4; margin-bottom: 20px; font-weight: bold;}
-        
-        /* 多重 Quiz CSS */
+        /* Scramble Game */
+        .scramble-container { background: #fdfbf7; border: 2px solid #f2e3d5; border-radius: var(--cute-radius); padding: 30px; margin-bottom: 35px; }
+        .scramble-title { color: var(--accent-color); margin-top: 0; font-size: 1.3rem; border-bottom: 2px dashed #f2e3d5; padding-bottom: 10px;}
+        .scramble-item { margin-bottom: 25px; font-size: 1.1rem; line-height: 2.2; position: relative;}
+        .blank-input { width: 32px; height: 32px; text-align: center; font-size: 1.1rem; font-weight: bold; border: 2px solid #dcdcdc; border-radius: 8px; margin: 0 3px; background: white; transition: 0.2s; outline: none; color: var(--text-color); }
+        .blank-input:focus { border-color: var(--primary-color); box-shadow: 0 0 8px rgba(90, 164, 147, 0.3); }
+        .blank-input.correct { border-color: #27ae60; background-color: #e8f8f5; color: #27ae60; }
+        .blank-input.wrong { border-color: #e74c3c; background-color: #fdedec; color: #e74c3c; }
+        .ans-label { color: #e74c3c; font-size: 0.9rem; font-weight: bold; margin-left: 2px; animation: fadeIn 0.3s; }
+        .hint-btn { background: #fff4d2; border: 1px solid #ffeeba; color: #b8860b; padding: 5px 12px; border-radius: 12px; font-size: 0.85rem; cursor: pointer; margin-left: 10px; transition: 0.2s; font-weight: bold; }
+        .hint-btn:hover { background: #ffe8a1; }
+        .hint-box { display: none; background: #fffdf5; border-left: 4px solid #ffc107; padding: 12px 18px; margin-top: 10px; font-size: 0.95rem; color: #a67c00; border-radius: 0 12px 12px 0; line-height: 1.6; }
+        .check-scramble-btn { background: linear-gradient(135deg, #e09f86, #d48a6e); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 4px 10px rgba(212, 138, 110, 0.2); }
+        .check-scramble-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 138, 110, 0.4); }
+
+        /* Quiz */
         .poe-quiz-app { background: #ffffff; border-radius: var(--cute-radius); padding: 25px; margin-top: 30px; border: 2px solid #f0f0f0; }
         .poe-quiz-app h1.q-main-title { text-align: center; color: var(--primary-color); border-bottom: 2px dashed #eee; padding-bottom: 15px; }
         .poe-quiz-app .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin-bottom: 15px; overflow: hidden; }
@@ -70,23 +83,45 @@
         .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 25px; }
         .dash-card { border-radius: var(--cute-radius); padding: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 6px 15px rgba(0,0,0,0.03); border: 2px solid transparent; }
         .dash-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
-        .dash-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; }
+        .dash-card h2 { margin: 0 0 10px 0; font-size: 1.4rem; display:flex; justify-content:space-between;}
+        .card-pink { background: linear-gradient(135deg, #fff0f5, #ffe4e1); color: #c44d79; border-color: #ffb6c1; }
         .card-blue { background: linear-gradient(135deg, #f0f8ff, #e0ffff); color: #4682b4; border-color: #add8e6; }
-        .dash-btn { display: inline-block; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); padding: 8px 12px; margin: 4px; border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: 0.2s; color: inherit; font-weight: bold; }
+        .card-green { background: linear-gradient(135deg, #f5fffa, #e0f8e8); color: #2e8b57; border-color: #98d8ad; }
+        .dash-sub-menu { display: none; margin-top: 15px; border-top: 2px dashed rgba(0,0,0,0.1); padding-top: 15px; }
+        .dash-card.open .dash-sub-menu { display: block; animation: fadeIn 0.3s; }
+        .dash-card.open h2::after { content: '▴'; font-size: 1.2rem; }
+        .dash-card:not(.open) h2::after { content: '▾'; font-size: 1.2rem; }
+        .dash-btn { display: inline-block; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); padding: 10px 15px; margin: 4px; border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: 0.2s; color: inherit; font-weight: bold; }
         .dash-btn:hover { background: white; transform: scale(1.05); }
+        .placeholder-box { background-color: #f8f9fa; border: 2px dashed #ced4da; padding: 30px; text-align: center; border-radius: 8px; color: #6c757d; margin-top: 20px; }
+
+        /* 錯題庫樣式 */
+        .mistake-card { background: #fffcfc; border: 1px solid #ffcccc; border-left: 6px solid #e74c3c; border-radius: 12px; padding: 20px; margin-bottom: 15px; position: relative; transition:0.3s;}
+        .mistake-card:hover { box-shadow: 0 4px 10px rgba(231,76,60,0.1); }
+        .mistake-tag { display: inline-block; background: #e74c3c; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; margin-bottom: 10px; font-weight:bold;}
+        .mistake-q { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color:#333;}
+        .mistake-ans-box { background:#f9f9f9; padding:10px; border-radius:8px; font-size:0.95rem;}
+        .mistake-wrong { color: #e74c3c; text-decoration: line-through; margin-right: 10px;}
+        .mistake-correct { color: #27ae60; font-weight: bold;}
+        .mistake-exp { margin-top:10px; font-size:0.9rem; color:#856404; background:#fff8e1; padding:8px; border-radius:5px;}
+        .got-it-btn { position: absolute; right: 20px; top: 20px; background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s;}
+        .got-it-btn:hover { background: #219653; transform: scale(1.05);}
+        .empty-mistake { text-align:center; padding:40px; color:#aaa; font-size:1.2rem;}
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <button class="home-btn" onclick="showHome()">🏠 溫習大堂</button>
-        <h2>📚 醫學筆記庫</h2>
+        <button class="mistake-btn" onclick="showMistakes()">📓 我的錯題庫</button>
+
+        <h2>📚 溫書溫書 </h2>
         
         <details>
             <summary class="main-folder">📖 傷寒論</summary>
             <div class="sub-menu">
                 <ul class="menu-list">
-                    <li><button class="menu-btn" onclick="showSection('sh-shaoyin', '少陰病')">🔹 少陰病 (測驗區)</button></li>
+                    <li><button class="menu-btn" onclick="showSection('sh-shaoyin', '少陰病')">🔹 少陰病 (重點/測驗)</button></li>
                 </ul>
             </div>
         </details>
@@ -119,20 +154,34 @@
 
     <div class="main-content" id="main-content-area">
         
-        <div class="global-progress-wrapper">
-            <span>🏆 骨傷科上肢骨折溫習進度：</span>
+        <div class="global-progress-wrapper" id="progress-wrapper">
+            <span>🏆 上肢骨折溫習進度：</span>
             <div class="global-progress-bar"><div class="global-progress-fill" id="global-progress-fill"></div></div>
             <span class="global-progress-text" id="global-progress-text">0 / 10</span>
+        </div>
+
+        <div id="mistake-dashboard" class="content-section">
+            <h1 class="main-title" style="color:#d48a6e; border-bottom-color:#f2e3d5;">📓 我的錯題庫</h1>
+            <p style="color:#777;">呢度自動收集咗你喺「填充題」同「測驗Quiz」答錯過嘅題目。溫熟咗就可以撳「依家識喇」清除佢，或者返去原版面答啱一次，系統都會自動幫你洗底！</p>
+            <div id="mistake-list">
+                </div>
         </div>
 
         <div id="home-dashboard" class="content-section active" style="max-width: 880px; background: transparent; box-shadow: none; padding: 0;">
             <h1 style="color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px;">🌸 歡迎返嚟溫習！</h1>
             <p style="color: #777; font-size: 1.1rem; margin-bottom: 20px;">上肢骨折十大關卡已經為你準備好，逐個擊破佢啦！</p>
             <div class="dashboard-grid">
-                <div class="dash-card card-blue">
+                <div class="dash-card card-pink" onclick="toggleDashCard(this)">
+                    <h2>📖 傷寒論</h2>
+                    <p style="margin:0; font-size:0.95rem; opacity:0.85;">六經辨證、原文明理、經方應用</p>
+                    <div class="dash-sub-menu">
+                        <button class="dash-btn" style="border-color:#b03060; color:#b03060;" onclick="navTo('sh-shaoyin', '少陰病', event)">少陰病 (🌟 測驗 & 填充)</button>
+                    </div>
+                </div>
+                <div class="dash-card card-blue" onclick="toggleDashCard(this)">
                     <h2>🦴 骨傷科：上肢骨折</h2>
-                    <p style="margin:0; font-size:0.95rem; opacity:0.85;">十大重點骨折・PPT精華・測驗題庫</p>
-                    <div style="margin-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px;">
+                    <p style="margin:0; font-size:0.95rem; opacity:0.85;">十大骨折・PPT精華・測驗題庫</p>
+                    <div class="dash-sub-menu">
                         <button class="dash-btn" onclick="navTo('ortho-u-clavicle', '鎖骨骨折', event)">鎖骨</button>
                         <button class="dash-btn" onclick="navTo('ortho-u-neck', '外科頸', event)">外科頸</button>
                         <button class="dash-btn" onclick="navTo('ortho-u-shaft', '肱骨幹', event)">肱骨幹</button>
@@ -144,184 +193,137 @@
             </div>
         </div>
 
-        <div id="ortho-u-clavicle" class="content-section">
-            <h1 class="main-title">鎖骨骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="clavicle" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：鎖骨骨折解剖圖及 X-ray (如：Figure 1, 2 分類圖)]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>好發部位：</strong>多發生在中1/3，兒童多見（常為青枝骨折）。</li>
-                    <li><strong>移位機理：</strong>近端受胸鎖乳突肌牽拉向<strong>上後</strong>移位；遠端因肢體重量及胸大肌牽拉向<strong>前、下、內側</strong>移位。</li>
-                    <li><strong>特有體徵：</strong>肩部向內、下、前傾斜，頭向患側傾斜，下頜偏向健側（減輕胸鎖乳突肌牽拉）。</li>
-                    <li><strong>復位與固定：</strong>復位手法為「叉腰挺胸，膝頂扳肩」。固定多用「∞字繃帶固定」（成人4-6周，兒童1-3周）。</li>
-                </ul>
-            </div>
-            <div id="quiz-clavicle" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-neck" class="content-section">
-            <h1 class="main-title">肱骨外科頸骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="neck" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：外展型與內收型骨折 X-ray 及 移位圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>解剖弱點：</strong>位於解剖頸下2~3cm。內側有臂叢神經和腋動靜脈經過，極易合併神經血管損傷。</li>
-                    <li><strong>分型與復位：</strong><br>
-                        - <strong>外展型：</strong>斷端向內側成角。復位需由內向外側用力。固定時肩關節保持<strong>內收位</strong>。<br>
-                        - <strong>內收型：</strong>斷端向外側成角。復位需由外向內側用力。固定時肩關節保持<strong>外展位</strong>。</li>
-                </ul>
-            </div>
-            <div id="quiz-neck" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-shaft" class="content-section">
-            <h1 class="main-title">肱骨幹骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="shaft" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：橈神經損傷引起的垂腕畸形圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>定義：</strong>外科頸下1cm至內髁上2cm段。中下1/3有橈神經溝。</li>
-                    <li><strong>主要併發症：</strong>易合併<strong>橈神經損傷</strong>，表現為<strong>垂腕畸形</strong>及橈側皮膚感覺障礙。</li>
-                    <li><strong>練功要點：</strong>初期應作患肢上臂的肌肉舒縮活動，以加強骨折端在縱軸上的擠壓力，防止斷端分離不癒合。</li>
-                </ul>
-            </div>
-            <div id="quiz-shaft" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-supra" class="content-section">
-            <h1 class="main-title">肱骨髁上骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="supra" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：伸直型典型移位圖 及 肘三角解剖圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>特徵：</strong>兒童極為多見。分為伸直型（60%）、屈曲型、粉碎型。</li>
-                    <li><strong>伸直型危險：</strong>遠折端向後上方移位，近折端向前下方移位，極易刺破或壓迫<strong>肱動脈</strong>及正中神經。</li>
-                    <li><strong>鑒別診斷：</strong>與肘關節脫位鑒別的關鍵是<strong>肘三角關係是否改變</strong>（骨折不變，脫位改變）。</li>
-                    <li><strong>併發症：</strong>晚期極易發生<strong>肘內翻畸形</strong>。</li>
-                </ul>
-            </div>
-            <div id="quiz-supra" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-lat" class="content-section">
-            <h1 class="main-title">肱骨外髁骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="lat" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：肱骨外髁骨折 3 種移位程度圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>解剖與發病：</strong>前臂伸肌群附著於此。絕大多數發生在5~10歲兒童。</li>
-                    <li><strong>分型：</strong>分為無移位、輕度移位、翻轉移位三種。</li>
-                    <li><strong>晚期併發症：</strong>若治療不當，晚期可出現進行性肘外翻，並引發<strong>牽拉性尺神經損傷</strong>。</li>
-                </ul>
-            </div>
-            <div id="quiz-lat" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-med" class="content-section">
-            <h1 class="main-title">肱骨內上髁骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="med" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：肱骨內上髁骨折 I~IV 度分型圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>解剖：</strong>為非關節部分，有前臂屈肌群及肘內側副韌帶附著。後方有尺神經溝。</li>
-                    <li><strong>損傷機制：</strong>多因肘部外展位跌倒，前臂屈肌群強烈收縮撕脫所致。易傷<strong>尺神經</strong>。</li>
-                    <li><strong>分度：</strong>第1度（裂縫）、第2度（分離但未入關節）、第3度（骨折塊嵌入關節內）、第4度（合併肘關節脫位）。</li>
-                </ul>
-            </div>
-            <div id="quiz-med" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-radhead" class="content-section">
-            <h1 class="main-title">橈骨頭骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="radhead" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：橈骨頭骨折 X-ray 及 分類圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>臨床表現：</strong>肘外側壓痛，尤以<strong>旋轉前臂時</strong>橈骨頭處疼痛加重最為明顯。</li>
-                    <li><strong>兒童與成人差異：</strong>兒童多發生骨骺分離；成人多見粉碎、劈裂。</li>
-                    <li><strong>手術禁忌：</strong>成人嚴重粉碎性骨折可做橈骨頭切除術，但<strong>14歲以下兒童絕對不宜做</strong>，以免影響發育。若不治療易致前臂旋轉功能障礙。</li>
-                </ul>
-            </div>
-            <div id="quiz-radhead" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-mont" class="content-section">
-            <h1 class="main-title">孟氏骨折 (Monteggia) 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="mont" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：孟氏骨折 X-ray，標示尺骨骨折與橈骨頭脫位]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>定義：</strong>尺骨上1/3骨折 合併 橈骨頭脫位。</li>
-                    <li><strong>分型：</strong>伸直型（前脫位，最常見）、屈曲型（後脫位）、內收型（橈側脫位）。</li>
-                    <li><strong>整復原則：</strong>必須<strong>先整復橈骨頭脫位，再整復尺骨骨折</strong>。伸直型復位時肘關節需徐徐屈曲至90°。</li>
-                </ul>
-            </div>
-            <div id="quiz-mont" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-gale" class="content-section">
-            <h1 class="main-title">蓋氏骨折 (Galeazzi) 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="gale" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：蓋氏骨折 X-ray，標示橈骨骨折與下尺橈關節脫位]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>定義：</strong>橈骨下1/3骨折 合併 下尺橈（遠側）關節脫位。</li>
-                    <li><strong>特徵：</strong>極不穩定，成人多見不穩定型。兒童易漏診，常表現為尺骨遠端骨骺分離。</li>
-                    <li><strong>整復原則：</strong>一般原則是<strong>先整復脫位，然後整復骨折</strong>。但若尺骨有彎曲畸形（第3型），必須先整復尺骨彎曲。</li>
-                </ul>
-            </div>
-            <div id="quiz-gale" class="poe-quiz-app"></div>
-        </div>
-
-        <div id="ortho-u-both" class="content-section">
-            <h1 class="main-title">橈尺骨幹雙骨折 
-                <label class="study-checkbox"><input type="checkbox" class="section-cb" value="both" onchange="updateProgress()"> ✅ 已溫習</label>
-            </h1>
-            <div class="image-placeholder">🖼️ [請在此處貼上 PPT：雙骨折成角、旋轉移位圖 及 夾板固定圖]</div>
-            <div class="keypoint-box">
-                <h3>📝 考試與溫習重點：</h3>
-                <ul>
-                    <li><strong>治療核心：</strong>除了對位對線，最重要是<strong>恢復前臂的旋轉功能</strong>，防止尺橈骨交叉癒合。</li>
-                    <li><strong>復位順序：</strong>上1/3骨折先整復尺骨；下1/3骨折先整復橈骨。</li>
-                    <li><strong>危險信號：</strong>若患肢疼痛劇烈、手指麻木發涼發紺，被動牽拉痛，應高度警惕<strong>前臂筋膜間隔區綜合徵</strong>。</li>
-                </ul>
-            </div>
-            <div id="quiz-both" class="poe-quiz-app"></div>
-        </div>
-
         <div id="sh-shaoyin" class="content-section">
-            <h1 class="main-title">傷寒論：少陰病 (保留區)</h1>
-            <div class="keypoint-box">
-                <p>💡 呢度已經為你保留咗少陰病嘅測驗系統。如果你想加入全部 50 題，只需要喺下面 JavaScript 嘅 `allQuizData['shaoyin'].questions` 陣列入面貼上題目即可！</p>
+            <h1 class="main-title">傷寒論：少陰病</h1>
+            
+            <div class="scramble-container">
+                <h3 class="scramble-title">🧩 重點條文填充訓練</h3>
+                <p style="color:#777; font-size:0.9rem; margin-top:-5px;">輸入中文字會自動跳格，填錯會標紅並自動加入「錯題庫」！全對會自動從錯題庫移除。</p>
+                
+                <div class="scramble-item" id="scramble-1">
+                    <strong>1. 少陽病題綱：</strong><br>
+                    「少陰之為病，脈 <input type="text" maxlength="1" data-ans="微" class="blank-input"><input type="text" maxlength="1" data-ans="細" class="blank-input">，<input type="text" maxlength="1" data-ans="但" class="blank-input"><input type="text" maxlength="1" data-ans="欲" class="blank-input"><input type="text" maxlength="1" data-ans="寐" class="blank-input">也。」（281）
+                    <button class="hint-btn" onclick="toggleHint('hint1')">🔔 提示</button>
+                    <div id="hint1" class="hint-box"><strong>引導：</strong>想想少陰病最核心的虛寒脈象特徵，以及病人精神極度疲倦、似睡非睡的狀態。</div>
+                </div>
+
+                <div class="scramble-item" id="scramble-2">
+                    <strong>2. 陽虛陰盛證：</strong><br>
+                    「少陰病，脈 <input type="text" maxlength="1" data-ans="沉" class="blank-input"> 者，<input type="text" maxlength="1" data-ans="急" class="blank-input"><input type="text" maxlength="1" data-ans="溫" class="blank-input"> 之，宜 <input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input">。」（323）
+                    <button class="hint-btn" onclick="toggleHint('hint2')">🔔 提示</button>
+                    <div id="hint2" class="hint-box"><strong>引導：</strong>脈象在深層，代表邪已入裏。治療需要把握時機（兩個字），並用最基礎的回陽救逆代表方劑。</div>
+                </div>
+
+                <div class="scramble-item" id="scramble-3">
+                    <strong>3. 陰盛格陽證：</strong><br>
+                    「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤... <input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="脈" class="blank-input"><input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」（317）
+                    <button class="hint-btn" onclick="toggleHint('hint3')">🔔 提示</button>
+                    <div id="hint3" class="hint-box"><strong>引導：</strong>出現了「格陽」面色赤症狀，病情更重，需要在原本的回陽基礎方之上，加強宣通上下陽氣的力度。</div>
+                </div>
+
+                <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
             </div>
             <div id="quiz-shaoyin" class="poe-quiz-app"></div>
+        </div>
+
+        <div id="ortho-u-clavicle" class="content-section">
+            <h1 class="main-title">鎖骨骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="clavicle" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-clavicle" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-neck" class="content-section">
+            <h1 class="main-title">肱骨外科頸骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="neck" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-neck" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-shaft" class="content-section">
+            <h1 class="main-title">肱骨幹骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="shaft" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-shaft" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-supra" class="content-section">
+            <h1 class="main-title">肱骨髁上骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="supra" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-supra" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-lat" class="content-section">
+            <h1 class="main-title">肱骨外髁骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="lat" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-lat" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-med" class="content-section">
+            <h1 class="main-title">肱骨內上髁骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="med" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-med" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-radhead" class="content-section">
+            <h1 class="main-title">橈骨頭骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="radhead" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-radhead" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-mont" class="content-section">
+            <h1 class="main-title">孟氏骨折 (Monteggia) <label class="study-checkbox"><input type="checkbox" class="section-cb" value="mont" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-mont" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-gale" class="content-section">
+            <h1 class="main-title">蓋氏骨折 (Galeazzi) <label class="study-checkbox"><input type="checkbox" class="section-cb" value="gale" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-gale" class="poe-quiz-app"></div>
+        </div>
+        <div id="ortho-u-both" class="content-section">
+            <h1 class="main-title">橈尺骨幹雙骨折 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="both" onchange="updateProgress()"> ✅ 已溫習</label></h1>
+            <div id="quiz-both" class="poe-quiz-app"></div>
         </div>
 
     </div>
 
     <script>
-        // ================= UI 及導航 =================
+        // ================= 1. 儲存與錯題庫核心邏輯 (LocalStorage) =================
+        let mistakeBank = JSON.parse(localStorage.getItem('tcmMistakes')) || [];
+        
+        function saveMistakes() {
+            localStorage.setItem('tcmMistakes', JSON.stringify(mistakeBank));
+            renderMistakes();
+        }
+
+        function addMistake(mistakeObj) {
+            const exists = mistakeBank.find(m => m.id === mistakeObj.id);
+            if(!exists) { mistakeBank.push(mistakeObj); saveMistakes(); }
+        }
+
+        function removeMistake(id) {
+            mistakeBank = mistakeBank.filter(m => m.id !== id);
+            saveMistakes();
+        }
+
+        function renderMistakes() {
+            const container = document.getElementById('mistake-list');
+            if(mistakeBank.length === 0) {
+                container.innerHTML = `<div class="empty-mistake">🎉 太棒了！目前冇任何錯題記錄，繼續保持！</div>`;
+                return;
+            }
+            
+            let html = '';
+            mistakeBank.forEach(m => {
+                html += `
+                <div class="mistake-card">
+                    <button class="got-it-btn" onclick="removeMistake('${m.id}')">✅ 依家識喇</button>
+                    <span class="mistake-tag">${m.section}</span>
+                    <div class="mistake-q">${m.question}</div>
+                    <div class="mistake-ans-box">
+                        <span class="mistake-wrong">你答: ${m.userAns}</span><br>
+                        <span class="mistake-correct">正解: ${m.correctAns}</span>
+                    </div>
+                    ${m.exp ? `<div class="mistake-exp">💡 <strong>解釋：</strong>${m.exp}</div>` : ''}
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // ================= 2. UI 及導航 =================
         function showHome() {
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById('home-dashboard').classList.add('active');
+            document.getElementById('progress-wrapper').style.display = 'flex';
+        }
+
+        function showMistakes() {
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('mistake-dashboard').classList.add('active');
+            document.getElementById('progress-wrapper').style.display = 'none';
+            renderMistakes();
         }
 
         function navTo(sectionId, sectionTitle, event) {
@@ -331,7 +333,13 @@
 
         function showSection(sectionId, sectionTitle) {
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('progress-wrapper').style.display = 'flex';
             let targetDiv = document.getElementById(sectionId);
+            if (!targetDiv) {
+                targetDiv = document.createElement('div'); targetDiv.id = sectionId; targetDiv.className = 'content-section';
+                targetDiv.innerHTML = `<h1 class="main-title">${sectionTitle}</h1><div class="placeholder-box"><h3>🚧 筆記建設中...</h3></div>`;
+                document.getElementById('main-content-area').appendChild(targetDiv);
+            }
             targetDiv.classList.add('active');
         }
 
@@ -341,116 +349,101 @@
             if (!isOpen) { card.classList.add('open'); }
         }
 
-        // ================= 智能進度條邏輯 =================
+        // ================= 3. 溫習進度條 (LocalStorage) =================
+        function loadProgress() {
+            const savedProg = JSON.parse(localStorage.getItem('tcmProgress')) || {};
+            document.querySelectorAll('.section-cb').forEach(cb => {
+                if(savedProg[cb.value]) cb.checked = true;
+            });
+            updateProgress();
+        }
+
         function updateProgress() {
             const checkboxes = document.querySelectorAll('.section-cb');
-            const total = checkboxes.length;
-            let checkedCount = 0;
-            
-            checkboxes.forEach(cb => {
-                if(cb.checked) checkedCount++;
+            let checkedCount = 0; let progObj = {};
+            checkboxes.forEach(cb => { 
+                if(cb.checked) checkedCount++; 
+                progObj[cb.value] = cb.checked;
             });
+            localStorage.setItem('tcmProgress', JSON.stringify(progObj));
             
-            const percentage = (checkedCount / total) * 100;
-            document.getElementById('global-progress-fill').style.width = percentage + '%';
-            document.getElementById('global-progress-text').innerText = `${checkedCount} / ${total}`;
-            
-            if(checkedCount === total) {
-                setTimeout(() => alert("🎉 恭喜晒！上肢骨折十大關卡你已經全部溫完啦！預祝考試順利！"), 300);
-            }
+            const pct = (checkedCount / checkboxes.length) * 100;
+            document.getElementById('global-progress-fill').style.width = pct + '%';
+            document.getElementById('global-progress-text').innerText = `${checkedCount} / ${checkboxes.length}`;
         }
 
-        // ================= Quiz 題庫 (十大骨折) =================
+        // ================= 4. 智能填充 Scramble =================
+        document.querySelectorAll('.scramble-item').forEach(item => {
+            const inputs = Array.from(item.querySelectorAll('.blank-input'));
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1 && index + 1 < inputs.length) inputs[index + 1].focus();
+                });
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0 && index - 1 >= 0) inputs[index - 1].focus();
+                });
+            });
+        });
+
+        function toggleHint(hintId) {
+            const box = document.getElementById(hintId);
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function checkAllScramble() {
+            document.querySelectorAll('.ans-label').forEach(el => el.remove());
+
+            document.querySelectorAll('.scramble-item').forEach((item, index) => {
+                let hasError = false;
+                let userStr = ""; let correctStr = "";
+                let sentenceTitle = item.querySelector('strong').innerText;
+
+                item.querySelectorAll('.blank-input').forEach(input => {
+                    const correctAns = input.getAttribute('data-ans');
+                    const userAns = input.value.trim();
+                    correctStr += correctAns; userStr += (userAns || "_");
+                    
+                    input.classList.remove('correct', 'wrong');
+                    if (userAns === correctAns) { input.classList.add('correct'); } 
+                    else { 
+                        input.classList.add('wrong'); hasError = true;
+                        const label = document.createElement('span'); label.className = 'ans-label';
+                        label.innerText = `(正解: ${correctAns})`; input.parentNode.insertBefore(label, input.nextSibling);
+                    }
+                });
+
+                const mistakeId = `scramble-${index}`;
+                if(hasError) {
+                    addMistake({
+                        id: mistakeId, type: 'scramble', section: '條文填充', question: sentenceTitle,
+                        userAns: userStr, correctAns: correctStr, exp: "請重溫該條文嘅關鍵字及含義。"
+                    });
+                } else {
+                    removeMistake(mistakeId); // 全對自動移除
+                }
+            });
+        }
+
+        // ================= 5. Quiz 題庫及邏輯 =================
         const allQuizData = {
-            'clavicle': {
-                title: "🦴 鎖骨骨折 Quiz",
-                questions: [
-                  { section: "發病特徵", q: "鎖骨骨折最常發生在哪個部位？", opts: ["內1/3", "中1/3", "外1/3", "肩峰端"], ans: 1, exp: "鎖骨呈『~』形，中1/3是松質骨與密質骨交界處，最為薄弱，因此最常發生骨折。" },
-                  { section: "移位機理", q: "鎖骨中段骨折時，近端受哪條肌肉牽拉而向上後移位？", opts: ["胸大肌", "三角肌", "胸鎖乳突肌", "斜方肌"], ans: 2, exp: "近端受胸鎖乳突肌牽拉向後上方移位，遠端因重力及胸大肌牽拉向前下方移位。" },
-                  { section: "治療手法", q: "鎖骨骨折常用的整復手法是？", opts: ["拔伸牽引", "折頂手法", "叉腰挺胸，膝頂扳肩", "迴旋手法"], ans: 2, exp: "手法整復為：患者雙手叉腰，術者膝頂住患者背部正中，雙手向背側牽引兩肩（叉腰挺胸，膝頂扳肩）。" }
-                ]
-            },
-            'neck': {
-                title: "🦴 肱骨外科頸骨折 Quiz",
-                questions: [
-                  { section: "解剖與併發症", q: "肱骨外科頸骨折容易合併哪一組神經血管損傷？", opts: ["橈神經和橈動脈", "臂叢神經和腋動靜脈", "尺神經和尺動脈", "正中神經和肱動脈"], ans: 1, exp: "外科頸內側有臂叢神經和腋動靜脈經過，骨折時容易發生損傷。" },
-                  { section: "骨折固定", q: "肱骨外科頸外展型骨折，固定時肩關節應保持在什麼位置？", opts: ["外展位", "內收位", "中立位", "過伸位"], ans: 1, exp: "外展型骨折復位由內向外側用力，預防及固定時肩關節應保持內收位。" },
-                  { section: "復位手法", q: "哪種骨折類型復位時需要「由外向內側用力」？", opts: ["外展型骨折", "內收型骨折", "粉碎性骨折", "裂縫骨折"], ans: 1, exp: "內收型骨折斷端向外成角，因此需要由外向內側擠壓復位。" }
-                ]
-            },
-            'shaft': {
-                title: "🦴 肱骨幹骨折 Quiz",
-                questions: [
-                  { section: "併發症", q: "肱骨幹中下1/3骨折最容易合併哪條神經損傷？", opts: ["正中神經", "尺神經", "橈神經", "腋神經"], ans: 2, exp: "肱骨中下1/3處有橈神經溝，橈神經緊貼骨幹通過，極易受傷。" },
-                  { section: "臨床體徵", q: "橈神經損傷的典型體徵是什麼？", opts: ["猿手", "爪形手", "垂腕畸形", "翼狀肩"], ans: 2, exp: "橈神經主導伸肌群，損傷會導致伸腕、伸指無力，形成「垂腕」。" },
-                  { section: "練功活動", q: "肱骨幹骨折練功活動時，初期為什麼要作患肢上臂的肌肉舒縮活動？", opts: ["預防肌肉萎縮", "防止關節僵硬", "加強斷端在縱軸上的擠壓力，防止分離", "促進神經恢復"], ans: 2, exp: "肱骨幹受重力影響易分離，肌肉舒縮可增加縱向擠壓力，有助癒合。" }
-                ]
-            },
-            'supra': {
-                title: "🦴 肱骨髁上骨折 Quiz",
-                questions: [
-                  { section: "流行病學", q: "肱骨髁上骨折最常見於哪個年齡層？", opts: ["嬰幼兒 (1-3歲)", "兒童 (5-12歲)", "青壯年", "老年人"], ans: 1, exp: "骨髁部位在兒童發育期最薄弱，加上活動多，極易發生骨折。" },
-                  { section: "危險併發症", q: "伸直型肱骨髁上骨折的近折端向前下移位，最容易損傷哪條血管？", opts: ["橈動脈", "尺動脈", "肱動脈", "腋動脈"], ans: 2, exp: "近折端如同一把刀向前下方突起，極易刺破或壓迫前方的肱動脈，導致缺血性肌攣縮。" },
-                  { section: "鑒別診斷", q: "肱骨髁上骨折與肘關節脫位的主要鑒別點是什麼？", opts: ["是否有壓痛", "是否有骨擦音", "肘三角關係是否改變", "腫脹程度"], ans: 2, exp: "骨折在關節上方，肘三角關係不變；肘關節脫位則會破壞正常的肘三角關係。" }
-                ]
-            },
-            'lat': {
-                title: "🦴 肱骨外髁骨折 Quiz",
-                questions: [
-                  { section: "解剖基礎", q: "肱骨外髁附著了哪一組肌肉？", opts: ["前臂屈肌群", "前臂伸肌群", "肱二頭肌", "肱三頭肌"], ans: 1, exp: "前臂伸肌群總腱附著於肱骨外髁，這也是引發網球肘（外上髁炎）的位置。" },
-                  { section: "晚期併發症", q: "肱骨外髁骨折若治療不當，晚期最常出現哪種神經損傷？", opts: ["正中神經損傷", "橈神經損傷", "牽拉性尺神經損傷", "肌皮神經損傷"], ans: 2, exp: "骨折不癒合或畸形會導致進行性肘外翻，從而過度牽拉內側的尺神經。" }
-                ]
-            },
-            'med': {
-                title: "🦴 肱骨內上髁骨折 Quiz",
-                questions: [
-                  { section: "解剖與併發症", q: "肱骨內上髁骨折容易合併損傷哪條神經？", opts: ["正中神經", "橈神經", "尺神經", "腋神經"], ans: 2, exp: "內上髁後方有尺神經溝，骨折及局部腫脹極易波及尺神經。" },
-                  { section: "分型", q: "骨折塊嵌入肘關節內的肱骨內上髁骨折屬於第幾度？", opts: ["第1度", "第2度", "第3度", "第4度"], ans: 2, exp: "第1度裂縫，第2度分離，第3度嵌入關節內，第4度合併肘脫位。" }
-                ]
-            },
-            'radhead': {
-                title: "🦴 橈骨頭骨折 Quiz",
-                questions: [
-                  { section: "臨床表現", q: "橈骨頭骨折的患者，在哪個動作時局部疼痛會明顯加重？", opts: ["屈曲肘關節", "伸直肘關節", "前臂旋轉", "腕關節背伸"], ans: 2, exp: "橈骨頭參與橈尺近側關節，前臂旋前、旋後時橈骨頭會自轉，產生劇痛。" },
-                  { section: "治療禁忌", q: "對於嚴重粉碎的橈骨頭骨折，14歲以下的兒童絕對不宜進行哪項手術？", opts: ["切開復位", "克氏針固定", "橈骨頭切除術", "石膏外固定"], ans: 2, exp: "兒童骨骼尚未發育成熟，切除橈骨頭會嚴重影響前臂發育及腕關節受力。" }
-                ]
-            },
-            'mont': {
-                title: "🦴 孟氏骨折 Quiz",
-                questions: [
-                  { section: "定義", q: "孟氏骨折的定義是？", opts: ["橈骨下1/3骨折+下尺橈關節脫位", "尺骨上1/3骨折+橈骨頭脫位", "尺橈骨雙骨折", "橈骨遠端骨折"], ans: 1, exp: "Monteggia fracture: 尺骨上1/3骨折合併肱橈關節、尺橈近側關節的橈骨頭脫位。" },
-                  { section: "整復原則", q: "孟氏骨折的手法整復原則是什麼？", opts: ["先整復尺骨骨折，再整復橈骨頭", "先整復橈骨頭脫位，再整復尺骨骨折", "同時整復", "只固定骨折，不理會脫位"], ans: 1, exp: "必須先整復關節脫位，恢復支點後再整復骨幹骨折。" }
-                ]
-            },
-            'gale': {
-                title: "🦴 蓋氏骨折 Quiz",
-                questions: [
-                  { section: "定義", q: "蓋氏骨折的定義是？", opts: ["尺骨上1/3骨折+橈骨頭脫位", "橈骨下1/3骨折+下尺橈關節脫位", "橈骨遠端骨折", "尺骨鷹嘴撕脫骨折"], ans: 1, exp: "Galeazzi fracture: 橈骨下1/3骨折合併尺橈遠側關節脫位。" },
-                  { section: "危險性", q: "蓋氏骨折在成人中多屬於哪種類型，且極不穩定？", opts: ["穩定型", "不穩定型", "特殊型", "青枝型"], ans: 1, exp: "成人多見短斜、螺旋或粉碎骨折（第2型），極易再移位，常需手術。" }
-                ]
-            },
-            'both': {
-                title: "🦴 橈尺骨幹骨折 Quiz",
-                questions: [
-                  { section: "治療目標", q: "尺橈骨雙骨折治療的特別目標，除了對位對線外，最重要的是恢復什麼功能？", opts: ["手指屈伸", "肘關節屈伸", "前臂旋轉功能", "腕關節側偏"], ans: 2, exp: "前臂靠尺橈骨旋轉，若骨間膜攣縮或交叉癒合，旋轉功能將永久喪失。" },
-                  { section: "復位順序", q: "若尺橈骨雙骨折發生在上1/3段，手法復位時應先整復哪一根骨？", opts: ["先整復橈骨", "先整復尺骨", "必須同時整復", "視乎患者年齡"], ans: 1, exp: "上1/3先復位尺骨（作為支柱）；下1/3則先復位橈骨。" },
-                  { section: "危險併發症", q: "若前臂骨折後腫痛劇烈、手指麻木發青、被動牽拉痛，應警惕什麼？", opts: ["骨折不癒合", "關節僵硬", "前臂筋膜間隔區綜合徵", "創傷性關節炎"], ans: 2, exp: "Compartment syndrome 是骨科急症，不及時處理可導致肌肉壞死截肢。" }
-                ]
-            },
-            'shaoyin': {
-                title: "📚 少陰病溫習 Quiz (預留區)",
-                questions: [
-                  { section: "少陰病概說", q: "少陰病屬於外感病發展過程中的哪一個階段？", opts: ["陽證的初起階段", "陰證的危重階段", "半表半裏階段", "陽證的極期階段"], ans: 1, exp: "少陰病爲外感病發展過程中「陰證的危重階段」。" }
-                  // 💡 請在此處貼上你原本的 50 題少陰病題目！
-                ]
-            }
+            'clavicle': { title: "🦴 鎖骨骨折", questions: [{ section: "發病特徵", q: "鎖骨骨折最常發生在哪個部位？", opts: ["內1/3", "中1/3", "外1/3", "肩峰端"], ans: 1, exp: "中1/3是交界處，最為薄弱。" }] },
+            'neck': { title: "🦴 肱骨外科頸骨折", questions: [{ section: "併發症", q: "外科頸骨折容易合併哪組神經血管損傷？", opts: ["橈神經", "臂叢神經和腋動靜脈", "尺神經", "正中神經"], ans: 1, exp: "內側有臂叢神經和腋動靜脈經過。" }] },
+            'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section: "併發症", q: "肱骨幹中下1/3骨折最容易合併哪條神經損傷？", opts: ["正中神經", "尺神經", "橈神經", "腋神經"], ans: 2, exp: "橈神經緊貼橈神經溝通過，損傷會導致垂腕。" }] },
+            'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section: "鑒別診斷", q: "髁上骨折與肘關節脫位的主要鑒別點？", opts: ["壓痛", "骨擦音", "肘三角關係是否改變", "腫脹程度"], ans: 2, exp: "骨折不改變肘三角關係，脫位則會改變。" }] },
+            'lat': { title: "🦴 肱骨外髁骨折", questions: [{ section: "解剖", q: "肱骨外髁附著了哪一組肌肉？", opts: ["前臂屈肌群", "前臂伸肌群", "肱二頭肌", "肱三頭肌"], ans: 1, exp: "前臂伸肌群總腱附著於此。" }] },
+            'med': { title: "🦴 肱骨內上髁骨折", questions: [{ section: "神經", q: "肱骨內上髁骨折容易損傷哪條神經？", opts: ["正中", "橈神經", "尺神經", "腋神經"], ans: 2, exp: "後方有尺神經溝。" }] },
+            'radhead': { title: "🦴 橈骨頭骨折", questions: [{ section: "禁忌", q: "14歲以下兒童絕對不宜進行哪項手術？", opts: ["切開復位", "克氏針固定", "橈骨頭切除術", "石膏"], ans: 2, exp: "會嚴重影響前臂發育。" }] },
+            'mont': { title: "🦴 孟氏骨折", questions: [{ section: "定義", q: "孟氏骨折的定義是？", opts: ["橈骨下1/3骨折+脫位", "尺骨上1/3骨折+橈骨頭脫位", "雙骨折", "橈骨遠端骨折"], ans: 1, exp: "Monteggia fracture" }] },
+            'gale': { title: "🦴 蓋氏骨折", questions: [{ section: "定義", q: "蓋氏骨折的定義是？", opts: ["尺骨上1/3骨折+脫位", "橈骨下1/3骨折+下尺橈關節脫位", "橈骨遠端骨折", "鷹嘴骨折"], ans: 1, exp: "Galeazzi fracture" }] },
+            'both': { title: "🦴 橈尺骨幹雙骨折", questions: [{ section: "目標", q: "雙骨折治療最重要的是恢復什麼功能？", opts: ["手指屈伸", "肘關節屈伸", "前臂旋轉功能", "腕關節側偏"], ans: 2, exp: "防止交叉癒合喪失旋轉功能。" }] },
+            'shaoyin': { title: "📚 少陰病 Quiz", questions: [
+                { section: "提綱", q: "「脈微」在少陰病提綱中反映的病機是什麼？", opts: ["陰血不足", "心腎陽衰，鼓動無力", "痰飲阻滯", "氣滯"], ans: 1, exp: "心腎陽衰，鼓動無力。" },
+                { section: "方劑", q: "四逆湯的藥物組成是什麼？", opts: ["附子、乾薑、人參", "附子、乾薑、甘草", "蔥白", "桂枝"], ans: 1, exp: "附子、乾薑、炙甘草。" }
+            ]}
         };
 
-        // 初始化狀態
         const quizStates = {};
-        for (let key in allQuizData) {
-            quizStates[key] = { currentQ: 0, score: 0, answered: new Array(allQuizData[key].questions.length).fill(null), started: false, showingResults: false };
-        }
+        for (let key in allQuizData) { quizStates[key] = { currentQ: 0, score: 0, answered: new Array(allQuizData[key].questions.length).fill(null), started: false, showingResults: false }; }
 
         function renderQuizApp(quizId) {
             const app = document.getElementById('quiz-' + quizId);
@@ -466,12 +459,33 @@
         }
 
         function startQuiz(quizId) { quizStates[quizId].started = true; renderQuizApp(quizId); }
-        function selectAnswer(quizId, idx) { if (quizStates[quizId].answered[quizStates[quizId].currentQ] !== null) return; quizStates[quizId].answered[quizStates[quizId].currentQ] = idx; if (idx === allQuizData[quizId].questions[quizStates[quizId].currentQ].ans) quizStates[quizId].score++; renderQuizApp(quizId); }
+        function selectAnswer(quizId, idx) { 
+            if (quizStates[quizId].answered[quizStates[quizId].currentQ] !== null) return; 
+            quizStates[quizId].answered[quizStates[quizId].currentQ] = idx; 
+            
+            const q = allQuizData[quizId].questions[quizStates[quizId].currentQ];
+            const mistakeId = `quiz-${quizId}-${quizStates[quizId].currentQ}`;
+
+            if (idx === q.ans) { 
+                quizStates[quizId].score++; 
+                removeMistake(mistakeId); // 答啱自動由錯題庫移除
+            } else {
+                addMistake({ // 答錯加入錯題庫
+                    id: mistakeId, type: 'quiz', section: q.section, question: q.q,
+                    userAns: q.opts[idx], correctAns: q.opts[q.ans], exp: q.exp
+                });
+            }
+            renderQuizApp(quizId); 
+        }
         function nextQ(quizId) { if (quizStates[quizId].currentQ === allQuizData[quizId].questions.length - 1 && quizStates[quizId].answered[quizStates[quizId].currentQ] !== null) { quizStates[quizId].showingResults = true; } else if (quizStates[quizId].currentQ < allQuizData[quizId].questions.length - 1) { quizStates[quizId].currentQ++; } renderQuizApp(quizId); }
         function restartQuiz(quizId) { quizStates[quizId] = { currentQ: 0, score: 0, answered: new Array(allQuizData[quizId].questions.length).fill(null), started: false, showingResults: false }; renderQuizApp(quizId); }
 
-        // Render All Quizzes
-        ['clavicle','neck','shaft','supra','lat','med','radhead','mont','gale','both','shaoyin'].forEach(id => renderQuizApp(id));
+        // 初始化
+        window.onload = () => {
+            loadProgress();
+            renderMistakes();
+            ['clavicle','neck','shaft','supra','lat','med','radhead','mont','gale','both','shaoyin'].forEach(id => renderQuizApp(id));
+        };
     </script>
 </body>
 </html>
