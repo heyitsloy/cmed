@@ -810,6 +810,7 @@
             </div>
             <button class="check-scramble-btn" style="margin-top:15px; background:linear-gradient(135deg,#a78bfa,#7c3aed);" onclick="calcEssayTotal()">計算論述題總分 📊</button>
         </div>
+    </div>
 
     <!-- ===== 推拿學頁面（保持原有） ===== -->
     <div id="tuina-peds-overview" class="content-section"><h1 class="main-title">👶 小兒推拿概論 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒推拿概論" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 核心要點</h3><ul><li><strong>適用年齡：</strong>6歲以下，3歲以下效果最佳。</li><li><strong>操作特點：</strong>輕快柔和、平穩着實。常用滑石粉或介質。</li><li><strong>穴位特點：</strong>特定穴位（三關、六腑、天河水等），多在手部。</li></ul></div></div>
@@ -1051,12 +1052,7 @@ const allQuizData = {
         { section:"格陽", q:"利止脈不出如何加減？", opts:["加蔥","加生薑","去桔梗加人參二兩","加芍藥"], ans:2, exp:"加人參益氣固脫復脈。" },
         { section:"熱化", q:"熱化證病機核心？", opts:["陽虛","陰虛陽亢","寒熱錯雜","氣血兩虛"], ans:1, exp:"陰虛陽亢。" },
         { section:"陽虛陰盛", q:"陽衰陰盛主要症狀不包括？", opts:["冷汗手足厥","吐利","大熱大渴面赤如妝","脈沉微細"], ans:2, exp:"大熱大渴非陽衰特徵。" },
-        { section:"應用", q:"四逆湯現代應用不包括？", opts:["急慢性腸炎","心梗休克","肝硬化腹水","冷性蕁麻疹"], ans:2, exp:"不包括肝硬化腹水。" }
-        'shaoyin': { title: "📚 少陰病 完整題庫 (78題)", questions: [
-        // === 原有50題保持不變 (你的 questions[0]~[49]) ===
-        // ... (保留原有的全部50題) ...
-
-        // === 新增：教材 A1 型選擇題 ===
+        { section:"應用", q:"四逆湯現代應用不包括？", opts:["急慢性腸炎","心梗休克","肝硬化腹水","冷性蕁麻疹"], ans:2, exp:"不包括肝硬化腹水。" },
         { section:"A1-提綱", q:"【教材Q1】下列關于少陰病提綱脈證機理的描述最確切的是：", opts:["心腎陽虛、陰血不足，神失所養","邪入少陰，心腎虛衰，水火失濟","心腎陽虛，陰寒內盛，水氣不化","心腎陽虛，陰寒內盛，陽不外達","心腎陽虛，陰寒內盛，濁陰上蒙"], ans:0, exp:"提綱脈證核心是心腎陽虛、陰血不足，神失所養。A最全面準確。" },
         { section:"A1-脈證", q:"【教材Q2】能反映少陰病病理特征的脈證是：", opts:["欲吐不吐，心煩但欲寐","下利便脈血","下利清穀，裏寒外熱，脈微欲絕","脈微細，但欲寐","利不止，厥逆無脈，干嘔煩者"], ans:3, exp:"「脈微細，但欲寐」是少陰病提綱，最能反映其病理特征。" },
         { section:"A1-辨證", q:"【教材Q3】下列證候除哪項外可辨為「少陰病形悉具」：", opts:["欲吐不吐","心煩，但欲寐","咽痛複吐利","自利而渴","小便色白"], ans:2, exp:"咽痛複吐利不屬於少陰病基本表現(形悉具)的範疇。" },
