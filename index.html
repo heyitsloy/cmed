@@ -1168,7 +1168,7 @@ const allQuizData = {
     'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section:"併發症", q:"中下1/3易傷哪條神經？", opts:["正中","尺","橈","腋"], ans:2, exp:"橈神經→垂腕。" }] },
     'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section:"鑒別", q:"與脫位鑒別點？", opts:["壓痛","骨擦音","肘三角關係是否改變","腫脹"], ans:2, exp:"骨折不改變肘三角。" }] },
     'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] }
-}] }
+};
 
 const quizStates = {};
 for(let k in allQuizData) quizStates[k] = { currentQ:0, score:0, answered:new Array(allQuizData[k].questions.length).fill(null), started:false, showingResults:false };
