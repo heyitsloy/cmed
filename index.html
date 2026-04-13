@@ -183,6 +183,29 @@
 .essay2-score-bar { text-align: center; padding: 20px; background: linear-gradient(135deg, #ede9fe, #f3e8ff); border-radius: 15px; margin-top: 20px; display: none; }
 .essay2-score-bar.show { display: block; animation: fadeIn 0.3s; }
 .essay2-score-bar h2 { color: #6d28d9; margin: 0; }
+
+  /* 名詞解釋遊戲 */
+.term-game-container{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:2px solid #c4b5fd;border-radius:20px;padding:30px;margin-bottom:35px;}
+.tg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:bold;color:#6d28d9;font-size:.95rem;}
+.tg-streak{color:#ef4444;font-size:1.1rem;min-width:90px;text-align:center;}
+.tg-progress{background:#e0e0e0;height:10px;border-radius:5px;overflow:hidden;margin-bottom:20px;}
+.tg-progress-fill{height:100%;background:linear-gradient(90deg,#a78bfa,#7c3aed);transition:width .4s;}
+.tg-card{background:white;border-radius:15px;padding:30px 20px;text-align:center;margin-bottom:20px;box-shadow:0 4px 15px rgba(124,58,237,.1);border:2px solid #e8e0f0;transition:.3s;}
+.tg-term{font-size:2rem;font-weight:bold;color:#6d28d9;letter-spacing:4px;}
+.tg-input{width:100%;min-height:70px;border:2px solid #e0d4f5;border-radius:12px;padding:12px;font-family:inherit;font-size:1rem;outline:none;resize:vertical;box-sizing:border-box;margin-bottom:12px;transition:.2s;}
+.tg-input:focus{border-color:#7c3aed;box-shadow:0 0 8px rgba(124,58,237,.2);}
+.tg-check-btn{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border:none;padding:12px 25px;border-radius:15px;font-size:1.1rem;cursor:pointer;font-weight:bold;width:100%;transition:.3s;}
+.tg-check-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 15px rgba(124,58,237,.3);}
+.tg-check-btn:disabled{opacity:.5;cursor:default;}
+.tg-result-box{padding:15px;border-radius:12px;margin-top:15px;animation:fadeIn .3s;}
+.tg-correct{background:#f0fdf4;border:2px solid #86efac;}
+.tg-wrong{background:#fef2f2;border:2px solid #fca5a5;}
+.tg-partial{background:#fffbeb;border:2px solid #fcd34d;}
+.tg-next-btn{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border:none;padding:12px 25px;border-radius:15px;font-size:1.05rem;cursor:pointer;font-weight:bold;width:100%;margin-top:12px;transition:.3s;}
+.tg-next-btn:hover{transform:translateY(-2px);}
+.tg-final{text-align:center;padding:30px;}
+.tg-final h2{color:#6d28d9;margin-bottom:5px;}
+.tg-stars{font-size:1.5rem;margin:8px 0;}
         
     </style>
 </head>
@@ -679,11 +702,21 @@
                 <p style="font-size:0.9rem; color:#666;">🔑 白通加豬膽汁湯：格拒時用人尿＋豬膽汁——<strong>咸寒反佐</strong>，引陽藥入陰中。「脈暴出者死，微續者生」。</p>
             </div>
         </div>
+        
+            <!-- ★ (一) 名詞解釋遊戲 ★ -->
+<div class="term-game-container" id="term-game-section">
+    <h3 class="scramble-title" style="color:#7c3aed;">🎮（一）名詞解釋挑戰</h3>
+    <p style="color:#777;font-size:.9rem;margin-top:-5px;">見到名詞就寫出佢嘅意思，系統自動對比關鍵詞！命中越多⭐越多！試下連續全對攞🔥連擊！</p>
+    <div id="term-game-board"></div>
+</div>
 
-        <!-- 填充題 -->
-        <div class="scramble-container">
-            <h3 class="scramble-title">🧩 重點條文填充訓練</h3>
-            <p style="color:#777; font-size:0.9rem; margin-top:-5px;">💡 打中文會自動等選完字先跳格。填錯會標紅並加入「錯題庫」！</p>
+<!-- ★ (二) 條文填充題（35題）★ -->
+<div class="scramble-container">
+    <h3 class="scramble-title">🧩（二）重點條文填充訓練（共 35 題）</h3>
+    <p style="color:#777;font-size:.9rem;margin-top:-5px;">💡 打中文會自動跳格。填錯會標紅並加入「錯題庫」！</p>
+    <div id="scramble-list"></div>
+    <button class="check-scramble-btn" onclick="checkAllScramble()">批改全部填充題 ✔️</button>
+</div>
 
             <div class="scramble-item" id="scramble-1">
                 <strong>1. 少陰病提綱（281）：</strong><br>
@@ -1025,15 +1058,6 @@ function renderSummaryList() {
 
 function syncCb(v, c) { const cb = document.querySelector(`.section-cb[value="${v}"]`); if(cb) { cb.checked = c; updateProgress(); } }
 function saveRem(v, r) { if(!progressData[v]) progressData[v] = {checked:false,remark:""}; progressData[v].remark = r; localStorage.setItem('tcmProgressData', JSON.stringify(progressData)); showToast('📝 備註已儲存！'); }
-
-// Scramble
-document.querySelectorAll('.blank-input').forEach((input, index, inputs) => {
-    let isComposing = false;
-    input.addEventListener('compositionstart', () => isComposing = true);
-    input.addEventListener('compositionend', () => { isComposing = false; if(input.value.length >= 1 && index + 1 < inputs.length) inputs[index+1].focus(); });
-    input.addEventListener('input', () => { if(!isComposing && input.value.length >= 1 && index + 1 < inputs.length) inputs[index+1].focus(); });
-});
-
     
 function checkAllScramble() {
     document.querySelectorAll('.scramble-item').forEach((item, idx) => {
@@ -1167,7 +1191,7 @@ const allQuizData = {
         { section:"B-咽痛", q:"【B-17】少陰病，咽中傷生瘡不能語言聲不出者，最佳用方：", opts:["豬膚湯","半夏散及湯","桔梗湯","甘草湯","苦酒湯"], ans:4, exp:"咽中傷生瘡＋聲不出→苦酒湯。" },] },
     'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section:"併發症", q:"中下1/3易傷哪條神經？", opts:["正中","尺","橈","腋"], ans:2, exp:"橈神經→垂腕。" }] },
     'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section:"鑒別", q:"與脫位鑒別點？", opts:["壓痛","骨擦音","肘三角關係是否改變","腫脹"], ans:2, exp:"骨折不改變肘三角。" }] },
-    'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] }
+    'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }；
 };
 
 const quizStates = {};
@@ -1204,7 +1228,9 @@ window.onload = () => {
     updateProgress();
     Object.keys(allQuizData).forEach(renderQuizApp);
         renderSAList();      
-    renderEssay2List();  
+    renderEssay2List(); 
+    renderScrambleList();  
+    initTermGame(); 
 };
     // === 論述題系統 ===
 const essayScores = [null, null, null, null, null];
@@ -1414,6 +1440,150 @@ function checkAllEssay2() {
     else if(pct >= 60) cmt.textContent = '👍 唔錯！再充實下答案就更完整！';
     else cmt.textContent = '💪 加油！建議睇返溫習重點再答過！';
     bar.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+    // ============================================================
+//  (一) 名詞解釋遊戲
+// ============================================================
+const termGameData = [
+    {term:"但欲寐",    kw:["精神萎靡","似睡非睡"],         ans:"精神萎靡，似睡非睡的狀態。"},
+    {term:"小便色白",  kw:["清長"],                         ans:"即小便清長。"},
+    {term:"溫溫",      kw:["蘊結","不舒"],                  ans:"心中自覺蘊結不舒。"},
+    {term:"微續",      kw:["由小到大","逐漸"],              ans:"指脈搏由小到大，逐漸浮起。"},
+    {term:"脈暴出",    kw:["突然","浮大"],                   ans:"脈搏突然浮大。"},
+    {term:"數更衣",    kw:["大便","次數"],                   ans:"大便次數多。"},
+    {term:"口中和",    kw:["不苦","不燥","不渴"],            ans:"指口中不苦、不燥、不渴。"},
+    {term:"欲吐不吐",  kw:["惡心"],                         ans:"即泛泛惡心。"},
+    {term:"息高",      kw:["呼吸","表淺"],                   ans:"即指呼吸表淺之意。"},
+    {term:"下厥上竭",  kw:["陽衰","陰竭"],                  ans:"下厥指陽衰於下，上竭指陰竭於上。"},
+    {term:"苦酒",      kw:["醋"],                            ans:"即米醋。"},
+    {term:"戴陽證",    kw:["陰寒","真陽上浮","假熱"],        ans:"指體內陰寒過盛，下元虛衰，真陽上浮導致的內真寒上假熱的證候。"},
+    {term:"泄利下重",  kw:["下利","重墜"],                   ans:"下利重墜不爽感。"},
+    {term:"蜷臥",      kw:["蜷曲","眠臥"],                   ans:"形容肢體蜷曲的眠臥狀態。"},
+    {term:"和令相得",  kw:["調和","均勻"],                   ans:"即調和均勻。"},
+    {term:"白粉",      kw:["米粉"],                          ans:"即米粉。亦作小麥粉。"},
+    {term:"坼",        kw:["裂開"],                          ans:"音徹，裂開的意思。"}
+];
+
+let tgState = {cur:0, score:0, maxScore:0, streak:0, done:false};
+
+function initTermGame(){
+    tgState.maxScore = termGameData.reduce((s,t)=>s+t.kw.length,0);
+    tgState = {cur:0,score:0,maxScore:tgState.maxScore,streak:0,done:false};
+    renderTermGameUI();
+}
+
+function renderTermGameUI(){
+    const board = document.getElementById('term-game-board'); if(!board) return;
+    if(tgState.done){
+        const pct=Math.round(tgState.score/tgState.maxScore*100);
+        const emoji=pct>=80?'🏆':pct>=60?'🎉':'💪';
+        const comment=pct>=80?'勁呀！名詞解釋掌握得好紮實！':pct>=60?'唔錯！再溫下錯咗嘅名詞就更好！':'加油！建議睇返溫習重點再挑戰！';
+        board.innerHTML=`<div class="tg-final"><h2>${emoji} 最終得分：${tgState.score} / ${tgState.maxScore} ⭐</h2><div class="tg-stars">${'⭐'.repeat(Math.min(tgState.score,20))}</div><p style="color:#666;">${comment}</p><button class="home-btn" style="width:auto;padding:10px 30px;background:linear-gradient(135deg,#a78bfa,#7c3aed);" onclick="initTermGame()">再玩一次 🔄</button></div>`;
+        return;
+    }
+    const t=termGameData[tgState.cur], progress=Math.round(tgState.cur/termGameData.length*100);
+    board.innerHTML=`
+        <div class="tg-header">
+            <span>第 ${tgState.cur+1} / ${termGameData.length} 題</span>
+            <span class="tg-streak">${tgState.streak>=2?'🔥 連擊 '+tgState.streak:''}</span>
+            <span>⭐ ${tgState.score} / ${tgState.maxScore}</span>
+        </div>
+        <div class="tg-progress"><div class="tg-progress-fill" style="width:${progress}%"></div></div>
+        <div class="tg-card"><div class="tg-term">${t.term}</div></div>
+        <textarea class="tg-input" id="tg-answer" placeholder="輸入呢個名詞嘅解釋…"></textarea>
+        <button class="tg-check-btn" id="tg-check-btn" onclick="checkTermAnswer()">確認答案 ✅</button>
+        <div id="tg-result"></div>`;
+    document.getElementById('tg-answer').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();checkTermAnswer();}});
+}
+
+function checkTermAnswer(){
+    const btn=document.getElementById('tg-check-btn'); if(btn.disabled) return;
+    const t=termGameData[tgState.cur], userAns=document.getElementById('tg-answer').value.trim();
+    const resultDiv=document.getElementById('tg-result');
+    if(!userAns){resultDiv.innerHTML='<p style="color:#999;">⚠️ 請先輸入答案！</p>';return;}
+    let hits=0;
+    const kwHTML=t.kw.map(kw=>{const hit=userAns.includes(kw);if(hit)hits++;return `<span class="sa-kw-tag ${hit?'sa-kw-hit':'sa-kw-miss'}">${hit?'✅':'❌'} ${kw}</span>`;}).join('');
+    tgState.score+=hits;
+    const allHit=hits===t.kw.length;
+    if(allHit) tgState.streak++; else tgState.streak=0;
+    const cls=allHit?'tg-correct':hits>0?'tg-partial':'tg-wrong';
+    const label=allHit?'✅ 完美！':hits>0?'⚠️ 部分正確':'❌ 未命中';
+    resultDiv.innerHTML=`
+        <div class="tg-result-box ${cls}">
+            <div style="font-weight:bold;font-size:1.1rem;margin-bottom:8px;">${label} 命中 ${hits}/${t.kw.length} 個關鍵詞 (+${hits}⭐)${allHit&&tgState.streak>=2?' 🔥':''}</div>
+            <div class="sa-keywords">${kwHTML}</div>
+            <div style="margin-top:10px;padding:10px;background:#f8f8f8;border-radius:8px;"><strong>📖 標準答案：</strong>${t.ans}</div>
+        </div>
+        <button class="tg-next-btn" onclick="nextTerm()">${tgState.cur<termGameData.length-1?'下一題 →':'查看結果 🎯'}</button>`;
+    btn.disabled=true;
+    if(!allHit) addMistake({id:'term-'+tgState.cur,section:'名詞解釋',question:t.term,userAns:userAns.length>50?userAns.substring(0,50)+'...':userAns,correctAns:t.ans,exp:'關鍵詞：'+t.kw.join('、')});
+    else removeMistake('term-'+tgState.cur);
+}
+
+function nextTerm(){
+    if(tgState.cur>=termGameData.length-1) tgState.done=true; else tgState.cur++;
+    renderTermGameUI();
+    document.getElementById('term-game-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+//  (二) 填充題數據 (35題)
+// ============================================================
+const scrambleData=[
+{title:"少陰病提綱（281）",text:"「少陰之為病，脈{微}{細}，{但}{欲}{寐}也。」",hint:"最核心的虛寒脈象＋精神極度疲倦似睡非睡。"},
+{title:"陰盛陽亡（283）",text:"「病人脈陰陽俱{緊}，反{汗}{出}者，{亡}{陽}也。」",hint:"陰陽俱緊＝寒盛；反汗出＝陽不攝陰→亡X。"},
+{title:"治禁（285）",text:"「少陰病，脈{細}{沉}{數}，病為在里，不可{發}{汗}。」",hint:"細沉數＝裡有陰虛熱→不可發X。"},
+{title:"急溫之（323）",text:"「少陰病，脈{沉}者，{急}{溫}之，宜{四}{逆}{湯}。」",hint:"脈沉＝邪入裡→及早溫之。"},
+{title:"四逆湯組成",text:"四逆湯：甘草（炙）、{乾}{薑}、{附}{子}（生用）。",hint:"附子溫腎回陽；乾薑溫脾散寒；甘草調中補虛。"},
+{title:"陰盛格陽（317）",text:"「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤，{通}{脈}{四}{逆}{湯}主之。」",hint:"格陽更重→加大劑量→○○四逆湯。"},
+{title:"陰盛戴陽（314）",text:"「少陰病，下利，{白}{通}{湯}主之。」",hint:"戴陽證用蔥白＋乾薑＋附子。"},
+{title:"白通加豬膽汁湯（315）",text:"「少陰病，下利脈微者，與白通湯。利不止，厥逆無脈，乾嘔煩者，白通加{豬}{膽}{汁}湯主之。服湯脈{暴}{出}者死，{微}{續}者生。」",hint:"格拒反佐→豬膽汁＋人尿。脈暴出＝殘陽外脫。"},
+{title:"附子湯證一（304）",text:"「少陰病，得之一二日，口中和，其背{惡}{寒}者，當{灸}之，{附}{子}{湯}主之。」",hint:"口中和排除熱→背惡寒＝陽虛→灸＋附子湯。"},
+{title:"附子湯證二（305）",text:"「少陰病，身體痛，手足寒，骨節痛，脈{沉}者，{附}{子}{湯}主之。」",hint:"身痛骨節痛＋脈沉＝寒濕內盛。"},
+{title:"真武湯證（316）",text:"「少陰病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此為有{水}{氣}。……{真}{武}{湯}主之。」",hint:"水氣泛濫→溫陽利水。"},
+{title:"桃花湯證一（306）",text:"「少陰病，下利便{膿}{血}者，{桃}{花}{湯}主之。」",hint:"膿血便＋滑脫→溫澀固脫。"},
+{title:"桃花湯證二（307）",text:"「少陰病，二三日至四五日，腹痛，小便不利，下利不止，便{膿}{血}者，{桃}{花}{湯}主之。」",hint:"同上，膿血便＋滑脫不禁。"},
+{title:"黃連阿膠湯證（303）",text:"「少陰病，得之二三日以上，心中{煩}，不得{臥}，{黃}{連}{阿}{膠}{湯}主之。」",hint:"熱化→心煩不得臥→育陰清熱。"},
+{title:"豬苓湯證（319）",text:"「少陰病，下利六七日，咳而嘔渴，心煩不得{眠}者，{豬}{苓}{湯}主之。」",hint:"水熱互結→育陰利水清熱。"},
+{title:"急下一（320）",text:"「少陰病，得之二三日，口燥咽{干}者，宜{大}{承}{氣}{湯}。」",hint:"三急下之一：口燥咽干→急下存陰。"},
+{title:"急下二（321）",text:"「少陰病，自利清水，色{純}{青}，心下必痛，口乾燥者，可下之，宜{大}{承}{氣}{湯}。」",hint:"三急下之二：清水色純青。"},
+{title:"急下三（322）",text:"「少陰病，六七日，{腹}{脹}不大便者，{急}{下}之，宜大承氣湯。」",hint:"三急下之三：腹脹不大便。"},
+{title:"麻黃細辛附子湯（301）",text:"「少陰病，始得之，反{發}{熱}，脈沉者，{麻}{黃}{細}{辛}{附}{子}{湯}主之。」",hint:"太少兩感→溫經解表。"},
+{title:"麻黃附子甘草湯（302）",text:"「少陰病，得之二三日，{麻}{黃}{附}{子}{甘}{草}{湯}微發汗。」",hint:"病已二三日較輕→微發汗。"},
+{title:"熱在膀胱（293）",text:"「少陰病，八九日，一身手足盡{熱}者，以熱在{膀}{胱}，必便{血}也。」",hint:"陽復太過→熱移膀胱→尿血。"},
+{title:"火劫變證（284）",text:"「少陰病，咳而下利{谵}{語}者，被{火}{氣}劫故也，小便必{難}，以強責少陰汗也。」",hint:"火劫傷陰→谵語＋小便難。"},
+{title:"吳茱萸湯證（309）",text:"「少陰病，吐利，手足逆冷，煩躁{欲}{死}者，{吳}{茱}{萸}{湯}主之。」",hint:"煩躁欲死＝陽氣尚存奮力抗爭→有救！"},
+{title:"欲解（287前）",text:"「少陰病，吐利煩躁者為{欲}{解}也，雖煩下利，必{自}{愈}。」",hint:"雖煩但非躁＝正氣來復→欲愈。"},
+{title:"死證一（298）",text:"「少陰病，下利止而{頭}{眩}，時時自{冒}者，{死}。」",hint:"利止非好轉＝正氣衰竭無力下利。"},
+{title:"死證二（295）",text:"「少陰病，四逆，惡寒而身{蜷}，脈{不}{至}，不煩而{躁}者，死。」",hint:"不煩而躁＝純陰無陽→死證。"},
+{title:"死證三（296）",text:"「少陰病，六七日，{息}{高}者，死。」",hint:"呼吸表淺＝腎不納氣→亡。"},
+{title:"四逆散證（318）",text:"「少陰病，四逆，其人或咳，或悸，或小便不利，或腹中痛，或{泄}{利}{下}{重}者，{四}{逆}{散}主之。」",hint:"陽郁致厥→疏肝透達郁陽。"},
+{title:"吳茱萸湯功效",text:"吳茱萸湯在少陰病中主治{寒}邪犯胃，{濁}{陰}上逆證，功效是溫降肝胃，{泄}{濁}{通}{陽}。",hint:"寒邪犯胃→溫降＋泄濁通陽。"},
+{title:"半夏散及湯",text:"半夏散及湯的藥物組成是{半}{夏}、{桂}{枝}、{甘}{草}，功效是{通}{陽}散寒，{滌}{痰}開結。",hint:"三味藥→通陽散寒＋滌痰開結。"},
+{title:"四逆散組成功效",text:"四逆散主治{陽}氣內郁，氣機不暢之厥逆證，藥物組成是{柴}{胡}、{枳}{實}、{芍}{藥}、炙甘草，功效是{宣}{通}陽氣，{疏}{達}郁滯。",hint:"柴胡枳實芍藥甘草→宣通疏達。"},
+{title:"豬膚湯",text:"豬膚湯由{豬}{膚}、白蜜、白粉組成，主治少陰病{陰}{虛}咽痛證。",hint:"豬X＋白蜜＋白粉→陰虛咽痛。"},
+{title:"咽痛鑒別",text:"桔梗湯證咽痛為少陰{客}{熱}所致，半夏散及湯證咽痛為{寒}{邪}郁閉、痰濕阻滯所致。",hint:"一熱一寒！桔梗→客X；半夏→寒X。"},
+{title:"少陰中風欲愈",text:"少陰中風，脈{陽}{微}{陰}{浮}者，為{欲}{愈}。",hint:"陽微陰浮→邪退正復→欲愈。"},
+{title:"脈緊去欲解",text:"少陰病，脈緊，至七八日，自下利，脈{暴}{微}，手足反{溫}，脈緊反去者，為{欲}{解}。",hint:"脈緊去＋手足溫＝陽氣回復。"}
+];
+
+function renderScrambleList(){
+    const c=document.getElementById('scramble-list');if(!c)return;
+    c.innerHTML=scrambleData.map((item,idx)=>{
+        const display=item.text.replace(/\{(.)\}/g,(m,ch)=>`<input type="text" maxlength="1" data-ans="${ch}" class="blank-input">`);
+        return `<div class="scramble-item" id="scramble-${idx}"><strong>${idx+1}. ${item.title}：</strong><br>${display}<button class="hint-btn" onclick="toggleHint('shint${idx}')">🔔 提示</button><div id="shint${idx}" class="hint-box">${item.hint}</div></div>`;
+    }).join('');
+    attachBlankInputHandlers();
+}
+
+function attachBlankInputHandlers(){
+    const inputs=document.querySelectorAll('#scramble-list .blank-input');
+    inputs.forEach((input,index)=>{
+        let isComposing=false;
+        input.addEventListener('compositionstart',()=>isComposing=true);
+        input.addEventListener('compositionend',()=>{isComposing=false;if(input.value.length>=1&&index+1<inputs.length)inputs[index+1].focus();});
+        input.addEventListener('input',()=>{if(!isComposing&&input.value.length>=1&&index+1<inputs.length)inputs[index+1].focus();});
+    });
 }
 </script>
 </body>
