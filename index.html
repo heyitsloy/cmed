@@ -122,6 +122,26 @@
         .formula-card { background: white; border-radius: 10px; padding: 15px; border: 1px solid #f9a8d4; text-align: center; }
         .formula-card h5 { margin: 0 0 8px 0; color: #be185d; font-size: 1rem; }
         .formula-card .severity { font-size: 0.8rem; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px; }
+
+/* 論述題 */
+        .essay-section { background: #f8f4ff; border: 2px solid #d4b8ff; border-radius: var(--cute-radius); padding: 30px; margin-top: 30px; }
+        .essay-section h3 { color: #7c3aed; margin-top: 0; border-bottom: 2px dashed #d4b8ff; padding-bottom: 10px; }
+        .essay-item { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e8e0f0; }
+        .essay-item h4 { color: #6d28d9; margin: 0 0 10px 0; }
+        .essay-textarea { width: 100%; min-height: 120px; border: 2px solid #e0d4f5; border-radius: 10px; padding: 12px; font-family: inherit; font-size: 0.95rem; outline: none; resize: vertical; box-sizing: border-box; }
+        .essay-textarea:focus { border-color: #7c3aed; box-shadow: 0 0 8px rgba(124,58,237,0.2); }
+        .reveal-btn { background: linear-gradient(135deg, #a78bfa, #7c3aed); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
+        .reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
+        .model-answer { display: none; background: #faf5ff; border-left: 4px solid #7c3aed; padding: 15px; margin-top: 12px; border-radius: 0 10px 10px 0; line-height: 1.8; font-size: 0.95rem; }
+        .model-answer.show { display: block; animation: fadeIn 0.3s; }
+        .self-score-bar { display: none; margin-top: 12px; padding: 12px; background: #f0fdf4; border-radius: 10px; border: 1px solid #86efac; }
+        .self-score-bar.show { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .score-btn { padding: 6px 16px; border-radius: 20px; border: 2px solid #ccc; background: white; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .score-btn:hover { border-color: #7c3aed; }
+        .score-btn.selected { background: #7c3aed; color: white; border-color: #7c3aed; }
+        .essay-total { text-align: center; padding: 20px; background: linear-gradient(135deg, #ede9fe, #f3e8ff); border-radius: 15px; margin-top: 20px; }
+        .essay-total h2 { color: #7c3aed; margin: 0; }
+        
     </style>
 </head>
 <body>
@@ -662,7 +682,134 @@
         </div>
 
         <div id="quiz-shaoyin" class="poe-quiz-app"></div>
-    </div>
+        <!-- 論述題 -->
+        <div class="essay-section" id="essay-shaoyin">
+            <h3>📝 論述題訓練（自評計分）</h3>
+            <p style="color:#888; font-size:0.9rem;">先寫下你的答案，再撳「查看參考答案」對照自評分數。每題20分，共100分。</p>
+
+            <div class="essay-item" data-eid="0">
+                <h4>論述題 1（20分）</h4>
+                <p>少陰病提綱證的原文是「少陰之為病，脈微細，但欲寐也」。少陰屬心腎兩臟。試述<strong>少陰病提綱證的意義</strong>，包括「脈微」「脈細」「但欲寐」各反映的病機。</p>
+                <textarea class="essay-textarea" placeholder="在此寫下你的答案..."></textarea>
+                <button class="reveal-btn" onclick="revealEssay(0)">查看參考答案 📖</button>
+                <div class="model-answer" id="essay-ans-0">
+                    <strong>參考答案要點：</strong><br>
+                    少陰屬心（手少陰）腎（足少陰）兩臟，心主血，屬火；腎藏精，主水。病則心腎陽虛衰，陰血不足。<br><br>
+                    <strong>脈微</strong>——心腎陽氣衰微，鼓脈無力，故脈微；<br>
+                    <strong>脈細</strong>——陰血不足，脈道不充，則脈細；<br>
+                    <strong>但欲寐</strong>——心虛則精神萎靡不振，腎虛則精不足，體力疲倦。患者呈似睡非睡、閉目倦卧的衰弱狀態（非高熱嗜睡！）。<br><br>
+                    「脈微細，但欲寐」是以全身性虛衰為病理特征的疾病，正因為此脈此證反映心腎陽虛俱衰，所以作為少陰病提綱證。
+                </div>
+                <div class="self-score-bar" id="essay-score-0">
+                    <span style="font-weight:bold; color:#333;">自評分數：</span>
+                    <button class="score-btn" onclick="scoreEssay(0,0)">0分</button>
+                    <button class="score-btn" onclick="scoreEssay(0,5)">5分</button>
+                    <button class="score-btn" onclick="scoreEssay(0,10)">10分</button>
+                    <button class="score-btn" onclick="scoreEssay(0,15)">15分</button>
+                    <button class="score-btn" onclick="scoreEssay(0,20)">20分</button>
+                </div>
+            </div>
+
+            <div class="essay-item" data-eid="1">
+                <h4>論述題 2（20分）</h4>
+                <p>少陰寒化證主要有哪些證型？試述<strong>各證型的病機、治法與代表方劑</strong>。</p>
+                <textarea class="essay-textarea" placeholder="在此寫下你的答案..."></textarea>
+                <button class="reveal-btn" onclick="revealEssay(1)">查看參考答案 📖</button>
+                <div class="model-answer" id="essay-ans-1">
+                    <strong>參考答案要點：</strong><br>
+                    少陰寒化證大致可分為七種不同證型：<br><br>
+                    <strong>①四逆湯證</strong>——病機：腎陽虛衰，陰寒內盛之下利；治宜回陽救逆。<br>
+                    <strong>②通脈四逆湯證</strong>——病機：陰寒內盛，格陽于外之下利；治宜破陰回陽，通達內外。<br>
+                    <strong>③白通湯證</strong>——病機：陰寒內盛，格陽于上之下利；治宜破陰回陽，通達上下。<br>
+                    <strong>④白通加豬膽汁湯證</strong>——病機：陰脫陰竭，寒熱格拒；治宜破陰回陽，宣通上下，反佐咸寒，滋陰養液。<br>
+                    <strong>⑤附子湯證</strong>——病機：腎陽虛衰，寒濕內盛；治宜溫陽化濕，鎮痛祛寒。<br>
+                    <strong>⑥真武湯證</strong>——病機：腎陽弓虧，水氣泛濫；治宜溫陽化氣行水。<br>
+                    <strong>⑦桃花湯證</strong>——病機：脾腎陽虛，寒濕凝滯，滑脫不禁；治宜溫澀固脫。
+                </div>
+                <div class="self-score-bar" id="essay-score-1">
+                    <span style="font-weight:bold; color:#333;">自評分數：</span>
+                    <button class="score-btn" onclick="scoreEssay(1,0)">0分</button>
+                    <button class="score-btn" onclick="scoreEssay(1,5)">5分</button>
+                    <button class="score-btn" onclick="scoreEssay(1,10)">10分</button>
+                    <button class="score-btn" onclick="scoreEssay(1,15)">15分</button>
+                    <button class="score-btn" onclick="scoreEssay(1,20)">20分</button>
+                </div>
+            </div>
+
+            <div class="essay-item" data-eid="2">
+                <h4>論述題 3（20分）</h4>
+                <p>如何理解少陰病<strong>「急溫之」</strong>的脈證及意義？見于原文「少陰病，脈沉者，急溫之，宜四逆湯」。</p>
+                <textarea class="essay-textarea" placeholder="在此寫下你的答案..."></textarea>
+                <button class="reveal-btn" onclick="revealEssay(2)">查看參考答案 📖</button>
+                <div class="model-answer" id="essay-ans-2">
+                    <strong>參考答案要點：</strong><br>
+                    原文僅言脈沉，尚未至脈微或脈微欲絕，說明雖陽虛並不太甚，但厥逆吐利諸典型裏虛寒證尚未出現，表示此時病情不重。<br><br>
+                    此處強調「急溫」，關鍵在于：<strong>病一入少陰，涉及根本，陽亡迅速，死證太多</strong>。所以少陰之治，貴在及早。<br><br>
+                    當脈沉顯示陽虛征兆時，即當急溫，以防亡陽之變。一旦延誤施治，則吐利厥逆諸證接踵而至，治亦晚矣。<br><br>
+                    本條文體現了中醫<strong>「治未病」</strong>的思想——見微知著，防患于未然。
+                </div>
+                <div class="self-score-bar" id="essay-score-2">
+                    <span style="font-weight:bold; color:#333;">自評分數：</span>
+                    <button class="score-btn" onclick="scoreEssay(2,0)">0分</button>
+                    <button class="score-btn" onclick="scoreEssay(2,5)">5分</button>
+                    <button class="score-btn" onclick="scoreEssay(2,10)">10分</button>
+                    <button class="score-btn" onclick="scoreEssay(2,15)">15分</button>
+                    <button class="score-btn" onclick="scoreEssay(2,20)">20分</button>
+                </div>
+            </div>
+
+            <div class="essay-item" data-eid="3">
+                <h4>論述題 4（20分）</h4>
+                <p>四逆湯、通脈四逆湯、白通湯及白通加豬膽汁湯均為回陽救逆之劑，試述<strong>它們的組成、作用和主治的側重各是什麼</strong>？</p>
+                <textarea class="essay-textarea" placeholder="在此寫下你的答案..."></textarea>
+                <button class="reveal-btn" onclick="revealEssay(3)">查看參考答案 📖</button>
+                <div class="model-answer" id="essay-ans-3">
+                    <strong>參考答案要點：</strong><br><br>
+                    <strong>四逆湯</strong>：附子＋乾薑＋甘草(炙)。功能回陽救逆，主治腎陽虛衰、陰寒內盛之證。<br><br>
+                    <strong>通脈四逆湯</strong>：同四逆湯但重用薑附。功能破陰回陽，通達內外。主治陰寒內盛、格陽于外之證（裏寒外熱，身反不惡寒，面赤）。<br><br>
+                    <strong>白通湯</strong>：蔥白＋乾薑＋附子。功能破陰回陽，通達上下。主治陰寒內盛、格陽于上之證（下利，面赤，戴陽）。蔥白辛溫走竄，宣通上下。<br><br>
+                    <strong>白通加豬膽汁湯</strong>：蔥白＋附子＋乾薑＋豬膽汁＋人尿。功能破陰回陽，宣通上下，反佐咸寒，滋陰養液。主治陰脫陽竭、寒熱格拒之證。人尿豬膽汁咸寒苦降，引陽藥入陰中，使不為寒邪格拒。<br><br>
+                    <strong>四方共同</strong>：均含附子＋乾薑。由輕→重排列：四逆湯→白通湯→通脈四逆湯→白通加豬膽汁湯。
+                </div>
+                <div class="self-score-bar" id="essay-score-3">
+                    <span style="font-weight:bold; color:#333;">自評分數：</span>
+                    <button class="score-btn" onclick="scoreEssay(3,0)">0分</button>
+                    <button class="score-btn" onclick="scoreEssay(3,5)">5分</button>
+                    <button class="score-btn" onclick="scoreEssay(3,10)">10分</button>
+                    <button class="score-btn" onclick="scoreEssay(3,15)">15分</button>
+                    <button class="score-btn" onclick="scoreEssay(3,20)">20分</button>
+                </div>
+            </div>
+
+            <div class="essay-item" data-eid="4">
+                <h4>論述題 5（20分）</h4>
+                <p>少陰陽虛寒飲內生與胸中實邪阻滯，均可出現<strong>心中溫溫欲吐</strong>。試述二者如何辨治？</p>
+                <textarea class="essay-textarea" placeholder="在此寫下你的答案..."></textarea>
+                <button class="reveal-btn" onclick="revealEssay(4)">查看參考答案 📖</button>
+                <div class="model-answer" id="essay-ans-4">
+                    <strong>參考答案要點：</strong><br><br>
+                    <strong>少陰寒化（四逆湯證）：</strong><br>
+                    少陰陽虛，失于氣化，濁陰上逆，胸膈不利，氣機上逆均可出現心中溫溫欲吐。此為虛寒之證，以寒飲為本，寒飲上逆為標。脈弦遲必無力，全身表現為一派陽虛征象。治當溫之，可選用四逆湯等溫陽化飲方。<br><br>
+                    <strong>實邪阻滯（瓜蒂散證等）：</strong><br>
+                    但實邪阻滯，痰涎等實邪阻于胸膈，氣機上逆，也可出現心中溫溫欲吐。但脈雖弦遲但必有力，邪結在上。治當因勢利導，吐則實去，邪去脈道通利，病則愈。可選用瓜蒂散類的湧吐劑，吐則實邪去，胸膈通，病則愈。<br><br>
+                    <strong>鑒別要點：</strong>辨證的關鍵在于脈之有力無力及全身寒熱虛實表現。
+                </div>
+                <div class="self-score-bar" id="essay-score-4">
+                    <span style="font-weight:bold; color:#333;">自評分數：</span>
+                    <button class="score-btn" onclick="scoreEssay(4,0)">0分</button>
+                    <button class="score-btn" onclick="scoreEssay(4,5)">5分</button>
+                    <button class="score-btn" onclick="scoreEssay(4,10)">10分</button>
+                    <button class="score-btn" onclick="scoreEssay(4,15)">15分</button>
+                    <button class="score-btn" onclick="scoreEssay(4,20)">20分</button>
+                </div>
+            </div>
+
+            <div class="essay-total" id="essay-total-box" style="display:none;">
+                <h2 id="essay-total-score">📝 論述題總分：0 / 100</h2>
+                <p style="color:#666; margin:5px 0 0 0;" id="essay-total-comment"></p>
+            </div>
+            <button class="check-scramble-btn" style="margin-top:15px; background:linear-gradient(135deg,#a78bfa,#7c3aed);" onclick="calcEssayTotal()">計算論述題總分 📊</button>
+        </div>
 
     <!-- ===== 推拿學頁面（保持原有） ===== -->
     <div id="tuina-peds-overview" class="content-section"><h1 class="main-title">👶 小兒推拿概論 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒推拿概論" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 核心要點</h3><ul><li><strong>適用年齡：</strong>6歲以下，3歲以下效果最佳。</li><li><strong>操作特點：</strong>輕快柔和、平穩着實。常用滑石粉或介質。</li><li><strong>穴位特點：</strong>特定穴位（三關、六腑、天河水等），多在手部。</li></ul></div></div>
@@ -855,7 +1002,7 @@ const allQuizData = {
         { section:"分型", q:"外展型骨折成角方向？", opts:["向外","向內","向前","向後"], ans:1, exp:"外展型向內成角。" },
         { section:"分型", q:"內收型骨折成角方向？", opts:["向內","向外","向前","無"], ans:1, exp:"內收型向外成角。" },
     ]},
-    'shaoyin': { title: "📚 少陰病 Quiz (50題)", questions: [
+    'shaoyin': { title: "📚 少陰病 Quiz 78題)", questions: [
         { section:"概說", q:"少陰病屬於哪個階段？", opts:["陽證初起","陰證危重","半表半裏","陽證極期"], ans:1, exp:"少陰病＝陰證危重階段。" },
         { section:"概說", q:"少陰是哪兩個臟腑？", opts:["肝膽","脾胃","心腎","肺大腸"], ans:2, exp:"心(手少陰)＋腎(足少陰)。" },
         { section:"概說", q:"少陰與哪經相表裡？", opts:["陽明","太陽","少陽","厥陰"], ans:1, exp:"少陰與太陽相表裡。" },
@@ -905,6 +1052,41 @@ const allQuizData = {
         { section:"熱化", q:"熱化證病機核心？", opts:["陽虛","陰虛陽亢","寒熱錯雜","氣血兩虛"], ans:1, exp:"陰虛陽亢。" },
         { section:"陽虛陰盛", q:"陽衰陰盛主要症狀不包括？", opts:["冷汗手足厥","吐利","大熱大渴面赤如妝","脈沉微細"], ans:2, exp:"大熱大渴非陽衰特徵。" },
         { section:"應用", q:"四逆湯現代應用不包括？", opts:["急慢性腸炎","心梗休克","肝硬化腹水","冷性蕁麻疹"], ans:2, exp:"不包括肝硬化腹水。" }
+        'shaoyin': { title: "📚 少陰病 完整題庫 (78題)", questions: [
+        // === 原有50題保持不變 (你的 questions[0]~[49]) ===
+        // ... (保留原有的全部50題) ...
+
+        // === 新增：教材 A1 型選擇題 ===
+        { section:"A1-提綱", q:"【教材Q1】下列關于少陰病提綱脈證機理的描述最確切的是：", opts:["心腎陽虛、陰血不足，神失所養","邪入少陰，心腎虛衰，水火失濟","心腎陽虛，陰寒內盛，水氣不化","心腎陽虛，陰寒內盛，陽不外達","心腎陽虛，陰寒內盛，濁陰上蒙"], ans:0, exp:"提綱脈證核心是心腎陽虛、陰血不足，神失所養。A最全面準確。" },
+        { section:"A1-脈證", q:"【教材Q2】能反映少陰病病理特征的脈證是：", opts:["欲吐不吐，心煩但欲寐","下利便脈血","下利清穀，裏寒外熱，脈微欲絕","脈微細，但欲寐","利不止，厥逆無脈，干嘔煩者"], ans:3, exp:"「脈微細，但欲寐」是少陰病提綱，最能反映其病理特征。" },
+        { section:"A1-辨證", q:"【教材Q3】下列證候除哪項外可辨為「少陰病形悉具」：", opts:["欲吐不吐","心煩，但欲寐","咽痛複吐利","自利而渴","小便色白"], ans:2, exp:"咽痛複吐利不屬於少陰病基本表現(形悉具)的範疇。" },
+        { section:"A1-脈象", q:"【教材Q4】下列脈象哪項不在少陰病中出現：", opts:["脈陰陽俱緊","脈浮而動數","脈細沉數","脈微澀","脈浮而遲"], ans:1, exp:"脈浮而動數為太陽病傷寒或溫病脈象，不見於少陰。" },
+        { section:"A1-口渴", q:"【教材Q5】少陰病「自利而渴」的機理是：", opts:["少陰下利，陰津受傷","少陰熱化，傷津耗液","少陰陰陽俱虛，陰津不足","寒侵少陰，真陽受困，津不上承","少陰陽虛，水氣內停"], ans:3, exp:"真陽受困，不能蒸化津液上承，故口渴。此為陽虛之渴。" },
+        { section:"A1-原文", q:"【教材Q6】「少陰病，脈細沉數，病為在里_____」最后應為：", opts:["急溫之","不可發汗","不可下之","宜四逆湯","四逆湯主之"], ans:1, exp:"原文285條：脈細沉數，病在裡，不可發汗。誤汗傷陰動血。" },
+        { section:"A1-甘草", q:"【教材Q7】四逆湯中灸甘草的主要作用是：", opts:["減少附子毒性","溫補調中","調和諸藥","補中益氣","緩急止痛"], ans:1, exp:"灸甘草在四逆湯中的主要作用是溫補調中，協助薑附回陽。" },
+        { section:"A1-四逆湯", q:"【教材Q8】下列哪項不是四逆湯的主要脈證：", opts:["下利肢厥","但欲寐","脈微而沉","下利脈大","小便清長"], ans:3, exp:"下利脈大為正氣欲脫之象，非四逆湯證的典型表現。" },
+        { section:"A1-通脈", q:"【教材Q10】通脈四逆湯加減法，哪項是錯誤的：", opts:["面色赤加蔥九莖","腹中痛去甘草加芍藥二兩","嘔者加生薑二兩","咽痛者去芍藥加桔梗一兩","利止脈不出者去桔梗加人參二兩"], ans:1, exp:"腹中痛不宜去甘草。甘草緩急止痛，去之則失其功。" },
+        { section:"A1-格陽", q:"【教材Q11】通脈四逆湯證的主要病機是：", opts:["邪從寒化，陽不外達","陰寒內盛，陽不化津","陰寒內盛，格陽于外","陰寒內盛，寒濕凝滯","病情向愈，陽氣復來"], ans:2, exp:"通脈四逆湯證為陰寒內盛，格陽于外。" },
+        { section:"A1-辨證", q:"【教材Q12】「身反不惡寒，其人面色赤」為何湯證的辨證關鍵：", opts:["四逆湯證","四逆加人參湯證","茯苓四逆湯證","通脈四逆湯證","當歸四逆湯證"], ans:3, exp:"身反不惡寒＋面色赤＝陰寒格陽的表現，為通脈四逆湯證。" },
+        { section:"A1-白通", q:"【教材Q14】白通湯與通脈四逆湯中相同的藥物是：", opts:["干薑＋附子","附子＋甘草","附子＋蔥白","甘草＋干薑","干薑＋蔥白"], ans:0, exp:"白通湯(蔥白薑附)與通脈四逆湯(甘草薑附)共有干薑＋附子。" },
+        { section:"A1-戴陽", q:"【教材Q15】白通湯證的病機是：", opts:["陰寒內盛，格陽于外","陰寒內盛，格陽于上","陰寒內盛，陽氣衰微","寒邪內侵，陽鬱不達","心腎陽虛，火不暖土"], ans:1, exp:"白通湯治戴陽證——陰寒內盛，格陽于上(面赤)。" },
+        { section:"A1-豬膽汁", q:"【教材Q16】白通加豬膽汁湯證的病機描述最確切的是：", opts:["陰寒內盛，陰陽格拒","陰寒內盛，陽不外達","陰寒內盛，虛陽上浮","陽脫陰竭，寒熱格拒","陰寒內盛，正氣攪郁"], ans:0, exp:"白通加豬膽汁湯證為陰寒內盛，陰陽格拒，需反佐咸寒。" },
+        { section:"A1-虛陽", q:"【教材Q19】下列除哪項外，均為少陰病虛陽外越指征：", opts:["面紅如妝","汗出","下利清穀","煩躁","身反不惡寒"], ans:4, exp:"身反不惡寒是格陽的表現而非虛陽外越。其他四項均反映虛陽外越。" },
+        { section:"A1-用量", q:"【教材Q20】《傷寒論》中附子用量最大的方劑是：", opts:["四逆湯","白通加豬膽汁湯","通脈四逆湯","桂枝附子湯","干薑附子湯"], ans:2, exp:"通脈四逆湯中附子用量最大（大者一枚）。" },
+        { section:"A1-附子湯", q:"【教材Q21】附子湯的藥物組成是：", opts:["人參附子茯苓白朮生薑","附子人參白朮茯苓甘草","附子芍藥白朮干薑甘草","附子茯苓人參白朮芍藥","附子茯苓甘草人參白芍"], ans:3, exp:"附子湯＝附子＋茯苓＋人參＋白朮＋芍藥。" },
+        { section:"A1-真武", q:"【教材Q25】真武湯證的主要病機是：", opts:["腎陽虛衰，寒濕內盛","腎陽亓虛，水氣泛濫","脾腎陽虛，關門不利","下元亓虛，氣化不利","邪侵少陰，腎失所主"], ans:1, exp:"真武湯證為腎陽虧虛，水氣泛濫。" },
+
+        // === 新增：教材 A2 型臨床病例 ===
+        { section:"A2-病例", q:"【病例1】女45歲，頭暈，全身濕冷，四肢厥逆，表情淡漠，苔白滑，脈沉細。最佳辨證：", opts:["干薑甘草湯證","四逆散證","四逆湯證","茯苓四逆湯證","當歸四逆湯證"], ans:2, exp:"全身濕冷＋四肢厥逆＋脈沉細＝少陰陽虛陰盛→四逆湯證。" },
+        { section:"A2-病例", q:"【病例2】女65歲，心煩少寐，尤以入夜為甚，心中躁擾，常欲四處奔走，舌紅脈細數。最佳辨證：", opts:["豬苓湯證","黃連阿膠湯證","梔子鼓湯證","真武湯證","干薑附子湯證"], ans:1, exp:"心煩不得眠＋舌紅＋脈細數＝少陰熱化，陰虛火旺→黃連阿膠湯。" },
+        { section:"A2-病例", q:"【病例3】男75歲，脾胃素虛，偶進寒涼遂下利不止，日8-9次，大便呈粘液狀，夾暗紅色血便，腹部冷痛，四肢發涼，精神疲倦，口淡不渴，脈沉無力。最佳辨證：", opts:["通脈四逆湯證","白通湯證","桃花湯證","桂枝人參湯證","葛根芩連湯證"], ans:2, exp:"下利不止＋膿血粘液便＋腹冷痛＋脈沉無力＝脾腎陽虛滑脫→桃花湯。" },
+        { section:"A2-病例", q:"【病例4】女35歲，腹痛，時有嘔吐，小便不利，四肢沉重疼痛，精神萎靡，大便日3-4次，舌質淡苔白，脈沉弱。此證治療應于：", opts:["附子湯","真武湯","桃花湯","理中湯","四逆湯"], ans:0, exp:"腹痛＋四肢沉重疼痛＋苔白＋脈沉弱＝少陰寒濕→附子湯。" },
+        { section:"A2-病例", q:"【病例5】男60歲，偶感風寒，起病后發熱不明顯，但覺精神疲倦，晝日似睡非睡，3天后出現口燥咽干、心下結痛，腹脹滿，大便2日未行。此證應是：", opts:["白通湯證","真武湯證","白虎湯證","大承氣湯證","小承氣湯證"], ans:3, exp:"少陰病但覺精神疲倦→后出現口燥腹脹大便不行→少陰三急下證→大承氣湯。" },
+        { section:"A2-病例", q:"【病例6】女6歲，發熱，夜寐不安，心中躁扰，小便不利，時有下利，舌紅少苔，脈浮數。臨床最佳辨證是：", opts:["五苓湯證","真武湯證","桂枝去桂加茯苓白朮湯證","豬苓湯證","茯苓甘草湯證"], ans:3, exp:"發熱＋小便不利＋下利＋舌紅少苔＋脈浮數＝陰虛水熱互結→豬苓湯。" },
+        { section:"A2-病例", q:"【病例7】男63歲，身體骨節疼痛，背微惡寒，手足發涼，口淡不渴，脈沉。臨床最佳辨證為：", opts:["麻黃湯證","新加湯證","桂枝附子湯證","甘草附子湯證","附子湯證"], ans:4, exp:"身體痛＋背惡寒＋手足涼＋口中和＋脈沉＝少陰陽虛寒濕→附子湯。" },
+        { section:"A2-病例", q:"【病例8】男10歲，腹瀉5天，延日加重，嘔吐清水，瀉下無度，煩躁不安，手足發涼，脈息微弱，似有似無。臨床最佳辨證當是：", opts:["四逆湯證","通脈四逆湯證","桃花湯證","白通加豬膽汁湯證","五苓散證"], ans:0, exp:"嘔吐清水＋瀉下無度＋手足涼＋脈微弱＝少陰陽衰→四逆湯。" },
+        { section:"A2-病例", q:"【病例9】男46歲，身熱目赤，不欲飲水，腹瀉，完穀不化，煩躁，四肢厥冷，脈微欲絕。臨床辨證應為：", opts:["白通加豬膽汁湯證","通脈四逆湯證","四逆湯證","白虎湯證","桃花湯證"], ans:1, exp:"身熱面赤(假熱)＋下利清穀(真寒)＋脈微欲絕＝陰寒格陽→通脈四逆湯。" },
+        { section:"A2-病例", q:"【病例10】女67歲，傷寒，發汗后，仍發熱，心悸頭昏，筋肉跳動，身體顫抖，不能自主，舌淡，苔白滑，脈沉弱無力。處方應為：", opts:["豬苓湯","黃連阿膠湯","梔子鼓湯","真武湯","干薑附子湯"], ans:3, exp:"發汗傷陽→身體顫抖筋肉跳動(水氣動)＋脈沉弱＝陽虛水泛→真武湯。" }
     ]},
     'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section:"併發症", q:"中下1/3易傷哪條神經？", opts:["正中","尺","橈","腋"], ans:2, exp:"橈神經→垂腕。" }] },
     'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section:"鑒別", q:"與脫位鑒別點？", opts:["壓痛","骨擦音","肘三角關係是否改變","腫脹"], ans:2, exp:"骨折不改變肘三角。" }] },
@@ -945,6 +1127,35 @@ window.onload = () => {
     updateProgress();
     Object.keys(allQuizData).forEach(renderQuizApp);
 };
+    // === 論述題系統 ===
+const essayScores = [null, null, null, null, null];
+
+function revealEssay(idx) {
+    document.getElementById('essay-ans-' + idx).classList.add('show');
+    document.getElementById('essay-score-' + idx).classList.add('show');
+}
+
+function scoreEssay(idx, score) {
+    essayScores[idx] = score;
+    const bar = document.getElementById('essay-score-' + idx);
+    bar.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+    event.target.classList.add('selected');
+    showToast(`📝 第${idx+1}題自評 ${score} 分`);
+}
+
+function calcEssayTotal() {
+    let total = 0, answered = 0;
+    essayScores.forEach(s => { if(s !== null) { total += s; answered++; } });
+    const box = document.getElementById('essay-total-box');
+    box.style.display = 'block';
+    document.getElementById('essay-total-score').textContent = `📝 論述題總分：${total} / 100`;
+    const cmt = document.getElementById('essay-total-comment');
+    if(answered < 5) cmt.textContent = `⚠️ 你只評咗 ${answered}/5 題，記得全部做晒再計分！`;
+    else if(total >= 80) cmt.textContent = '🎉 優秀！對少陰病理解得好深入！';
+    else if(total >= 60) cmt.textContent = '👍 不錯！再溫下薄弱嘅部分就更好！';
+    else cmt.textContent = '💪 加油！建議重溫溫習重點再試過！';
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 </script>
 </body>
 </html>
