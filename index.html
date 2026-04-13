@@ -141,6 +141,48 @@
         .score-btn.selected { background: #7c3aed; color: white; border-color: #7c3aed; }
         .essay-total { text-align: center; padding: 20px; background: linear-gradient(135deg, #ede9fe, #f3e8ff); border-radius: 15px; margin-top: 20px; }
         .essay-total h2 { color: #7c3aed; margin: 0; }
+
+    /* ===== 簡答題 + 論述題(關鍵詞版) ===== */
+.sa-section { background: #f0f9ff; border: 2px solid #93c5fd; border-radius: 20px; padding: 30px; margin-top: 30px; }
+.sa-section h3 { color: #1d4ed8; margin-top: 0; border-bottom: 2px dashed #93c5fd; padding-bottom: 10px; }
+.sa-item { background: white; border-radius: 12px; padding: 20px; margin-bottom: 18px; border: 1px solid #dbeafe; position: relative; }
+.sa-item h4 { color: #2563eb; margin: 0 0 10px 0; font-size: 1rem; line-height: 1.6; }
+.sa-textarea { width: 100%; min-height: 80px; border: 2px solid #bfdbfe; border-radius: 10px; padding: 12px; font-family: inherit; font-size: 0.95rem; outline: none; resize: vertical; box-sizing: border-box; transition: 0.2s; }
+.sa-textarea:focus { border-color: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.2); }
+.sa-check-btn { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: white; border: none; padding: 8px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; font-size: 0.9rem; }
+.sa-check-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
+.sa-result { margin-top: 12px; padding: 15px; border-radius: 10px; display: none; line-height: 1.8; font-size: 0.95rem; }
+.sa-result.show { display: block; animation: fadeIn 0.3s; }
+.sa-result.correct { background: #f0fdf4; border-left: 4px solid #22c55e; }
+.sa-result.wrong { background: #fef2f2; border-left: 4px solid #ef4444; }
+.sa-result.partial { background: #fffbeb; border-left: 4px solid #f59e0b; }
+.sa-keywords { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.sa-kw-tag { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; }
+.sa-kw-hit { background: #dcfce7; color: #166534; }
+.sa-kw-miss { background: #fee2e2; color: #991b1b; }
+.sa-score-bar { text-align: center; padding: 20px; background: linear-gradient(135deg, #dbeafe, #eff6ff); border-radius: 15px; margin-top: 20px; display: none; }
+.sa-score-bar.show { display: block; animation: fadeIn 0.3s; }
+.sa-score-bar h2 { color: #1d4ed8; margin: 0; }
+.sa-check-all-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 4px 10px rgba(29,78,216,0.2); margin-top: 10px; }
+.sa-check-all-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(29,78,216,0.4); }
+.essay2-section { background: #faf5ff; border: 2px solid #c4b5fd; border-radius: 20px; padding: 30px; margin-top: 30px; }
+.essay2-section h3 { color: #6d28d9; margin-top: 0; border-bottom: 2px dashed #c4b5fd; padding-bottom: 10px; }
+.essay2-item { background: white; border-radius: 12px; padding: 20px; margin-bottom: 18px; border: 1px solid #e8e0f0; }
+.essay2-item h4 { color: #6d28d9; margin: 0 0 10px 0; font-size: 1rem; line-height: 1.6; }
+.essay2-textarea { width: 100%; min-height: 120px; border: 2px solid #e0d4f5; border-radius: 10px; padding: 12px; font-family: inherit; font-size: 0.95rem; outline: none; resize: vertical; box-sizing: border-box; transition: 0.2s; }
+.essay2-textarea:focus { border-color: #7c3aed; box-shadow: 0 0 8px rgba(124,58,237,0.2); }
+.essay2-check-btn { background: linear-gradient(135deg, #a78bfa, #7c3aed); color: white; border: none; padding: 8px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; font-size: 0.9rem; }
+.essay2-check-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
+.essay2-result { margin-top: 12px; padding: 15px; border-radius: 10px; display: none; line-height: 1.8; font-size: 0.95rem; }
+.essay2-result.show { display: block; animation: fadeIn 0.3s; }
+.essay2-result.correct { background: #f0fdf4; border-left: 4px solid #22c55e; }
+.essay2-result.wrong { background: #fef2f2; border-left: 4px solid #ef4444; }
+.essay2-result.partial { background: #fffbeb; border-left: 4px solid #f59e0b; }
+.essay2-check-all-btn { background: linear-gradient(135deg, #7c3aed, #5b21b6); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-size: 1.1rem; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 4px 10px rgba(91,33,182,0.2); margin-top: 10px; }
+.essay2-check-all-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(91,33,182,0.4); }
+.essay2-score-bar { text-align: center; padding: 20px; background: linear-gradient(135deg, #ede9fe, #f3e8ff); border-radius: 15px; margin-top: 20px; display: none; }
+.essay2-score-bar.show { display: block; animation: fadeIn 0.3s; }
+.essay2-score-bar h2 { color: #6d28d9; margin: 0; }
         
     </style>
 </head>
@@ -680,7 +722,29 @@
 
             <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
         </div>
+<!-- ★ NEW: (四) 簡答題 ★ -->
+<div class="sa-section" id="sa-shaoyin">
+    <h3>📋（四）簡答題訓練（關鍵詞自動批改）</h3>
+    <p style="color:#888; font-size:0.9rem;">寫低你嘅答案，撳「批改」系統會自動對比關鍵詞。命中足夠就✅，唔夠就顯示參考答案同錯咗嘅關鍵詞！</p>
+    <div id="sa-list"></div>
+    <button class="sa-check-all-btn" onclick="checkAllSA()">📝 一鍵批改全部簡答題</button>
+    <div class="sa-score-bar" id="sa-score-bar">
+        <h2 id="sa-total-score"></h2>
+        <p id="sa-total-comment" style="color:#666; margin:5px 0 0 0;"></p>
+    </div>
+</div>
 
+<!-- ★ NEW: (五) 論述題（關鍵詞版）★ -->
+<div class="essay2-section" id="essay2-shaoyin">
+    <h3>📝（五）論述題訓練（關鍵詞自動批改）</h3>
+    <p style="color:#888; font-size:0.9rem;">論述題要求更完整嘅回答，關鍵詞要求更高。寫完撳「批改」睇下你命中幾多！</p>
+    <div id="essay2-list"></div>
+    <button class="essay2-check-all-btn" onclick="checkAllEssay2()">📝 一鍵批改全部論述題</button>
+    <div class="essay2-score-bar" id="essay2-score-bar">
+        <h2 id="essay2-total-score"></h2>
+        <p id="essay2-total-comment" style="color:#666; margin:5px 0 0 0;"></p>
+    </div>
+</div>
         <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         <!-- 論述題 -->
         <div class="essay-section" id="essay-shaoyin">
@@ -970,6 +1034,7 @@ document.querySelectorAll('.blank-input').forEach((input, index, inputs) => {
     input.addEventListener('input', () => { if(!isComposing && input.value.length >= 1 && index + 1 < inputs.length) inputs[index+1].focus(); });
 });
 
+    
 function checkAllScramble() {
     document.querySelectorAll('.scramble-item').forEach((item, idx) => {
         let err = false;
@@ -1103,7 +1168,7 @@ const allQuizData = {
     'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section:"併發症", q:"中下1/3易傷哪條神經？", opts:["正中","尺","橈","腋"], ans:2, exp:"橈神經→垂腕。" }] },
     'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section:"鑒別", q:"與脫位鑒別點？", opts:["壓痛","骨擦音","肘三角關係是否改變","腫脹"], ans:2, exp:"骨折不改變肘三角。" }] },
     'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] }
-};
+}] }
 
 const quizStates = {};
 for(let k in allQuizData) quizStates[k] = { currentQ:0, score:0, answered:new Array(allQuizData[k].questions.length).fill(null), started:false, showingResults:false };
@@ -1138,6 +1203,8 @@ window.onload = () => {
     document.querySelectorAll('.section-cb').forEach(cb => { if(progressData[cb.value]?.checked) cb.checked = true; });
     updateProgress();
     Object.keys(allQuizData).forEach(renderQuizApp);
+        renderSAList();      
+    renderEssay2List();  
 };
     // === 論述題系統 ===
 const essayScores = [null, null, null, null, null];
@@ -1167,6 +1234,186 @@ function calcEssayTotal() {
     else if(total >= 60) cmt.textContent = '👍 不錯！再溫下薄弱嘅部分就更好！';
     else cmt.textContent = '💪 加油！建議重溫溫習重點再試過！';
     box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+    // ===== (四) 簡答題數據 =====
+const saData = [
+    { q:"1. 何謂少陰病?其病位涉及哪些經脈和臟腑?", keywords:["心腎虛衰","水火不交","手少陰","足少陰"], minMatch:3, answer:"少陰病是以心腎虛衰、水火不交為主要病理變化的疾病。病位涉及手、足少陰二經和心、腎兩臟。" },
+    { q:"2. 少陰病分為哪兩大證型?其治則與代表方劑分別是什麼?", keywords:["寒化","熱化","回陽救逆","四逆湯","育陰清熱","黃連阿膠湯"], minMatch:4, answer:"分為少陰寒化證（治宜回陽救逆，四逆湯類）與少陰熱化證（治宜育陰清熱，黃連阿膠湯）。" },
+    { q:"3. 原文283條少陰病陰盛陽亡的脈證是什麼?", keywords:["陰陽俱緊","反汗出"], minMatch:2, answer:"脈陰陽俱緊，反汗出。" },
+    { q:"4. 原文282條少陰寒化證的辨證要點是什麼?", keywords:["欲吐不吐","心煩但欲寐","自利而渴","小便色白"], minMatch:3, answer:"欲吐不吐，心煩但欲寐，自利而渴，小便色白。" },
+    { q:"5. 四逆湯證的病機、治法是什麼?", keywords:["腎陽虛衰","陰寒內盛","回陽救逆"], minMatch:2, answer:"病機為腎陽虛衰，陰寒內盛；治法為回陽救逆。" },
+    { q:"6. 通脈四逆湯證的辨證要點、病機、治法是什麼?", keywords:["手足厥逆","下利清谷","脈微欲絕","面赤","格陽於外","破陰回陽","通達內外"], minMatch:4, answer:"辨證要點是手足厥逆，下利清谷，脈微欲絕，身反不惡寒，面赤；病機是陰寒內盛，格陽於外；治法是破陰回陽，通達內外。" },
+    { q:"7. 何謂戴陽?", keywords:["陰盛","虛陽","浮越","面赤"], minMatch:2, answer:"陰盛於下，逼迫虛陽浮越於上，表現為陰寒之中見有面赤。" },
+    { q:"8. 服用白通加豬膽汁湯後，為什麼說「服湯脈暴出者死，微續者生」?", keywords:["孤陽外脫","陽氣漸復"], minMatch:1, answer:"脈突然浮大散大是孤陽外脫（死候）；由弱漸強是陽氣漸復（預後好）。" },
+    { q:"9. 「口中和」對附子湯證的辨證有何意義?", keywords:["排除熱證","鑒別"], minMatch:1, answer:"是為排除熱證而提出的鑒別指征。口中和說明非熱證，確認為寒濕。" },
+    { q:"10. 附子湯證與麻黃湯證都有身體痛、骨節痛，兩者病機有何區別?", keywords:["裡","腎陽虛衰","寒濕","表","寒邪束表"], minMatch:3, answer:"附子湯證病在里（腎陽虛衰，寒濕內盛）；麻黃湯證病在表（寒邪束表，營陰郁滯）。" },
+    { q:"11. 桃花湯證的病機、治法是什麼?", keywords:["脾腎陽虛","滑脫不禁","溫澀固脫"], minMatch:2, answer:"病機是脾腎陽虛，寒濕凝滯，滑脫不禁；治法為溫澀固脫。" },
+    { q:"12. 簡述黃連阿膠湯證的病機、治法及方藥?", keywords:["陰虛火旺","心腎不交","滋陰瀉火","交通心腎","黃連","黃芩","芍藥","雞子黃","阿膠"], minMatch:5, answer:"病機為陰虛火旺，心腎不交；治法為滋陰瀉火，交通心腎；方藥為黃連、黃芩、芍藥、雞子黃、阿膠。" },
+    { q:"13. 豬苓湯證與真武湯證均有下利、咳、嘔，二者病機有何不同?", keywords:["陰虛","水熱互結","陽虛水泛"], minMatch:2, answer:"豬苓湯證為陰虛水熱互結；真武湯證為少陰寒化，陽虛水泛。" },
+    { q:"14. 何謂少陰三急下證?", keywords:["口燥咽干","自利清水","腹脹不大便"], minMatch:2, answer:"即原文320、321、322條：口燥咽干；自利清水色純青；腹脹不大便。均為陰虛化熱，急需通下存陰。" },
+    { q:"15. 簡述麻黃細辛附子湯證的病機、治法?", keywords:["少陰","裡虛","兼表","溫經解表"], minMatch:2, answer:"病機為少陰里虛兼表（太少兩感）；治法為溫經解表（助陽解表）。" },
+    { q:"16. 何謂「下厥上竭」?", keywords:["陽氣","厥","下","陰血","竭","上"], minMatch:3, answer:"指陽氣厥於下焦，陰血竭於上焦。是陰陽離決的危重表現。" },
+    { q:"17. 少陰熱移膀胱證的表現是什麼?", keywords:["手足盡熱","尿血"], minMatch:2, answer:"一身手足盡熱和尿血。" },
+    { q:"18. 試述四逆散的組成及方意。", keywords:["柴胡","枳實","芍藥","甘草","疏","氣機","郁陽"], minMatch:4, answer:"柴胡（疏肝）、枳實（導滯）、芍藥（通絡止痛）、甘草（調和）。共奏疏暢氣機、透達郁陽之功。" },
+    { q:"19. 分析「吐利躁煩四逆者死」與「煩躁欲死者吳茱萸湯主之」的區別。", keywords:["陽氣已絕","陽氣","抗爭"], minMatch:2, answer:"前者陽氣已絕（預後不良）；後者陰邪雖盛但陽氣尚能與之劇爭，尚可救治。" },
+    { q:"20. 四逆散證與四逆湯證均有「四逆」，二者有何區別?", keywords:["陽氣內郁","陽虛陰盛","脈弦","脈微"], minMatch:2, answer:"四逆散證屬陽氣內郁（較輕，見脈弦）；四逆湯證屬少陰陽虛陰盛（較重，脈微欲絕）。" },
+    { q:"21. 苦酒湯的煎服法應注意什麼?", keywords:["半夏","蛋殼","醋","含咽"], minMatch:2, answer:"半夏洗淨打碎，放入蛋殼加米醋（苦酒）煮沸，冷後少量含咽，不可吞服。" },
+    { q:"22. 少陰病的陽回可治證主要有哪些表現?", keywords:["下利自止","手足溫"], minMatch:2, answer:"下利自止，惡寒而蜷臥但手足溫和。說明陽氣漸復。" },
+    { q:"23. 試述少陰病六種死證及其臨床意義。", keywords:["亡陽","陰竭","不治"], minMatch:1, answer:"見原文295至300條，均為亡陽或陰竭之候（如利止而惡寒蜷臥但汗出不煩、吐利煩躁四逆等）。臨床意義在於判斷預後，凡陽亡或真陰枯竭者為不治之候。" }
+];
+
+// ===== (五) 論述題數據 =====
+const essay2Data = [
+    { q:"1. 少陰病提綱證的意義是什麼？「脈微細，但欲寐」反映甚麼病機？", keywords:["脈微","脈細","但欲寐","心腎","虛衰","陽衰","鼓動無力","陰血不足","脈道不充","精神萎靡","似睡非睡"], minMatch:6, answer:"「脈微細，但欲寐」反映陰陽俱虛、心腎虛衰的病理特徵。脈微→心腎陽氣衰微，鼓動無力；脈細→陰血不足，脈道不充；但欲寐→心虛精神萎靡，腎虛精不足，似睡非睡。是少陰病提綱，概括全篇病機。" },
+    { q:"2. 少陰寒化證主要有哪些證型？各自的病機、治法為何？", keywords:["四逆湯","回陽救逆","通脈四逆湯","格陽於外","破陰回陽","白通湯","格陽於上","豬膽汁","反佐","附子湯","寒濕","真武湯","水氣泛濫","桃花湯","滑脫不禁","溫澀固脫"], minMatch:8, answer:"七型：①四逆湯證（腎陽虛衰陰寒內盛→回陽救逆）②通脈四逆湯證（陰寒格陽於外→破陰回陽通達內外）③白通湯證（陰寒格陽於上→破陰回陽通達上下）④白通加豬膽汁湯證（寒熱格拒→反佐咸寒）⑤附子湯證（寒濕內盛→溫陽化濕）⑥真武湯證（水氣泛濫→溫陽化氣行水）⑦桃花湯證（滑脫不禁→溫澀固脫）。" },
+    { q:"3. 如何理解少陰病「急溫之」的脈證及意義？", keywords:["脈沉","四逆湯","及早","治未病","亡陽","陽虛","根本"], minMatch:4, answer:"323條：少陰病，脈沉者，急溫之，宜四逆湯。脈沉示陽虛征兆尚輕，但少陰涉及根本，陽亡迅速，須及早急溫，防亡陽之變。體現「治未病」思想——見微知著，防患未然。" },
+    { q:"4. 少陰陽虛寒飲內生與胸中實邪阻滯均可出現心中溫溫欲吐，二者如何辨治？", keywords:["陽虛","脈無力","四逆湯","實邪","脈有力","瓜蒂散","虛寒","吐"], minMatch:4, answer:"陽虛寒飲者脈弦遲無力，全身陽虛征象，治宜溫之（四逆湯）。實邪阻滯者脈弦遲有力，邪結在上，治宜吐之（瓜蒂散）。辨證關鍵在脈之有力無力及全身寒熱虛實。" },
+    { q:"5. 四逆湯、通脈四逆湯、白通湯及白通加豬膽汁湯的組成、作用和主治側重。", keywords:["四逆湯","附子","乾薑","甘草","回陽救逆","通脈四逆湯","重用","格陽於外","白通湯","蔥白","格陽於上","豬膽汁","人尿","反佐","格拒"], minMatch:8, answer:"四逆湯：附子乾薑甘草，回陽救逆，治腎陽虛衰陰寒內盛。通脈四逆湯：同四逆但重用薑附，破陰回陽通達內外，治陰寒格陽於外。白通湯：蔥白乾薑附子，破陰回陽通達上下，治戴陽（格陽於上）。白通加豬膽汁湯：加人尿豬膽汁咸寒反佐，治寒熱格拒。四方共有附子乾薑。" },
+    { q:"6. 真武湯與附子湯藥物組成僅一味藥之差，其證治有何不同？", keywords:["真武湯","生薑","水氣泛濫","溫陽化氣行水","附子湯","人參","寒濕","筋骨","身體骨節痛"], minMatch:5, answer:"真武湯（附子＋茯苓白朮芍藥＋生薑）主治腎陽虧虛、水氣泛濫，以水腫眩悸為主，治宜溫陽化氣行水。附子湯（附子＋茯苓白朮芍藥＋人參，附子倍量）主治腎陽虛衰、寒濕留著筋骨，以身體骨節痛為主，治宜溫陽化濕鎮痛。" },
+    { q:"7. 少陰病篇有哪幾種下利證？其主治方劑分別是什麼？", keywords:["四逆湯","通脈四逆湯","白通湯","豬膽汁","真武湯","桃花湯","豬苓湯","大承氣湯"], minMatch:6, answer:"共八種：①四逆湯（陽虛寒盛）②通脈四逆湯（格陽於外）③白通湯（格陽於上）④白通加豬膽汁湯（寒熱格拒）⑤真武湯（陽虛水泛）⑥桃花湯（滑脫不禁）⑦豬苓湯（陰虛水熱互結）⑧大承氣湯（三急下證）。" },
+    { q:"8. 豬苓湯證和真武湯證在病機、證治方面有何異同？", keywords:["真武湯","陽虛","溫陽","豬苓湯","陰虛","水熱互結","清熱","育陰","利水","水氣","咳","嘔","下利"], minMatch:6, answer:"同：均有水氣為患，見咳、嘔、下利。異：真武湯為陽虛水泛，治宜溫陽化氣行水；豬苓湯為陰虛水熱互結，治宜清熱育陰利水。一寒一熱，治法截然不同。" },
+    { q:"9. 黃連阿膠湯證與豬苓湯證如何鑒別？", keywords:["黃連阿膠湯","心煩不得臥","舌紅","陰虛火旺","豬苓湯","小便不利","水熱互結","心煩不得眠"], minMatch:4, answer:"黃連阿膠湯證無水結，見心煩不得臥、口干咽燥、舌紅少苔、脈沉細數，為陰虛火旺；豬苓湯證有水結，見心煩不得眠、小便不利、或咳嘔渴下利，為水熱互結。" },
+    { q:"10. 麻黃附子甘草湯證條文中「無里證」三字有何意義？", keywords:["無吐利","里虛寒","表里同治","先救里"], minMatch:2, answer:"指無吐利等里虛寒證，是辨別應先救里還是表里同治的依據。有里證者先救里（四逆湯），無里證者可表里同治（麻黃附子甘草湯）。" },
+    { q:"11. 少陰病咳而下利為何不能用火療劫汗？誤汗後會出現什麼變證？", keywords:["傷陰","化燥","生熱","谵語","小便難"], minMatch:2, answer:"少陰陰虛，火療劫汗會更傷陰液，化燥生熱，出現谵語（熱擾心神）、小便難（陰液枯竭）等變證。" },
+    { q:"12. 試述四逆散證的病機、主證、治法和方藥。", keywords:["陽郁","氣機","四逆","疏肝","透達郁陽","柴胡","枳實","芍藥","甘草"], minMatch:5, answer:"病機為陽郁致厥（氣機不暢，陽氣內郁不達四末）；主證為四逆、或咳或悸或小便不利或腹痛或泄利下重；治法為疏肝和胃、透達郁陽；方藥為柴胡、枳實、芍藥、甘草。" },
+    { q:"13. 簡述少陰咽痛的表現及辨證論治。", keywords:["豬膚湯","甘草湯","桔梗湯","苦酒湯","半夏散","虛熱","客熱","痰熱","客寒"], minMatch:5, answer:"分四型：①虛熱咽痛→豬膚湯（滋陰降火潤燥）②客熱咽痛→輕者甘草湯、重者桔梗湯（清熱解毒利咽）③痰熱咽痛→苦酒湯（咽中傷生瘡聲不出）④客寒咽痛→半夏散及湯（散寒開結化痰）。" },
+    { q:"14. 試述少陰病吳茱萸湯證的病機、主證。", keywords:["陽氣","抗爭","吐利","手足逆冷","煩躁欲死","吳茱萸湯"], minMatch:3, answer:"病機是陰邪雖盛但陽氣尚能與之劇爭（非陽亡）；主證為吐利、手足逆冷、煩躁欲死。用吳茱萸湯溫中散寒、降逆止嘔。與「吐利躁煩四逆者死」鑒別在於陽氣尚存。" }
+];
+
+// ===== 簡答題渲染 =====
+function renderSAList() {
+    const c = document.getElementById('sa-list'); if(!c) return;
+    c.innerHTML = saData.map((item, idx) =>
+        `<div class="sa-item" id="sa-item-${idx}">
+            <h4>📌 ${item.q}</h4>
+            <textarea class="sa-textarea" id="sa-input-${idx}" placeholder="在此寫下你的答案..."></textarea>
+            <button class="sa-check-btn" onclick="checkSA(${idx})">批改 ✔️</button>
+            <div class="sa-result" id="sa-result-${idx}"></div>
+        </div>`
+    ).join('');
+}
+
+// ===== 論述題渲染 =====
+function renderEssay2List() {
+    const c = document.getElementById('essay2-list'); if(!c) return;
+    c.innerHTML = essay2Data.map((item, idx) =>
+        `<div class="essay2-item" id="essay2-item-${idx}">
+            <h4>📝 ${item.q}</h4>
+            <textarea class="essay2-textarea" id="essay2-input-${idx}" placeholder="在此寫下你的答案（盡量完整論述）..."></textarea>
+            <button class="essay2-check-btn" onclick="checkEssay2(${idx})">批改 ✔️</button>
+            <div class="essay2-result" id="essay2-result-${idx}"></div>
+        </div>`
+    ).join('');
+}
+
+// ===== 通用批改邏輯 =====
+function doKeywordCheck(userAnswer, keywords, minMatch) {
+    let hitCount = 0;
+    let details = [];
+    keywords.forEach(kw => {
+        const hit = userAnswer.includes(kw);
+        if(hit) hitCount++;
+        details.push({ kw, hit });
+    });
+    const passed = hitCount >= minMatch;
+    const partial = hitCount > 0 && !passed;
+    return { hitCount, total: keywords.length, minMatch, passed, partial, details };
+}
+
+function buildResultHTML(result, modelAnswer, type) {
+    let kwHTML = result.details.map(d =>
+        `<span class="sa-kw-tag ${d.hit ? 'sa-kw-hit' : 'sa-kw-miss'}">${d.hit ? '✅' : '❌'} ${d.kw}</span>`
+    ).join('');
+
+    if(result.passed) {
+        return `<div style="color:#166534;font-weight:bold;margin-bottom:8px;">✅ 答得好！命中 ${result.hitCount}/${result.total} 個關鍵詞（需 ${result.minMatch} 個）</div>
+                <div class="sa-keywords">${kwHTML}</div>
+                <div style="margin-top:12px;padding:12px;background:#f0fdf4;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;font-size:0.9rem;color:#555;">
+                    <strong>📖 參考答案：</strong><br>${modelAnswer}
+                </div>`;
+    } else {
+        return `<div style="color:#991b1b;font-weight:bold;margin-bottom:8px;">❌ 未達標（命中 ${result.hitCount}/${result.total}，需要至少 ${result.minMatch} 個）</div>
+                <div class="sa-keywords">${kwHTML}</div>
+                <div style="margin-top:12px;padding:12px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;">
+                    <strong>📖 參考答案：</strong><br>${modelAnswer}
+                </div>`;
+    }
+}
+
+// ===== 簡答題批改 =====
+function checkSA(idx) {
+    const data = saData[idx];
+    const userAnswer = document.getElementById('sa-input-' + idx).value.trim();
+    const resultDiv = document.getElementById('sa-result-' + idx);
+    if(!userAnswer) {
+        resultDiv.innerHTML = '<span style="color:#999;">⚠️ 請先寫低你嘅答案！</span>';
+        resultDiv.className = 'sa-result show'; return;
+    }
+    const result = doKeywordCheck(userAnswer, data.keywords, data.minMatch);
+    resultDiv.innerHTML = buildResultHTML(result, data.answer, 'sa');
+    resultDiv.className = 'sa-result show ' + (result.passed ? 'correct' : (result.partial ? 'partial' : 'wrong'));
+    if(!result.passed) {
+        addMistake({ id:'sa-'+idx, section:'少陰病簡答題', question:data.q, userAns: userAnswer.length>60 ? userAnswer.substring(0,60)+'...' : userAnswer, correctAns:data.answer, exp:'需命中關鍵詞：'+data.keywords.join('、') });
+    } else { removeMistake('sa-'+idx); }
+}
+
+function checkAllSA() {
+    let correct = 0;
+    saData.forEach((_, idx) => {
+        const input = document.getElementById('sa-input-' + idx);
+        if(input && input.value.trim()) checkSA(idx);
+    });
+    saData.forEach((_, idx) => {
+        const r = document.getElementById('sa-result-' + idx);
+        if(r && r.classList.contains('correct')) correct++;
+    });
+    const bar = document.getElementById('sa-score-bar');
+    bar.classList.add('show');
+    document.getElementById('sa-total-score').textContent = `📋 簡答題：${correct} / ${saData.length} 題答對`;
+    const cmt = document.getElementById('sa-total-comment');
+    const pct = Math.round(correct / saData.length * 100);
+    if(pct >= 80) cmt.textContent = '🎉 優秀！對少陰病掌握得好紮實！';
+    else if(pct >= 60) cmt.textContent = '👍 不錯！再補下漏咗嘅關鍵詞就更好！';
+    else cmt.textContent = '💪 加油！建議重溫溫習重點再試過！';
+    bar.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+// ===== 論述題批改 =====
+function checkEssay2(idx) {
+    const data = essay2Data[idx];
+    const userAnswer = document.getElementById('essay2-input-' + idx).value.trim();
+    const resultDiv = document.getElementById('essay2-result-' + idx);
+    if(!userAnswer) {
+        resultDiv.innerHTML = '<span style="color:#999;">⚠️ 請先寫低你嘅答案！</span>';
+        resultDiv.className = 'essay2-result show'; return;
+    }
+    const result = doKeywordCheck(userAnswer, data.keywords, data.minMatch);
+    resultDiv.innerHTML = buildResultHTML(result, data.answer, 'essay2');
+    resultDiv.className = 'essay2-result show ' + (result.passed ? 'correct' : (result.partial ? 'partial' : 'wrong'));
+    if(!result.passed) {
+        addMistake({ id:'essay2-'+idx, section:'少陰病論述題', question:data.q, userAns: userAnswer.length>60 ? userAnswer.substring(0,60)+'...' : userAnswer, correctAns:data.answer, exp:'需命中關鍵詞：'+data.keywords.join('、') });
+    } else { removeMistake('essay2-'+idx); }
+}
+
+function checkAllEssay2() {
+    let correct = 0;
+    essay2Data.forEach((_, idx) => {
+        const input = document.getElementById('essay2-input-' + idx);
+        if(input && input.value.trim()) checkEssay2(idx);
+    });
+    essay2Data.forEach((_, idx) => {
+        const r = document.getElementById('essay2-result-' + idx);
+        if(r && r.classList.contains('correct')) correct++;
+    });
+    const bar = document.getElementById('essay2-score-bar');
+    bar.classList.add('show');
+    document.getElementById('essay2-total-score').textContent = `📝 論述題：${correct} / ${essay2Data.length} 題答對`;
+    const cmt = document.getElementById('essay2-total-comment');
+    const pct = Math.round(correct / essay2Data.length * 100);
+    if(pct >= 80) cmt.textContent = '🎉 非常出色！論述能力好強！';
+    else if(pct >= 60) cmt.textContent = '👍 唔錯！再充實下答案就更完整！';
+    else cmt.textContent = '💪 加油！建議睇返溫習重點再答過！';
+    bar.scrollIntoView({ behavior:'smooth', block:'center' });
 }
 </script>
 </body>
