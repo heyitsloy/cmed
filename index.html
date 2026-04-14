@@ -206,6 +206,45 @@
 .tg-final{text-align:center;padding:30px;}
 .tg-final h2{color:#6d28d9;margin-bottom:5px;}
 .tg-stars{font-size:1.5rem;margin:8px 0;}
+/* ===== OSCE 模擬考試 ===== */
+.osce-landing{text-align:center;padding:40px 20px;}
+.osce-draw-btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:18px 50px;border-radius:25px;font-size:1.3rem;font-weight:bold;cursor:pointer;transition:.3s;box-shadow:0 6px 20px rgba(239,68,68,.3);}
+.osce-draw-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 10px 30px rgba(239,68,68,.4);}
+.osce-timer-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px 20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:2px solid #fee2e2;flex-wrap:wrap;gap:10px;}
+.osce-timer{font-size:1.4rem;font-weight:bold;font-variant-numeric:tabular-nums;min-width:100px;}
+.osce-timer.warn{color:#ef4444;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.osce-timer-progress{flex:1;min-width:120px;}
+.osce-timer-track{background:#e5e7eb;height:8px;border-radius:4px;overflow:hidden;}
+.osce-timer-fill{height:100%;width:100%;background:linear-gradient(90deg,#22c55e,#16a34a);transition:width 1s linear;border-radius:4px;}
+.osce-station{background:#fff;border:2px solid #e5e7eb;border-radius:20px;margin-bottom:25px;overflow:hidden;transition:.3s;}
+.osce-station:hover{border-color:#f87171;box-shadow:0 4px 15px rgba(248,113,113,.1);}
+.osce-station-header{background:linear-gradient(135deg,#fef2f2,#fff1f2);padding:20px 25px;border-bottom:2px solid #fecaca;}
+.osce-station-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:bold;margin-bottom:8px;}
+.osce-badge-spine{background:#dbeafe;color:#1d4ed8;}
+.osce-badge-limb{background:#dcfce7;color:#166534;}
+.osce-station-name{font-size:1.4rem;font-weight:bold;color:#1f2937;margin:0;}
+.osce-station-eng{font-size:.85rem;color:#9ca3af;margin-top:2px;}
+.osce-station-region{font-size:.9rem;color:#6b7280;margin-top:5px;}
+.osce-steps{padding:20px 25px;}
+.osce-step{margin-bottom:14px;border:1px solid #f3f4f6;border-radius:12px;overflow:hidden;}
+.osce-step-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#fafafa;cursor:pointer;transition:.2s;gap:10px;}
+.osce-step-header:hover{background:#f3f4f6;}
+.osce-step-label{font-weight:bold;color:#374151;font-size:1rem;}
+.osce-step-reveal-btn{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;border:none;padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:bold;cursor:pointer;transition:.2s;white-space:nowrap;flex-shrink:0;}
+.osce-step-reveal-btn:hover{transform:scale(1.05);}
+.osce-step-reveal-btn.revealed{background:#22c55e;cursor:default;}
+.osce-step-answer{display:none;padding:14px 18px;background:#f0fdf4;border-top:2px solid #86efac;line-height:1.8;font-size:.95rem;color:#166534;white-space:pre-line;}
+.osce-step-answer.show{display:block;animation:fadeIn .3s;}
+.osce-bottom-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px;padding-bottom:10px;}
+.osce-reveal-all-btn{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border:none;padding:12px 30px;border-radius:15px;font-size:1rem;font-weight:bold;cursor:pointer;transition:.3s;}
+.osce-reveal-all-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(124,58,237,.3);}
+.osce-redraw-btn{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff;border:none;padding:12px 30px;border-radius:15px;font-size:1rem;font-weight:bold;cursor:pointer;transition:.3s;}
+.osce-redraw-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(59,130,246,.3);}
+.osce-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin:25px 0;text-align:left;}
+.osce-info-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #e5e7eb;}
+.osce-info-card h4{margin:0 0 6px;color:#374151;}
+.osce-info-card p{margin:0;color:#6b7280;font-size:.9rem;}
         
     </style>
 </head>
@@ -235,6 +274,7 @@
         </div>
         <div class="sub-menu">
             <ul class="menu-list">
+                <li><button class="menu-btn" onclick="showSection('ortho-osce', 'OSCE模擬考試')" style="color:#dc2626;font-weight:bold;background:#fef2f2;border:1px dashed #fca5a5;margin-bottom:6px;">🎯 OSCE 模擬考試</button></li>
                 <li><button class="menu-btn" onclick="showSection('ortho-general', '骨傷總論')">總論</button></li>
                 <li>
                     <details>
@@ -395,6 +435,7 @@
             <div class="dash-card card-green" onclick="showSection('tuina-sk-swing', '擺動類手法')"><h2 style="margin-top:0;">👐 推拿學</h2><p>小兒推拿、常見病及基本手法。</p></div>
             <div class="dash-card card-purple" onclick="showSection('ebp-intro', 'EBP概論')"><h2 style="margin-top:0;">📊 EBP</h2><p>循證實踐：PICO、證據等級、RCT、統計學。</p></div>
             <div class="dash-card card-orange" onclick="showSection('fd-vitals', '生命體徵')"><h2 style="margin-top:0;">🩺 Funda</h2><p>基礎護理：生命體徵、給藥、傷口、感控。</p></div>
+            <div class="dash-card" style="background:linear-gradient(135deg,#fef2f2,#ffe4e6);color:#dc2626;border-color:#fca5a5;" onclick="showSection('ortho-osce', 'OSCE模擬考試')"><h2 style="margin-top:0;">🎯 OSCE</h2><p>隨機抽籤模擬骨傷科檢查法操作考核！</p></div>
         </div>
     </div>
 
@@ -622,6 +663,60 @@
         <div class="exam-card"><h4>2. 蹠骨頭擠壓試驗</h4><div class="exam-detail"><div>一手握足跟，另一手橫行擠壓5個蹠骨頭</div><div>✅ 前足放射樣疼痛 → <strong>蹠痛病 / 扁平足 / 莫頓病</strong></div></div></div>
     </div>
 
+    <!-- ===== OSCE 模擬考試 ===== -->
+<div id="ortho-osce" class="content-section">
+    <h1 class="main-title">🎯 OSCE 模擬考試
+        <label class="study-checkbox"><input type="checkbox" class="section-cb" value="OSCE模擬考試" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
+    </h1>
+
+    <div id="osce-board">
+        <div id="osce-landing" class="osce-landing">
+            <div style="font-size:4rem;margin-bottom:10px;">🏥</div>
+            <h2 style="color:#dc2626;font-size:1.8rem;margin-bottom:5px;">骨傷科 OSCE 檢查法操作考核</h2>
+            <p style="color:#666;max-width:500px;margin:0 auto 20px;">系統會完全隨機抽取，涵蓋提綱上所有檢查項目</p>
+
+            <div class="osce-info-grid">
+                <div class="osce-info-card" style="border-left:4px solid #3b82f6;">
+                    <h4>🦴 脊柱骨盆檢查 ×2</h4>
+                    <p>頸部 · 胸腰背部 · 骨盆<br>共 11 項隨機抽 2 項</p>
+                </div>
+                <div class="osce-info-card" style="border-left:4px solid #22c55e;">
+                    <h4>💪 四肢特殊檢查 ×2</h4>
+                    <p>肩 · 肘 · 腕 · 髖 · 膝 · 踝<br>共 21 項隨機抽 2 項</p>
+                </div>
+                <div class="osce-info-card" style="border-left:4px solid #f97316;">
+                    <h4>📋 每站考核內容</h4>
+                    <p>患者體位 · 操作方法<br>陽性結果 · 傷病提示</p>
+                </div>
+            </div>
+
+            <button class="osce-draw-btn" onclick="startOSCE()">🎲 隨機抽籤，開始考試！</button>
+            <p style="color:#999;font-size:.85rem;margin-top:12px;">每次抽籤完全隨機，可無限重抽</p>
+        </div>
+
+        <div id="osce-exam" style="display:none;">
+            <div class="osce-timer-bar">
+                <span class="osce-timer" id="osce-timer-text">⏱️ 10:00</span>
+                <div class="osce-timer-progress">
+                    <div class="osce-timer-track">
+                        <div class="osce-timer-fill" id="osce-timer-fill"></div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="osce-reveal-all-btn" onclick="revealAllOSCE()" style="padding:8px 16px;font-size:.85rem;">📖 全部揭曉</button>
+                    <button class="osce-redraw-btn" onclick="resetOSCE()" style="padding:8px 16px;font-size:.85rem;">🔄 再抽一組</button>
+                </div>
+            </div>
+            <div id="osce-stations"></div>
+            <div class="osce-bottom-btns">
+                <button class="osce-reveal-all-btn" onclick="revealAllOSCE()">📖 全部揭曉答案</button>
+                <button class="osce-redraw-btn" onclick="resetOSCE()">🔄 再抽一組</button>
+                <button class="osce-redraw-btn" onclick="document.getElementById('osce-landing').style.display='block';document.getElementById('osce-exam').style.display='none';clearInterval(osceTimerInterval);" style="background:linear-gradient(135deg,#9ca3af,#6b7280);">🏠 返回抽籤頁</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
     <!-- ===== 傷寒論：少陰病 ===== -->
     <div id="sh-shaoyin" class="content-section">
         <h1 class="main-title">傷寒論：少陰病
@@ -717,44 +812,7 @@
     <div id="scramble-list"></div>
     <button class="check-scramble-btn" onclick="checkAllScramble()">批改全部填充題 ✔️</button>
 </div>
-
-            <div class="scramble-item" id="scramble-1">
-                <strong>1. 少陰病提綱（281）：</strong><br>
-                「少陰之為病，脈 <input type="text" maxlength="1" data-ans="微" class="blank-input"><input type="text" maxlength="1" data-ans="細" class="blank-input">，<input type="text" maxlength="1" data-ans="但" class="blank-input"><input type="text" maxlength="1" data-ans="欲" class="blank-input"><input type="text" maxlength="1" data-ans="寐" class="blank-input">也。」
-                <button class="hint-btn" onclick="toggleHint('hint1')">🔔 提示</button>
-                <div id="hint1" class="hint-box">少陰病最核心的虛寒脈象＋精神極度疲倦似睡非睡的狀態。</div>
-            </div>
-
-            <div class="scramble-item" id="scramble-2">
-                <strong>2. 陽虛陰盛證（323）：</strong><br>
-                「少陰病，脈 <input type="text" maxlength="1" data-ans="沉" class="blank-input"> 者，<input type="text" maxlength="1" data-ans="急" class="blank-input"><input type="text" maxlength="1" data-ans="溫" class="blank-input"> 之，宜 <input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input">。」
-                <button class="hint-btn" onclick="toggleHint('hint2')">🔔 提示</button>
-                <div id="hint2" class="hint-box">脈沉＝邪已入裡。「急○之」把握時機，用回陽救逆基礎方。</div>
-            </div>
-
-            <div class="scramble-item" id="scramble-3">
-                <strong>3. 陰盛格陽證（317）：</strong><br>
-                「少陰病，下利清穀，裏寒外熱，手足厥逆，脈微欲絕，身反不惡寒，其人面色赤... <input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="脈" class="blank-input"><input type="text" maxlength="1" data-ans="四" class="blank-input"><input type="text" maxlength="1" data-ans="逆" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」
-                <button class="hint-btn" onclick="toggleHint('hint3')">🔔 提示</button>
-                <div id="hint3" class="hint-box">格陽更重→加大劑量。方名 = ○○四逆湯。</div>
-            </div>
-
-            <div class="scramble-item" id="scramble-4">
-                <strong>4. 陰盛戴陽證（314）：</strong><br>
-                「少陰病，下利，<input type="text" maxlength="1" data-ans="白" class="blank-input"><input type="text" maxlength="1" data-ans="通" class="blank-input"><input type="text" maxlength="1" data-ans="湯" class="blank-input"> 主之。」
-                <button class="hint-btn" onclick="toggleHint('hint4')">🔔 提示</button>
-                <div id="hint4" class="hint-box">戴陽證用蔥白＋乾薑＋附子，方名兩字＋湯。</div>
-            </div>
-
-            <div class="scramble-item" id="scramble-5">
-                <strong>5. 四逆湯組成：</strong><br>
-                甘草（炙）、<input type="text" maxlength="1" data-ans="乾" class="blank-input"><input type="text" maxlength="1" data-ans="薑" class="blank-input">、<input type="text" maxlength="1" data-ans="附" class="blank-input"><input type="text" maxlength="1" data-ans="子" class="blank-input">（生用）。
-                <button class="hint-btn" onclick="toggleHint('hint5')">🔔 提示</button>
-                <div id="hint5" class="hint-box">附子溫腎回陽；○○溫脾散寒；甘草調中補虛。</div>
-            </div>
-
-            <button class="check-scramble-btn" onclick="checkAllScramble()">批改填充題 ✔️</button>
-        </div>
+        
 <!-- ★ NEW: (四) 簡答題 ★ -->
 <div class="sa-section" id="sa-shaoyin">
     <h3>📋（四）簡答題訓練（關鍵詞自動批改）</h3>
@@ -1191,7 +1249,7 @@ const allQuizData = {
         { section:"B-咽痛", q:"【B-17】少陰病，咽中傷生瘡不能語言聲不出者，最佳用方：", opts:["豬膚湯","半夏散及湯","桔梗湯","甘草湯","苦酒湯"], ans:4, exp:"咽中傷生瘡＋聲不出→苦酒湯。" },] },
     'shaft': { title: "🦴 肱骨幹骨折", questions: [{ section:"併發症", q:"中下1/3易傷哪條神經？", opts:["正中","尺","橈","腋"], ans:2, exp:"橈神經→垂腕。" }] },
     'supra': { title: "🦴 肱骨髁上骨折", questions: [{ section:"鑒別", q:"與脫位鑒別點？", opts:["壓痛","骨擦音","肘三角關係是否改變","腫脹"], ans:2, exp:"骨折不改變肘三角。" }] },
-    'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] },
+    'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] }
 };
 
 const quizStates = {};
@@ -1584,6 +1642,300 @@ function attachBlankInputHandlers(){
         input.addEventListener('compositionend',()=>{isComposing=false;if(input.value.length>=1&&index+1<inputs.length)inputs[index+1].focus();});
         input.addEventListener('input',()=>{if(!isComposing&&input.value.length>=1&&index+1<inputs.length)inputs[index+1].focus();});
     });
+}
+// ============================================================
+//  OSCE 模擬考試
+// ============================================================
+
+const osceSpine = [
+    {name:"分離試驗",eng:"Cervical separation test",region:"頸部",
+     position:"坐位",
+     method:"檢查者一手托住患者頦下部，另一手托住枕部，然後逐漸向上牽引頭部。",
+     positive:"如患者感到頸部和上肢的疼痛減輕，即為陽性。",
+     indication:"神經根型頸椎病"},
+
+    {name:"椎間孔擠壓試驗",eng:"Spurling's test",region:"頸部",
+     position:"坐位",
+     method:"檢查者雙手手指相扣，以手掌面壓於患者頭頂部，同時向左右或前後屈伸頸椎。",
+     positive:"若出現頸部或上肢放射痛加重，即為陽性。",
+     indication:"神經根型頸椎病或頸椎間盤突出症"},
+
+    {name:"臂叢神經牽拉試驗",eng:"Eaton's test",region:"頸部",
+     position:"坐位，頭微屈",
+     method:"檢查者立於患者被檢查側，一手推頭部向對側，同時另一手握該側腕部作相對牽引，此時臂叢神經受牽拉。",
+     positive:"若患肢出現放射痛、麻木，則為陽性。",
+     indication:"神經根型頸椎病"},
+
+    {name:"壓胸試驗",eng:"Chest compression test",region:"胸腰背部",
+     position:"坐位或站立位",
+     method:"檢查者兩手一手抵住其脊柱，另一手壓迫胸骨，輕輕的相對擠壓。",
+     positive:"若在胸側壁上某處出現疼痛，即為陽性。",
+     indication:"肋骨骨折"},
+
+    {name:"直腿抬高試驗",eng:"Lasègue's sign",region:"胸腰背部",
+     position:"仰臥位，兩下肢伸直靠攏",
+     method:"檢查者用一手握患者踝部，一手扶膝保持下肢伸直，逐漸抬高患者下肢。正常者可以抬高70°-90°而無任何不適感覺。\n\n【加強試驗 Bragard test】：直腿抬高到最大限度但尚未引起疼痛的一點，在患者不注意的情況下，突然將踝關節背屈。",
+     positive:"若小於70°-90°即感該下肢有傳導性疼痛或麻木者為陽性。\n\n【加強試驗陽性】：坐骨神經受到突然地牽拉更為緊張，而引起患肢後側放射性的劇痛，即為陽性。",
+     indication:"坐骨神經痛、腰椎間盤突出症"},
+
+    {name:"股神經牽拉試驗",eng:"Ely test",region:"胸腰背部",
+     position:"俯臥位",
+     method:"患者俯臥位，膝關節完全屈曲，足跟接近臀部，後伸髖關節，股神經受到牽拉。",
+     positive:"患者出現大腿前方疼痛者為陽性。",
+     indication:"上腰部椎間盤突出"},
+
+    {name:"骨盆擠壓分離試驗",eng:"Pelvic compression test",region:"骨盆",
+     position:"仰臥位或側臥位",
+     method:"檢查者用雙手分別置於髂骨翼兩側同時向中線擠壓骨盆；或者患者側臥位，檢查者擠壓其上方髂棘。\n\n分離：檢查者兩手分別置於兩側髂前上棘前面，兩手同時向外下方推壓。",
+     positive:"患處出現疼痛為陽性。",
+     indication:"骨盆骨折、骶髂關節病變"},
+
+    {name:"屈膝屈髖試驗",eng:"Knee-hip flexion test",region:"骨盆",
+     position:"仰臥位，雙腿靠攏",
+     method:"檢查者囑其盡量屈曲髖、膝關節，檢查者也可兩手推膝使髖、膝關節盡量屈曲，使臀部離開床面，腰部被動前屈。單側檢查方法相同。",
+     positive:"腰骶部發生疼痛，即為陽性。",
+     indication:"腰骶部病變（腰扭傷、勞損、腰椎關節腰骶關節、骶髂關節病變）"},
+
+    {name:"梨狀肌緊張試驗",eng:"Piriformis muscular tension test",region:"骨盆",
+     position:"仰臥位，伸直患肢",
+     method:"患肢伸直，作內收內旋轉動作，若有坐骨神經放射痛，再迅速外展外旋患肢。",
+     positive:"下肢放射痛立刻緩解，即為陽性。",
+     indication:"梨狀肌綜合徵"},
+
+    {name:"髖外展外旋試驗（4字試驗）",eng:"Patrick's test",region:"骨盆",
+     position:"仰臥位，被檢查側下肢膝關節屈曲，髖關節屈曲外展、外旋",
+     method:"將足架在另一側膝關節上，使雙下肢呈4字形。檢查者一手放在屈曲的膝關節內側，另一手放在對側髂前上棘前面，然後兩手向下按壓。",
+     positive:"若被檢查側骶髂關節處出現疼痛即為陽性。",
+     indication:"骶髂關節病變"},
+
+    {name:"斜扳試驗",eng:"Oblique pulling test",region:"骨盆",
+     position:"側臥位，下面腿伸直，上面腿屈髖、屈膝各90°",
+     method:"檢查者一手將肩部推向背側，另一手推上面膝部向腹側，內收並內旋該側髖關節，使骨盆內旋。",
+     positive:"若發生骶髂關節疼痛即為陽性。",
+     indication:"該側骶髂關節有病變"}
+];
+
+const osceLimb = [
+    {name:"搭肩試驗",eng:"Dugas' sign",region:"肩部",
+     position:"坐位或立位",
+     method:"肘關節取屈曲位，將手搭於對側肩部。",
+     positive:"如果手能夠搭於對側肩部，且肘部能貼近胸壁即為正常。\n如果手能夠搭於對側肩部，但肘部不能貼近胸壁；或者肘部能貼近胸壁，但手不能夠搭於對側肩部，均為陽性體徵。",
+     indication:"肩關節脫位"},
+
+    {name:"肱二頭肌抗阻力試驗",eng:"Biceps resistance test",region:"肩部",
+     position:"坐位或立位",
+     method:"囑患者屈肘90°，檢查者一手扶住患者肘部，一手扶住腕部，囑患者用力屈肘、外展、外旋，檢查者拉前臂對抗屈肘。",
+     positive:"如果結節間溝處疼痛為陽性。",
+     indication:"肱二頭肌肌腱滑脫或肱二頭肌長頭肌腱炎"},
+
+    {name:"疼痛弧試驗",eng:"Painful arc test",region:"肩部",
+     position:"坐位或站立位",
+     method:"囑患者肩外展或被動外展其上肢。",
+     positive:"當肩外展到60°～120°範圍時，肩部出現疼痛為陽性。這一特定區域的外展痛稱為疼痛弧。",
+     indication:"肩峰下的肩袖有病變"},
+
+    {name:"岡上肌腱斷裂試驗",eng:"Supraspinatus tear test",region:"肩部",
+     position:"坐位或站立位",
+     method:"囑患者肩外展。",
+     positive:"當外展30°～60°時，可以看到患側三角肌明顯收縮，但不能外展上舉上肢，越用力越聳肩。若被動外展患肢超過60°，則患者又能主動上舉上肢，這一特定區域的外展障礙即為陽性徵。",
+     indication:"岡上肌腱斷裂或撕裂"},
+
+    {name:"腕伸肌緊張（抗阻力）試驗",eng:"Cozen's Test",region:"肘部",
+     position:"任意體位",
+     method:"囑患者屈腕屈指，檢查者將手壓於各手指的背側作對抗，再囑患者抗阻力伸指及背伸腕關節。",
+     positive:"如出現肱骨外上髁疼痛即為陽性。",
+     indication:"肱骨外上髁炎（Tennis Elbow）"},
+
+    {name:"腕伸肌腱牽拉試驗",eng:"Mill's sign",region:"肘部",
+     position:"任意體位",
+     method:"檢查者一手置於肱骨外上髁，然後另一手使患者肘關節伸直，前臂旋前，腕關節屈曲。",
+     positive:"若患者肱骨外上髁區出現疼痛，則為陽性。",
+     indication:"肱骨外上髁炎，即網球肘"},
+
+    {name:"腕屈肌緊張試驗",eng:"Golfer's elbow test",region:"肘部",
+     position:"任意體位",
+     method:"囑患者握住檢查者的手指，強力伸腕握拳，檢查者手指與患者握力對抗。",
+     positive:"如肱骨內上髁部疼痛為陽性。",
+     indication:"肱骨內上髁炎（Golf Elbow）"},
+
+    {name:"叩診試驗",eng:"Tinel Test",region:"肘部",
+     position:"任意體位",
+     method:"用手指或叩診錘自遠端向病變區輕叩神經幹。",
+     positive:"可在該神經分布區的肢體遠端產生如螞蟻走行或刺痛等異樣感覺，這是神經再生或機能恢復的症狀。",
+     indication:"用以檢查再生的感覺神經，另外也用來檢查有無神經瘤"},
+
+    {name:"肘三角與肘直線試驗",eng:"Elbow triangle test",region:"肘部",
+     position:"任意體位",
+     method:"屈肘和伸肘，觀察肘部的骨性標記肱骨內上髁、外上髁與尺骨鷹嘴突。",
+     positive:"正常人肘關節屈曲90°時，肱骨內上髁、外上髁與尺骨鷹嘴突三點形成一個等腰三角形，稱為肘三角；肘關節伸直時，三點在一條直線上，稱為肘直線。\n三角形狀改變，伸直時三點不在一條直線上，即為陽性。",
+     indication:"肘關節脫位或有關節內骨折"},
+
+    {name:"握拳試驗（尺偏試驗）",eng:"Finkelstein test",region:"腕部",
+     position:"任意體位",
+     method:"囑患者拇指內收，然後屈曲其餘各指，在緊握拳後向尺側傾斜屈曲。",
+     positive:"若橈骨莖突部出現疼痛，即為陽性。",
+     indication:"橈骨莖突部狹窄性腱鞘炎"},
+
+    {name:"舟骨叩擊試驗",eng:"Scaphoid percussion test",region:"腕部",
+     position:"任意體位",
+     method:"使患手偏向橈側，叩擊第3掌骨頭部。",
+     positive:"若舟骨骨折時，可產生劇烈的叩擊痛。有時叩擊第2掌骨頭時也可出現劇烈疼痛，即為陽性。",
+     indication:"手舟狀骨骨折"},
+
+    {name:"屈腕試驗",eng:"Phalen test",region:"腕部",
+     position:"坐位",
+     method:"屈肘，前臂上舉，雙腕關節同時屈曲90°，1分鐘內。",
+     positive:"患側會誘發出正中神經刺激症狀，即橈側三個半手指疼痛或麻木的感覺過敏或遲鈍為陽性，陽性率為70%左右。",
+     indication:"腕管綜合症"},
+
+    {name:"指淺屈肌試驗",eng:"Flexor digitorum superficialis test",region:"腕部",
+     position:"任意體位",
+     method:"將患者的手指固定於伸直位，然後囑患者屈曲需要檢查的手指的近節指間關節，這樣可以使指淺屈肌單獨運動。",
+     positive:"如果關節屈曲正常，則表明指淺屈肌是完整的；若不能屈曲，則該肌腱有斷裂。",
+     indication:"指淺屈肌肌腱斷裂"},
+
+    {name:"指深屈肌試驗",eng:"Flexor digitorum profundus test",region:"腕部",
+     position:"任意體位",
+     method:"將患者掌指關節和近端指間關節固定在伸直位，然後讓患者屈曲遠端指間關節。",
+     positive:"若能正常屈曲，則表明該肌腱有功能；若不能屈曲，則該肌腱可能有斷裂或該肌肉的神經支配發生障礙。",
+     indication:"指深屈肌肌腱斷裂或神經損傷"},
+
+    {name:"髖關節過伸試驗",eng:"Yeoman's Test",region:"髖部",
+     position:"俯臥位",
+     method:"屈膝90°，檢查者一手握住踝部，將下肢提起，使髖關節過伸。",
+     positive:"若骨盆亦隨之抬起，即為陽性。",
+     indication:"腰大肌膿腫、髖關節早期結核或關節強直"},
+
+    {name:"迴旋擠壓試驗",eng:"McMurray's test",region:"膝部",
+     position:"仰臥位",
+     method:"使患側髖關節和膝關節充分屈曲，盡量使足跟碰觸臀部。\n\n檢查內側半月板時：一手握住膝部以穩定大腿，另一手握住足部使小腿在充分內收、外旋位伸直。\n\n檢查外側半月板時：使小腿充分外展、內旋位伸直膝關節。",
+     positive:"在伸直過程中，股骨髁經過半月板損傷部位時，因產生摩擦可感觸到或聽到彈響聲，同時患者感覺膝關節內側（或外側）有彈響和疼痛。",
+     indication:"半月板損傷"},
+
+    {name:"擠壓研磨試驗",eng:"Apley's test",region:"膝部",
+     position:"俯臥位",
+     method:"患者膝關節屈曲90°，檢查者用小腿壓在患者大腿下端後側作固定，雙手握住足跟。\n\n①沿小腿縱軸方向施加壓力的同時作小腿的外展外旋或內收內旋活動。\n②提起小腿作外展外旋或內收內旋活動。",
+     positive:"①向下擠壓＋旋轉時疼痛或彈響 → 半月板損傷\n②向上提起＋旋轉時疼痛 → 側副韌帶損傷",
+     indication:"外側或內側半月板損傷 / 外側或內側副韌帶損傷"},
+
+    {name:"膝關節抽屜試驗",eng:"Drawer test",region:"膝部",
+     position:"坐位或仰臥位",
+     method:"患者膝關節屈曲90°，檢查者臀部坐於患肢足背，雙手握住患者小腿上段推拉。",
+     positive:"如能明顯拉向前方約1cm → 前抽屜試驗陽性（前交叉韌帶損傷）\n若能推向後約1cm → 後抽屜試驗陽性（後交叉韌帶損傷）\n若前後均能推拉1cm → 前後交叉韌帶損傷",
+     indication:"前交叉韌帶損傷 / 後交叉韌帶損傷"},
+
+    {name:"側方擠壓試驗（膝關節分離試驗）",eng:"Knee valgus stress test",region:"膝部",
+     position:"臥位或坐位伸膝位",
+     method:"患者伸膝並固定大腿，檢查者用一手握住踝部，另一手扶住膝部，膝關節在伸直時，作被動外翻或內翻動作。",
+     positive:"如果出現疼痛或內翻外翻角度超出正常範圍為陽性。",
+     indication:"側副韌帶損傷或斷裂"},
+
+    {name:"伸踝試驗",eng:"Homans' test",region:"踝部",
+     position:"臥位或坐位",
+     method:"檢查者讓患者伸直小腿，然後用力背伸踝關節。",
+     positive:"如小腿肌肉發生疼痛，即為陽性。在小腿肌肉深部觸診時出現疼痛，進一步證實。",
+     indication:"小腿深靜脈血栓性炎（DVT）"},
+
+    {name:"蹠骨頭擠壓試驗",eng:"Metatarsal squeeze test",region:"踝部",
+     position:"坐位或臥位",
+     method:"檢查者一手握住足跟部，另一手橫行擠壓5個蹠骨頭。",
+     positive:"若出現前足放射樣疼痛者為陽性。",
+     indication:"蹠痛病、扁平足、莫頓病（Morton's disease）"}
+];
+
+let osceTimerInterval = null;
+let osceTimeLeft = 0;
+let osceTimerTotal = 600;
+
+function shuffleArr(arr){
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+    return a;
+}
+
+function startOSCE(){
+    const sp=shuffleArr(osceSpine).slice(0,2);
+    const lm=shuffleArr(osceLimb).slice(0,2);
+    const stations=[
+        {num:1,type:'脊柱骨盆',badge:'osce-badge-spine',data:sp[0]},
+        {num:2,type:'脊柱骨盆',badge:'osce-badge-spine',data:sp[1]},
+        {num:3,type:'四肢',badge:'osce-badge-limb',data:lm[0]},
+        {num:4,type:'四肢',badge:'osce-badge-limb',data:lm[1]}
+    ];
+
+    document.getElementById('osce-landing').style.display='none';
+    document.getElementById('osce-exam').style.display='block';
+
+    document.getElementById('osce-stations').innerHTML=stations.map((s,idx)=>`
+        <div class="osce-station">
+            <div class="osce-station-header">
+                <span class="osce-station-badge ${s.badge}">第 ${s.num} 站：${s.type}檢查</span>
+                <div class="osce-station-name">${s.data.name}</div>
+                <div class="osce-station-eng">${s.data.eng}</div>
+                <div class="osce-station-region">📍 ${s.data.region}</div>
+            </div>
+            <div class="osce-steps">
+                ${osceStep(idx,0,'1️⃣ 請說出患者體位',s.data.position)}
+                ${osceStep(idx,1,'2️⃣ 請演示操作方法（口述/模擬操作）',s.data.method)}
+                ${osceStep(idx,2,'3️⃣ 請說出陽性結果',s.data.positive)}
+                ${osceStep(idx,3,'4️⃣ 請說出傷病提示',s.data.indication)}
+            </div>
+        </div>`).join('');
+
+    osceTimerTotal=600;
+    startOSCETimer(osceTimerTotal);
+    document.getElementById('osce-exam').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function osceStep(si,sti,label,answer){
+    const aid='osce-a-'+si+'-'+sti, bid='osce-b-'+si+'-'+sti;
+    return `<div class="osce-step">
+        <div class="osce-step-header" onclick="revealOSCEStep('${aid}','${bid}')">
+            <span class="osce-step-label">${label}</span>
+            <button class="osce-step-reveal-btn" id="${bid}">已完成，顯示答案 👆</button>
+        </div>
+        <div class="osce-step-answer" id="${aid}">${answer}</div>
+    </div>`;
+}
+
+function revealOSCEStep(aid,bid){
+    const a=document.getElementById(aid),b=document.getElementById(bid);
+    if(!a||a.classList.contains('show'))return;
+    a.classList.add('show');
+    b.textContent='✅ 已揭曉';
+    b.classList.add('revealed');
+}
+
+function revealAllOSCE(){
+    document.querySelectorAll('.osce-step-answer').forEach(el=>el.classList.add('show'));
+    document.querySelectorAll('.osce-step-reveal-btn').forEach(b=>{b.textContent='✅ 已揭曉';b.classList.add('revealed');});
+}
+
+function resetOSCE(){
+    clearInterval(osceTimerInterval);
+    startOSCE();
+}
+
+function startOSCETimer(sec){
+    clearInterval(osceTimerInterval);
+    osceTimeLeft=sec;
+    updateOSCETimer();
+    osceTimerInterval=setInterval(()=>{
+        osceTimeLeft--;
+        updateOSCETimer();
+        if(osceTimeLeft<=0){clearInterval(osceTimerInterval);document.getElementById('osce-timer-text').textContent='⏰ 時間到！';}
+    },1000);
+}
+
+function updateOSCETimer(){
+    const m=Math.floor(osceTimeLeft/60),s=osceTimeLeft%60;
+    const el=document.getElementById('osce-timer-text');
+    if(!el)return;
+    el.textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(osceTimeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');
+    const pct=Math.max(0,osceTimeLeft/osceTimerTotal*100);
+    const fill=document.getElementById('osce-timer-fill');
+    if(fill){fill.style.width=pct+'%';fill.style.background=osceTimeLeft<=60?'#ef4444':'linear-gradient(90deg,#22c55e,#16a34a)';}
 }
 </script>
 </body>
