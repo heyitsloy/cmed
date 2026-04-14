@@ -1240,7 +1240,6 @@ const allQuizData = {
     'both': { title: "🦴 橈尺雙骨折", questions: [{ section:"目標", q:"最重要恢復？", opts:["手指屈伸","肘屈伸","前臂旋轉","腕側偏"], ans:2, exp:"防交叉癒合。" }] }
 };
 
-<script>
 // ===== 少陰病 Quiz 分類系統 =====
 const shaoyinCats = {
     all:      {name:'全部題目',      emoji:'📚', color:'#5aa493', desc:'所有題目一起做'},
@@ -1287,12 +1286,12 @@ const shaoyinQMap = [
 
 // 當前選中的分類
 let shaoyinSelectedCat = null;
-</script>
+
     
 const quizStates = {};
 for(let k in allQuizData) quizStates[k] = { currentQ:0, score:0, answered:new Array(allQuizData[k].questions.length).fill(null), started:false, showingResults:false };
 
-<script>
+
 // 替換原有的 renderQuizApp 函數
 function renderQuizApp(id) {
     const app = document.getElementById('quiz-' + id); if(!app) return;
@@ -1419,7 +1418,7 @@ function restartQuiz(id) {
     shaoyinSelectedCat = null;
     renderQuizApp(id);
 }
-</script>
+
 
 window.onload = () => {
     document.querySelectorAll('.section-cb').forEach(cb => { if(progressData[cb.value]?.checked) cb.checked = true; });
@@ -1783,7 +1782,7 @@ function attachBlankInputHandlers(){
         input.addEventListener('input',()=>{if(!isComposing&&input.value.length>=1&&index+1<inputs.length)inputs[index+1].focus();});
     });
 }
-<script>
+
 // ============================================================
 //  OSCE 模擬考試（加權隨機 + 兩部分各5分鐘）
 // ============================================================
@@ -1926,6 +1925,6 @@ function revealAllOSCE(){document.querySelectorAll('#osce-stations .osce-step-an
 function resetOSCE(){clearInterval(osceTimerInterval);startOSCE();}
 function startOSCETimer(sec){clearInterval(osceTimerInterval);osceTimeLeft=sec;updateOSCETimer();osceTimerInterval=setInterval(()=>{osceTimeLeft--;updateOSCETimer();if(osceTimeLeft<=0){clearInterval(osceTimerInterval);document.getElementById('osce-timer-text').textContent=oscePhase===1?'⏰ 脊柱骨盆時間到！':'⏰ 四肢時間到！考試結束！';}},1000);}
 function updateOSCETimer(){const m=Math.floor(osceTimeLeft/60),s=osceTimeLeft%60,el=document.getElementById('osce-timer-text');if(!el)return;el.textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(osceTimeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');const pct=Math.max(0,osceTimeLeft/osceTimerTotal*100),fill=document.getElementById('osce-timer-fill');if(fill){fill.style.width=pct+'%';fill.style.background=osceTimeLeft<=60?'#ef4444':'linear-gradient(90deg,#22c55e,#16a34a)';}}
-</script>
+
 </body>
 </html>
