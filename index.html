@@ -1925,6 +1925,6 @@ function revealAllOSCE(){document.querySelectorAll('#osce-stations .osce-step-an
 function resetOSCE(){clearInterval(osceTimerInterval);startOSCE();}
 function startOSCETimer(sec){clearInterval(osceTimerInterval);osceTimeLeft=sec;updateOSCETimer();osceTimerInterval=setInterval(()=>{osceTimeLeft--;updateOSCETimer();if(osceTimeLeft<=0){clearInterval(osceTimerInterval);document.getElementById('osce-timer-text').textContent=oscePhase===1?'⏰ 脊柱骨盆時間到！':'⏰ 四肢時間到！考試結束！';}},1000);}
 function updateOSCETimer(){const m=Math.floor(osceTimeLeft/60),s=osceTimeLeft%60,el=document.getElementById('osce-timer-text');if(!el)return;el.textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(osceTimeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');const pct=Math.max(0,osceTimeLeft/osceTimerTotal*100),fill=document.getElementById('osce-timer-fill');if(fill){fill.style.width=pct+'%';fill.style.background=osceTimeLeft<=60?'#ef4444':'linear-gradient(90deg,#22c55e,#16a34a)';}}
-
+</script>
 </body>
 </html>
