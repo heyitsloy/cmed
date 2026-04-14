@@ -245,6 +245,14 @@
 .osce-info-card{background:#fff;border-radius:12px;padding:18px;border:1px solid #e5e7eb;}
 .osce-info-card h4{margin:0 0 6px;color:#374151;}
 .osce-info-card p{margin:0;color:#6b7280;font-size:.9rem;}
+
+  /* 少陰病練習模式選擇器 */
+.shaoyin-mode-selector { background: linear-gradient(135deg, #fef9f0, #fff5eb); border: 2px solid #f5d5c0; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+.shaoyin-mode-selector h3 { color: #d48a6e; margin-top: 0; text-align: center; border-bottom: 2px dashed #f5d5c0; padding-bottom: 10px; }
+.shaoyin-mode-btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.shaoyin-mode-btn { padding: 10px 20px; border-radius: 25px; border: 2px solid #e0d0c0; background: white; color: #888; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.shaoyin-mode-btn:hover { border-color: #d48a6e; color: #d48a6e; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(212,138,110,0.2); }
+.shaoyin-mode-btn.active { background: linear-gradient(135deg, #e09f86, #d48a6e); color: white; border-color: #d48a6e; box-shadow: 0 4px 10px rgba(212,138,110,0.3); }      
         
     </style>
 </head>
@@ -1242,46 +1250,111 @@ const allQuizData = {
 
 // ===== 少陰病 Quiz 分類系統 =====
 const shaoyinCats = {
-    all:      {name:'全部題目',      emoji:'📚', color:'#5aa493', desc:'所有題目一起做'},
-    general:  {name:'少陰病總論',    emoji:'📖', color:'#3b82f6', desc:'概說、提綱、鑒別、治禁'},
-    sini:     {name:'四逆湯證系列',  emoji:'🔥', color:'#dc2626', desc:'陽虛陰盛 · 格陽 · 戴陽 · 豬膽汁'},
-    zhenwu:   {name:'真武湯/附子湯', emoji:'💧', color:'#0891b2', desc:'陽虛水泛 · 寒濕身痛'},
-    wuzhuyu:  {name:'吳茱萸湯',      emoji:'🌪️', color:'#7c3aed', desc:'寒逆劇吐'},
-    taohua:   {name:'桃花湯',        emoji:'🌸', color:'#ec4899', desc:'下焦滑脫失禁'},
-    huanglian:{name:'黃連阿膠湯',    emoji:'❤️‍🔥', color:'#ea580c', desc:'陰虛火旺·心腎不交'},
-    zhuling:  {name:'豬苓湯',        emoji:'🌊', color:'#0d9488', desc:'陰虛水熱互結'}
+    all:      {name:'全部 78 題',       emoji:'📚', color:'#5aa493', desc:'所有題目一起做'},
+    general:  {name:'總論·提綱·鑒別',   emoji:'📖', color:'#3b82f6', desc:'概說、提綱、鑒別、治禁、預後'},
+    sini:     {name:'四逆湯證',         emoji:'🔥', color:'#dc2626', desc:'陽虛陰盛·回陽救逆'},
+    tongmai:  {name:'通脈四逆湯證',     emoji:'🌋', color:'#b91c1c', desc:'陰寒格陽於外·破陰回陽'},
+    baitong:  {name:'白通湯系列',       emoji:'🧅', color:'#c2410c', desc:'戴陽(格陽於上)·豬膽汁反佐'},
+    fuzi:     {name:'附子湯證',         emoji:'💪', color:'#0369a1', desc:'陽虛寒濕·身體骨節痛'},
+    zhenwu:   {name:'真武湯證',         emoji:'💧', color:'#0891b2', desc:'腎陽虧虛·水氣泛濫'},
+    taohua:   {name:'桃花湯證',         emoji:'🌸', color:'#ec4899', desc:'脾腎陽虛·滑脫不禁'},
+    huanglian:{name:'黃連阿膠湯證',     emoji:'❤️‍🔥', color:'#ea580c', desc:'少陰熱化·陰虛火旺'},
+    zhuling:  {name:'豬苓湯證',         emoji:'🌊', color:'#0d9488', desc:'陰虛水熱互結'},
+    wuzhuyu:  {name:'吳茱萸湯證',       emoji:'🌪️', color:'#7c3aed', desc:'寒邪犯胃·濁陰上逆'}
 };
 
 // 每題的分類映射（對應 allQuizData.shaoyin.questions 的索引）
 const shaoyinQMap = [
-    'general','general','general','general','general','general','general','general','general', // 0-8
-    'general','general','general', // 9-11 提綱
-    'general','general','general', // 12-14 寒化辨證
-    'general','general','general', // 15-17 鑒別
-    'sini','sini','sini', // 18-20 陽虛陰盛
-    'sini','sini','sini','sini', // 21-24 格陽
-    'sini','sini','sini', // 25-27 戴陽
-    'sini','sini','sini','sini', // 28-31 豬膽汁
-    'sini','sini', // 32-33 方劑比較
-    'general','general','general','general','general','general', // 34-39
-    'general','general', // 40-41 寒盛
-    'general','general', // 42-43 治禁
-    'sini','sini', // 44-45 格陽加減
-    'huanglian', // 46 熱化
-    'sini','sini', // 47-48
-    'general','general','general','general','general','general', // 49-54 A1總論
-    'sini','sini','sini','sini','sini', // 55-59 A1四逆系列
-    'sini','sini','sini','sini','sini', // 60-64
-    'zhenwu','zhenwu', // 65-66 附子湯真武湯
-    'sini','huanglian','taohua','zhenwu','general','zhuling','zhenwu','sini','sini','zhenwu', // 67-76 A2病例
-    'zhuling','huanglian', // 77-78 B不得眠
-    'general','zhuling', // 79-80 B下利
-    'zhenwu','zhenwu', // 81-82 B組成
-    'sini','sini', // 83-84 B病機
-    'zhuling','general', // 85-86 B口渴
-    'sini','zhenwu', // 87-88 B治法
-    'wuzhuyu','sini','general', // 89-91 B選方
-    'general','general' // 92-93 B咽痛
+    // 0-4: 概說、分類
+    'general','general','general','general','general',
+    // 5: 寒化代表方→四逆湯 | 6: 熱化代表方→黃連阿膠湯
+    'sini','huanglian',
+    // 7-8: 治禁、預後
+    'general','general',
+    // 9-11: 提綱(281條)
+    'general','general','general',
+    // 12-14: 寒化辨證(欲吐不吐/自利而渴/小便色白)
+    'general','general','general',
+    // 15-17: 鑒別(少陰vs太陰/寒化vs熱化/寒利vs厥陰)
+    'general','general','general',
+    // 18-20: 四逆湯(急溫之/組成/藥效)
+    'sini','sini','sini',
+    // 21-24: 通脈四逆湯·格陽(317條/與四逆關係/面赤加減/格陽vs陽明)
+    'tongmai','tongmai','tongmai','tongmai',
+    // 25-27: 白通湯·戴陽(特徵/組成/蔥白作用)
+    'baitong','baitong','baitong',
+    // 28-31: 白通加豬膽汁湯(格拒原因/治法/人尿豬膽汁/脈暴出)
+    'baitong','baitong','baitong','baitong',
+    // 32-33: 方劑比較(三方共同藥物/由輕到重)
+    'general','general',
+    // 34-36: 綜合(脈細/282條心煩/實則太陽虛則少陰)
+    'general','general','general',
+    // 37: 成因
+    'general',
+    // 38-39: 概說(腎的地位/病位病性)
+    'general','general',
+    // 40-41: 寒盛(283條脈緊汗出/咽痛)
+    'general','general',
+    // 42-43: 治禁(285條/286條)
+    'general','general',
+    // 44-45: 通脈四逆湯加減(咽痛/利止脈不出)
+    'tongmai','tongmai',
+    // 46: 熱化病機→黃連阿膠湯
+    'huanglian',
+    // 47-48: 四逆湯(陽衰症狀/現代應用)
+    'sini','sini',
+    // 49-54: A1教材總論題(Q1提綱/Q2脈證/Q3形悉具/Q4脈象/Q5口渴/Q6原文)
+    'general','general','general','general','general','general',
+    // 55-56: A1四逆湯(Q7甘草/Q8脈證)
+    'sini','sini',
+    // 57-59: A1通脈四逆湯(Q10加減/Q11病機/Q12辨證)
+    'tongmai','tongmai','tongmai',
+    // 60-62: A1白通湯系列(Q14相同藥物/Q15白通病機/Q16豬膽汁病機)
+    'baitong','baitong','baitong',
+    // 63: A1虛陽外越(general辨識)
+    'general',
+    // 64: A1附子用量最大→通脈四逆湯
+    'tongmai',
+    // 65: A1附子湯組成
+    'fuzi',
+    // 66: A1真武湯病機
+    'zhenwu',
+    // 67-76: A2臨床病例
+    'sini',       // 病例1→四逆湯
+    'huanglian',  // 病例2→黃連阿膠湯
+    'taohua',     // 病例3→桃花湯
+    'fuzi',       // 病例4→附子湯
+    'general',    // 病例5→大承氣湯(三急下)
+    'zhuling',    // 病例6→豬苓湯
+    'fuzi',       // 病例7→附子湯
+    'sini',       // 病例8→四逆湯
+    'tongmai',    // 病例9→通脈四逆湯
+    'zhenwu',     // 病例10→真武湯
+    // 77-78: B型·不得眠
+    'zhuling',    // B-1豬苓湯
+    'huanglian',  // B-2黃連阿膠湯
+    // 79-80: B型·下利
+    'general',    // B-3熱結旁流(三急下)
+    'zhuling',    // B-4豬苓湯
+    // 81-82: B型·組成
+    'fuzi',       // B-5附子湯
+    'zhenwu',     // B-6真武湯
+    // 83-84: B型·病機
+    'baitong',    // B-7白通湯
+    'sini',       // B-8四逆湯
+    // 85-86: B型·口渴
+    'zhuling',    // B-9豬苓湯
+    'general',    // B-10自利而渴
+    // 87-88: B型·治法
+    'tongmai',    // B-11通脈四逆湯
+    'fuzi',       // B-12附子湯
+    // 89-91: B型·選方
+    'wuzhuyu',    // B-13吳茱萸湯
+    'sini',       // B-14四逆湯
+    'general',    // B-15四逆散(陽郁,非四逆湯系列)
+    // 92-93: B型·咽痛
+    'general',    // B-16豬膚湯
+    'general'     // B-17苦酒湯
 ];
 
 // 當前選中的分類
@@ -1322,16 +1395,14 @@ function renderQuizApp(id) {
         return;
     }
 
-    // 進行中的題目
     const activeQs = state.activeQuestions || data.questions;
-    const activeMap = state.activeMap || null;
 
     if(state.showingResults) {
         const total = activeQs.length;
         const pct = Math.round((state.score / total) * 100);
         let emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪';
         const catLabel = (id === 'shaoyin' && shaoyinSelectedCat && shaoyinSelectedCat !== 'all') ? ' — ' + shaoyinCats[shaoyinSelectedCat].name : '';
-        app.innerHTML = `<div style="text-align:center;"><h2 style="color:var(--primary-color);">${emoji} 得分：${state.score}/${total} (${pct}%)${catLabel}</h2><p style="color:#888;">錯題已加入錯題庫！</p><button class="home-btn" style="width:auto;padding:10px 40px;background:#d48a6e;" onclick="restartQuiz('${id}')">重新選擇 🔄</button></div>`;
+        app.innerHTML = `<div style="text-align:center;"><h2 style="color:var(--primary-color);">${emoji} 得分：${state.score}/${total} (${pct}%)${catLabel}</h2><p style="color:#888;">錯題已加入錯題庫！</p><button class="home-btn" style="width:auto;padding:10px 40px;background:#d48a6e;" onclick="restartQuiz('${id}')">重新選擇分類 🔄</button></div>`;
         return;
     }
 
@@ -1341,7 +1412,9 @@ function renderQuizApp(id) {
 
     const catLabel = (id === 'shaoyin' && shaoyinSelectedCat && shaoyinSelectedCat !== 'all') ? `<span style="background:${shaoyinCats[shaoyinSelectedCat].color};color:white;padding:3px 10px;border-radius:20px;font-size:0.7rem;margin-left:8px;">${shaoyinCats[shaoyinSelectedCat].name}</span>` : '';
 
-    app.innerHTML = `<h2 class="q-main-title">${data.title}${catLabel}</h2>
+    const backBtn = (id === 'shaoyin') ? `<div style="margin-bottom:12px;"><button style="background:none;border:2px solid #ddd;color:#888;padding:8px 18px;border-radius:12px;cursor:pointer;font-size:0.9rem;transition:0.2s;font-weight:bold;" onmouseover="this.style.borderColor='var(--primary-color)';this.style.color='var(--primary-color)'" onmouseout="this.style.borderColor='#ddd';this.style.color='#888'" onclick="restartQuiz('${id}')">← 返回分類選擇</button></div>` : '';
+
+    app.innerHTML = `${backBtn}<h2 class="q-main-title">${data.title}${catLabel}</h2>
         <div class="progress-bar"><div class="progress-fill" style="width:${(qIdx / activeQs.length * 100)}%"></div></div>
         <p style="text-align:center;color:#777;font-size:0.9rem;">第 ${qIdx + 1}/${activeQs.length} 題</p>
         <div style="background:#fafafa;border-radius:15px;padding:20px;border:1px solid #eee;">
