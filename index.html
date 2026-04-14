@@ -793,6 +793,20 @@
                 <p style="font-size:0.9rem; color:#666;">🔑 白通加豬膽汁湯：格拒時用人尿＋豬膽汁——<strong>咸寒反佐</strong>，引陽藥入陰中。「脈暴出者死，微續者生」。</p>
             </div>
         </div>
+
+        <!-- 練習模式選擇器 -->
+<div class="shaoyin-mode-selector" id="shaoyin-mode-selector">
+    <h3>🎯 揀練習模式</h3>
+    <p style="text-align:center;color:#999;font-size:0.85rem;margin-top:-5px;">揀一個模式專注練，或者「全部」由頭做到尾！</p>
+    <div class="shaoyin-mode-btns">
+        <button class="shaoyin-mode-btn active" data-mode="all" onclick="selectShaoyinMode('all')">📚 全部練習</button>
+        <button class="shaoyin-mode-btn" data-mode="term" onclick="selectShaoyinMode('term')">🎮 名詞解釋</button>
+        <button class="shaoyin-mode-btn" data-mode="scramble" onclick="selectShaoyinMode('scramble')">🧩 填充題</button>
+        <button class="shaoyin-mode-btn" data-mode="quiz" onclick="selectShaoyinMode('quiz')">🧠 選擇題</button>
+        <button class="shaoyin-mode-btn" data-mode="sa" onclick="selectShaoyinMode('sa')">📋 簡答題</button>
+        <button class="shaoyin-mode-btn" data-mode="essay" onclick="selectShaoyinMode('essay')">📝 論述題</button>
+    </div>
+</div>
         
             <!-- ★ (一) 名詞解釋遊戲 ★ -->
 <div class="term-game-container" id="term-game-section">
@@ -802,7 +816,7 @@
 </div>
 
 <!-- ★ (二) 條文填充題（35題）★ -->
-<div class="scramble-container">
+<div class="scramble-container" id="shaoyin-scramble-section">
     <h3 class="scramble-title">🧩（二）重點條文填充訓練（共 35 題）</h3>
     <p style="color:#777;font-size:.9rem;margin-top:-5px;">💡 打中文會自動跳格。填錯會標紅並加入「錯題庫」！</p>
     <div id="scramble-list"></div>
@@ -1998,6 +2012,63 @@ function revealAllOSCE(){document.querySelectorAll('#osce-stations .osce-step-an
 function resetOSCE(){clearInterval(osceTimerInterval);startOSCE();}
 function startOSCETimer(sec){clearInterval(osceTimerInterval);osceTimeLeft=sec;updateOSCETimer();osceTimerInterval=setInterval(()=>{osceTimeLeft--;updateOSCETimer();if(osceTimeLeft<=0){clearInterval(osceTimerInterval);document.getElementById('osce-timer-text').textContent=oscePhase===1?'⏰ 脊柱骨盆時間到！':'⏰ 四肢時間到！考試結束！';}},1000);}
 function updateOSCETimer(){const m=Math.floor(osceTimeLeft/60),s=osceTimeLeft%60,el=document.getElementById('osce-timer-text');if(!el)return;el.textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(osceTimeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');const pct=Math.max(0,osceTimeLeft/osceTimerTotal*100),fill=document.getElementById('osce-timer-fill');if(fill){fill.style.width=pct+'%';fill.style.background=osceTimeLeft<=60?'#ef4444':'linear-gradient(90deg,#22c55e,#16a34a)';}}
+// ============================================================
+//  少陰病練習模式選擇器
+// ============================================================
+const shaoyinExerciseMap = {
+    term:     ['term-game-section'],
+    scramble: ['shaoyin-scramble-section'],
+    quiz:     ['quiz-shaoyin'],
+    sa:       ['sa-shaoyin'],
+    essay:    ['essay2-shaoyin', 'essay-shaoyin']
+};
+
+let currentShaoyinMode = 'all';
+
+function selectShaoyinMode(mode) {
+    currentShaoyinMode = mode;
+    const allIds = Object.values(shaoyinExerciseMap).flat();
+
+    if (mode === 'all') {
+        allIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = '';
+        });
+    } else {
+        // 先全部隱藏
+        allIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+        // 再顯示選中嘅
+        const showIds = shaoyinExerciseMap[mode] || [];
+        showIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = '';
+        });
+    }
+
+    // 更新按鈕狀態
+    document.querySelectorAll('.shaoyin-mode-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.mode === mode) btn.classList.add('active');
+    });
+
+    // 如果唔係「全部」，自動滾動到第一個顯示嘅練習區
+    if (mode !== 'all') {
+        const firstId = shaoyinExerciseMap[mode]?.[0];
+        if (firstId) {
+            setTimeout(() => {
+                const el = document.getElementById(firstId);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    } else {
+        // 「全部」就滾到選擇器本身
+        const selector = document.getElementById('shaoyin-mode-selector');
+        if (selector) selector.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
 </script>
 </body>
 </html>
