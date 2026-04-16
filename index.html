@@ -783,25 +783,25 @@
     </h1>
     <div id="osce-board">
         <div id="osce-landing" class="osce-landing">
-            <div style="font-size:4rem;margin-bottom:10px;">🏥</div>
+            <div style="font-size:4rem;margin-bottom:10px;">🦴</div>
             <h2 style="color:#dc2626;font-size:1.8rem;margin-bottom:5px;">骨傷科 OSCE 檢查法操作考核</h2>
             <p style="color:#666;max-width:560px;margin:0 auto 15px;">加權隨機抽籤：<strong>掌握級</strong>檢查被抽中機率最高，<strong>了解級</strong>最低</p>
             <div class="osce-info-grid">
                 <div class="osce-info-card" style="border-left:4px solid #3b82f6;">
-                    <h4>🦴 脊柱骨盆 ×2</h4>
+                    <h4>脊柱骨盆 ×2</h4>
                     <p>掌握9項 · 熟悉2項 · 了解5項<br><strong style="color:#dc2626;">⏱️ 限時 5 分鐘</strong></p>
                 </div>
                 <div class="osce-info-card" style="border-left:4px solid #22c55e;">
-                    <h4>💪 四肢 ×2</h4>
+                    <h4>四肢 ×2</h4>
                     <p>重要17項 · 了解0項<br><strong style="color:#dc2626;">⏱️ 限時 5 分鐘</strong></p>
                 </div>
                 <div class="osce-info-card" style="border-left:4px solid #f97316;">
-                    <h4>📋 考試流程</h4>
+                    <h4>考試流程</h4>
                     <p>先考脊柱骨盆 5 分鐘<br>再考四肢 5 分鐘</p>
                 </div>
             </div>
-            <button class="osce-draw-btn" onclick="startOSCE()">🎲 加權隨機抽籤，開始考試！</button>
-            <p style="color:#999;font-size:.85rem;margin-top:12px;">掌握級權重5 · 重要級4 · 熟悉級2 · 了解級1</p>
+            <button class="osce-draw-btn" onclick="startOSCE()">🎲 隨機抽籤，開始考試！</button>
+            <p style="color:#999;font-size:.85rem;margin-top:12px;">掌握級weighting5 · 重要級4 · 熟悉級2 · 了解級1</p>
         </div>
         <div id="osce-exam" style="display:none;">
             <div id="osce-phase-indicator" style="text-align:center;padding:12px 20px;border-radius:12px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;"></div>
@@ -809,7 +809,7 @@
                 <span class="osce-timer" id="osce-timer-text">⏱️ 05:00</span>
                 <div class="osce-timer-progress"><div class="osce-timer-track"><div class="osce-timer-fill" id="osce-timer-fill"></div></div></div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                    <button class="osce-reveal-all-btn" onclick="revealAllOSCE()" style="padding:8px 16px;font-size:.85rem;">📖 揭曉答案</button>
+                    <button class="osce-reveal-all-btn" onclick="revealAllOSCE()" style="padding:8px 16px;font-size:.85rem;">開估</button>
                     <button class="osce-redraw-btn" onclick="resetOSCE()" style="padding:8px 16px;font-size:.85rem;">🔄 再抽一組</button>
                 </div>
             </div>
@@ -1084,22 +1084,22 @@
     </div>
 
     <!-- ===== 推拿學頁面（保持原有） ===== -->
-    <div id="tuina-peds-overview" class="content-section"><h1 class="main-title">👶 小兒推拿概論 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒推拿概論" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 核心要點</h3><ul><li><strong>適用年齡：</strong>6歲以下，3歲以下效果最佳。</li><li><strong>操作特點：</strong>輕快柔和、平穩着實。常用滑石粉或介質。</li><li><strong>穴位特點：</strong>特定穴位（三關、六腑、天河水等），多在手部。</li></ul></div></div>
-    <div id="tuina-peds-points" class="content-section"><h1 class="main-title">👶 小兒特定穴 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒特定穴" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 常考穴位</h3><ul><li><strong>推三關：</strong>前臂橈側，腕→肘。性溫熱，補氣行氣、溫陽散寒。</li><li><strong>退六腑：</strong>前臂尺側，肘→腕。性寒涼，清熱涼血、解毒。</li><li><strong>天河水：</strong>前臂正中，腕→肘。性微涼，清熱不傷陰。</li></ul></div></div>
-    <div id="tuina-peds-fever" class="content-section"><h1 class="main-title">👶 小兒發熱 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒發熱" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>外感：</strong>開天門、推坎宮、揉太陽、清肺經、推天河水。</li><li><strong>陰虛：</strong>補腎經、揉二馬、推湧泉、清天河水。</li></ul></div></div>
-    <div id="tuina-peds-diarrhea" class="content-section"><h1 class="main-title">👶 小兒腹瀉 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒腹瀉" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>寒濕瀉：</strong>補脾經、推三關、補大腸、揉臍、推上七節骨。</li><li><strong>濕熱瀉：</strong>清脾經、清大腸、退六腑、推下七節骨。</li><li><strong>脾虛瀉：</strong>補脾經、推三關、摩腹、捏脊。</li></ul></div></div>
-    <div id="tuina-peds-cough" class="content-section"><h1 class="main-title">👶 小兒咳嗽 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒咳嗽" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>外感：</strong>推坎宮、揉太陽、清肺經、推天河水、揉肺俞。</li><li><strong>痰濕：</strong>補脾經、清肺經、揉掌小橫紋、推揉膻中。</li></ul></div></div>
+    <div id="tuina-peds-overview" class="content-section"><h1 class="main-title">小兒推拿概論 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒推拿概論" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 核心要點</h3><ul><li><strong>適用年齡：</strong>6歲以下，3歲以下效果最佳。</li><li><strong>操作特點：</strong>輕快柔和、平穩着實。常用滑石粉或介質。</li><li><strong>穴位特點：</strong>特定穴位（三關、六腑、天河水等），多在手部。</li></ul></div></div>
+    <div id="tuina-peds-points" class="content-section"><h1 class="main-title">小兒特定穴 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒特定穴" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><h3 style="margin-top:0;">📝 常考穴位</h3><ul><li><strong>推三關：</strong>前臂橈側，腕→肘。性溫熱，補氣行氣、溫陽散寒。</li><li><strong>退六腑：</strong>前臂尺側，肘→腕。性寒涼，清熱涼血、解毒。</li><li><strong>天河水：</strong>前臂正中，腕→肘。性微涼，清熱不傷陰。</li></ul></div></div>
+    <div id="tuina-peds-fever" class="content-section"><h1 class="main-title">小兒發熱 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒發熱" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>外感：</strong>開天門、推坎宮、揉太陽、清肺經、推天河水。</li><li><strong>陰虛：</strong>補腎經、揉二馬、推湧泉、清天河水。</li></ul></div></div>
+    <div id="tuina-peds-diarrhea" class="content-section"><h1 class="main-title">小兒腹瀉 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒腹瀉" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>寒濕瀉：</strong>補脾經、推三關、補大腸、揉臍、推上七節骨。</li><li><strong>濕熱瀉：</strong>清脾經、清大腸、退六腑、推下七節骨。</li><li><strong>脾虛瀉：</strong>補脾經、推三關、摩腹、捏脊。</li></ul></div></div>
+    <div id="tuina-peds-cough" class="content-section"><h1 class="main-title">小兒咳嗽 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="小兒咳嗽" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>外感：</strong>推坎宮、揉太陽、清肺經、推天河水、揉肺俞。</li><li><strong>痰濕：</strong>補脾經、清肺經、揉掌小橫紋、推揉膻中。</li></ul></div></div>
     <div id="tuina-neck" class="content-section"><h1 class="main-title">落枕 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="落枕" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li>一指禪推頸項部→滾法→拿肩井→按揉風池天柱大椎→頸椎旋扳法。</li></ul></div></div>
     <div id="tuina-cervical" class="content-section"><h1 class="main-title">頸椎病 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="頸椎病" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>神經根型(最常見)：</strong>頸痛伴上肢放射痛麻木。</li><li><strong>脊髓型(最嚴重)：</strong>四肢無力行走不穩，推拿慎用。</li></ul></div></div>
     <div id="tuina-lumbar" class="content-section"><h1 class="main-title">腰椎間盤突出 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="腰椎間盤突出" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li>好發L4-5、L5-S1。SLR陽性。</li><li>滾法→點按腎俞環跳委中→斜扳法→拔伸牽引。</li></ul></div></div>
     <div id="tuina-shoulder" class="content-section"><h1 class="main-title">肩周炎(推拿) <label class="study-checkbox"><input type="checkbox" class="section-cb" value="肩周炎(推拿)" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li>五十肩/凍結肩，外展外旋尤甚。</li><li>滾法→拿肩井→按揉肩髃肩貞天宗→搖肩→搖抖。</li></ul></div></div>
     <div id="tuina-headache" class="content-section"><h1 class="main-title">頭痛 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="頭痛(推拿)" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>前頭痛(陽明)：</strong>印堂、攢竹、合谷。</li><li><strong>側頭痛(少陽)：</strong>太陽、率谷、風池。</li><li><strong>後頭痛(太陽)：</strong>風池、天柱、崑崙。</li><li><strong>巔頂痛(厥陰)：</strong>百會、太衝。</li></ul></div></div>
-    <div id="tuina-sk-swing" class="content-section"><h1 class="main-title">✋ 擺動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擺動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>一指禪推法：</strong>拇指端著力，120-160次/分，適用穴位。</li><li><strong>滾法：</strong>手背小指側，120-160次/分，適用腰背四肢。</li></ul></div></div>
-    <div id="tuina-sk-friction" class="content-section"><h1 class="main-title">✋ 摩擦類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="摩擦類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>擦法：</strong>直線往返產生熱感。</li><li><strong>摩法：</strong>環形摩動不帶動皮下（順時針瀉逆時針補）。</li></ul></div></div>
-    <div id="tuina-sk-vibrate" class="content-section"><h1 class="main-title">✋ 振動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="振動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>抖法：</strong>握遠端小幅上下抖。</li><li><strong>振法：</strong>高頻振動，鎮靜安神。</li></ul></div></div>
-    <div id="tuina-sk-squeeze" class="content-section"><h1 class="main-title">✋ 擠壓類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擠壓類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>按法：</strong>垂直按壓。</li><li><strong>拿法：</strong>對稱捏拿肌肉。</li><li><strong>捏法：</strong>捏起皮膚（捏脊法）。</li></ul></div></div>
-    <div id="tuina-sk-tap" class="content-section"><h1 class="main-title">✋ 叩擊類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="叩擊類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>拍法：</strong>虛掌拍擊。</li><li><strong>擊法：</strong>拳背掌根擊打。</li></ul></div></div>
-    <div id="tuina-sk-joint" class="content-section"><h1 class="main-title">✋ 關節運動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="關節運動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>搖法：</strong>被動環轉，由小到大。</li><li><strong>扳法：</strong>被動旋轉扳動，穩準快。</li><li><strong>拔伸法：</strong>牽拉，力量持續均勻。</li></ul></div></div>
+    <div id="tuina-sk-swing" class="content-section"><h1 class="main-title">擺動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擺動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>一指禪推法：</strong>拇指端著力，120-160次/分，適用穴位。</li><li><strong>滾法：</strong>手背小指側，120-160次/分，適用腰背四肢。</li></ul></div></div>
+    <div id="tuina-sk-friction" class="content-section"><h1 class="main-title">摩擦類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="摩擦類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>擦法：</strong>直線往返產生熱感。</li><li><strong>摩法：</strong>環形摩動不帶動皮下（順時針瀉逆時針補）。</li></ul></div></div>
+    <div id="tuina-sk-vibrate" class="content-section"><h1 class="main-title">振動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="振動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>抖法：</strong>握遠端小幅上下抖。</li><li><strong>振法：</strong>高頻振動，鎮靜安神。</li></ul></div></div>
+    <div id="tuina-sk-squeeze" class="content-section"><h1 class="main-title">擠壓類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="擠壓類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>按法：</strong>垂直按壓。</li><li><strong>拿法：</strong>對稱捏拿肌肉。</li><li><strong>捏法：</strong>捏起皮膚（捏脊法）。</li></ul></div></div>
+    <div id="tuina-sk-tap" class="content-section"><h1 class="main-title">叩擊類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="叩擊類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>拍法：</strong>虛掌拍擊。</li><li><strong>擊法：</strong>拳背掌根擊打。</li></ul></div></div>
+    <div id="tuina-sk-joint" class="content-section"><h1 class="main-title">關節運動類手法 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="關節運動類手法" data-subject="推拿學" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li><strong>搖法：</strong>被動環轉，由小到大。</li><li><strong>扳法：</strong>被動旋轉扳動，穩準快。</li><li><strong>拔伸法：</strong>牽拉，力量持續均勻。</li></ul></div></div>
 
     <!-- ===== EBP 頁面 ===== -->
     <div id="ebp-intro" class="content-section"><h1 class="main-title">📊 EBP 概論 <label class="study-checkbox"><input type="checkbox" class="section-cb" value="EBP概論" data-subject="EBP" onchange="updateProgress()"> ✅ 已溫習</label></h1><div class="keypoint-box"><ul><li>EBP = 最佳研究證據 + 臨床專業經驗 + 患者價值觀。</li><li>五步驟：Ask → Acquire → Appraise → Apply → Assess (5A)。</li></ul></div></div>
@@ -1296,7 +1296,7 @@ const allQuizData = {
     // ================================================================
     //  ★★★ 少陰病選擇題（按湯證分類）★★★
     // ================================================================
-    'shaoyin': { title: "📚 少陰病選擇題（按湯證分類）", questions: [
+    'shaoyin': { title: " 少陰病選擇題（按湯證分類）", questions: [
     // ─── 0-9: 提綱與總論 general ───
     { section:"提綱", q:"【A1-1】下列關於少陰病提綱脈證機理的描述最確切的是：", opts:["心腎陽虛、陰血不足，神失所養","邪入少陰，心腎虛衰，水火失濟","心腎陽虛，陰寒內盛，水氣不化","心腎陽虛，陰寒內盛，陽不外達","心腎陽虛，陰寒內盛，濁陰上蒙"], ans:0, exp:"A最全面：心腎陽虛＋陰血不足＋神失所養。" },
     { section:"提綱", q:"【A1-2】能反映少陰病病理特徵的脈證是：", opts:["欲吐不吐，心煩但欲寐","下利便膿血","下利清穀，裏寒外熱，脈微欲絕","脈微細，但欲寐","利不止，厥逆無脈，干嘔煩者"], ans:3, exp:"「脈微細，但欲寐」是少陰提綱。" },
