@@ -411,6 +411,70 @@
     .main-content { padding: 25px; }
     .dashboard-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ===== OSCE AI 問診模擬 ===== */
+.oai-landing{text-align:center;padding:30px 15px;}
+.oai-start-btn{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:18px 50px;border-radius:25px;font-size:1.3rem;font-weight:bold;cursor:pointer;transition:.3s;box-shadow:0 6px 20px rgba(109,40,217,.3);}
+.oai-start-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(109,40,217,.4);}
+.oai-phase{display:none;}
+.oai-phase.active{display:block;animation:fadeIn .4s;}
+.oai-top-bar{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px 18px;border-radius:14px;margin-bottom:15px;box-shadow:0 2px 10px rgba(0,0,0,.05);border:2px solid #ede9fe;flex-wrap:wrap;gap:8px;}
+.oai-timer{font-size:1.3rem;font-weight:bold;font-variant-numeric:tabular-nums;color:#6d28d9;}
+.oai-timer.warn{color:#ef4444;animation:pulse 1s infinite;}
+.oai-score-pill{background:#ede9fe;color:#6d28d9;padding:4px 14px;border-radius:20px;font-size:.85rem;font-weight:bold;}
+.oai-patient-card{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd;border-radius:16px;padding:20px;margin-bottom:15px;display:flex;align-items:center;gap:15px;flex-wrap:wrap;}
+.oai-avatar{font-size:3.5rem;flex-shrink:0;}
+.oai-patient-info h3{margin:0 0 4px;color:#5b21b6;}
+.oai-patient-info p{margin:0;color:#7c3aed;font-size:.9rem;}
+.oai-chat-area{background:#faf8ff;border:2px solid #e8e0f0;border-radius:16px;padding:15px;height:360px;overflow-y:auto;margin-bottom:12px;scroll-behavior:smooth;}
+.oai-bubble{margin-bottom:12px;display:flex;gap:8px;animation:fadeIn .3s;}
+.oai-bubble.patient{flex-direction:row;}
+.oai-bubble.student{flex-direction:row-reverse;}
+.oai-bubble .oai-msg{max-width:75%;padding:12px 16px;border-radius:16px;font-size:.95rem;line-height:1.6;position:relative;}
+.oai-bubble.patient .oai-msg{background:#fff;border:1px solid #e5e7eb;border-bottom-left-radius:4px;color:#374151;}
+.oai-bubble.student .oai-msg{background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;border-bottom-right-radius:4px;}
+.oai-bubble.system .oai-msg{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;color:#92400e;font-size:.85rem;text-align:center;max-width:100%;margin:0 auto;}
+.oai-bubble .oai-icon{font-size:1.5rem;flex-shrink:0;margin-top:4px;}
+.oai-input-row{display:flex;gap:8px;}
+.oai-input{flex:1;border:2px solid #c4b5fd;border-radius:14px;padding:12px 16px;font-size:1rem;font-family:inherit;outline:none;transition:.2s;}
+.oai-input:focus{border-color:#7c3aed;box-shadow:0 0 10px rgba(124,58,237,.2);}
+.oai-send-btn{background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;border:none;padding:12px 20px;border-radius:14px;font-size:1rem;font-weight:bold;cursor:pointer;transition:.2s;white-space:nowrap;}
+.oai-send-btn:hover{transform:translateY(-2px);}
+.oai-send-btn:disabled{opacity:.5;cursor:default;transform:none;}
+.oai-end-btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:10px 20px;border-radius:14px;font-weight:bold;cursor:pointer;transition:.2s;font-size:.9rem;}
+.oai-end-btn:hover{transform:translateY(-2px);}
+.oai-progress-cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.oai-cat-tag{padding:3px 10px;border-radius:15px;font-size:.75rem;font-weight:bold;border:1px solid;}
+.oai-cat-tag.done{background:#dcfce7;color:#166534;border-color:#86efac;}
+.oai-cat-tag.pending{background:#f3f4f6;color:#9ca3af;border-color:#e5e7eb;}
+.oai-record-section{margin-bottom:18px;}
+.oai-record-section label{display:block;font-weight:bold;color:#5b21b6;margin-bottom:6px;font-size:1rem;}
+.oai-record-section textarea{width:100%;min-height:80px;border:2px solid #e0d4f5;border-radius:12px;padding:12px;font-family:inherit;font-size:.95rem;outline:none;resize:vertical;box-sizing:border-box;transition:.2s;}
+.oai-record-section textarea:focus{border-color:#7c3aed;box-shadow:0 0 8px rgba(124,58,237,.2);}
+.oai-submit-record{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:14px 30px;border-radius:15px;font-size:1.1rem;font-weight:bold;cursor:pointer;width:100%;transition:.3s;margin-top:10px;}
+.oai-submit-record:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(109,40,217,.3);}
+.oai-eval-card{background:#fff;border:2px solid #e8e0f0;border-radius:14px;padding:18px;margin-bottom:15px;}
+.oai-eval-card h4{margin:0 0 8px;color:#5b21b6;}
+.oai-eval-bar{background:#e5e7eb;height:10px;border-radius:5px;overflow:hidden;margin:8px 0;}
+.oai-eval-fill{height:100%;border-radius:5px;transition:width .6s;}
+.oai-model-ans{background:#faf5ff;border-left:4px solid #7c3aed;padding:12px 16px;border-radius:0 10px 10px 0;margin-top:10px;font-size:.9rem;line-height:1.7;color:#555;white-space:pre-line;}
+.oai-final-score{text-align:center;padding:25px;background:linear-gradient(135deg,#ede9fe,#f5f3ff);border-radius:16px;margin-top:20px;}
+.oai-final-score h2{color:#6d28d9;margin:0 0 5px;}
+.oai-case-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px;margin:20px 0;}
+.oai-case-card{background:#fff;border:2px solid #e8e0f0;border-radius:15px;padding:20px;cursor:pointer;transition:.3s;text-align:center;}
+.oai-case-card:hover{border-color:#8b5cf6;transform:translateY(-3px);box-shadow:0 8px 20px rgba(139,92,246,.15);}
+.oai-case-card .oai-case-emoji{font-size:2.5rem;}
+.oai-case-card h4{color:#5b21b6;margin:8px 0 4px;}
+.oai-case-card p{color:#888;font-size:.85rem;margin:0;}
+.oai-hint-bar{background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:8px 14px;margin-top:8px;font-size:.8rem;color:#92400e;}
+@media(max-width:768px){
+.oai-chat-area{height:280px;}
+.oai-patient-card{flex-direction:column;text-align:center;}
+.oai-bubble .oai-msg{max-width:85%;}
+.oai-input-row{flex-direction:column;}
+.oai-send-btn{width:100%;}
+.oai-case-cards{grid-template-columns:1fr;}
+}
     </style>
 </head>
 <body>
@@ -441,6 +505,7 @@
         <div class="sub-menu">
             <ul class="menu-list">
                 <li><button class="menu-btn" onclick="showSection('ortho-osce', 'OSCE模擬考試')" style="color:#dc2626;font-weight:bold;background:#fef2f2;border:1px dashed #fca5a5;margin-bottom:6px;">🎯 OSCE 模擬考試</button></li>
+                <li><button class="menu-btn" onclick="showSection('ortho-osce-ai', 'OSCE AI問診')" style="color:#6d28d9;font-weight:bold;background:#f5f3ff;border:1px dashed #c4b5fd;margin-bottom:6px;">🤖 OSCE AI問診</button></li>
                 <li><button class="menu-btn" onclick="showSection('ortho-general', '骨傷總論')">總論</button></li>
                 <li>
                     <details>
@@ -596,6 +661,7 @@
         <h1 style="color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px;">🌸 歡迎返嚟溫書！加油！</h1>
         <p style="color:#888; margin-top:0;">每次勾選「已溫習」都會自動儲存，放心用！📝</p>
         <div class="dashboard-grid">
+            <div class="dash-card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#6d28d9;border-color:#c4b5fd;" onclick="showSection('ortho-osce-ai', 'OSCE AI問診')"><h2 style="margin-top:0;">🤖 AI問診</h2><p>模擬標準化病人問診，限時5分鐘問診＋10分鐘病歷書寫！</p></div>
             <div class="dash-card card-blue" onclick="showSection('ortho-u-clavicle', '鎖骨骨折')"><h2 style="margin-top:0;">🦴 骨傷科</h2><p>上肢骨折、肩周炎、特殊檢查。</p></div>
             <div class="dash-card card-pink" onclick="showSection('sh-shaoyin', '少陰病')"><h2 style="margin-top:0;">📖 少陰病專區</h2><p>傷寒論重點條文填充及 50 題計分測驗。</p></div>
             <div class="dash-card card-green" onclick="showSection('tuina-sk-swing', '擺動類手法')"><h2 style="margin-top:0;">👐 推拿學</h2><p>小兒推拿、常見病及基本手法。</p></div>
@@ -968,6 +1034,72 @@
             </div>
             <div id="osce-stations"></div>
             <div id="osce-bottom-btns" class="osce-bottom-btns"></div>
+        </div>
+    </div>
+</div>
+    <!-- ===== OSCE AI 問診 ===== -->
+<div id="ortho-osce-ai" class="content-section">
+    <h1 class="main-title">🤖 OSCE AI 問診模擬
+        <label class="study-checkbox"><input type="checkbox" class="section-cb" value="OSCE AI問診" data-subject="骨傷科" onchange="updateProgress()"> ✅ 已溫習</label>
+    </h1>
+
+    <!-- Phase 0: Landing -->
+    <div id="oai-phase-landing" class="oai-phase active">
+        <div class="oai-landing">
+            <div style="font-size:4rem;margin-bottom:8px;">🩺</div>
+            <h2 style="color:#6d28d9;margin-bottom:4px;">骨傷科 OSCE 問診站模擬考核</h2>
+            <p style="color:#666;max-width:560px;margin:0 auto 20px;">系統會隨機抽取一位標準化病人，你有 <strong>5 分鐘</strong> 進行問診，之後 <strong>10 分鐘</strong> 書寫病歷。問完即批改，檢視你嘅問診完整度及病歷質素。</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:650px;margin:0 auto 25px;text-align:left;">
+                <div class="osce-info-card" style="border-left:4px solid #8b5cf6;"><h4>⏱️ 問診階段</h4><p>5 分鐘向病人提問，收集病史。</p></div>
+                <div class="osce-info-card" style="border-left:4px solid #ec4899;"><h4>📝 書寫階段</h4><p>10 分鐘撰寫標準病歷。</p></div>
+                <div class="osce-info-card" style="border-left:4px solid #f97316;"><h4>📊 評分階段</h4><p>自動批改問診完整度及病歷。</p></div>
+            </div>
+            <p style="color:#5b21b6;font-weight:bold;margin-bottom:10px;">揀一個案例，或者隨機抽籤：</p>
+            <div class="oai-case-cards" id="oai-case-cards"></div>
+            <button class="oai-start-btn" onclick="oaiStartRandom()" style="margin-top:15px;">🎲 隨機抽籤開始！</button>
+        </div>
+    </div>
+
+    <!-- Phase 1: Consultation Chat -->
+    <div id="oai-phase-chat" class="oai-phase">
+        <div class="oai-top-bar">
+            <span class="oai-timer" id="oai-timer">⏱️ 05:00</span>
+            <span class="oai-score-pill" id="oai-info-count">📋 已收集 0 項資訊</span>
+            <button class="oai-end-btn" onclick="oaiEndChat()">結束問診 →</button>
+        </div>
+        <div class="oai-patient-card" id="oai-patient-card"></div>
+        <div class="oai-hint-bar">💡 提示：問診應涵蓋<strong>基本資料、主訴、現病史（起因·部位·性質·放射·加重·緩解·伴隨症·已做檢查）、既往史、過敏史、個人史</strong></div>
+        <div class="oai-progress-cats" id="oai-cats"></div>
+        <div class="oai-chat-area" id="oai-chat"></div>
+        <div class="oai-input-row">
+            <input class="oai-input" id="oai-input" placeholder="輸入你嘅問診問題…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();oaiSend();}">
+            <button class="oai-send-btn" id="oai-send-btn" onclick="oaiSend()">發送 💬</button>
+        </div>
+    </div>
+
+    <!-- Phase 2: Record Writing -->
+    <div id="oai-phase-record" class="oai-phase">
+        <div class="oai-top-bar">
+            <span class="oai-timer" id="oai-rec-timer">⏱️ 10:00</span>
+            <span class="oai-score-pill">📝 病歷書寫階段</span>
+        </div>
+        <h3 style="color:#5b21b6;border-bottom:2px dashed #c4b5fd;padding-bottom:10px;">根據問診所得資料，撰寫標準門診病案</h3>
+        <div class="oai-record-section"><label>一、主訴（一句話概括主要症狀及時間）</label><textarea id="oai-rec-chief" placeholder="例：右側頸肩疼痛伴活動受限1日。"></textarea></div>
+        <div class="oai-record-section"><label>二、現病史（按時間先後敘述起因、經過、症狀特點、伴隨症狀、已做檢查等）</label><textarea id="oai-rec-hpi" style="min-height:150px;" placeholder="完整敘述發病過程…"></textarea></div>
+        <div class="oai-record-section"><label>三、既往史 / 過敏史 / 個人史</label><textarea id="oai-rec-past" placeholder="描述既往病史、手術史、藥物食物過敏、煙酒習慣等…"></textarea></div>
+        <div class="oai-record-section"><label>四、體格檢查（你會做哪些檢查？預期發現什麼？）</label><textarea id="oai-rec-pe" placeholder="描述望診、觸診、活動範圍、神經學檢查、特殊檢查等…"></textarea></div>
+        <div class="oai-record-section"><label>五、診斷（中醫診斷 + 西醫診斷）</label><textarea id="oai-rec-dx" placeholder="中醫：XX病——XX證\n西醫：XX"></textarea></div>
+        <button class="oai-submit-record" onclick="oaiSubmitRecord()">提交病歷，查看評分 📊</button>
+    </div>
+
+    <!-- Phase 3: Evaluation -->
+    <div id="oai-phase-eval" class="oai-phase">
+        <h2 style="color:#5b21b6;text-align:center;border-bottom:2px dashed #c4b5fd;padding-bottom:12px;">📊 考核結果</h2>
+        <div id="oai-eval-content"></div>
+        <div class="oai-final-score" id="oai-final-score"></div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+            <button class="oai-start-btn" onclick="oaiReset()" style="font-size:1rem;padding:12px 30px;">🔄 再做一次</button>
+            <button class="oai-start-btn" onclick="oaiStartRandom()" style="font-size:1rem;padding:12px 30px;background:linear-gradient(135deg,#60a5fa,#3b82f6);">🎲 換一題</button>
         </div>
     </div>
 </div>
@@ -2300,6 +2432,388 @@ function selectShaoyinMode(mode) {
         if (selector) selector.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
+    // ============================================================
+//  OSCE AI 問診模擬系統
+// ============================================================
+
+const oaiCases = [
+// ──────── Case 1: 頸椎揮鞭樣損傷 ────────
+{
+id:'whiplash', emoji:'🚗', title:'頸椎揮鞭樣損傷', brief:'35歲男性，頸肩痛1日',
+patient:{name:'陳先生',age:'35',gender:'男',avatar:'👨‍💼'},
+scenario:'患者陳先生，35歲，因「頸肩痛1日」前來就診。\n請開始問診。',
+packets:[
+{id:'name',cat:'基本資料',tr:['姓名','名字','叫什麼','點稱呼','貴姓','你叫'],rsp:'我姓陳，叫我陳先生就得。',pts:1},
+{id:'age',cat:'基本資料',tr:['幾歲','年齡','多大','年紀','出生'],rsp:'我今年35歲。',pts:1},
+{id:'job',cat:'基本資料',tr:['工作','職業','做咩','返工','職'],rsp:'我喺辦公室做文員，每日對住電腦做報表，一坐就8到10個鐘。上下班途中都成日睇手機。',pts:1},
+{id:'marry',cat:'基本資料',tr:['結婚','婚姻','已婚','家庭','老婆'],rsp:'已經結咗婚。',pts:1},
+{id:'chief',cat:'主訴',tr:['咩事','點唔舒服','邊度唔舒服','有咩問題','主訴','嚟睇咩','想睇咩'],rsp:'我右邊頸同膊頭痛咗一日，郁唔太到，所以嚟睇下。',pts:2},
+{id:'onset',cat:'現病史',tr:['幾時開始','幾耐','點開始','起因','發生','經過','點解','原因','乜嘢事'],rsp:'噚日下晝揸車返屋企途中，俾後面架車追尾撞到。嗰陣車速好慢，但係成個人前後彈咗一下。',pts:3},
+{id:'immediate',cat:'現病史',tr:['即刻','當時','撞完','第一時間','嗰陣'],rsp:'撞完即刻覺得頸有少少唔舒服，但唔係好痛，所以冇點理。',pts:2},
+{id:'progress',cat:'現病史',tr:['之後','變化','加重','發展','點樣變','惡化','而家'],rsp:'到咗夜晚頸就開始僵硬，今朝起身就痛到郁唔到，越嚟越痛，所以嚟睇醫生。',pts:2},
+{id:'location',cat:'現病史',tr:['邊度痛','位置','痛喺邊','哪裡','部位','具體'],rsp:'右邊頸同右邊膊頭上面痛得最緊要。',pts:2},
+{id:'nature',cat:'現病史',tr:['咩感覺','點樣痛','痛法','性質','脹','刺','酸','繃'],rsp:'繃住繃住咁，好似有條筋拉住咁嘅感覺，好緊。',pts:2},
+{id:'radiate',cat:'現病史',tr:['放射','手臂','手指','落手','傳到','延伸'],rsp:'冇痛落手臂或者手指嗰度，就係頸同膊頭痛。',pts:2},
+{id:'numb',cat:'現病史',tr:['麻','麻痺','麻木','感覺異常','觸覺'],rsp:'冇麻嘅感覺，手指活動都正常。',pts:2},
+{id:'rom',cat:'現病史',tr:['活動','郁','轉頭','望','抬頭','低頭','側','擰'],rsp:'低頭有少少拉扯痛，抬頭就痛得最緊要，向左邊轉頭最受限，右邊轉同側屈都痛但好啲。',pts:3},
+{id:'aggravate',cat:'現病史',tr:['加重','嚴重','咩時候痛','惡化','乜嘢令到','增加'],rsp:'郁動個頸就會痛啲，特別係抬頭同轉頭嘅時候。',pts:1},
+{id:'relieve',cat:'現病史',tr:['緩解','減輕','好轉','舒服','有咩有用','點樣好','紓緩'],rsp:'用手托住個頭唔郁就舒服啲，冰敷都有少少用，瞓低休息都會好啲。',pts:1},
+{id:'dizzy',cat:'現病史',tr:['頭暈','暈','眩暈','天旋地轉'],rsp:'冇頭暈。',pts:1},
+{id:'nausea',cat:'現病史',tr:['嘔','噁心','作嘔','想嘔','胃'],rsp:'冇噁心想嘔。',pts:1},
+{id:'tinnitus',cat:'現病史',tr:['耳鳴','耳仔','聽','耳'],rsp:'冇耳鳴，聽嘢正常。',pts:1},
+{id:'vision',cat:'現病史',tr:['眼','視','睇嘢','模糊','複視'],rsp:'睇嘢正常，冇模糊。',pts:1},
+{id:'bowel',cat:'現病史',tr:['大便','小便','二便','排泄','尿'],rsp:'大小便都正常。',pts:1},
+{id:'xray',cat:'現病史',tr:['檢查','X光','照片','CT','MRI','磁力','報告','拍片'],rsp:'噚日去咗急症室照咗頸嘅X光，醫生話冇骨折，但係頸椎曲度變直咗。冇做CT同MRI。',pts:2},
+{id:'meds',cat:'現病史',tr:['食藥','止痛','處理','治療','有冇睇過','吃藥','服藥'],rsp:'冇食過止痛藥，急症都冇開藥俾我。',pts:1},
+{id:'pmh',cat:'既往史',tr:['以前','病史','慢性','長期','高血壓','糖尿','心臟','過往'],rsp:'以前身體幾好，冇高血壓、糖尿病、心臟病呢啲慢性病。',pts:1},
+{id:'surgery',cat:'既往史',tr:['手術','開刀','做過手術'],rsp:'冇做過手術。',pts:1},
+{id:'trauma',cat:'既往史',tr:['受傷','撞傷','舊傷','以前傷','外傷'],rsp:'頸以前冇受過傷，不過因為長期對電腦，偶然頸會有少少攰同唔舒服。',pts:1},
+{id:'allergy',cat:'過敏史',tr:['過敏','敏感','藥物敏感','食物敏感'],rsp:'冇藥物同食物過敏。',pts:1},
+{id:'social',cat:'個人史',tr:['煙','酒','吸煙','飲酒','生活','習慣'],rsp:'唔食煙唔飲酒。',pts:1}
+],
+catOrder:['基本資料','主訴','現病史','既往史','過敏史','個人史'],
+modelRecord:{
+chief:'右側頸肩疼痛伴活動受限1日。',
+hpi:'患者於昨日下午乘坐私家車返家途中，車輛於低速行駛時遭後方車輛追尾碰撞，當時身體受前後方向頓挫。事發後即感頸部輕度不適，未予特殊處理。至當晚頸部逐漸出現僵硬感，今晨起床後右側頸肩疼痛明顯加重，頸部活動受限，遂前來就診。\n疼痛部位以右側頸部及肩部上方為主，呈繃緊牽扯樣疼痛，無放射至上肢或手指，無麻木感。前屈時有牽扯痛，後伸時疼痛加重尤為明顯，左旋轉受限最甚。托扶頭頸制動、冷敷及休息後疼痛可稍緩解，活動頸部時加重。\n無頭暈、噁心、嘔吐、耳鳴、視物模糊等伴隨症狀，無大小便異常。\n傷後已於急診行頸椎X光檢查，報告示頸椎未見骨折或移位，頸椎生理曲度變直。未行CT或MRI。未服止痛藥物。\n患者平素從事辦公室文書工作，每日對電腦伏案8至10小時，長期維持固定姿勢，既往偶有頸部不適。',
+past:'既往體健，否認高血壓、糖尿病、心臟病等慢性疾病史。否認頸椎外傷及手術史。否認藥物及食物過敏史。無吸煙、飲酒習慣。',
+pe:'望診：頭部輕度向右側傾斜，呈保護性體位。頸肩部皮膚未見明顯腫脹瘀斑。\n觸診：右側頸肩部肌肉明顯緊張痙攣，以斜方肌上束及胸鎖乳突肌區域為著，局部壓痛（＋）。\n活動範圍：頸椎活動度整體受限，後伸疼痛明顯加重，左旋轉受限最著。\n神經學檢查：雙上肢肌力正常，感覺未見異常。Spurling test（－），臂叢神經牽拉試驗（－）。',
+dx:'中醫：項痹——氣滯血瘀證\n西醫：頸椎揮鞭樣損傷（WAD Grade II）'
+},
+recordKeys:{
+chief:['頸','肩','痛','1日','活動受限'],
+hpi:['車禍','追尾','前後','頸部不適','僵硬','加重','右側','繃緊','牽扯','無放射','無麻木','後伸','加重','左旋轉','受限','冷敷','緩解','無頭暈','無噁心','無嘔吐','X光','曲度變直','無骨折','伏案'],
+past:['體健','否認','無過敏','無手術','不吸煙'],
+pe:['保護性體位','肌肉緊張','壓痛','活動受限','神經','Spurling','臂叢'],
+dx:['項痹','氣滯血瘀','揮鞭','WAD']
+}
+},
+
+// ──────── Case 2: 鎖骨骨折 ────────
+{
+id:'clavicle_fx', emoji:'🏍️', title:'鎖骨骨折', brief:'28歲男性，左肩痛2小時',
+patient:{name:'林先生',age:'28',gender:'男',avatar:'👨'},
+scenario:'患者林先生，28歲，因「左肩部疼痛2小時」前來就診。\n請開始問診。',
+packets:[
+{id:'name',cat:'基本資料',tr:['姓名','名字','叫什麼','點稱呼','貴姓'],rsp:'我姓林。',pts:1},
+{id:'age',cat:'基本資料',tr:['幾歲','年齡','多大','年紀'],rsp:'28歲。',pts:1},
+{id:'job',cat:'基本資料',tr:['工作','職業','做咩','返工'],rsp:'我做外賣送餐員，日日揸電動車送嘢食。',pts:1},
+{id:'marry',cat:'基本資料',tr:['結婚','婚姻','家庭'],rsp:'未結婚。',pts:1},
+{id:'chief',cat:'主訴',tr:['咩事','點唔舒服','邊度唔舒服','有咩問題','嚟睇咩'],rsp:'左邊膊頭痛咗兩個鐘，好痛，手都唔敢郁。',pts:2},
+{id:'onset',cat:'現病史',tr:['幾時開始','點開始','起因','發生','經過','點解'],rsp:'兩個鐘之前揸電動車送外賣，路面濕滑跌咗車，左邊膊頭著地撞到。',pts:3},
+{id:'immediate',cat:'現病史',tr:['即刻','當時','跌完','著地'],rsp:'著地嗰下即刻左邊膊頭劇痛，之後就唔敢郁隻手。',pts:2},
+{id:'progress',cat:'現病史',tr:['之後','變化','而家','發展'],rsp:'到而家都仲係好痛，頭仲歪埋一邊，朋友話我個膊頭腫咗凸起咗。',pts:2},
+{id:'location',cat:'現病史',tr:['邊度痛','位置','具體','哪裡'],rsp:'左邊鎖骨中間嗰度痛得最緊要，摸到有嘢凸咗出嚟。',pts:2},
+{id:'nature',cat:'現病史',tr:['咩感覺','點樣痛','性質','脹','刺'],rsp:'好似斷咗咁嘅痛，一郁就劇痛，而且腫脹得好緊要。',pts:2},
+{id:'radiate',cat:'現病史',tr:['放射','手臂','手指','落手'],rsp:'冇特別痛落手指，但成隻手都唔夠力。',pts:2},
+{id:'numb',cat:'現病史',tr:['麻','麻痺','麻木','感覺'],rsp:'手指冇麻嘅感覺，可以郁到。',pts:2},
+{id:'head',cat:'現病史',tr:['頭','暈','意識','昏迷','撞頭'],rsp:'冇撞到頭，冇暈冇失去知覺。',pts:1},
+{id:'otherpain',cat:'現病史',tr:['其他','身體','胸','肋','腹','腿'],rsp:'其他地方冇受傷，就係左邊膊頭痛。',pts:1},
+{id:'xray',cat:'現病史',tr:['檢查','X光','照片','CT','報告'],rsp:'未做過任何檢查，直接嚟咗呢度。',pts:1},
+{id:'meds',cat:'現病史',tr:['食藥','止痛','處理','治療'],rsp:'冇食過任何藥。',pts:1},
+{id:'pmh',cat:'既往史',tr:['以前','病史','慢性','高血壓','糖尿'],rsp:'以前身體幾好。兩年前右腳踝扭過一次，已經好晒。',pts:1},
+{id:'surgery',cat:'既往史',tr:['手術','開刀'],rsp:'冇做過手術。',pts:1},
+{id:'allergy',cat:'過敏史',tr:['過敏','敏感'],rsp:'冇藥物同食物過敏。',pts:1},
+{id:'social',cat:'個人史',tr:['煙','酒','吸煙','飲酒','習慣'],rsp:'唔食煙，間中飲少少啤酒。',pts:1}
+],
+catOrder:['基本資料','主訴','現病史','既往史','過敏史','個人史'],
+modelRecord:{
+chief:'左肩部疼痛伴活動受限2小時。',
+hpi:'患者於2小時前騎電動車送餐途中，因路面濕滑摔倒，左肩著地。當即左肩部劇烈疼痛，不敢活動左上肢。頭部向左側傾斜。疼痛部位以左鎖骨中段為主，局部腫脹明顯，可觸及骨性凸起。無放射至手指，手指活動正常，感覺正常。無頭部外傷，無意識喪失，無頭暈。其餘部位無明顯損傷。未做檢查，未服藥。',
+past:'既往體健。2年前右踝扭傷已痊癒。否認慢性病史及手術史。否認藥物食物過敏。不吸煙，偶爾飲酒。',
+pe:'望診：頭向患側傾斜，下頜偏向健側。左鎖骨中段局部腫脹隆起。\n觸診：左鎖骨中段壓痛明顯，可觸及骨擦感及異常活動。遠端向前下移位。\n左上肢末梢血運及感覺正常。\n需行鎖骨正位X光確認骨折。',
+dx:'中醫：鎖骨骨折——氣滯血瘀證\n西醫：左鎖骨中段骨折'
+},
+recordKeys:{
+chief:['左','肩','痛','2小時','活動受限'],
+hpi:['電動車','摔倒','左肩著地','劇痛','腫脹','凸起','鎖骨','中段','手指正常','無頭暈','無意識喪失'],
+past:['體健','踝扭傷','無過敏','無手術'],
+pe:['傾斜','腫脹','壓痛','骨擦','異常活動','血運','X光'],
+dx:['鎖骨','骨折','氣滯血瘀']
+}
+},
+
+// ──────── Case 3: 急性腰扭傷 ────────
+{
+id:'lumbar_sprain', emoji:'🏋️', title:'急性腰扭傷', brief:'45歲女性，腰痛2小時',
+patient:{name:'王女士',age:'45',gender:'女',avatar:'👩'},
+scenario:'患者王女士，45歲，因「腰部疼痛2小時」前來就診。\n請開始問診。',
+packets:[
+{id:'name',cat:'基本資料',tr:['姓名','名字','叫什麼','點稱呼','貴姓'],rsp:'我姓王。',pts:1},
+{id:'age',cat:'基本資料',tr:['幾歲','年齡','多大','年紀'],rsp:'45歲。',pts:1},
+{id:'job',cat:'基本資料',tr:['工作','職業','做咩','返工'],rsp:'我係家庭主婦，平時喺屋企湊仔做家務。',pts:1},
+{id:'marry',cat:'基本資料',tr:['結婚','婚姻','家庭'],rsp:'已經結咗婚，有兩個仔女。',pts:1},
+{id:'chief',cat:'主訴',tr:['咩事','點唔舒服','邊度唔舒服','有咩問題','嚟睇咩'],rsp:'腰好痛，直唔到腰，痛咗兩個鐘頭。',pts:2},
+{id:'onset',cat:'現病史',tr:['幾時開始','點開始','起因','發生','經過','點解'],rsp:'兩個鐘之前喺屋企搬水桶，彎腰提起嗰陣突然覺得腰「卡」咗一下，好似扭到咁，之後就痛到直唔到腰。',pts:3},
+{id:'immediate',cat:'現病史',tr:['即刻','當時','嗰陣'],rsp:'一扭到即刻劇痛，之後就企都企唔穩，要扶住嘢。',pts:2},
+{id:'progress',cat:'現病史',tr:['之後','變化','而家','發展'],rsp:'到而家都仲係好痛，腰完全直唔到，行路都好辛苦。',pts:2},
+{id:'location',cat:'現病史',tr:['邊度痛','位置','具體','哪裡'],rsp:'腰右邊痛得比較緊要，腰肌好繃緊。',pts:2},
+{id:'nature',cat:'現病史',tr:['咩感覺','點樣痛','性質'],rsp:'好似抽住咁痛，腰肌硬晒緊晒，一郁就劇痛。',pts:2},
+{id:'radiate',cat:'現病史',tr:['放射','腿','腳','落腳','傳到','坐骨'],rsp:'冇痛落腳，就係腰嗰度痛。',pts:2},
+{id:'numb',cat:'現病史',tr:['麻','麻痺','麻木','感覺'],rsp:'腳冇麻嘅感覺。',pts:2},
+{id:'bowel',cat:'現病史',tr:['大便','小便','二便'],rsp:'大小便正常。',pts:1},
+{id:'cough',cat:'現病史',tr:['咳嗽','噴嚏','腹壓'],rsp:'咳嗽同打噴嚏嗰陣腰痛冇特別加重。',pts:1},
+{id:'aggravate',cat:'現病史',tr:['加重','惡化','咩時候痛'],rsp:'郁動腰、行路就會痛，特別係彎腰同轉身。',pts:1},
+{id:'relieve',cat:'現病史',tr:['緩解','減輕','好轉','舒服'],rsp:'瞓低唔郁就舒服啲。',pts:1},
+{id:'xray',cat:'現病史',tr:['檢查','X光','CT','MRI'],rsp:'未做過檢查。',pts:1},
+{id:'meds',cat:'現病史',tr:['食藥','止痛','處理'],rsp:'冇食過藥。',pts:1},
+{id:'pmh',cat:'既往史',tr:['以前','病史','慢性','類似','試過'],rsp:'去年都試過一次腰痛，不過比較輕，瞓咗幾日就好返。冇高血壓糖尿病。',pts:1},
+{id:'surgery',cat:'既往史',tr:['手術','開刀'],rsp:'冇做過手術。',pts:1},
+{id:'allergy',cat:'過敏史',tr:['過敏','敏感'],rsp:'冇過敏。',pts:1},
+{id:'social',cat:'個人史',tr:['煙','酒','習慣'],rsp:'唔食煙唔飲酒。',pts:1}
+],
+catOrder:['基本資料','主訴','現病史','既往史','過敏史','個人史'],
+modelRecord:{
+chief:'腰部疼痛伴活動受限2小時。',
+hpi:'患者於2小時前在家搬水桶時，彎腰提起之際突然感腰部一陣劇痛，「好似扭到」，之後腰部無法伸直。疼痛部位以腰部偏右側為主，呈抽搐樣疼痛，腰肌明顯緊張。無放射至下肢，無下肢麻木，無大小便異常。咳嗽打噴嚏時腰痛無加重。活動腰部、行走時加重，平臥休息可緩解。未做檢查，未服藥。',
+past:'去年曾有類似腰痛但較輕，休息數天自行好轉。否認高血壓糖尿病等慢性病。無手術史。無過敏史。不吸煙飲酒。',
+pe:'望診：腰部僵硬，保護性姿勢，前屈受限明顯。\n觸診：腰部右側肌肉痙攣緊張，局部壓痛（＋）。\n直腿抬高試驗（－），提示非椎間盤突出。\n需排除骨折及椎間盤病變。',
+dx:'中醫：腰痛——氣滯血瘀證\n西醫：急性腰扭傷'
+},
+recordKeys:{
+chief:['腰','痛','2小時','活動受限'],
+hpi:['搬','彎腰','劇痛','腰肌緊張','右側','無放射','無麻木','大小便正常','咳嗽','不加重','休息','緩解'],
+past:['去年','類似','體健','無過敏','無手術'],
+pe:['僵硬','痙攣','壓痛','直腿抬高','陰性'],
+dx:['腰痛','氣滯血瘀','急性腰扭傷']
+}
+}
+];
+
+// ── State ──
+let oaiState = {caseIdx:-1, revealed:new Set(), chatLog:[], timerInterval:null, timeLeft:0, chatEnded:false};
+
+const oaiDefaultResps = [
+'你可以再講清楚啲嗎？我唔太明你問緊咩。',
+'唔好意思，呢個問題我唔係好明。可以換個方式問嗎？',
+'你可以問具體啲嗎？例如邊度痛、幾時開始之類。',
+'抱歉，我唔太理解你嘅問題。試下問簡單直接啲？'
+];
+
+function oaiRenderLanding(){
+    const c=document.getElementById('oai-case-cards');if(!c)return;
+    c.innerHTML=oaiCases.map((cs,i)=>`<div class="oai-case-card" onclick="oaiStartCase(${i})"><div class="oai-case-emoji">${cs.emoji}</div><h4>${cs.title}</h4><p>${cs.brief}</p></div>`).join('');
+}
+
+function oaiStartRandom(){oaiStartCase(Math.floor(Math.random()*oaiCases.length));}
+
+function oaiStartCase(idx){
+    oaiState={caseIdx:idx,revealed:new Set(),chatLog:[],timerInterval:null,timeLeft:300,chatEnded:false};
+    const cs=oaiCases[idx];
+    // Reset packet revealed flags
+    cs.packets.forEach(p=>p._revealed=false);
+    // Switch phase
+    document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
+    document.getElementById('oai-phase-chat').classList.add('active');
+    // Patient card
+    document.getElementById('oai-patient-card').innerHTML=`<div class="oai-avatar">${cs.patient.avatar}</div><div class="oai-patient-info"><h3>${cs.patient.name}（${cs.patient.age}歲，${cs.patient.gender}）</h3><p>📋 ${cs.scenario.split('\n')[0]}</p></div>`;
+    // Chat area
+    const chat=document.getElementById('oai-chat');
+    chat.innerHTML='';
+    oaiAddBubble('system',null,'📋 '+cs.scenario);
+    oaiAddBubble('patient',cs.patient.avatar,'醫生你好，我嚟睇病。');
+    // Categories
+    oaiUpdateCats();
+    oaiUpdateInfoCount();
+    // Timer
+    oaiStartTimer(300);
+    // Focus input
+    setTimeout(()=>{document.getElementById('oai-input').focus();},300);
+}
+
+function oaiAddBubble(type,icon,text){
+    const chat=document.getElementById('oai-chat');
+    const div=document.createElement('div');
+    div.className='oai-bubble '+type;
+    if(type==='system'){
+        div.innerHTML=`<div class="oai-msg">${text}</div>`;
+    } else {
+        div.innerHTML=`<span class="oai-icon">${icon||''}</span><div class="oai-msg">${text}</div>`;
+    }
+    chat.appendChild(div);
+    chat.scrollTop=chat.scrollHeight;
+}
+
+function oaiSend(){
+    if(oaiState.chatEnded)return;
+    const input=document.getElementById('oai-input');
+    const q=input.value.trim();
+    if(!q)return;
+    input.value='';
+    const cs=oaiCases[oaiState.caseIdx];
+    oaiAddBubble('student','🧑‍⚕️',q);
+    oaiState.chatLog.push({role:'student',text:q});
+    // Match response
+    setTimeout(()=>{
+        const resp=oaiMatchResponse(q,cs);
+        oaiAddBubble('patient',cs.patient.avatar,resp);
+        oaiState.chatLog.push({role:'patient',text:resp});
+        oaiUpdateCats();
+        oaiUpdateInfoCount();
+    },400+Math.random()*400);
+    input.focus();
+}
+
+function oaiMatchResponse(input,cs){
+    const norm=input.toLowerCase().replace(/[？?！!。，,\s]/g,'');
+    let bestPacket=null, bestScore=0;
+    for(const p of cs.packets){
+        if(p._revealed)continue;
+        let score=0;
+        for(const t of p.tr){
+            if(norm.includes(t.toLowerCase()))score+=2;
+        }
+        if(score>bestScore){bestScore=score;bestPacket=p;}
+    }
+    if(bestPacket&&bestScore>=2){
+        bestPacket._revealed=true;
+        oaiState.revealed.add(bestPacket.id);
+        return bestPacket.rsp;
+    }
+    // Check already revealed
+    for(const p of cs.packets){
+        if(!p._revealed)continue;
+        for(const t of p.tr){
+            if(norm.includes(t.toLowerCase()))return '呢個我頭先已經講過啦～ '+p.rsp;
+        }
+    }
+    return oaiDefaultResps[Math.floor(Math.random()*oaiDefaultResps.length)];
+}
+
+function oaiUpdateCats(){
+    const cs=oaiCases[oaiState.caseIdx];
+    const catDiv=document.getElementById('oai-cats');
+    if(!catDiv)return;
+    const catStatus={};
+    cs.catOrder.forEach(c=>catStatus[c]={total:0,done:0});
+    cs.packets.forEach(p=>{
+        if(!catStatus[p.cat])catStatus[p.cat]={total:0,done:0};
+        catStatus[p.cat].total++;
+        if(p._revealed)catStatus[p.cat].done++;
+    });
+    catDiv.innerHTML=cs.catOrder.map(c=>{
+        const s=catStatus[c];
+        const isDone=s.done>=Math.ceil(s.total*0.5);
+        return `<span class="oai-cat-tag ${isDone?'done':'pending'}">${isDone?'✅':'⬜'} ${c} (${s.done}/${s.total})</span>`;
+    }).join('');
+}
+
+function oaiUpdateInfoCount(){
+    const el=document.getElementById('oai-info-count');
+    if(el)el.textContent='📋 已收集 '+oaiState.revealed.size+' 項資訊';
+}
+
+function oaiStartTimer(sec){
+    clearInterval(oaiState.timerInterval);
+    oaiState.timeLeft=sec;
+    oaiUpdateTimerDisplay('oai-timer');
+    oaiState.timerInterval=setInterval(()=>{
+        oaiState.timeLeft--;
+        oaiUpdateTimerDisplay('oai-timer');
+        if(oaiState.timeLeft<=0){clearInterval(oaiState.timerInterval);oaiEndChat();}
+    },1000);
+}
+
+function oaiUpdateTimerDisplay(elId){
+    const el=document.getElementById(elId);if(!el)return;
+    const m=Math.floor(Math.max(0,oaiState.timeLeft)/60),s=Math.max(0,oaiState.timeLeft)%60;
+    el.textContent='⏱️ '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(oaiState.timeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');
+}
+
+function oaiEndChat(){
+    clearInterval(oaiState.timerInterval);
+    oaiState.chatEnded=true;
+    document.getElementById('oai-send-btn').disabled=true;
+    oaiAddBubble('system',null,'⏰ 問診時間結束！請進入病歷書寫階段。');
+    setTimeout(()=>{
+        document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
+        document.getElementById('oai-phase-record').classList.add('active');
+        // Clear record fields
+        ['oai-rec-chief','oai-rec-hpi','oai-rec-past','oai-rec-pe','oai-rec-dx'].forEach(id=>{
+            const el=document.getElementById(id);if(el)el.value='';
+        });
+        // Start record timer
+        oaiState.timeLeft=600;
+        oaiUpdateTimerDisplay('oai-rec-timer');
+        oaiState.timerInterval=setInterval(()=>{
+            oaiState.timeLeft--;
+            oaiUpdateTimerDisplay('oai-rec-timer');
+            if(oaiState.timeLeft<=0){clearInterval(oaiState.timerInterval);oaiSubmitRecord();}
+        },1000);
+    },1500);
+}
+
+function oaiSubmitRecord(){
+    clearInterval(oaiState.timerInterval);
+    const cs=oaiCases[oaiState.caseIdx];
+    const record={
+        chief:document.getElementById('oai-rec-chief').value.trim(),
+        hpi:document.getElementById('oai-rec-hpi').value.trim(),
+        past:document.getElementById('oai-rec-past').value.trim(),
+        pe:document.getElementById('oai-rec-pe').value.trim(),
+        dx:document.getElementById('oai-rec-dx').value.trim()
+    };
+
+    // ── Part 1: 問診完整度評分 ──
+    const totalPackets=cs.packets.length;
+    const revealedCount=oaiState.revealed.size;
+    const consultScore=Math.round(revealedCount/totalPackets*50);
+
+    // ── Part 2: 病歷書寫評分 ──
+    const sections=[
+        {label:'主訴',field:'chief',keys:cs.recordKeys.chief,max:5},
+        {label:'現病史',field:'hpi',keys:cs.recordKeys.hpi,max:20},
+        {label:'既往史/過敏史/個人史',field:'past',keys:cs.recordKeys.past,max:5},
+        {label:'體格檢查',field:'pe',keys:cs.recordKeys.pe,max:10},
+        {label:'診斷',field:'dx',keys:cs.recordKeys.dx,max:10}
+    ];
+    let recordScore=0;
+    let evalHTML='';
+
+    // Consultation eval card
+    evalHTML+=`<div class="oai-eval-card"><h4>📋 問診完整度（${consultScore}/50 分）</h4><p style="color:#666;font-size:.9rem;">你成功收集咗 ${revealedCount}/${totalPackets} 項資訊。</p><div class="oai-eval-bar"><div class="oai-eval-fill" style="width:${consultScore*2}%;background:${consultScore>=35?'#22c55e':consultScore>=25?'#f59e0b':'#ef4444'};"></div></div>`;
+    // Show what was missed
+    const missed=cs.packets.filter(p=>!p._revealed);
+    if(missed.length>0){
+        evalHTML+=`<details style="margin-top:8px;"><summary style="cursor:pointer;color:#dc2626;font-size:.85rem;font-weight:bold;">❌ 未問到嘅 ${missed.length} 項資訊（點擊展開）</summary><div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">`;
+        missed.forEach(p=>{evalHTML+=`<span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:10px;font-size:.8rem;">${p.cat}：${p.rsp.substring(0,20)}…</span>`;});
+        evalHTML+=`</div></details>`;
+    }
+    evalHTML+=`</div>`;
+
+    // Record section evaluations
+    sections.forEach(sec=>{
+        const userText=record[sec.field]||'';
+        let hits=0;
+        const kwStatus=sec.keys.map(kw=>{
+            const hit=userText.includes(kw);
+            if(hit)hits++;
+            return {kw,hit};
+        });
+        const secScore=Math.round(hits/sec.keys.length*sec.max);
+        recordScore+=secScore;
+        const pct=Math.round(hits/sec.keys.length*100);
+        evalHTML+=`<div class="oai-eval-card"><h4>📝 ${sec.label}（${secScore}/${sec.max} 分）</h4><div class="oai-eval-bar"><div class="oai-eval-fill" style="width:${pct}%;background:${pct>=70?'#22c55e':pct>=40?'#f59e0b':'#ef4444'};"></div></div><div style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0;">`;
+        kwStatus.forEach(k=>{evalHTML+=`<span class="sa-kw-tag ${k.hit?'sa-kw-hit':'sa-kw-miss'}">${k.hit?'✅':'❌'} ${k.kw}</span>`;});
+        evalHTML+=`</div><details style="margin-top:6px;"><summary style="cursor:pointer;color:#7c3aed;font-size:.85rem;">📖 參考範文</summary><div class="oai-model-ans">${cs.modelRecord[sec.field]}</div></details></div>`;
+    });
+
+    const totalScore=consultScore+recordScore;
+    const grade=totalScore>=80?'🏆 優秀':totalScore>=60?'🎉 良好':totalScore>=40?'👍 及格':'💪 需努力';
+
+    document.getElementById('oai-eval-content').innerHTML=evalHTML;
+    document.getElementById('oai-final-score').innerHTML=`<h2>${grade}</h2><p style="font-size:1.5rem;color:#6d28d9;font-weight:bold;margin:5px 0;">總分：${totalScore} / 100</p><p style="color:#888;margin:0;">問診完整度 ${consultScore}/50 ＋ 病歷書寫 ${recordScore}/50</p>`;
+
+    document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
+    document.getElementById('oai-phase-eval').classList.add('active');
+    document.getElementById('oai-phase-eval').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function oaiReset(){
+    clearInterval(oaiState.timerInterval);
+    document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
+    document.getElementById('oai-phase-landing').classList.add('active');
+}
     // ===== 頁面初始化 =====
 (function init(){
     document.querySelectorAll('.section-cb').forEach(cb => {
@@ -2312,6 +2826,7 @@ function selectShaoyinMode(mode) {
     renderSAList();
     renderEssay2List();
     renderMistakes();
+    oaiRenderLanding(); 
 })();
 </script>
 </body>
