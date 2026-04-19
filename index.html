@@ -2870,28 +2870,59 @@ function oaiUpdateTimerDisplay(elId){
     if(oaiState.timeLeft<=60)el.classList.add('warn');else el.classList.remove('warn');
 }
 
+    function fillRecordFromChat() {
+    const cs = oaiCases[oaiState.caseIdx];
+    let chief = cs.modelRecord.chief;
+    let hpi = '';
+    let past = '';
+    let pe = '';
+    let dx = '';
+    
+    cs.packets.forEach(p => {
+      if(oaiState.revealed.has(p.id)){
+        if(p.cat === '現病史') hpi += p.rsp + '\n';
+        else if(p.cat === '既往史') past += p.rsp + '\n';
+      }
+    });
+    
+    if(!hpi) hpi = cs.modelRecord.hpi;
+    if(!past) past = cs.modelRecord.past;
+    if(!pe) pe = cs.modelRecord.pe;
+    if(!dx) dx = cs.modelRecord.dx;
+    
+    document.getElementById('oai-rec-chief').value = chief;
+    document.getElementById('oai-rec-hpi').value = hpi.trim();
+    document.getElementById('oai-rec-past').value = past.trim();
+    document.getElementById('oai-rec-pe').value = pe.trim();
+    document.getElementById('oai-rec-dx').value = dx.trim();
+}
+
 function oaiEndChat(){
     clearInterval(oaiState.timerInterval);
     oaiState.chatEnded=true;
     document.getElementById('oai-send-btn').disabled=true;
     oaiAddBubble('system',null,'⏰ 問診時間結束！請進入病歷書寫階段。');
-    setTimeout(()=>{
-        document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
-        document.getElementById('oai-phase-record').classList.add('active');
-        // Clear record fields
-        ['oai-rec-chief','oai-rec-hpi','oai-rec-past','oai-rec-pe','oai-rec-dx'].forEach(id=>{
-            const el=document.getElementById(id);if(el)el.value='';
-        });
-        // Start record timer
-        oaiState.timeLeft=600;
+setTimeout(()=>{
+    document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
+    fillRecordFromChat();  // 新增調用，填入問診資料
+    document.getElementById('oai-phase-record').classList.add('active');
+
+    // 不要清空表單，保留問診資料，因此這裏註釋或刪除
+    /*
+    ['oai-rec-chief','oai-rec-hpi','oai-rec-past','oai-rec-pe','oai-rec-dx'].forEach(id=>{
+        const el=document.getElementById(id);if(el)el.value='';
+    });
+    */
+
+    // 啟動 10 分鐘倒計時
+    oaiState.timeLeft=600;
+    oaiUpdateTimerDisplay('oai-rec-timer');
+    oaiState.timerInterval=setInterval(()=>{
+        oaiState.timeLeft--;
         oaiUpdateTimerDisplay('oai-rec-timer');
-        oaiState.timerInterval=setInterval(()=>{
-            oaiState.timeLeft--;
-            oaiUpdateTimerDisplay('oai-rec-timer');
-            if(oaiState.timeLeft<=0){clearInterval(oaiState.timerInterval);oaiSubmitRecord();}
-        },1000);
-    },1500);
-}
+        if(oaiState.timeLeft<=0){clearInterval(oaiState.timerInterval);oaiSubmitRecord();}
+    },1000);
+},1500);
 
 function oaiSubmitRecord(){
     clearInterval(oaiState.timerInterval);
