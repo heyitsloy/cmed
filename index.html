@@ -533,8 +533,8 @@
     </style>
 </head>
 <body>
-
-<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+<button id="mobile-menu-btn">☰</button>
+<div id="sidebar-overlay"></div>
 <div id="toast" class="toast">✅ 進度已自動儲存！</div>
 
 <div id="summary-modal" class="modal-overlay">
@@ -1551,18 +1551,46 @@
 
 <script>
  // ===== 手機側邊欄開關 =====
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
+// ===== 全域資料（localStorage 讀取）=====
+let progressData = JSON.parse(localStorage.getItem('tcmProgressData') || '{}');
+let mistakeBank  = JSON.parse(localStorage.getItem('tcmMistakes')      || '[]');
 
-    const isOpen = sidebar.classList.toggle('open');
-
-    if (isOpen) {
-        overlay.style.display = 'block';
-    } else {
-        overlay.style.display = 'none';
+// ===== 核心導航函數 =====
+function showSection(id, title) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) {
+        el.classList.add('active');
+        document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
     }
+    // 更新 sidebar active 狀態
+    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
 }
+
+function showHome() {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    const home = document.getElementById('home-dashboard');
+    if (home) home.classList.add('active');
+    document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showMistakes() {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    const m = document.getElementById('mistake-dashboard');
+    if (m) m.classList.add('active');
+    renderMistakes();
+    document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg || '✅ 進度已自動儲存！';
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.querySelector('.sidebar');
@@ -1576,22 +1604,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mobileBtn.addEventListener('click', toggleSidebar);
   overlay.addEventListener('click', toggleSidebar);
-
-  sidebar.addEventListener('click', (e) => {
+sidebar.addEventListener('click', (e) => {
     let target = e.target;
     while (target && target !== sidebar) {
       if (target.classList && target.classList.contains('menu-btn')) {
-        // 讀取 onclick 內容的 showSection 函數參數（或其他）
+        // 如果係 <summary>（子菜單 toggle），唔好攔截
+        if (target.tagName === 'SUMMARY') {
+          return;
+        }
         const onclickAttr = target.getAttribute('onclick') || '';
         const match = onclickAttr.match(/showSection\('([^']+)',\s*'([^']+)'\)/);
         if (match) {
-          const id = match[1];
-          const title = match[2];
-          showSection(id, title);
-        } else {
-          // 可能是首頁或錯題庫特定函數
-          if (onclickAttr.includes('showHome')) showHome();
-          else if (onclickAttr.includes('showMistakes')) showMistakes();
+          showSection(match[1], match[2]);
         }
         if (window.innerWidth <= 768) toggleSidebar();
         break;
@@ -1625,8 +1649,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ppRenderAll();
   oaiRenderLanding();
 });
-    window.scrollTo({top: 0, behavior: 'smooth'});
-}
+
     
 
 function guessSubject(id) {
@@ -2942,6 +2965,7 @@ setTimeout(()=>{
         if(oaiState.timeLeft<=0){clearInterval(oaiState.timerInterval);oaiSubmitRecord();}
     },1000);
 },1500);
+}
 
 function oaiSubmitRecord(){
     clearInterval(oaiState.timerInterval);
@@ -3296,20 +3320,7 @@ function ppReset(){
     document.getElementById('pp-shaoyin').scrollIntoView({behavior:'smooth',block:'start'});
 }
     // ===== 頁面初始化 =====
-(function init(){
-    document.querySelectorAll('.section-cb').forEach(cb => {
-        if(progressData[cb.value]?.checked) cb.checked = true;
-    });
-    updateProgress();
-    for(let k in allQuizData) renderQuizApp(k);
-    renderScrambleList();
-    initTermGame();
-    renderSAList();
-    renderEssay2List();
-    renderMistakes();
-    ppRenderAll();
-    oaiRenderLanding(); 
-})();
+
 </script>
 </body>
 </html>
