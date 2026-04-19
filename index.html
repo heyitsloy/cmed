@@ -533,7 +533,7 @@
     </style>
 </head>
 <body>
-<button id="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
 <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div id="toast" class="toast">✅ 進度已自動儲存！</div>
 
@@ -1564,63 +1564,67 @@ function toggleSidebar() {
     }
 }
 
-// 點選任何 menu-btn 後自動收起側邊欄（手機版）
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('menu-btn') && window.innerWidth <= 768) {
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const mobileBtn = document.getElementById('mobile-menu-btn');
 
-        sidebar.classList.remove('open');
-        overlay.style.display = 'none';
+  function toggleSidebar() {
+    const isOpen = sidebar.classList.toggle('open');
+    overlay.style.display = isOpen ? 'block' : 'none';
+  }
+
+  mobileBtn.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', toggleSidebar);
+
+  sidebar.addEventListener('click', (e) => {
+    let target = e.target;
+    while (target && target !== sidebar) {
+      if (target.classList && target.classList.contains('menu-btn')) {
+        // 讀取 onclick 內容的 showSection 函數參數（或其他）
+        const onclickAttr = target.getAttribute('onclick') || '';
+        const match = onclickAttr.match(/showSection\('([^']+)',\s*'([^']+)'\)/);
+        if (match) {
+          const id = match[1];
+          const title = match[2];
+          showSection(id, title);
+        } else {
+          // 可能是首頁或錯題庫特定函數
+          if (onclickAttr.includes('showHome')) showHome();
+          else if (onclickAttr.includes('showMistakes')) showMistakes();
+        }
+        if (window.innerWidth <= 768) toggleSidebar();
+        break;
+      }
+      target = target.parentNode;
     }
+  });
+
+  const homeBtn = document.querySelector('.home-btn');
+  if(homeBtn) homeBtn.addEventListener('click', () => { showHome(); if(window.innerWidth <= 768) toggleSidebar(); });
+
+  const mistakeBtn = document.querySelector('.mistake-btn');
+  if(mistakeBtn) mistakeBtn.addEventListener('click', () => { showMistakes(); if(window.innerWidth <= 768) toggleSidebar(); });
+
+  // 預設先顯示首頁
+  showHome();
+
+  // 恢復勾選進度
+  document.querySelectorAll('.section-cb').forEach(cb => {
+    if(progressData[cb.value]?.checked) cb.checked = true;
+  });
+  updateProgress();
+
+  // 其他初始化...
+  for(let k in allQuizData) renderQuizApp(k);
+  renderScrambleList();
+  initTermGame();
+  renderSAList();
+  renderEssay2List();
+  renderMistakes();
+  ppRenderAll();
+  oaiRenderLanding();
 });
-
-// 首頁/錯題庫按鈕也自動收起
-const origShowHome = typeof showHome === 'function' ? showHome : null;
-const origShowMistakes = typeof showMistakes === 'function' ? showMistakes : null;
-    
-let mistakeBank = JSON.parse(localStorage.getItem('tcmMistakes')) || [];
-let progressData = JSON.parse(localStorage.getItem('tcmProgressData')) || {};
-
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg || '✅ 進度已自動儲存！';
-    t.classList.add('show');
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
-}
-
-function showHome() {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('home-dashboard').classList.add('active');
-    window.scrollTo(0,0);
-    if(window.innerWidth <= 768) document.querySelector('.sidebar').classList.remove('open');  // ← 新增
-}
-
-function showMistakes() {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('mistake-dashboard').classList.add('active');
-    renderMistakes();
-    if(window.innerWidth <= 768) document.querySelector('.sidebar').classList.remove('open');
-    window.scrollTo(0,0);
-    if(window.innerWidth <= 768) document.querySelector('.sidebar').classList.remove('open');  // ← 新增
-}
-
-function showSection(id, title) {
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if(target) { target.classList.add('active'); }
-    else {
-        const newDiv = document.createElement('div');
-        newDiv.id = id; newDiv.className = 'content-section active';
-        const safeTitle = title.replace(/'/g, "\\'");
-        const subject = guessSubject(id);
-        newDiv.innerHTML = `<h1 class="main-title">${title} <label class="study-checkbox"><input type="checkbox" class="section-cb" value="${safeTitle}" data-subject="${subject}" onchange="updateProgress()"> ✅ 已溫習</label></h1><div style="padding:40px; text-align:center; color:#999; border:2px dashed #ddd; border-radius:12px; margin-top:20px;"><h3>🚧 筆記內容建設中...</h3></div>`;
-        document.getElementById('main-content-area').appendChild(newDiv);
-        const cb = newDiv.querySelector('.section-cb');
-        if(cb && progressData[cb.value]?.checked) cb.checked = true;
-        updateProgress();
-    }
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
     
