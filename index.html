@@ -475,6 +475,51 @@
 .oai-send-btn{width:100%;}
 .oai-case-cards{grid-template-columns:1fr;}
 }
+/* ===== Past Paper 模擬試卷 ===== */
+.pp-section{background:linear-gradient(135deg,#fef2f2,#fff1f2);border:2px solid #fca5a5;border-radius:20px;padding:30px;margin-top:30px;}
+.pp-section h3{color:#dc2626;margin-top:0;border-bottom:2px dashed #fca5a5;padding-bottom:10px;}
+.pp-part{margin-bottom:30px;}
+.pp-part-title{color:#b91c1c;background:white;display:inline-block;padding:6px 16px;border-radius:20px;border:1px solid #fca5a5;font-size:1.05rem;font-weight:bold;margin-bottom:15px;}
+.pp-q{background:white;border-radius:12px;padding:18px;margin-bottom:14px;border:1px solid #fde8e8;transition:.3s;}
+.pp-q:hover{border-color:#fca5a5;box-shadow:0 2px 8px rgba(252,165,165,.15);}
+.pp-q h5{color:#333;margin:0 0 12px;font-size:1rem;line-height:1.7;}
+.pp-q .pp-note{display:none;background:#fffbeb;border-left:4px solid #f59e0b;padding:12px 16px;margin-top:12px;border-radius:0 8px 8px 0;font-size:.9rem;color:#92400e;line-height:1.8;white-space:pre-line;}
+.pp-q .pp-note.show{display:block;animation:fadeIn .3s;}
+.pp-opt-label{display:block;padding:10px 14px;margin:4px 0;border:2px solid #eee;border-radius:10px;cursor:pointer;transition:.2s;font-size:.95rem;line-height:1.5;}
+.pp-opt-label:hover{border-color:#fca5a5;background:#fff5f5;}
+.pp-opt-label input{margin-right:8px;accent-color:#dc2626;}
+.pp-opt-label.pp-correct{border-color:#22c55e!important;background:#f0fdf4!important;color:#166534;font-weight:bold;}
+.pp-opt-label.pp-wrong{border-color:#ef4444!important;background:#fef2f2!important;color:#991b1b;}
+.pp-opt-label.pp-missed{border-color:#f59e0b!important;background:#fffbeb!important;}
+.pp-opt-label.pp-disabled{pointer-events:none;opacity:.85;}
+.pp-fill-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.pp-fill-input{border:2px solid #ddd;border-radius:8px;padding:8px 12px;font-size:1rem;font-family:inherit;outline:none;transition:.2s;flex:1;min-width:180px;max-width:400px;}
+.pp-fill-input:focus{border-color:#dc2626;box-shadow:0 0 8px rgba(220,38,38,.2);}
+.pp-fill-input.pp-correct{border-color:#22c55e;background:#f0fdf4;color:#166534;}
+.pp-fill-input.pp-wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b;}
+.pp-essay-box{margin-top:10px;}
+.pp-essay-textarea{width:100%;min-height:180px;border:2px solid #fca5a5;border-radius:12px;padding:14px;font-family:inherit;font-size:.95rem;outline:none;resize:vertical;box-sizing:border-box;transition:.2s;line-height:1.8;}
+.pp-essay-textarea:focus{border-color:#dc2626;box-shadow:0 0 8px rgba(220,38,38,.2);}
+.pp-model-ans{display:none;background:#fff5f5;border-left:4px solid #dc2626;padding:15px 18px;margin-top:12px;border-radius:0 10px 10px 0;line-height:1.8;font-size:.93rem;color:#555;white-space:pre-line;}
+.pp-model-ans.show{display:block;animation:fadeIn .3s;}
+.pp-submit-btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;border:none;padding:14px 30px;border-radius:15px;font-size:1.2rem;cursor:pointer;font-weight:bold;width:100%;transition:.3s;box-shadow:0 4px 15px rgba(239,68,68,.3);margin-top:15px;}
+.pp-submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(239,68,68,.4);}
+.pp-submit-btn:disabled{opacity:.5;cursor:default;transform:none;}
+.pp-score-box{text-align:center;padding:25px;background:linear-gradient(135deg,#fef2f2,#ffe4e6);border:2px solid #fca5a5;border-radius:16px;margin-top:20px;display:none;}
+.pp-score-box.show{display:block;animation:fadeIn .4s;}
+.pp-score-box h2{color:#dc2626;margin:0 0 5px;}
+.pp-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:15px;text-align:center;}
+.pp-breakdown-item{background:white;border-radius:10px;padding:10px;border:1px solid #fde8e8;}
+.pp-breakdown-item .pp-bk-label{font-size:.8rem;color:#888;}
+.pp-breakdown-item .pp-bk-score{font-size:1.3rem;font-weight:bold;color:#dc2626;}
+.pp-choose-hint{background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:8px 14px;font-size:.85rem;color:#92400e;margin-bottom:12px;}
+@media(max-width:768px){
+.pp-section{padding:18px;}
+.pp-q{padding:14px;}
+.pp-fill-input{min-width:120px;}
+.pp-essay-textarea{min-height:120px;font-size:.9rem;}
+.pp-breakdown{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));}
+}
     </style>
 </head>
 <body>
@@ -1237,6 +1282,7 @@
         <button class="shaoyin-mode-btn" data-mode="quiz" onclick="selectShaoyinMode('quiz')">🧠 選擇題</button>
         <button class="shaoyin-mode-btn" data-mode="sa" onclick="selectShaoyinMode('sa')">📋 簡答題</button>
         <button class="shaoyin-mode-btn" data-mode="essay" onclick="selectShaoyinMode('essay')">📝 論述題</button>
+        <button class="shaoyin-mode-btn" data-mode="pp" onclick="selectShaoyinMode('pp')">📄 Past Paper</button>
     </div>
 </div>
         
@@ -1277,6 +1323,48 @@
         <h2 id="essay2-total-score"></h2>
         <p id="essay2-total-comment" style="color:#666; margin:5px 0 0 0;"></p>
     </div>
+</div>
+        <!-- ★ Past Paper 模擬試卷 ★ -->
+<div class="pp-section" id="pp-shaoyin">
+    <h3>📄 Past Paper 模擬試卷</h3>
+    <p style="color:#888;font-size:.9rem;">模擬真實考試！做完所有題目後撳底部「📝 交卷批改」，系統會自動計分並顯示參考答案。</p>
+    <p style="color:#dc2626;font-size:.85rem;font-weight:bold;">💡 來源：Database傷寒習題集（七版）少陰病部分</p>
+
+    <!-- ═══ 一、單選題 ═══ -->
+    <div class="pp-part">
+        <div class="pp-part-title">一、單選題（每題 2 分，共 18 分）</div>
+        <div id="pp-sc-list"></div>
+    </div>
+
+    <!-- ═══ 二、多選題 ═══ -->
+    <div class="pp-part">
+        <div class="pp-part-title">二、多選題（每題 3 分，共 15 分）— 全對才得分</div>
+        <div id="pp-mc-list"></div>
+    </div>
+
+    <!-- ═══ 三、填空題 ═══ -->
+    <div class="pp-part">
+        <div class="pp-part-title">三、填空題（每題 4 分，共 12 分）</div>
+        <div id="pp-fill-list"></div>
+    </div>
+
+    <!-- ═══ 四、論述題 ═══ -->
+    <div class="pp-part">
+        <div class="pp-part-title">四、論述題（二選一，25 分）</div>
+        <div class="pp-choose-hint">⚠️ 以下兩題任選一題作答，如兩題都答，取較高分。</div>
+        <div id="pp-essay-list"></div>
+    </div>
+
+    <!-- ═══ 五、病案分析 ═══ -->
+    <div class="pp-part">
+        <div class="pp-part-title">五、病案分析（二選一，30 分）</div>
+        <div class="pp-choose-hint">⚠️ 以下兩題任選一題作答，如兩題都答，取較高分。寫出中醫診斷、證型、證候分析、治法、方藥。</div>
+        <div id="pp-case-list"></div>
+    </div>
+
+    <button class="pp-submit-btn" id="pp-submit-btn" onclick="ppSubmitAll()">📝 交卷批改</button>
+    <button class="pp-submit-btn" id="pp-reset-btn" onclick="ppReset()" style="display:none;background:linear-gradient(135deg,#60a5fa,#3b82f6);margin-top:10px;">🔄 重新做卷</button>
+    <div class="pp-score-box" id="pp-score-box"></div>
 </div>
         <div id="quiz-shaoyin" class="poe-quiz-app"></div>
         <!-- 論述題 -->
@@ -2384,6 +2472,7 @@ const shaoyinExerciseMap = {
     quiz:     ['quiz-shaoyin'],
     sa:       ['sa-shaoyin'],
     essay:    ['essay2-shaoyin', 'essay-shaoyin']
+    pp:       ['pp-shaoyin'] 
 };
 
 let currentShaoyinMode = 'all';
@@ -2581,14 +2670,63 @@ dx:['腰痛','氣滯血瘀','急性腰扭傷']
 
 // ── State ──
 let oaiState = {caseIdx:-1, revealed:new Set(), chatLog:[], timerInterval:null, timeLeft:0, chatEnded:false};
-
+const oaiSynDict = {
+    '睡眠':['瞓覺','訓覺','瞓','訓','眠','寐','失眠','入睡','淺眠','多夢','早醒','半夜醒','瞓得','訓得','安眠','睡覺','睡'],
+    '飲食':['食嘢','食飯','胃口','食慾','食欲','進食','吃','餓','肚餓','飲食','appetite','米','粥','飽','飢'],
+    '發燒':['發熱','燒','體溫','熱度','低燒','高燒','寒熱','凍','怕凍','怕冷','惡寒','畏寒'],
+    '出汗':['汗','流汗','盜汗','自汗','冒汗','冷汗'],
+    '口渴':['口乾','渴','飲水','想飲','口燥','咽乾','口苦','口淡'],
+    '情緒':['心情','情緒','緊張','擔心','焦慮','害怕','怕','驚','煩','壓力','驚唔驚','擔唔擔心','開心','唔開心','鬱悶'],
+    '舌象':['舌','脷','舌頭','舌苔','舌質','伸脷','伸舌','舌象','脷苔'],
+    '脈象':['脈','把脈','脈象','切脈','脈搏','號脈'],
+    '體重':['肥','瘦','磅','kg','公斤','幾重','體重','重量'],
+    '月經':['經期','月事','姨媽','M到','例假','週期','行經','月經','嚟M'],
+    '檢查':['做檢查','想做','建議做','需要做','check','test','試驗','測試','幫我做','檢查下'],
+    '大小便':['大便','小便','二便','排泄','尿','屎','便秘','肚瀉','屙'],
+    '放射':['放射','傳到','延伸','落手','落腳','射落','射去','傳導','蔓延'],
+    '麻木':['麻','麻痺','麻木','冇感覺','觸覺','痺','蟻走感'],
+    '頭暈':['頭暈','暈','眩暈','天旋','地轉','暈浪'],
+    '嘔吐':['嘔','噁心','作嘔','想嘔','反胃','乾嘔'],
+    '活動':['郁','活動','轉','抬','擺','擰','伸','曲','舉','彎']
+};
+    
 const oaiDefaultResps = [
-'你可以再講清楚啲嗎？我唔太明你問緊咩。',
-'唔好意思，呢個問題我唔係好明。可以換個方式問嗎？',
-'你可以問具體啲嗎？例如邊度痛、幾時開始之類。',
-'抱歉，我唔太理解你嘅問題。試下問簡單直接啲？'
+    '唔好意思，我唔太明你問緊乜。你可以問直接啲，例如「邊度痛」、「幾時開始」、「瞓得好唔好」之類。',
+    '抱歉呀，我唔太理解。你可以試下問具體啲嘅問題？例如「有冇麻到」、「做過咩檢查」。',
+    '你可以講簡單啲嗎？例如「痛唔痛」、「食得好唔好」、「有冇過敏」咁問就得。',
+    '唔好意思，可以再講一次嗎？用簡單直接嘅問法我會明啲。'
 ];
 
+function oaiSmartFallback(norm){
+    const hints=[
+        {keys:['檢查','做','測試','試驗','X光','CT','MRI','照','report','報告'],rsp:'你係想問我做過咩檢查嗎？你直接問「有冇照過X光」或者「做過咩檢查」就得。'},
+        {keys:['瞓','訓','睡','眠'],rsp:'你係想問我瞓覺嘅情況？你直接問「瞓得好唔好」就得。'},
+        {keys:['食','飯','胃口','飲'],rsp:'你係想問我食嘢方面？你直接問「胃口點呀」就得。'},
+        {keys:['test','sign','試驗','Spurling','spurling','McMurray','Lasegue','lasegue','SLR','slr','Phalen','phalen','Finkelstein','Patrick','patrick','drawer','直腿','擠壓','牽拉','分離','搭肩','抽屜','迴旋'],rsp:'你想幫我做檢查嗎？你做啦，我配合你。做嘅時候痛嘅話我會同你講。你可以問「做XX試驗痛唔痛」。'},
+        {keys:['點算','治','醫','處理','點搞','建議','方法'],rsp:'多謝你關心！不過我係嚟睇醫生嘅，想你幫我睇先～你繼續問啦。'},
+        {keys:['嚴','嚴重','danger','緊唔緊要','得唔得','會唔會'],rsp:'我都好想知嚴唔嚴重，所以先嚟睇醫生呀。你幫我檢查完再同我講啦。'},
+        {keys:['舌','脷'],rsp:'你想睇我條脷？你睇啦。（患者伸舌）'},
+        {keys:['脈','把脈'],rsp:'你把啦，我伸手俾你。（患者伸出手腕）'}
+    ];
+    for(const h of hints){for(const k of h.keys){if(norm.includes(k))return h.rsp;}}
+    return oaiDefaultResps[Math.floor(Math.random()*oaiDefaultResps.length)];
+}
+
+oaiCases[0].packets.push(
+    {id:'sleep',cat:'問寒熱',tr:['睡眠','瞓覺','訓覺','瞓得','訓得','瞓','訓','眠','失眠','入睡'],rsp:'噚晚基本冇點瞓到，一轉身頸就痛醒，成晚反覆咁，好辛苦。',pts:1},
+    {id:'appetite',cat:'問飲食',tr:['食嘢','食飯','胃口','食慾','食欲','飲食','appetite'],rsp:'冇乜胃口，因為頸痛搞到唔太想食嘢。',pts:1},
+    {id:'emotion',cat:'問情緒',tr:['心情','情緒','緊張','擔心','焦慮','壓力','驚'],rsp:'都幾擔心，怕係咪整親條頸骨，影響返工。',pts:1}
+    // ... 其餘你想加嘅 packets
+);
+
+oaiCases[1].packets.push(
+    // ... Case 1 補充 packets
+);
+
+oaiCases[2].packets.push(
+    // ... Case 2 補充 packets
+);
+    
 function oaiRenderLanding(){
     const c=document.getElementById('oai-case-cards');if(!c)return;
     c.innerHTML=oaiCases.map((cs,i)=>`<div class="oai-case-card" onclick="oaiStartCase(${i})"><div class="oai-case-emoji">${cs.emoji}</div><h4>${cs.title}</h4><p>${cs.brief}</p></div>`).join('');
@@ -2654,13 +2792,23 @@ function oaiSend(){
 }
 
 function oaiMatchResponse(input,cs){
-    const norm=input.toLowerCase().replace(/[？?！!。，,\s]/g,'');
+    let norm=input.replace(/[？?！!。，,、；;：:～~\s""''「」【】\(\)（）]/g,'');
+    let expanded=norm;
+    for(let canonical in oaiSynDict){
+        for(let syn of oaiSynDict[canonical]){
+            if(norm.includes(syn)){
+                expanded+='|'+canonical;
+                oaiSynDict[canonical].forEach(s=>{expanded+='|'+s;});
+                break;
+            }
+        }
+    }
     let bestPacket=null, bestScore=0;
     for(const p of cs.packets){
         if(p._revealed)continue;
         let score=0;
         for(const t of p.tr){
-            if(norm.includes(t.toLowerCase()))score+=2;
+            if(expanded.includes(t)) score+=(t.length>=3)?3:2;
         }
         if(score>bestScore){bestScore=score;bestPacket=p;}
     }
@@ -2669,14 +2817,18 @@ function oaiMatchResponse(input,cs){
         oaiState.revealed.add(bestPacket.id);
         return bestPacket.rsp;
     }
-    // Check already revealed
+    let bestRevealedPacket=null, bestRevealedScore=0;
     for(const p of cs.packets){
         if(!p._revealed)continue;
-        for(const t of p.tr){
-            if(norm.includes(t.toLowerCase()))return '呢個我頭先已經講過啦～ '+p.rsp;
-        }
+        let score=0;
+        for(const t of p.tr){if(expanded.includes(t))score+=2;}
+        if(score>bestRevealedScore){bestRevealedScore=score;bestRevealedPacket=p;}
     }
-    return oaiDefaultResps[Math.floor(Math.random()*oaiDefaultResps.length)];
+    if(bestRevealedPacket&&bestRevealedScore>=2){
+        const prefixes=['呢個我啱啱講過喇～','我頭先話過你知㗎喇～','你之前問過啦：'];
+        return prefixes[Math.floor(Math.random()*prefixes.length)]+bestRevealedPacket.rsp;
+    }
+    return oaiSmartFallback(norm);
 }
 
 function oaiUpdateCats(){
@@ -2814,6 +2966,239 @@ function oaiReset(){
     document.querySelectorAll('#ortho-osce-ai .oai-phase').forEach(p=>p.classList.remove('active'));
     document.getElementById('oai-phase-landing').classList.add('active');
 }
+// ============================================================
+//  Past Paper 模擬試卷 — 數據 & 邏輯
+// ============================================================
+
+const ppSCQuestions = [
+    {q:"1. 少陰病辨證要點為何？",
+     opts:["脈微細，但欲寐","脈浮緊，惡寒無汗","口苦咽乾目眩","腹滿而吐，食不下","身熱惡風，自汗出"],
+     ans:0, note:"少陰之為病，脈微細，但欲寐也。（281）"},
+    {q:"2. 白通湯證病機為何？",
+     opts:["陰寒內盛，格陽於外","陰寒內盛，格陽於上","腎陽虛衰，陰寒內盛","陽脫陰竭，寒熱格拒","腎陽虛衰，寒濕內盛"],
+     ans:1, note:"白通湯：陰寒內盛，格陽於上（戴陽證）。（314）"},
+    {q:"3. 白通加豬膽汁湯中用豬膽汁和人尿，下列關於其作用的描述哪一項是<strong>錯誤</strong>的？",
+     opts:["引陽藥入陰以防格拒","滋養陰液","益陰和陽","寓「逆者反治」之意","苦寒清熱"],
+     ans:4, note:"豬膽汁與人尿為鹹寒反佐，引陽藥入陰中，非「苦寒清熱」。（315）"},
+    {q:"4. 下列哪項<strong>不是</strong>真武湯的或然證？",
+     opts:["咳","下利","小便利","小便不利","嘔"],
+     ans:3, note:"小便不利是真武湯的主證（316條原文），非或然證。或然證為：咳、小便利、下利、嘔。"},
+    {q:"5. 桃花湯的發病機理是？",
+     opts:["脾腎陽虛，滑脫不禁","脾胃虛弱，中氣下陷","濕熱蘊結，下迫大腸","脾虛濕阻，寒濕下趨","腎關不固，水滲大腸"],
+     ans:0, note:"病機：脾腎陽虛，寒濕凝滯，大腸滑脫不禁。（306、307）"},
+    {q:"6. 四逆散之「四逆」，較合適的理解是？",
+     opts:["心腎陽虛，陰寒內盛，陽氣不達","少陰陽虛，復感寒邪，寒凝氣滯","陰陽氣不相順接","肝胃氣滯，陽氣內郁，不達四末","腎虛水停，陽氣被遏"],
+     ans:3, note:"四逆散之四逆為陽郁致厥，肝胃氣滯，陽氣內郁，不能達於四末。（318）"},
+    {q:"7. 吳茱萸湯有吐利，其「下利」的病機為何？",
+     opts:["心腎陽虛，陰寒內盛","胃氣虛寒，升降失常","脾腎陽虛，寒濕下注","陽虛不固，大腸滑脫","肝氣鬱滯，濕熱下迫"],
+     ans:1, note:"吳茱萸湯的下利是胃氣虛寒、升降失常所致。（309）"},
+    {q:"8. 原文「少陰病，二三日，咽痛者，可與甘草湯……」，此咽痛是因為？",
+     opts:["陰虛火旺，虛火上炎","風寒客於少陰經","痰火鬱結，熱傷咽喉","邪熱客於少陰經脈","痰濁阻閉咽喉"],
+     ans:3, note:"此處咽痛為邪熱客於少陰經脈。（311）"},
+    {q:"9. 原文「少陰病，二三日，咽痛者，可與甘草湯，不差……」，治療宜用？",
+     opts:["黃連阿膠湯","甘草湯","桔梗湯","豬膚湯","苦酒湯"],
+     ans:2, note:"甘草湯不效，則加桔梗以開宣肺氣、利咽→桔梗湯。（311）"}
+];
+
+const ppMCQuestions = [
+    {q:"1. 少陰寒化證的主證包括：",
+     opts:["欲吐不吐","心煩但欲寐","自利而渴","小便色白","四肢厥逆"],
+     ans:[0,1,2,3],
+     note:"條文282：欲吐不吐，心煩，但欲寐。五六日自利而渴者……若小便色白者，少陰病形悉具。四肢厥逆雖見於少陰，但非此條所列主證。"},
+    {q:"2. 少陰病原文中有哪些治療禁忌？",
+     opts:["禁吐","禁汗","禁下","禁清","禁溫"],
+     ans:[1,2],
+     note:"條文286：脈微，不可發汗，亡陽故也；陽已虛，尺脈弱濇者，復不可下之。原文明確提到禁汗、禁下。"},
+    {q:"3. 下列方中附子<strong>生用</strong>的是？",
+     opts:["四逆湯","白通湯","附子湯","真武湯","通脈四逆湯"],
+     ans:[0,1,4],
+     note:"四逆湯（323）：附子一枚（生用）；白通湯（314）：附子一枚（生）；通脈四逆湯（317）：附子大者一枚（生用）。附子湯、真武湯均為炮用。"},
+    {q:"4. 據原文，下列有「不得眠」症的湯證是？",
+     opts:["豬苓湯證","四逆湯證","梔子豉湯證","白通湯證","黃連阿膠湯證"],
+     ans:[0,2,4],
+     note:"豬苓湯（319）：心煩不得眠；梔子豉湯（76）：虛煩不得眠；黃連阿膠湯（303）：心中煩，不得臥。四逆湯、白通湯原文無此症。"},
+    {q:"5. 四逆散證的或然症有？",
+     opts:["小便不利","瀉利下重","腹中痛","悸","咳"],
+     ans:[0,1,2,3,4],
+     note:"條文318：其人或咳，或悸，或小便不利，或腹中痛，或泄利下重者，四逆散主之。全部正確。"}
+];
+
+const ppFillQuestions = [
+    {q:"少陰病，脈沉者，<u>________</u>，宜四逆湯。（323）",
+     ans:["急溫之"],
+     note:"少陰病，脈沉者，急溫之，宜四逆湯。"},
+    {q:"少陰病，得之一二日，<u>________</u>，當灸之，附子湯主之。（304）",
+     ans:["口中和，其背惡寒者","口中和其背惡寒者","口中和,其背惡寒者"],
+     note:"少陰病，得之一二日，口中和，其背惡寒者，當灸之，附子湯主之。"},
+    {q:"少陰病，始得之，<u>________</u>，麻黃細辛附子湯主之。（301）",
+     ans:["反發熱，脈沉者","反發熱脈沉者","反發熱,脈沉者"],
+     note:"少陰病，始得之，反發熱，脈沉者，麻黃細辛附子湯主之。"}
+];
+
+const ppEssayQuestions = [
+    {q:"黃連阿膠湯和豬苓湯均有心煩不眠，如何鑒別此二證？",
+     keywords:["火熱擾心","黃連阿膠湯","少陰熱化","陰虛火旺","心火亢","口乾","咽燥","舌紅","脈沉細數","滋陰瀉火","交通心腎","豬苓湯","水熱互結","小便不利","下利","咳","嘔","清熱育陰利水","阿膠","豬苓","澤瀉"],
+     minHit:10,
+     model:"二方證均有火熱擾心，心神不寧之心煩。\n\n黃連阿膠湯證是少陰熱化證，腎陰虧於下，心火亢於上，但水無結。證候除心煩不眠外，尚有口乾咽燥，舌紅少苔，脈沉細數等陰虛火旺的脈證。治以滋陰瀉火，交通心腎。藥用黃連、黃芩、阿膠、雞子黃、芍藥。\n\n豬苓湯證屬少陰熱化，陰虛水熱互結之證，既有腎陰虛、心火亢，又有水結。證候除有心煩不眠外，尚有小便不利、下利、咳而嘔渴等水邪浸漬肺胃大腸的證候。治當清熱育陰利水。藥用豬苓、澤瀉、滑石、茯苓、阿膠。"},
+    {q:"真武湯和附子湯藥物組成有何區別，其證治有何不同？",
+     keywords:["附子","白術","茯苓","芍藥","生薑","人參","腎陽虛衰","水邪泛濫","腹痛","小便不利","四肢沉重","溫陽化氣行水","背惡寒","口中和","身體痛","骨節痛","手足寒","溫陽化濕","鎮痛祛寒","附子用量倍"],
+     minHit:10,
+     model:"關於藥物組成，兩方均有附子、白術、茯苓、芍藥；但真武湯外有生薑；附子湯外有人參。\n\n關於證治，兩方的主治之證均為腎陽虛衰，水邪或寒濕停滯為患；\n\n但真武湯證以少陰陽氣不足，在裏之水邪泛濫為主，證以腹痛、小便不利、四肢沉重疼痛、下利、或小便清長、或嘔為主，治療重在溫陽化氣行水，所以用生薑配附子溫陽宣散水邪；\n\n附子湯證以少陰陽氣不足，在外之寒濕留著於筋脈骨節肌肉，證以背惡寒、口中和、身體痛、骨節痛、手足寒為主，治療重在溫陽化濕，鎮痛祛寒，所以用人參配附子，且附子用量倍於真武湯，其目的為溫補元陽以扶正祛邪。"}
+];
+
+const ppCaseQuestions = [
+    {q:"<strong>陳某，男，30歲</strong>\n主訴：神疲，納差，微惡冷，四肢腰背酸痛10餘日\n現病史：10多天前初受外寒，咳嗽愈後，但覺精神萎靡，食欲不振，微惡冷，偶感四肢腰背酸痛，口淡不渴，舌淡苔白，脈沉。\n\n請寫出：中醫診斷、證型、證候分析、治法、方藥",
+     keywords:["少陰病","附子湯","脾腎陽虛","寒濕內盛","溫陽化濕","鎮痛祛寒","附子","人參","白術","茯苓","芍藥","腎陽虛衰","寒濕不化","身體疼痛","留著骨肉","經氣不利","口淡不渴","無熱證","舌淡","脈沉","失於溫煦","脾失溫養"],
+     minHit:10,
+     model:"中醫診斷：少陰病\n證型：附子湯證\n辨證要點：背惡寒，口中和，身體痛，骨節痛，手足寒，脈沉\n\n證候分析：\n本證為脾腎陽虛，寒濕內盛之證。患者外感寒邪，咳嗽雖癒，但正氣未復，寒邪乘虛內伏，損傷陽氣，寒濕不化：\n身體疼痛——腎陽虛衰，寒濕不化，留著骨肉筋脈，經氣不利\n神疲、惡寒——腎陽虛衰，失於溫煦、推動\n食慾不振——腎陽虛衰，寒濕內盛，致脾失溫養，為寒濕所困，失於運化\n口淡不渴——提示無熱證\n舌淡脈沉——陽虛寒凝濕遏\n\n治法：溫陽化濕，鎮痛祛寒\n用方：附子湯加味\n用藥：附子（炮）二枚、人參二兩、白術四兩、茯苓三兩、芍藥三兩。可加生黃芪、桂枝、生薑、神曲、砂仁。"},
+    {q:"<strong>吳某某，女，40歲</strong>\n主訴：發熱11天。\n現病史：11天前因受涼而發熱，前醫以黃連、黃芩、梔子等未效，現見面紅，心煩不得眠，口渴，小便短赤。檢查：舌紅，苔黃而無津，脈沉細而數，體溫38.5°C，雙肺聽診未聞及乾濕羅音。\n\n請寫出：中醫診斷、證型、證候分析、治法、方藥",
+     keywords:["少陰病","黃連阿膠湯","陰虛火旺","心腎不交","滋陰瀉火","交通心腎","黃連","黃芩","阿膠","雞子黃","芍藥","面紅","虛火亢","心煩不得眠","腎水虧虛","心火獨亢","口渴","津液不能上潤","小便短赤","灼傷","誤用","耗傷真陰","熱化","舌紅","脈沉細數","導赤散"],
+     minHit:12,
+     model:"中醫診斷：少陰病\n證型：黃連阿膠湯證\n辨證要點：心中煩，不得臥，口乾舌燥，舌紅少苔，脈沉細數\n\n證候分析：\n本病初為表證，只需解表即可，然前醫誤用黃芩等苦燥之品，從而耗傷真陰，邪熱內蘊，轉化為少陰陰虛熱化證。\n面紅——陰虛，虛火亢於上\n心煩不得眠——腎水虧虛，不能上濟於心，心火獨亢於上\n口渴——陰虛，津液不能上潤\n小便短赤——陰虛火旺，灼傷膀胱脈絡\n低熱，舌紅，苔黃而無津，脈沉細數——陰虛火旺之徵\n\n治法：滋陰瀉火，交通心腎\n用方：黃連阿膠湯合導赤散加味\n用藥：黃連四兩、黃芩二兩、阿膠三兩、雞子黃三兩、芍藥二兩。加生地黃六兩、木通四兩、竹葉四兩、甘草梢二兩、龍骨五兩。"}
+];
+
+let ppSubmitted = false;
+
+// ===== 渲染 PP =====
+function ppRenderAll(){
+    ppSubmitted = false;
+    document.getElementById('pp-submit-btn').style.display='';
+    document.getElementById('pp-submit-btn').disabled=false;
+    document.getElementById('pp-reset-btn').style.display='none';
+    document.getElementById('pp-score-box').className='pp-score-box';
+    document.getElementById('pp-score-box').innerHTML='';
+
+    // 單選
+    const scC=document.getElementById('pp-sc-list');
+    scC.innerHTML=ppSCQuestions.map((q,i)=>{
+        const optsHTML=q.opts.map((o,j)=>`<label class="pp-opt-label" id="pp-sc-${i}-${j}"><input type="radio" name="pp-sc-${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('');
+        return `<div class="pp-q" id="pp-sc-q-${i}"><h5>${q.q}</h5>${optsHTML}<div class="pp-note" id="pp-sc-note-${i}">📖 ${q.note}</div></div>`;
+    }).join('');
+
+    // 多選
+    const mcC=document.getElementById('pp-mc-list');
+    mcC.innerHTML=ppMCQuestions.map((q,i)=>{
+        const optsHTML=q.opts.map((o,j)=>`<label class="pp-opt-label" id="pp-mc-${i}-${j}"><input type="checkbox" name="pp-mc-${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('');
+        return `<div class="pp-q" id="pp-mc-q-${i}"><h5>${q.q}</h5>${optsHTML}<div class="pp-note" id="pp-mc-note-${i}">📖 ${q.note}</div></div>`;
+    }).join('');
+
+    // 填空
+    const fiC=document.getElementById('pp-fill-list');
+    fiC.innerHTML=ppFillQuestions.map((q,i)=>`<div class="pp-q" id="pp-fill-q-${i}"><h5>${q.q}</h5><div class="pp-fill-row"><input type="text" class="pp-fill-input" id="pp-fill-${i}" placeholder="填寫答案…"></div><div class="pp-note" id="pp-fill-note-${i}">📖 ${q.note}</div></div>`).join('');
+
+    // 論述
+    const esC=document.getElementById('pp-essay-list');
+    esC.innerHTML=ppEssayQuestions.map((q,i)=>`<div class="pp-q" id="pp-essay-q-${i}"><h5>論述題 ${i+1}：${q.q}</h5><div class="pp-essay-box"><textarea class="pp-essay-textarea" id="pp-essay-${i}" placeholder="在此寫下你的答案…"></textarea></div><div class="pp-note" id="pp-essay-note-${i}"></div><div class="pp-model-ans" id="pp-essay-model-${i}">📖 <strong>參考答案：</strong>\n${q.model}</div></div>`).join('');
+
+    // 病案
+    const caC=document.getElementById('pp-case-list');
+    caC.innerHTML=ppCaseQuestions.map((q,i)=>`<div class="pp-q" id="pp-case-q-${i}"><h5 style="white-space:pre-line;">病案 ${i+1}：\n${q.q}</h5><div class="pp-essay-box"><textarea class="pp-essay-textarea" id="pp-case-${i}" placeholder="寫出中醫診斷、證型、證候分析、治法、方藥…" style="min-height:220px;"></textarea></div><div class="pp-note" id="pp-case-note-${i}"></div><div class="pp-model-ans" id="pp-case-model-${i}">📖 <strong>參考答案：</strong>\n${q.model}</div></div>`).join('');
+}
+
+// ===== 交卷批改 =====
+function ppSubmitAll(){
+    if(ppSubmitted) return;
+    ppSubmitted = true;
+    document.getElementById('pp-submit-btn').disabled=true;
+    let scScore=0, mcScore=0, fillScore=0, essayScore=0, caseScore=0;
+
+    // ── 單選批改 ──
+    ppSCQuestions.forEach((q,i)=>{
+        const sel=document.querySelector(`input[name="pp-sc-${i}"]:checked`);
+        const selVal=sel?parseInt(sel.value):-1;
+        q.opts.forEach((_,j)=>{
+            const lbl=document.getElementById(`pp-sc-${i}-${j}`);
+            lbl.classList.add('pp-disabled');
+            if(j===q.ans) lbl.classList.add('pp-correct');
+            if(selVal===j && j!==q.ans) lbl.classList.add('pp-wrong');
+        });
+        if(selVal===q.ans) scScore+=2;
+        document.getElementById(`pp-sc-note-${i}`).classList.add('show');
+    });
+
+    // ── 多選批改 ──
+    ppMCQuestions.forEach((q,i)=>{
+        const checked=[];
+        document.querySelectorAll(`input[name="pp-mc-${i}"]:checked`).forEach(cb=>checked.push(parseInt(cb.value)));
+        const ansSet=new Set(q.ans);
+        const checkedSet=new Set(checked);
+        let allCorrect=ansSet.size===checkedSet.size && [...ansSet].every(x=>checkedSet.has(x));
+        q.opts.forEach((_,j)=>{
+            const lbl=document.getElementById(`pp-mc-${i}-${j}`);
+            lbl.classList.add('pp-disabled');
+            if(ansSet.has(j)) lbl.classList.add(checkedSet.has(j)?'pp-correct':'pp-missed');
+            else if(checkedSet.has(j)) lbl.classList.add('pp-wrong');
+        });
+        if(allCorrect) mcScore+=3;
+        document.getElementById(`pp-mc-note-${i}`).classList.add('show');
+    });
+
+    // ── 填空批改 ──
+    ppFillQuestions.forEach((q,i)=>{
+        const inp=document.getElementById(`pp-fill-${i}`);
+        const val=inp.value.trim().replace(/\s+/g,'');
+        const correct=q.ans.some(a=>val===a.replace(/\s+/g,''));
+        inp.classList.add(correct?'pp-correct':'pp-wrong');
+        inp.readOnly=true;
+        if(correct) fillScore+=4;
+        document.getElementById(`pp-fill-note-${i}`).classList.add('show');
+    });
+
+    // ── 論述題批改（取較高分）──
+    let essayScores=[];
+    ppEssayQuestions.forEach((q,i)=>{
+        const userAns=document.getElementById(`pp-essay-${i}`).value.trim();
+        document.getElementById(`pp-essay-${i}`).readOnly=true;
+        let hits=0;
+        q.keywords.forEach(kw=>{if(userAns.includes(kw))hits++;});
+        const pct=hits/q.keywords.length;
+        const score=userAns.length<10?0:Math.round(pct*25);
+        essayScores.push(score);
+        const noteEl=document.getElementById(`pp-essay-note-${i}`);
+        if(userAns.length>=10){
+            noteEl.innerHTML=`📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/25</strong> 分`;
+            noteEl.classList.add('show');
+        }
+        document.getElementById(`pp-essay-model-${i}`).classList.add('show');
+    });
+    essayScore=Math.max(...essayScores,0);
+
+    // ── 病案批改（取較高分）──
+    let caseScores=[];
+    ppCaseQuestions.forEach((q,i)=>{
+        const userAns=document.getElementById(`pp-case-${i}`).value.trim();
+        document.getElementById(`pp-case-${i}`).readOnly=true;
+        let hits=0;
+        q.keywords.forEach(kw=>{if(userAns.includes(kw))hits++;});
+        const pct=hits/q.keywords.length;
+        const score=userAns.length<10?0:Math.round(pct*30);
+        caseScores.push(score);
+        const noteEl=document.getElementById(`pp-case-note-${i}`);
+        if(userAns.length>=10){
+            noteEl.innerHTML=`📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/30</strong> 分`;
+            noteEl.classList.add('show');
+        }
+        document.getElementById(`pp-case-model-${i}`).classList.add('show');
+    });
+    caseScore=Math.max(...caseScores,0);
+
+    // ── 總分 ──
+    const total=scScore+mcScore+fillScore+essayScore+caseScore;
+    const grade=total>=85?'🏆 優秀':total>=70?'🎉 良好':total>=55?'👍 及格':'💪 需努力';
+
+    const box=document.getElementById('pp-score-box');
+    box.innerHTML=`<h2>${grade}</h2><p style="font-size:1.8rem;color:#dc2626;font-weight:bold;margin:8px 0;">${total} / 100 分</p><div class="pp-breakdown"><div class="pp-breakdown-item"><div class="pp-bk-label">單選題</div><div class="pp-bk-score">${scScore}/18</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">多選題</div><div class="pp-bk-score">${mcScore}/15</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">填空題</div><div class="pp-bk-score">${fillScore}/12</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">論述題</div><div class="pp-bk-score">${essayScore}/25</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">病案分析</div><div class="pp-bk-score">${caseScore}/30</div></div></div><p style="color:#888;font-size:.85rem;margin-top:12px;">論述題及病案分析取二選一較高分。關鍵詞批改僅供參考，請對照參考答案自行覆核。</p>`;
+    box.classList.add('show');
+    box.scrollIntoView({behavior:'smooth',block:'center'});
+
+    document.getElementById('pp-submit-btn').style.display='none';
+    document.getElementById('pp-reset-btn').style.display='';
+}
+
+function ppReset(){
+    ppRenderAll();
+    document.getElementById('pp-shaoyin').scrollIntoView({behavior:'smooth',block:'start'});
+}
     // ===== 頁面初始化 =====
 (function init(){
     document.querySelectorAll('.section-cb').forEach(cb => {
@@ -2826,6 +3211,7 @@ function oaiReset(){
     renderSAList();
     renderEssay2List();
     renderMistakes();
+    ppRenderAll();
     oaiRenderLanding(); 
 })();
 </script>
