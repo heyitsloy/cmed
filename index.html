@@ -520,6 +520,13 @@
 .pp-essay-textarea{min-height:120px;font-size:.9rem;}
 .pp-breakdown{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));}
 }
+/* PP 關鍵詞高亮 */
+.pp-hl-box{width:100%;min-height:100px;border:2px solid #86efac;border-radius:12px;padding:14px;font-family:inherit;font-size:.95rem;line-height:1.8;background:#fafffe;white-space:pre-wrap;word-wrap:break-word;margin-top:8px;}
+.pp-kw-hl{background:linear-gradient(135deg,#bbf7d0,#86efac);color:#14532d;padding:1px 4px;border-radius:4px;font-weight:bold;}
+.pp-kw-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.pp-kw-tag{padding:3px 10px;border-radius:15px;font-size:.8rem;font-weight:bold;}
+.pp-hit{background:#dcfce7;color:#166534;}
+.pp-miss{background:#fee2e2;color:#991b1b;}
     </style>
 </head>
 <body>
@@ -3049,7 +3056,37 @@ const ppCaseQuestions = [
 ];
 
 let ppSubmitted = false;
-
+// ===== PP 關鍵詞高亮工具 =====
+function ppHighlightText(userText, keywords) {
+    const hitKws = [], missKws = [];
+    const sorted = [...keywords].sort((a, b) => b.length - a.length);
+    sorted.forEach(kw => {
+        if (userText.includes(kw)) hitKws.push(kw);
+        else missKws.push(kw);
+    });
+    // 逐字標記
+    const marks = new Array(userText.length).fill(false);
+    hitKws.forEach(kw => {
+        let idx = 0;
+        while ((idx = userText.indexOf(kw, idx)) !== -1) {
+            for (let i = idx; i < idx + kw.length; i++) marks[i] = true;
+            idx += kw.length;
+        }
+    });
+    // 生成 HTML
+    let html = '', inMark = false;
+    for (let i = 0; i < userText.length; i++) {
+        if (marks[i] && !inMark) { html += '<mark class="pp-kw-hl">'; inMark = true; }
+        if (!marks[i] && inMark) { html += '</mark>'; inMark = false; }
+        const ch = userText[i];
+        if (ch === '&') html += '&amp;';
+        else if (ch === '<') html += '&lt;';
+        else if (ch === '>') html += '&gt;';
+        else html += ch;
+    }
+    if (inMark) html += '</mark>';
+    return { html, hitKws, missKws };
+}
 // ===== 渲染 PP =====
 function ppRenderAll(){
     ppSubmitted = false;
@@ -3086,7 +3123,6 @@ function ppRenderAll(){
     caC.innerHTML=ppCaseQuestions.map((q,i)=>`<div class="pp-q" id="pp-case-q-${i}"><h5 style="white-space:pre-line;">病案 ${i+1}：\n${q.q}</h5><div class="pp-essay-box"><textarea class="pp-essay-textarea" id="pp-case-${i}" placeholder="寫出中醫診斷、證型、證候分析、治法、方藥…" style="min-height:220px;"></textarea></div><div class="pp-note" id="pp-case-note-${i}"></div><div class="pp-model-ans" id="pp-case-model-${i}">📖 <strong>參考答案：</strong>\n${q.model}</div></div>`).join('');
 }
 
-// ===== 交卷批改 =====
 function ppSubmitAll(){
     if(ppSubmitted) return;
     ppSubmitted = true;
@@ -3135,57 +3171,76 @@ function ppSubmitAll(){
         document.getElementById(`pp-fill-note-${i}`).classList.add('show');
     });
 
-    // ── 論述題批改（取較高分）──
+    // ── 論述題批改（★ 高亮關鍵詞）──
     let essayScores=[];
     ppEssayQuestions.forEach((q,i)=>{
-        const userAns=document.getElementById(`pp-essay-${i}`).value.trim();
-        document.getElementById(`pp-essay-${i}`).readOnly=true;
-        let hits=0;
-        q.keywords.forEach(kw=>{if(userAns.includes(kw))hits++;});
-        const pct=hits/q.keywords.length;
-        const score=userAns.length<10?0:Math.round(pct*25);
+        const textarea = document.getElementById(`pp-essay-${i}`);
+        const userAns = textarea.value.trim();
+        textarea.readOnly = true;
+        let hits = 0;
+        q.keywords.forEach(kw => { if(userAns.includes(kw)) hits++; });
+        const pct = hits / q.keywords.length;
+        const score = userAns.length < 10 ? 0 : Math.round(pct * 25);
         essayScores.push(score);
-        const noteEl=document.getElementById(`pp-essay-note-${i}`);
-        if(userAns.length>=10){
-            noteEl.innerHTML=`📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/25</strong> 分`;
+        const noteEl = document.getElementById(`pp-essay-note-${i}`);
+        if(userAns.length >= 10) {
+            const hl = ppHighlightText(userAns, q.keywords);
+            const hlDiv = document.createElement('div');
+            hlDiv.className = 'pp-hl-box';
+            hlDiv.innerHTML = hl.html;
+            textarea.style.display = 'none';
+            textarea.parentNode.insertBefore(hlDiv, textarea.nextSibling);
+            const tagsHTML = '<div class="pp-kw-tags">' +
+                hl.hitKws.map(kw => `<span class="pp-kw-tag pp-hit">✅ ${kw}</span>`).join('') +
+                hl.missKws.map(kw => `<span class="pp-kw-tag pp-miss">❌ ${kw}</span>`).join('') +
+                '</div>';
+            noteEl.innerHTML = `📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/25</strong> 分` + tagsHTML;
             noteEl.classList.add('show');
         }
         document.getElementById(`pp-essay-model-${i}`).classList.add('show');
     });
-    essayScore=Math.max(...essayScores,0);
+    essayScore = Math.max(...essayScores, 0);
 
-    // ── 病案批改（取較高分）──
+    // ── 病案分析批改（★ 高亮關鍵詞）──
     let caseScores=[];
     ppCaseQuestions.forEach((q,i)=>{
-        const userAns=document.getElementById(`pp-case-${i}`).value.trim();
-        document.getElementById(`pp-case-${i}`).readOnly=true;
-        let hits=0;
-        q.keywords.forEach(kw=>{if(userAns.includes(kw))hits++;});
-        const pct=hits/q.keywords.length;
-        const score=userAns.length<10?0:Math.round(pct*30);
+        const textarea = document.getElementById(`pp-case-${i}`);
+        const userAns = textarea.value.trim();
+        textarea.readOnly = true;
+        let hits = 0;
+        q.keywords.forEach(kw => { if(userAns.includes(kw)) hits++; });
+        const pct = hits / q.keywords.length;
+        const score = userAns.length < 10 ? 0 : Math.round(pct * 30);
         caseScores.push(score);
-        const noteEl=document.getElementById(`pp-case-note-${i}`);
-        if(userAns.length>=10){
-            noteEl.innerHTML=`📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/30</strong> 分`;
+        const noteEl = document.getElementById(`pp-case-note-${i}`);
+        if(userAns.length >= 10) {
+            const hl = ppHighlightText(userAns, q.keywords);
+            const hlDiv = document.createElement('div');
+            hlDiv.className = 'pp-hl-box';
+            hlDiv.innerHTML = hl.html;
+            textarea.style.display = 'none';
+            textarea.parentNode.insertBefore(hlDiv, textarea.nextSibling);
+            const tagsHTML = '<div class="pp-kw-tags">' +
+                hl.hitKws.map(kw => `<span class="pp-kw-tag pp-hit">✅ ${kw}</span>`).join('') +
+                hl.missKws.map(kw => `<span class="pp-kw-tag pp-miss">❌ ${kw}</span>`).join('') +
+                '</div>';
+            noteEl.innerHTML = `📊 命中 ${hits}/${q.keywords.length} 個關鍵詞，得 <strong>${score}/30</strong> 分` + tagsHTML;
             noteEl.classList.add('show');
         }
         document.getElementById(`pp-case-model-${i}`).classList.add('show');
     });
-    caseScore=Math.max(...caseScores,0);
+    caseScore = Math.max(...caseScores, 0);
 
     // ── 總分 ──
     const total=scScore+mcScore+fillScore+essayScore+caseScore;
     const grade=total>=85?'🏆 優秀':total>=70?'🎉 良好':total>=55?'👍 及格':'💪 需努力';
-
     const box=document.getElementById('pp-score-box');
     box.innerHTML=`<h2>${grade}</h2><p style="font-size:1.8rem;color:#dc2626;font-weight:bold;margin:8px 0;">${total} / 100 分</p><div class="pp-breakdown"><div class="pp-breakdown-item"><div class="pp-bk-label">單選題</div><div class="pp-bk-score">${scScore}/18</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">多選題</div><div class="pp-bk-score">${mcScore}/15</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">填空題</div><div class="pp-bk-score">${fillScore}/12</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">論述題</div><div class="pp-bk-score">${essayScore}/25</div></div><div class="pp-breakdown-item"><div class="pp-bk-label">病案分析</div><div class="pp-bk-score">${caseScore}/30</div></div></div><p style="color:#888;font-size:.85rem;margin-top:12px;">論述題及病案分析取二選一較高分。關鍵詞批改僅供參考，請對照參考答案自行覆核。</p>`;
     box.classList.add('show');
     box.scrollIntoView({behavior:'smooth',block:'center'});
-
     document.getElementById('pp-submit-btn').style.display='none';
     document.getElementById('pp-reset-btn').style.display='';
 }
-
 function ppReset(){
     ppRenderAll();
     document.getElementById('pp-shaoyin').scrollIntoView({behavior:'smooth',block:'start'});
