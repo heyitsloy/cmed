@@ -285,7 +285,10 @@
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.4);
     z-index: 9;
+    cursor: pointer;
 }
+
+/* CSS 不再用 sibling selector 控制遮罩顯示 */
 
 /* ===== 手機版 RWD ===== */
 @media (max-width: 768px) {
@@ -1550,13 +1553,25 @@
  // ===== 手機側邊欄開關 =====
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('open');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    const isOpen = sidebar.classList.toggle('open');
+
+    if (isOpen) {
+        overlay.style.display = 'block';
+    } else {
+        overlay.style.display = 'none';
+    }
 }
 
 // 點選任何 menu-btn 後自動收起側邊欄（手機版）
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('menu-btn') && window.innerWidth <= 768) {
-        document.querySelector('.sidebar').classList.remove('open');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        sidebar.classList.remove('open');
+        overlay.style.display = 'none';
     }
 });
 
